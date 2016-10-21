@@ -5,7 +5,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 13:18
  */
-namespace Notadd\Foundation\Providers;
+namespace Notadd\Foundation\Composer;
 use Illuminate\Support\Composer;
 use Illuminate\Support\ServiceProvider;
 /**

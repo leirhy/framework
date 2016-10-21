@@ -5,17 +5,19 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 11:54
  */
-namespace Notadd\Foundation\Providers;
+namespace Notadd\Foundation\Console;
 use Illuminate\Console\ScheduleServiceProvider;
 use Illuminate\Database\MigrationServiceProvider;
 use Illuminate\Database\SeedServiceProvider;
-use Illuminate\Queue\ConsoleServiceProvider;
+use Illuminate\Queue\ConsoleServiceProvider as QueueConsoleServiceProvider;
 use Illuminate\Support\AggregateServiceProvider;
+use Notadd\Foundation\Console\ArtisanServiceProvider;
+use Notadd\Foundation\Composer\ComposerServiceProvider;
 /**
- * Class ConsoleSupportServiceProvider
+ * Class ConsoleServiceProvider
  * @package Notadd\Foundation\Providers
  */
-class ConsoleSupportServiceProvider extends AggregateServiceProvider {
+class ConsoleServiceProvider extends AggregateServiceProvider {
     /**
      * @var bool
      */
@@ -29,6 +31,6 @@ class ConsoleSupportServiceProvider extends AggregateServiceProvider {
         MigrationServiceProvider::class,
         SeedServiceProvider::class,
         ComposerServiceProvider::class,
-        ConsoleServiceProvider::class
+        QueueConsoleServiceProvider::class
     ];
 }

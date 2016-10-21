@@ -5,7 +5,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 11:56
  */
-namespace Notadd\Foundation\Providers;
+namespace Notadd\Foundation\Console;
 use Illuminate\Auth\Console\ClearResetsCommand;
 use Illuminate\Auth\Console\MakeAuthCommand;
 use Illuminate\Cache\Console\CacheTableCommand;

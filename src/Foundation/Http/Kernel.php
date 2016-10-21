@@ -19,6 +19,7 @@ use Notadd\Foundation\Bootstrap\HandleExceptions;
 use Notadd\Foundation\Bootstrap\LoadConfiguration;
 use Notadd\Foundation\Bootstrap\RegisterFacades;
 use Notadd\Foundation\Bootstrap\RegisterProviders;
+use Notadd\Foundation\Bootstrap\RegisterRouter;
 use Throwable;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\Pipeline;
@@ -50,6 +51,7 @@ class Kernel implements KernelContract {
         HandleExceptions::class,
         RegisterFacades::class,
         RegisterProviders::class,
+        RegisterRouter::class,
         BootProviders::class,
     ];
     /**

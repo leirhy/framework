@@ -18,6 +18,15 @@ class RegisterRouter {
      * @return void
      */
     public function bootstrap(Application $app) {
-        $app->make('events')->fire(new RouteRegister($app, $app['router']));
+        if($app->routesAreCached()) {
+            $app->booted(function () use($app) {
+                require $app->getCachedRoutesPath();
+            });
+        } else {
+            $app->make('events')->fire(new RouteRegister($app, $app['router']));
+            $app->booted(function () use($app) {
+                $app['router']->getRoutes()->refreshNameLookups();
+            });
+        }
     }
 }

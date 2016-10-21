@@ -50,9 +50,9 @@ class Controller extends IlluminateController {
     public function __construct() {
         $this->container = $this->getContainer();
         $this->events = $this->container->make('events');
-        $this->redirector = $this->container->make('redirector');
+        $this->redirector = $this->container->make('redirect');
         $this->request = $this->container->make('request');
-        $this->session = $this->request->getAttribute('session');
+        $this->session = $this->request->session();
         $this->view = $this->container->make('view');
     }
     /**

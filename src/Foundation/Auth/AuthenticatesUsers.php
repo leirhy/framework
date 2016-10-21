@@ -22,7 +22,7 @@ trait AuthenticatesUsers {
         return view('auth.login');
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request) {
@@ -39,7 +39,7 @@ trait AuthenticatesUsers {
         return $this->sendFailedLoginResponse($request);
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return void
      */
     protected function validateLogin(Request $request) {
@@ -49,14 +49,14 @@ trait AuthenticatesUsers {
         ]);
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     protected function credentials(Request $request) {
         return $request->only($this->username(), 'password');
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     protected function sendLoginResponse(Request $request) {
@@ -65,8 +65,8 @@ trait AuthenticatesUsers {
         return $this->authenticated($request, $this->guard()->user()) ?: redirect()->intended($this->redirectPath());
     }
     /**
-     * @param  \Illuminate\Http\Request $request
-     * @param  mixed $user
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $user
      * @return mixed
      */
     protected function authenticated(Request $request, $user) {
@@ -87,7 +87,7 @@ trait AuthenticatesUsers {
         return 'email';
     }
     /**
-     * @param  Request $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request) {

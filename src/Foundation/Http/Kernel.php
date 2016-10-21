@@ -8,8 +8,12 @@
 namespace Notadd\Foundation\Http;
 use Exception;
 use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Notadd\Foundation\Bootstrap\BootProviders;
@@ -21,6 +25,8 @@ use Notadd\Foundation\Bootstrap\RegisterFacades;
 use Notadd\Foundation\Bootstrap\RegisterProviders;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
 use Notadd\Foundation\Http\Middlewares\CheckForMaintenanceMode;
+use Notadd\Foundation\Http\Middlewares\RedirectIfAuthenticated;
+use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
 use Throwable;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\Pipeline;
@@ -64,11 +70,32 @@ class Kernel implements KernelContract {
     /**
      * @var array
      */
-    protected $middlewareGroups = [];
+    protected $middlewareGroups = [
+        'web' => [
+            EncryptCookies::class,
+            AddQueuedCookiesToResponse::class,
+            StartSession::class,
+            ShareErrorsFromSession::class,
+            //ShareMessagesFromSession::class,
+            VerifyCsrfToken::class,
+            SubstituteBindings::class,
+        ],
+        'api' => [
+            'throttle:60,1',
+            'bindings',
+        ],
+    ];
     /**
      * @var array
      */
-    protected $routeMiddleware = [];
+    protected $routeMiddleware = [
+        'auth' => Authenticate::class,
+        'auth.basic' => AuthenticateWithBasicAuth::class,
+        'bindings' => SubstituteBindings::class,
+        'can' => Authorize::class,
+        'guest' => RedirectIfAuthenticated::class,
+        'throttle' => ThrottleRequests::class,
+    ];
     /**
      * @var array
      */

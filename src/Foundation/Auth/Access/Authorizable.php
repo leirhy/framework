@@ -13,24 +13,24 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 trait Authorizable {
     /**
-     * @param  string $ability
-     * @param  array|mixed $arguments
+     * @param string $ability
+     * @param array|mixed $arguments
      * @return bool
      */
     public function can($ability, $arguments = []) {
         return app(Gate::class)->forUser($this)->check($ability, $arguments);
     }
     /**
-     * @param  string $ability
-     * @param  array|mixed $arguments
+     * @param string $ability
+     * @param array|mixed $arguments
      * @return bool
      */
     public function cant($ability, $arguments = []) {
         return !$this->can($ability, $arguments);
     }
     /**
-     * @param  string $ability
-     * @param  array|mixed $arguments
+     * @param string $ability
+     * @param array|mixed $arguments
      * @return bool
      */
     public function cannot($ability, $arguments = []) {

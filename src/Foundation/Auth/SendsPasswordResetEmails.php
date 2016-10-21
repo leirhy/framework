@@ -20,7 +20,7 @@ trait SendsPasswordResetEmails {
         return view('auth.passwords.email');
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function sendResetLinkEmail(Request $request) {

@@ -13,14 +13,14 @@ use Illuminate\Contracts\Bus\Dispatcher;
  */
 trait DispatchesJobs {
     /**
-     * @param  mixed $job
+     * @param mixed $job
      * @return mixed
      */
     protected function dispatch($job) {
         return app(Dispatcher::class)->dispatch($job);
     }
     /**
-     * @param  mixed $job
+     * @param mixed $job
      * @return mixed
      */
     public function dispatchNow($job) {

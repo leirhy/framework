@@ -22,8 +22,8 @@ trait ValidatesRequests {
      */
     protected $validatesRequestErrorBag;
     /**
-     * @param  \Illuminate\Contracts\Validation\Validator|array $validator
-     * @param  \Illuminate\Http\Request|null $request
+     * @param \Illuminate\Contracts\Validation\Validator|array $validator
+     * @param \Illuminate\Http\Request|null $request
      * @return void
      */
     public function validateWith($validator, Request $request = null) {
@@ -36,10 +36,10 @@ trait ValidatesRequests {
         }
     }
     /**
-     * @param  \Illuminate\Http\Request $request
-     * @param  array $rules
-     * @param  array $messages
-     * @param  array $customAttributes
+     * @param \Illuminate\Http\Request $request
+     * @param array $rules
+     * @param array $messages
+     * @param array $customAttributes
      * @return void
      */
     public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = []) {
@@ -49,11 +49,11 @@ trait ValidatesRequests {
         }
     }
     /**
-     * @param  string $errorBag
-     * @param  \Illuminate\Http\Request $request
-     * @param  array $rules
-     * @param  array $messages
-     * @param  array $customAttributes
+     * @param string $errorBag
+     * @param \Illuminate\Http\Request $request
+     * @param array $rules
+     * @param array $messages
+     * @param array $customAttributes
      * @return void
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -63,8 +63,8 @@ trait ValidatesRequests {
         });
     }
     /**
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Illuminate\Contracts\Validation\Validator $validator
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Contracts\Validation\Validator $validator
      * @return void
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -72,8 +72,8 @@ trait ValidatesRequests {
         throw new ValidationException($validator, $this->buildFailedValidationResponse($request, $this->formatValidationErrors($validator)));
     }
     /**
-     * @param  \Illuminate\Http\Request $request
-     * @param  array $errors
+     * @param \Illuminate\Http\Request $request
+     * @param array $errors
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function buildFailedValidationResponse(Request $request, array $errors) {
@@ -83,7 +83,7 @@ trait ValidatesRequests {
         return redirect()->to($this->getRedirectUrl())->withInput($request->input())->withErrors($errors, $this->errorBag());
     }
     /**
-     * @param  \Illuminate\Contracts\Validation\Validator $validator
+     * @param \Illuminate\Contracts\Validation\Validator $validator
      * @return array
      */
     protected function formatValidationErrors(Validator $validator) {
@@ -102,8 +102,8 @@ trait ValidatesRequests {
         return app(Factory::class);
     }
     /**
-     * @param  string $errorBag
-     * @param  callable $callback
+     * @param string $errorBag
+     * @param callable $callback
      * @return void
      */
     protected function withErrorBag($errorBag, callable $callback) {

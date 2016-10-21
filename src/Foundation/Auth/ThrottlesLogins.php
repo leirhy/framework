@@ -17,21 +17,21 @@ use Illuminate\Support\Facades\Lang;
  */
 trait ThrottlesLogins {
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return bool
      */
     protected function hasTooManyLoginAttempts(Request $request) {
         return $this->limiter()->tooManyAttempts($this->throttleKey($request), 5, 1);
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return int
      */
     protected function incrementLoginAttempts(Request $request) {
         $this->limiter()->hit($this->throttleKey($request));
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendLockoutResponse(Request $request) {
@@ -40,21 +40,21 @@ trait ThrottlesLogins {
         return redirect()->back()->withInput($request->only($this->username(), 'remember'))->withErrors([$this->username() => $message]);
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return void
      */
     protected function clearLoginAttempts(Request $request) {
         $this->limiter()->clear($this->throttleKey($request));
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return void
      */
     protected function fireLockoutEvent(Request $request) {
         event(new Lockout($request));
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return string
      */
     protected function throttleKey(Request $request) {

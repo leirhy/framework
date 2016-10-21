@@ -82,7 +82,7 @@ class FormRequest extends Request implements ValidatesWhenResolved {
         return $this->all();
     }
     /**
-     * @param  \Illuminate\Contracts\Validation\Validator $validator
+     * @param \Illuminate\Contracts\Validation\Validator $validator
      * @return void
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -109,7 +109,7 @@ class FormRequest extends Request implements ValidatesWhenResolved {
         throw new HttpResponseException($this->forbiddenResponse());
     }
     /**
-     * @param  array $errors
+     * @param array $errors
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function response(array $errors) {
@@ -125,7 +125,7 @@ class FormRequest extends Request implements ValidatesWhenResolved {
         return new Response('Forbidden', 403);
     }
     /**
-     * @param  \Illuminate\Contracts\Validation\Validator $validator
+     * @param \Illuminate\Contracts\Validation\Validator $validator
      * @return array
      */
     protected function formatErrors(Validator $validator) {
@@ -146,7 +146,7 @@ class FormRequest extends Request implements ValidatesWhenResolved {
         return $url->previous();
     }
     /**
-     * @param  \Illuminate\Routing\Redirector $redirector
+     * @param \Illuminate\Routing\Redirector $redirector
      * @return $this
      */
     public function setRedirector(Redirector $redirector) {
@@ -154,7 +154,7 @@ class FormRequest extends Request implements ValidatesWhenResolved {
         return $this;
     }
     /**
-     * @param  \Illuminate\Container\Container $container
+     * @param \Illuminate\Container\Container $container
      * @return $this
      */
     public function setContainer(Container $container) {

@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Password;
 trait ResetsPasswords {
     use RedirectsUsers;
     /**
-     * @param  \Illuminate\Http\Request $request
-     * @param  string|null $token
+     * @param \Illuminate\Http\Request $request
+     * @param string|null $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function showResetForm(Request $request, $token = null) {
@@ -28,7 +28,7 @@ trait ResetsPasswords {
             ]);
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function reset(Request $request) {
@@ -43,15 +43,15 @@ trait ResetsPasswords {
         return $response == Password::PASSWORD_RESET ? $this->sendResetResponse($response) : $this->sendResetFailedResponse($request, $response);
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     protected function credentials(Request $request) {
         return $request->only('email', 'password', 'password_confirmation', 'token');
     }
     /**
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
-     * @param  string $password
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param string $password
      * @return void
      */
     protected function resetPassword($user, $password) {
@@ -62,15 +62,15 @@ trait ResetsPasswords {
         $this->guard()->login($user);
     }
     /**
-     * @param  string $response
+     * @param string $response
      * @return \Illuminate\Http\Response
      */
     protected function sendResetResponse($response) {
         return redirect($this->redirectPath())->with('status', trans($response));
     }
     /**
-     * @param  \Illuminate\Http\Request
-     * @param  string $response
+     * @param \Illuminate\Http\Request
+     * @param string $response
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     protected function sendResetFailedResponse(Request $request, $response) {

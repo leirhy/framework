@@ -13,8 +13,8 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 trait AuthorizesRequests {
     /**
-     * @param  mixed $ability
-     * @param  mixed|array $arguments
+     * @param mixed $ability
+     * @param mixed|array $arguments
      * @return \Illuminate\Auth\Access\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -23,9 +23,9 @@ trait AuthorizesRequests {
         return app(Gate::class)->authorize($ability, $arguments);
     }
     /**
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|mixed $user
-     * @param  mixed $ability
-     * @param  mixed|array $arguments
+     * @param \Illuminate\Contracts\Auth\Authenticatable|mixed $user
+     * @param mixed $ability
+     * @param mixed|array $arguments
      * @return \Illuminate\Auth\Access\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -34,8 +34,8 @@ trait AuthorizesRequests {
         return app(Gate::class)->forUser($user)->authorize($ability, $arguments);
     }
     /**
-     * @param  mixed $ability
-     * @param  mixed|array $arguments
+     * @param mixed $ability
+     * @param mixed|array $arguments
      * @return array
      */
     protected function parseAbilityAndArguments($ability, $arguments) {
@@ -52,7 +52,7 @@ trait AuthorizesRequests {
         ];
     }
     /**
-     * @param  string $ability
+     * @param string $ability
      * @return string
      */
     protected function normalizeGuessedAbilityName($ability) {
@@ -60,10 +60,10 @@ trait AuthorizesRequests {
         return isset($map[$ability]) ? $map[$ability] : $ability;
     }
     /**
-     * @param  string $model
-     * @param  string|null $parameter
-     * @param  array $options
-     * @param  \Illuminate\Http\Request|null $request
+     * @param string $model
+     * @param string|null $parameter
+     * @param array $options
+     * @param \Illuminate\Http\Request|null $request
      * @return void
      */
     public function authorizeResource($model, $parameter = null, array $options = [], $request = null) {

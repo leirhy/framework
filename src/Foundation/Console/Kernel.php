@@ -169,7 +169,7 @@ class Kernel implements KernelContract {
      * @return void
      */
     public function queue($command, array $parameters = []) {
-        $this->app['Illuminate\Contracts\Queue\Queue']->push('Illuminate\Foundation\Console\QueuedJob', func_get_args());
+        $this->app['Illuminate\Contracts\Queue\Queue']->push(QueuedJob::class, func_get_args());
     }
     /**
      * @return array

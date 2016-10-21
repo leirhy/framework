@@ -22,7 +22,7 @@ trait RegistersUsers {
         return view('auth.register');
     }
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request) {

@@ -7,6 +7,7 @@
  */
 namespace Notadd\Foundation;
 use Closure;
+use Notadd\Foundation\Bootstrap\DetectEnvironment;
 use Notadd\Foundation\EnvironmentDetector;
 use Notadd\Foundation\ProviderRepository;
 use RuntimeException;
@@ -145,7 +146,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @return mixed
      */
     public function afterLoadingEnvironment(Closure $callback) {
-        return $this->afterBootstrapping('Illuminate\Foundation\Bootstrap\DetectEnvironment', $callback);
+        return $this->afterBootstrapping(DetectEnvironment::class, $callback);
     }
     /**
      * @param string $bootstrapper
@@ -685,9 +686,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function registerCoreContainerAliases() {
         $aliases = [
             'app' => [
-                'Illuminate\Foundation\Application',
                 'Illuminate\Contracts\Container\Container',
-                'Illuminate\Contracts\Foundation\Application'
+                'Illuminate\Contracts\Foundation\Application',
+                'Notadd\Foundation\Application',
             ],
             'auth' => [
                 'Illuminate\Auth\AuthManager',

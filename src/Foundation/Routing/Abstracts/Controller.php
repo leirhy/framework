@@ -52,7 +52,7 @@ class Controller extends IlluminateController {
         $this->events = $this->container->make('events');
         $this->redirector = $this->container->make('redirect');
         $this->request = $this->container->make('request');
-        $this->session = $this->request->session();
+        //$this->session = $this->request->session();
         $this->view = $this->container->make('view');
     }
     /**

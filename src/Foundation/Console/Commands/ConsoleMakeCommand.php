@@ -5,7 +5,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:08
  */
-namespace Notadd\Foundation\Console;
+namespace Notadd\Foundation\Console\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;

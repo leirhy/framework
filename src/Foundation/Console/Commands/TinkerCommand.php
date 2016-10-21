@@ -5,7 +5,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:23
  */
-namespace Notadd\Foundation\Console;
+namespace Notadd\Foundation\Console\Commands;
 use Psy\Shell;
 use Psy\Configuration;
 use Illuminate\Console\Command;

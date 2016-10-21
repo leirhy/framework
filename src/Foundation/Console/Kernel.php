@@ -17,7 +17,7 @@ use Notadd\Foundation\Bootstrap\RegisterFacades;
 use Notadd\Foundation\Bootstrap\RegisterProviders;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
 use Notadd\Foundation\Bootstrap\SetRequestForConsole;
-use Notadd\Foundation\Console\ClosureCommand;
+use Notadd\Foundation\Console\Commands\ClosureCommand;
 use Throwable;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Console\Scheduling\Schedule;
@@ -134,7 +134,7 @@ class Kernel implements KernelContract {
     /**
      * @param string $signature
      * @param Closure $callback
-     * @return \Notadd\Foundation\Console\ClosureCommand
+     * @return \Notadd\Foundation\Console\Commands\ClosureCommand
      */
     public function command($signature, Closure $callback) {
         $command = new ClosureCommand($signature, $callback);

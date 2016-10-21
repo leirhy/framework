@@ -3,30 +3,30 @@
  * This file is part of Notadd.
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-10-21 12:07
+ * @datetime 2016-10-21 12:20
  */
-namespace Notadd\Foundation\Console;
+namespace Notadd\Foundation\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 /**
- * Class ConfigClearCommand
+ * Class RouteClearCommand
  * @package Notadd\Foundation\Console\Consoles
  */
-class ConfigClearCommand extends Command {
+class RouteClearCommand extends Command {
     /**
      * @var string
      */
-    protected $name = 'config:clear';
+    protected $name = 'route:clear';
     /**
      * @var string
      */
-    protected $description = 'Remove the configuration cache file';
+    protected $description = 'Remove the route cache file';
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
     /**
-     * ConfigClearCommand constructor.
+     * RouteClearCommand constructor.
      * @param \Illuminate\Filesystem\Filesystem $files
      */
     public function __construct(Filesystem $files) {
@@ -37,7 +37,7 @@ class ConfigClearCommand extends Command {
      * @return void
      */
     public function fire() {
-        $this->files->delete($this->laravel->getCachedConfigPath());
-        $this->info('Configuration cache cleared!');
+        $this->files->delete($this->laravel->getCachedRoutesPath());
+        $this->info('Route cache cleared!');
     }
 }

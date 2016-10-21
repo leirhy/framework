@@ -3,38 +3,38 @@
  * This file is part of Notadd.
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-10-21 12:14
+ * @datetime 2016-10-21 12:19
  */
-namespace Notadd\Foundation\Console;
+namespace Notadd\Foundation\Console\Commands;
 use Illuminate\Console\GeneratorCommand;
 /**
- * Class MailMakeCommand
+ * Class RequestMakeCommand
  * @package Notadd\Foundation\Console\Consoles
  */
-class MailMakeCommand extends GeneratorCommand {
+class RequestMakeCommand extends GeneratorCommand {
     /**
      * @var string
      */
-    protected $name = 'make:mail';
+    protected $name = 'make:request';
     /**
      * @var string
      */
-    protected $description = 'Create a new email class';
+    protected $description = 'Create a new form request class';
     /**
      * @var string
      */
-    protected $type = 'Mail';
+    protected $type = 'Request';
     /**
      * @return string
      */
     protected function getStub() {
-        return __DIR__ . '/stubs/mail.stub';
+        return __DIR__ . '/stubs/request.stub';
     }
     /**
      * @param string $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {
-        return $rootNamespace . '\Mail';
+        return $rootNamespace . '\Http\Requests';
     }
 }

@@ -5,7 +5,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:05
  */
-namespace Notadd\Foundation\Console;
+namespace Notadd\Foundation\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 use Symfony\Component\Finder\Finder;

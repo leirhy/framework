@@ -5,7 +5,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 13:05
  */
-namespace Notadd\Foundation\Console;
+namespace Notadd\Foundation\Console\Commands;
 use RuntimeException;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;

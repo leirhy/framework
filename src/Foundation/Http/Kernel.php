@@ -52,8 +52,8 @@ class Kernel implements KernelContract {
         HandleExceptions::class,
         RegisterFacades::class,
         RegisterProviders::class,
-        RegisterRouter::class,
         BootProviders::class,
+        RegisterRouter::class,
     ];
     /**
      * @var array

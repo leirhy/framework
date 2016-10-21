@@ -14,7 +14,7 @@ use Notadd\Foundation\Routing\Events\RouteRegister;
  */
 class RegisterRouter {
     /**
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @return void
      */
     public function bootstrap(Application $app) {

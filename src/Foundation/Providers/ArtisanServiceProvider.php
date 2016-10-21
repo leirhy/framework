@@ -112,7 +112,7 @@ class ArtisanServiceProvider extends ServiceProvider {
         $this->registerCommands($this->devCommands);
     }
     /**
-     * @param  array $commands
+     * @param array $commands
      * @return void
      */
     protected function registerCommands(array $commands) {

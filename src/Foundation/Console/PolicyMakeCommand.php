@@ -27,7 +27,7 @@ class PolicyMakeCommand extends GeneratorCommand {
      */
     protected $type = 'Policy';
     /**
-     * @param  string $name
+     * @param string $name
      * @return string
      */
     protected function buildClass($name) {
@@ -36,8 +36,8 @@ class PolicyMakeCommand extends GeneratorCommand {
         return $model ? $this->replaceModel($stub, $model) : $stub;
     }
     /**
-     * @param  string $stub
-     * @param  string $model
+     * @param string $stub
+     * @param string $model
      * @return string
      */
     protected function replaceModel($stub, $model) {
@@ -62,7 +62,7 @@ class PolicyMakeCommand extends GeneratorCommand {
         return __DIR__ . '/stubs/policy.plain.stub';
     }
     /**
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {

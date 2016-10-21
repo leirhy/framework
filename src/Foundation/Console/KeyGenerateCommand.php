@@ -33,7 +33,7 @@ class KeyGenerateCommand extends Command {
         $this->info("Application key [$key] set successfully.");
     }
     /**
-     * @param  string $key
+     * @param string $key
      * @return void
      */
     protected function setKeyInEnvironmentFile($key) {

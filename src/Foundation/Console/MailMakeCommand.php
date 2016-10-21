@@ -31,7 +31,7 @@ class MailMakeCommand extends GeneratorCommand {
         return __DIR__ . '/stubs/mail.stub';
     }
     /**
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {

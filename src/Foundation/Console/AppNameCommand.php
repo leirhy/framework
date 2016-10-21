@@ -70,7 +70,7 @@ class AppNameCommand extends Command {
         }
     }
     /**
-     * @param  string $path
+     * @param string $path
      * @return void
      */
     protected function replaceNamespace($path) {
@@ -147,9 +147,9 @@ class AppNameCommand extends Command {
         $this->replaceIn($this->laravel->databasePath() . '/factories/ModelFactory.php', $this->currentRoot, $this->argument('name'));
     }
     /**
-     * @param  string $path
-     * @param  string|array $search
-     * @param  string|array $replace
+     * @param string $path
+     * @param string|array $search
+     * @param string|array $replace
      * @return void
      */
     protected function replaceIn($path, $search, $replace) {
@@ -168,7 +168,7 @@ class AppNameCommand extends Command {
         return $this->laravel->basePath() . '/composer.json';
     }
     /**
-     * @param  string $name
+     * @param string $name
      * @return string
      */
     protected function getConfigPath($name) {

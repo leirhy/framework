@@ -36,7 +36,7 @@ class JobMakeCommand extends GeneratorCommand {
         }
     }
     /**
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {

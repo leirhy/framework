@@ -36,7 +36,7 @@ class ListenerMakeCommand extends GeneratorCommand {
         parent::fire();
     }
     /**
-     * @param  string $name
+     * @param string $name
      * @return string
      */
     protected function buildClass($name) {
@@ -60,14 +60,14 @@ class ListenerMakeCommand extends GeneratorCommand {
         }
     }
     /**
-     * @param  string $rawName
+     * @param string $rawName
      * @return bool
      */
     protected function alreadyExists($rawName) {
         return class_exists($rawName);
     }
     /**
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {

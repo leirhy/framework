@@ -54,7 +54,7 @@ class ModelMakeCommand extends GeneratorCommand {
         return __DIR__ . '/stubs/model.stub';
     }
     /**
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {

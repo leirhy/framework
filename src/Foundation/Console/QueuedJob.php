@@ -24,8 +24,8 @@ class QueuedJob {
         $this->kernel = $kernel;
     }
     /**
-     * @param  \Illuminate\Queue\Jobs\Job $job
-     * @param  array $data
+     * @param \Illuminate\Queue\Jobs\Job $job
+     * @param array $data
      * @return void
      */
     public function fire($job, $data) {

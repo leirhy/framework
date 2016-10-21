@@ -82,7 +82,7 @@ class RouteListCommand extends Command {
         return array_filter($results);
     }
     /**
-     * @param  \Illuminate\Routing\Route $route
+     * @param \Illuminate\Routing\Route $route
      * @return array
      */
     protected function getRouteInformation(Route $route) {
@@ -96,14 +96,14 @@ class RouteListCommand extends Command {
         ]);
     }
     /**
-     * @param  array $routes
+     * @param array $routes
      * @return void
      */
     protected function displayRoutes(array $routes) {
         $this->table($this->headers, $routes);
     }
     /**
-     * @param  \Illuminate\Routing\Route $route
+     * @param \Illuminate\Routing\Route $route
      * @return string
      */
     protected function getMiddleware($route) {
@@ -112,7 +112,7 @@ class RouteListCommand extends Command {
         })->implode(',');
     }
     /**
-     * @param  array $route
+     * @param array $route
      * @return array|null
      */
     protected function filterRoute(array $route) {

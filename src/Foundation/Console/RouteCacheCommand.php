@@ -58,7 +58,7 @@ class RouteCacheCommand extends Command {
         return $app['router']->getRoutes();
     }
     /**
-     * @param  \Illuminate\Routing\RouteCollection $routes
+     * @param \Illuminate\Routing\RouteCollection $routes
      * @return string
      */
     protected function buildRouteCacheFile(RouteCollection $routes) {

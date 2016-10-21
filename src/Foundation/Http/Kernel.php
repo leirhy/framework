@@ -20,6 +20,7 @@ use Notadd\Foundation\Bootstrap\LoadConfiguration;
 use Notadd\Foundation\Bootstrap\RegisterFacades;
 use Notadd\Foundation\Bootstrap\RegisterProviders;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
+use Notadd\Foundation\Http\Middlewares\CheckForMaintenanceMode;
 use Throwable;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\Pipeline;
@@ -57,7 +58,9 @@ class Kernel implements KernelContract {
     /**
      * @var array
      */
-    protected $middleware = [];
+    protected $middleware = [
+        CheckForMaintenanceMode::class,
+    ];
     /**
      * @var array
      */

@@ -89,8 +89,8 @@ class Kernel implements KernelContract {
         $this->schedule($schedule);
     }
     /**
-     * @param  \Symfony\Component\Console\Input\InputInterface $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
      */
     public function handle($input, $output = null) {
@@ -113,15 +113,15 @@ class Kernel implements KernelContract {
         }
     }
     /**
-     * @param  \Symfony\Component\Console\Input\InputInterface $input
-     * @param  int $status
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param int $status
      * @return void
      */
     public function terminate($input, $status) {
         $this->app->terminate();
     }
     /**
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule) {
@@ -132,8 +132,8 @@ class Kernel implements KernelContract {
     protected function commands() {
     }
     /**
-     * @param  string $signature
-     * @param  Closure $callback
+     * @param string $signature
+     * @param Closure $callback
      * @return \Notadd\Foundation\Console\ClosureCommand
      */
     public function command($signature, Closure $callback) {
@@ -144,15 +144,15 @@ class Kernel implements KernelContract {
         return $command;
     }
     /**
-     * @param  \Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      * @return void
      */
     public function registerCommand($command) {
         $this->getArtisan()->add($command);
     }
     /**
-     * @param  string $command
-     * @param  array $parameters
+     * @param string $command
+     * @param array $parameters
      * @return int
      */
     public function call($command, array $parameters = []) {
@@ -164,8 +164,8 @@ class Kernel implements KernelContract {
         return $this->getArtisan()->call($command, $parameters);
     }
     /**
-     * @param  string $command
-     * @param  array $parameters
+     * @param string $command
+     * @param array $parameters
      * @return void
      */
     public function queue($command, array $parameters = []) {
@@ -204,7 +204,7 @@ class Kernel implements KernelContract {
         return $this->artisan;
     }
     /**
-     * @param  \Illuminate\Console\Application|\Notadd\Foundation\Application $artisan
+     * @param \Illuminate\Console\Application|\Notadd\Foundation\Application $artisan
      * @return void
      */
     public function setArtisan($artisan) {
@@ -217,15 +217,15 @@ class Kernel implements KernelContract {
         return $this->bootstrappers;
     }
     /**
-     * @param  \Exception $e
+     * @param \Exception $e
      * @return void
      */
     protected function reportException(Exception $e) {
         $this->app['Illuminate\Contracts\Debug\ExceptionHandler']->report($e);
     }
     /**
-     * @param  \Symfony\Component\Console\Output\OutputInterface $output
-     * @param  \Exception $e
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Exception $e
      * @return void
      */
     protected function renderException($output, Exception $e) {

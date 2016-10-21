@@ -25,7 +25,7 @@ class EventMakeCommand extends GeneratorCommand {
      */
     protected $type = 'Event';
     /**
-     * @param  string $rawName
+     * @param string $rawName
      * @return bool
      */
     protected function alreadyExists($rawName) {
@@ -38,7 +38,7 @@ class EventMakeCommand extends GeneratorCommand {
         return __DIR__ . '/stubs/event.stub';
     }
     /**
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {

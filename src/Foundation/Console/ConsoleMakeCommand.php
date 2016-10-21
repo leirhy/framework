@@ -27,8 +27,8 @@ class ConsoleMakeCommand extends GeneratorCommand {
      */
     protected $type = 'Console command';
     /**
-     * @param  string $stub
-     * @param  string $name
+     * @param string $stub
+     * @param string $name
      * @return string
      */
     protected function replaceClass($stub, $name) {
@@ -42,7 +42,7 @@ class ConsoleMakeCommand extends GeneratorCommand {
         return __DIR__ . '/stubs/console.stub';
     }
     /**
-     * @param  string $rootNamespace
+     * @param string $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {

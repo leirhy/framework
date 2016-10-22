@@ -33,7 +33,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Notadd\Foundation\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Notadd\Foundation\Http\HttpServiceProvider::class
+        Notadd\Foundation\Http\HttpServiceProvider::class,
+        Notadd\Admin\AdminServiceProvider::class,
     ],
     'aliases' => [
         'App' => Illuminate\Support\Facades\App::class,

@@ -51,9 +51,4 @@ class HttpServiceProvider extends ServiceProvider {
         $form->setUserResolver($current->getUserResolver());
         $form->setRouteResolver($current->getRouteResolver());
     }
-    /**
-     * @return void
-     */
-    public function register() {
-    }
 }

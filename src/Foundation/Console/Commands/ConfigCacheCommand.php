@@ -7,7 +7,14 @@
  */
 namespace Notadd\Foundation\Console\Commands;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Http\Kernel as HttpKernelContract;
 use Illuminate\Filesystem\Filesystem;
+use Notadd\Foundation\Application;
+use Notadd\Foundation\Console\Kernel as ConsoleKernel;
+use Notadd\Foundation\Exception\Handler;
+use Notadd\Foundation\Http\Kernel;
 /**
  * Class ConfigCacheCommand
  * @package Notadd\Foundation\Console\Consoles
@@ -46,8 +53,11 @@ class ConfigCacheCommand extends Command {
      * @return array
      */
     protected function getFreshConfiguration() {
-        $app = require $this->laravel->bootstrapPath() . '/app.php';
-        $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
-        return $app['config']->all();
+        $application = new Application($this->laravel->basePath());
+        $application->singleton(HttpKernelContract::class, Kernel::class);
+        $application->singleton(ConsoleKernelContract::class, ConsoleKernel::class);
+        $application->singleton(ExceptionHandler::class, Handler::class);
+        $application->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
+        return $application['config']->all();
     }
 }

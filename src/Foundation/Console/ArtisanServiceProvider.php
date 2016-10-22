@@ -8,15 +8,10 @@
 namespace Notadd\Foundation\Console;
 use Illuminate\Auth\Console\ClearResetsCommand;
 use Illuminate\Auth\Console\MakeAuthCommand;
-use Illuminate\Cache\Console\CacheTableCommand;
-use Illuminate\Database\Console\Seeds\SeederMakeCommand;
-use Illuminate\Notifications\Console\NotificationTableCommand;
 use Illuminate\Queue\Console\FailedTableCommand;
 use Illuminate\Queue\Console\TableCommand;
-use Illuminate\Routing\Console\ControllerMakeCommand;
-use Illuminate\Routing\Console\MiddlewareMakeCommand;
-use Illuminate\Session\Console\SessionTableCommand;
 use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Cache\Commands\CacheTableCommand;
 use Notadd\Foundation\Console\Commands\AppNameCommand;
 use Notadd\Foundation\Console\Commands\ClearCompiledCommand;
 use Notadd\Foundation\Console\Commands\ConfigCacheCommand;
@@ -25,20 +20,21 @@ use Notadd\Foundation\Console\Commands\ConsoleMakeCommand;
 use Notadd\Foundation\Console\Commands\DownCommand;
 use Notadd\Foundation\Console\Commands\EnvironmentCommand;
 use Notadd\Foundation\Console\Commands\EventGenerateCommand;
-use Notadd\Foundation\Console\Commands\EventMakeCommand;
-use Notadd\Foundation\Console\Commands\JobMakeCommand;
 use Notadd\Foundation\Console\Commands\KeyGenerateCommand;
-use Notadd\Foundation\Console\Commands\ListenerMakeCommand;
-use Notadd\Foundation\Console\Commands\MailMakeCommand;
-use Notadd\Foundation\Console\Commands\ModelMakeCommand;
-use Notadd\Foundation\Console\Commands\NotificationMakeCommand;
+use Notadd\Foundation\Database\Commands\SeederMakeCommand;
+use Notadd\Foundation\Event\Commands\EventMakeCommand;
+use Notadd\Foundation\Event\Commands\ListenerMakeCommand;
+use Notadd\Foundation\Database\Commands\ModelMakeCommand;
 use Notadd\Foundation\Console\Commands\OptimizeCommand;
 use Notadd\Foundation\Console\Commands\PolicyMakeCommand;
-use Notadd\Foundation\Console\Commands\ProviderMakeCommand;
-use Notadd\Foundation\Console\Commands\RequestMakeCommand;
-use Notadd\Foundation\Console\Commands\RouteCacheCommand;
-use Notadd\Foundation\Console\Commands\RouteClearCommand;
-use Notadd\Foundation\Console\Commands\RouteListCommand;
+use Notadd\Foundation\Http\Commands\RequestMakeCommand;
+use Notadd\Foundation\Mail\Commands\MailMakeCommand;
+use Notadd\Foundation\Notification\Commands\NotificationMakeCommand;
+use Notadd\Foundation\Queue\Commands\JobMakeCommand;
+use Notadd\Foundation\Routing\Commands\ControllerMakeCommand;
+use Notadd\Foundation\Routing\Commands\MiddlewareMakeCommand;
+use Notadd\Foundation\Routing\Commands\RouteCacheCommand;
+use Notadd\Foundation\Routing\Commands\RouteClearCommand;
 use Notadd\Foundation\Console\Commands\ServeCommand;
 use Notadd\Foundation\Console\Commands\StorageLinkCommand;
 use Notadd\Foundation\Console\Commands\TestMakeCommand;
@@ -46,6 +42,9 @@ use Notadd\Foundation\Console\Commands\TinkerCommand;
 use Notadd\Foundation\Console\Commands\UpCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
 use Notadd\Foundation\Console\Commands\ViewClearCommand;
+use Notadd\Foundation\Notification\Commands\NotificationTableCommand;
+use Notadd\Foundation\Routing\Commands\RouteListCommand;
+use Notadd\Foundation\Session\Commands\SessionTableCommand;
 /**
  * Class ArtisanServiceProvider
  * @package Notadd\Foundation\Providers
@@ -79,7 +78,7 @@ class ArtisanServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $devCommands = [
-        'AppName' => 'command.app.name',
+        //'AppName' => 'command.app.name',
         'AuthMake' => 'command.auth.make',
         'CacheTable' => 'command.cache.table',
         'ConsoleMake' => 'command.console.make',
@@ -94,7 +93,6 @@ class ArtisanServiceProvider extends ServiceProvider {
         'NotificationMake' => 'command.notification.make',
         'NotificationTable' => 'command.notification.table',
         'PolicyMake' => 'command.policy.make',
-        'ProviderMake' => 'command.provider.make',
         'QueueFailedTable' => 'command.queue.failed-table',
         'QueueTable' => 'command.queue.table',
         'RequestMake' => 'command.request.make',
@@ -210,7 +208,7 @@ class ArtisanServiceProvider extends ServiceProvider {
      */
     protected function registerEventMakeCommand() {
         $this->app->singleton('command.event.make', function ($app) {
-            return new Commands\EventMakeCommand($app['files']);
+            return new EventMakeCommand($app['files']);
         });
     }
     /**
@@ -234,7 +232,7 @@ class ArtisanServiceProvider extends ServiceProvider {
      */
     protected function registerJobMakeCommand() {
         $this->app->singleton('command.job.make', function ($app) {
-            return new Commands\JobMakeCommand($app['files']);
+            return new JobMakeCommand($app['files']);
         });
     }
     /**
@@ -258,7 +256,7 @@ class ArtisanServiceProvider extends ServiceProvider {
      */
     protected function registerMailMakeCommand() {
         $this->app->singleton('command.mail.make', function ($app) {
-            return new Commands\MailMakeCommand($app['files']);
+            return new MailMakeCommand($app['files']);
         });
     }
     /**
@@ -274,7 +272,7 @@ class ArtisanServiceProvider extends ServiceProvider {
      */
     protected function registerModelMakeCommand() {
         $this->app->singleton('command.model.make', function ($app) {
-            return new Commands\ModelMakeCommand($app['files']);
+            return new ModelMakeCommand($app['files']);
         });
     }
     /**
@@ -282,7 +280,7 @@ class ArtisanServiceProvider extends ServiceProvider {
      */
     protected function registerNotificationMakeCommand() {
         $this->app->singleton('command.notification.make', function ($app) {
-            return new Commands\NotificationMakeCommand($app['files']);
+            return new NotificationMakeCommand($app['files']);
         });
     }
     /**
@@ -291,14 +289,6 @@ class ArtisanServiceProvider extends ServiceProvider {
     protected function registerOptimizeCommand() {
         $this->app->singleton('command.optimize', function ($app) {
             return new Commands\OptimizeCommand($app['composer']);
-        });
-    }
-    /**
-     * @return void
-     */
-    protected function registerProviderMakeCommand() {
-        $this->app->singleton('command.provider.make', function ($app) {
-            return new ProviderMakeCommand($app['files']);
         });
     }
     /**
@@ -354,7 +344,7 @@ class ArtisanServiceProvider extends ServiceProvider {
      */
     protected function registerRouteCacheCommand() {
         $this->app->singleton('command.route.cache', function ($app) {
-            return new Commands\RouteCacheCommand($app['files']);
+            return new RouteCacheCommand($app['files']);
         });
     }
     /**
@@ -370,7 +360,7 @@ class ArtisanServiceProvider extends ServiceProvider {
      */
     protected function registerRouteListCommand() {
         $this->app->singleton('command.route.list', function ($app) {
-            return new Commands\RouteListCommand($app['router']);
+            return new RouteListCommand($app['router']);
         });
     }
     /**

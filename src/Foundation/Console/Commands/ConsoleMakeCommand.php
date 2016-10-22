@@ -6,6 +6,7 @@
  * @datetime 2016-10-21 12:08
  */
 namespace Notadd\Foundation\Console\Commands;
+use Carbon\Carbon;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -33,13 +34,14 @@ class ConsoleMakeCommand extends GeneratorCommand {
      */
     protected function replaceClass($stub, $name) {
         $stub = parent::replaceClass($stub, $name);
+        $stub = str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
         return str_replace('dummy:command', $this->option('command'), $stub);
     }
     /**
      * @return string
      */
     protected function getStub() {
-        return __DIR__ . '/stubs/console.stub';
+        return $this->laravel->basePath() . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'consoles' . DIRECTORY_SEPARATOR . 'command.stub';
     }
     /**
      * @param string $rootNamespace

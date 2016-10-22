@@ -5,7 +5,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:20
  */
-namespace Notadd\Foundation\Console\Commands;
+namespace Notadd\Foundation\Routing\Commands;
 use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;

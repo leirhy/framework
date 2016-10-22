@@ -5,7 +5,8 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:12
  */
-namespace Notadd\Foundation\Console\Commands;
+namespace Notadd\Foundation\Queue\Commands;
+use Carbon\Carbon;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 /**
@@ -30,9 +31,9 @@ class JobMakeCommand extends GeneratorCommand {
      */
     protected function getStub() {
         if($this->option('sync')) {
-            return __DIR__ . '/stubs/job.stub';
+            return $this->laravel->basePath() . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'jobs' . DIRECTORY_SEPARATOR . 'job.stub';
         } else {
-            return __DIR__ . '/stubs/job-queued.stub';
+            return $this->laravel->basePath() . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'jobs' . DIRECTORY_SEPARATOR . 'job-queued.stub';
         }
     }
     /**
@@ -54,5 +55,14 @@ class JobMakeCommand extends GeneratorCommand {
                 'Indicates that job should be synchronous.'
             ],
         ];
+    }
+    /**
+     * @param string $stub
+     * @param string $name
+     * @return mixed
+     */
+    protected function replaceClass($stub, $name) {
+        $stub = parent::replaceClass($stub, $name);
+        return str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
     }
 }

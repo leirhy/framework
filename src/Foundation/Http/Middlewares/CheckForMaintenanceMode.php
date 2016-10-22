@@ -34,7 +34,7 @@ class CheckForMaintenanceMode {
      */
     public function handle($request, Closure $next) {
         if($this->application->isDownForMaintenance()) {
-            $data = json_decode(file_get_contents($this->application->storagePath() . '/down'), true);
+            $data = json_decode(file_get_contents($this->application->storagePath() . '/bootstraps/down'), true);
             throw new MaintenanceModeException($data['time'], $data['retry'], $data['message']);
         }
         return $next($request);

@@ -1,0 +1,29 @@
+<?php
+/**
+ * This file is part of Notadd.
+ * @datetime DummyDatetime
+ */
+namespace DummyNamespace;
+use DummyFullEvent;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+/**
+ * Class DummyClass
+ * @package DummyNamespace
+ */
+class DummyClass implements ShouldQueue {
+    use InteractsWithQueue;
+    /**
+     * Create the event listener.
+     * @return void
+     */
+    public function __construct() {
+    }
+    /**
+     * Handle the event.
+     * @param DummyEvent $event
+     * @return void
+     */
+    public function handle(DummyEvent $event) {
+    }
+}

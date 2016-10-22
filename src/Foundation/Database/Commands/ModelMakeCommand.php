@@ -5,7 +5,8 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:14
  */
-namespace Notadd\Foundation\Console\Commands;
+namespace Notadd\Foundation\Database\Commands;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
@@ -48,12 +49,6 @@ class ModelMakeCommand extends GeneratorCommand {
         }
     }
     /**
-     * @return string
-     */
-    protected function getStub() {
-        return __DIR__ . '/stubs/model.stub';
-    }
-    /**
      * @param string $rootNamespace
      * @return string
      */
@@ -78,5 +73,20 @@ class ModelMakeCommand extends GeneratorCommand {
                 'Create a new resource controller for the model.'
             ],
         ];
+    }
+    /**
+     * @return string
+     */
+    protected function getStub() {
+        return $this->laravel->basePath() . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'model.stub';
+    }
+    /**
+     * @param string $stub
+     * @param string $name
+     * @return mixed
+     */
+    protected function replaceClass($stub, $name) {
+        $stub = parent::replaceClass($stub, $name);
+        return str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
     }
 }

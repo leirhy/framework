@@ -8,8 +8,8 @@
 namespace Notadd\Foundation;
 use Closure;
 use Notadd\Foundation\Bootstrap\DetectEnvironment;
-use Notadd\Foundation\EnvironmentDetector;
-use Notadd\Foundation\ProviderRepository;
+use Notadd\Foundation\Event\EventServiceProvider;
+use Notadd\Foundation\Routing\RoutingServiceProvider;
 use RuntimeException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -17,8 +17,6 @@ use Illuminate\Http\Request;
 use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Events\EventServiceProvider;
-use Illuminate\Routing\RoutingServiceProvider;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
@@ -32,7 +30,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     /**
      * @var string
      */
-    const VERSION = '5.3.18';
+    const VERSION = '1.0';
     /**
      * @var string
      */
@@ -544,7 +542,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @return string
      */
     public function getCachedConfigPath() {
-        return $this->bootstrapPath() . '/cache/config.php';
+        return $this->storagePath() . '/bootstraps/configurations.php';
     }
     /**
      * @return bool
@@ -574,7 +572,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @return bool
      */
     public function isDownForMaintenance() {
-        return file_exists($this->storagePath() . '/framework/down');
+        return file_exists($this->storagePath() . '/bootstraps/down');
     }
     /**
      * @param int $code

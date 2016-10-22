@@ -5,7 +5,8 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:13
  */
-namespace Notadd\Foundation\Console\Commands;
+namespace Notadd\Foundation\Event\Commands;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
@@ -27,13 +28,15 @@ class ListenerMakeCommand extends GeneratorCommand {
      */
     protected $type = 'Listener';
     /**
-     * @return void
+     * @return bool
      */
     public function fire() {
         if(!$this->option('event')) {
-            return $this->error('Missing required option: --event');
+            $this->error('Missing required option: --event');
+            return false;
         }
         parent::fire();
+        return true;
     }
     /**
      * @param string $name
@@ -45,6 +48,7 @@ class ListenerMakeCommand extends GeneratorCommand {
         if(!Str::startsWith($event, $this->laravel->getNamespace()) && !Str::startsWith($event, 'Illuminate')) {
             $event = $this->laravel->getNamespace() . 'Events\\' . $event;
         }
+        $stub = str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
         $stub = str_replace('DummyEvent', class_basename($event), $stub);
         $stub = str_replace('DummyFullEvent', $event, $stub);
         return $stub;
@@ -54,9 +58,9 @@ class ListenerMakeCommand extends GeneratorCommand {
      */
     protected function getStub() {
         if($this->option('queued')) {
-            return __DIR__ . '/stubs/listener-queued.stub';
+            return $this->laravel->basePath() . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'events' . DIRECTORY_SEPARATOR . 'listener-queued.stub';
         } else {
-            return __DIR__ . '/stubs/listener.stub';
+            return $this->laravel->basePath() . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'events' . DIRECTORY_SEPARATOR . 'listener.stub';
         }
     }
     /**

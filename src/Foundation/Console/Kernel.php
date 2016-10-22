@@ -18,10 +18,10 @@ use Notadd\Foundation\Bootstrap\RegisterProviders;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
 use Notadd\Foundation\Bootstrap\SetRequestForConsole;
 use Notadd\Foundation\Console\Commands\ClosureCommand;
+use Notadd\Foundation\Console\Application as Artisan;
 use Throwable;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Console\Application as Artisan;
 use Illuminate\Console\Events\ArtisanStarting;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
@@ -40,7 +40,7 @@ class Kernel implements KernelContract {
      */
     protected $events;
     /**
-     * @var \Illuminate\Console\Application
+     * @var \Notadd\Foundation\Console\Application
      */
     protected $artisan;
     /**
@@ -63,8 +63,8 @@ class Kernel implements KernelContract {
         RegisterFacades::class,
         SetRequestForConsole::class,
         RegisterProviders::class,
-        RegisterRouter::class,
         BootProviders::class,
+        RegisterRouter::class,
     ];
     /**
      * Kernel constructor.
@@ -195,7 +195,7 @@ class Kernel implements KernelContract {
         $this->app->loadDeferredProviders();
     }
     /**
-     * @return \Illuminate\Console\Application
+     * @return \Notadd\Foundation\Console\Application
      */
     protected function getArtisan() {
         if(is_null($this->artisan)) {
@@ -204,7 +204,7 @@ class Kernel implements KernelContract {
         return $this->artisan;
     }
     /**
-     * @param \Illuminate\Console\Application|\Notadd\Foundation\Application $artisan
+     * @param \Notadd\Foundation\Console\Application $artisan
      * @return void
      */
     public function setArtisan($artisan) {

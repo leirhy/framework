@@ -5,7 +5,8 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:11
  */
-namespace Notadd\Foundation\Console\Commands;
+namespace Notadd\Foundation\Event\Commands;
+use Carbon\Carbon;
 use Illuminate\Console\GeneratorCommand;
 /**
  * Class EventMakeCommand
@@ -32,16 +33,25 @@ class EventMakeCommand extends GeneratorCommand {
         return class_exists($rawName);
     }
     /**
-     * @return string
-     */
-    protected function getStub() {
-        return __DIR__ . '/stubs/event.stub';
-    }
-    /**
      * @param string $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {
         return $rootNamespace . '\Events';
+    }
+    /**
+     * @return string
+     */
+    protected function getStub() {
+        return $this->laravel->basePath() . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'events' . DIRECTORY_SEPARATOR . 'event.stub';
+    }
+    /**
+     * @param string $stub
+     * @param string $name
+     * @return mixed
+     */
+    protected function replaceClass($stub, $name) {
+        $stub = parent::replaceClass($stub, $name);
+        return str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
     }
 }

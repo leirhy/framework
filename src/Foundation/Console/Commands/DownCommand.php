@@ -26,7 +26,7 @@ class DownCommand extends Command {
      * @return void
      */
     public function fire() {
-        file_put_contents($this->laravel->storagePath() . '/down', json_encode($this->getDownFilePayload(), JSON_PRETTY_PRINT));
+        file_put_contents($this->laravel->storagePath() . '/bootstraps/down', json_encode($this->getDownFilePayload(), JSON_PRETTY_PRINT));
         $this->comment('Application is now in maintenance mode.');
     }
     /**

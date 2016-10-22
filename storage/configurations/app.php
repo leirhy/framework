@@ -25,6 +25,7 @@ return [
         Notadd\Foundation\Mail\MailServiceProvider::class,
         Notadd\Foundation\Notification\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
+        Notadd\Foundation\Passport\PassportServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Notadd\Foundation\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,

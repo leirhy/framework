@@ -7,6 +7,9 @@
  */
 namespace Notadd\Foundation\Exception;
 use Exception;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Routing\Redirector;
 use Psr\Log\LoggerInterface;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
@@ -38,10 +41,28 @@ class Handler implements ExceptionHandlerContract {
      */
     protected $dontReport = [];
     /**
-     * @param \Illuminate\Contracts\Container\Container $container
+     * @var \Illuminate\Routing\Redirector
      */
-    public function __construct(Container $container) {
+    protected $redirector;
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    protected $response;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    protected $view;
+    /**
+     * @param \Illuminate\Contracts\Container\Container $container
+     * @param \Illuminate\Routing\Redirector $redirector
+     * @param \Illuminate\Contracts\Routing\ResponseFactory $response
+     * @param \Illuminate\Contracts\View\Factory|\Illuminate\View\View $view
+     */
+    public function __construct(Container $container, Redirector $redirector, ResponseFactory $response, ViewFactory $view) {
         $this->container = $container;
+        $this->redirector = $redirector;
+        $this->response = $response;
+        $this->view = $view;
     }
     /**
      * @param \Exception $e
@@ -55,7 +76,7 @@ class Handler implements ExceptionHandlerContract {
         try {
             $logger = $this->container->make(LoggerInterface::class);
         } catch(Exception $ex) {
-            throw $e; // throw the original exception
+            throw $e;
         }
         $logger->error($e);
     }
@@ -146,8 +167,8 @@ class Handler implements ExceptionHandlerContract {
      */
     protected function renderHttpException(HttpException $e) {
         $status = $e->getStatusCode();
-        if(view()->exists("errors.{$status}")) {
-            return response()->view("errors.{$status}", ['exception' => $e], $status, $e->getHeaders());
+        if($this->view->exists("error::{$status}")) {
+            return $this->response->view("error::{$status}", ['exception' => $e], $status, $e->getHeaders());
         } else {
             return $this->convertExceptionToResponse($e);
         }
@@ -163,9 +184,9 @@ class Handler implements ExceptionHandlerContract {
         }
         $errors = $e->validator->errors()->getMessages();
         if($request->expectsJson()) {
-            return response()->json($errors, 422);
+            return $this->response->json($errors, 422);
         }
-        return redirect()->back()->withInput($request->input())->withErrors($errors);
+        return $this->redirector->back()->withInput($request->input())->withErrors($errors);
     }
     /**
      * @param \Exception $e
@@ -182,5 +203,16 @@ class Handler implements ExceptionHandlerContract {
      */
     protected function isHttpException(Exception $e) {
         return $e instanceof HttpException;
+    }
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Auth\AuthenticationException $exception
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    protected function unauthenticated($request, AuthenticationException $exception) {
+        if($request->expectsJson()) {
+            return $this->response->json(['error' => 'Unauthenticated.'], 401);
+        }
+        return $this->redirector->guest('login');
     }
 }

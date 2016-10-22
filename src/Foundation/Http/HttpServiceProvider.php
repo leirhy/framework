@@ -22,6 +22,7 @@ class HttpServiceProvider extends ServiceProvider {
     public function boot() {
         $this->app->make('events')->subscribe(RouteRegistrar::class);
         $this->configureFormRequests();
+        $this->loadViewsFrom(resource_path('errors'), 'error');
         $this->loadViewsFrom(resource_path('views/admin'), 'admin');
         $this->loadViewsFrom(resource_path('views/theme'), 'theme');
     }

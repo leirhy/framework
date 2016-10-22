@@ -9,6 +9,7 @@ namespace Notadd\Foundation\Passport;
 use Laravel\Passport\Console\ClientCommand;
 use Laravel\Passport\Console\InstallCommand;
 use Laravel\Passport\Console\KeysCommand;
+use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
 /**
  * Class PassportServiceProvider
@@ -24,5 +25,6 @@ class PassportServiceProvider extends LaravelPassportServiceProvider {
             InstallCommand::class,
             KeysCommand::class,
         ]);
+        Passport::routes();
     }
 }

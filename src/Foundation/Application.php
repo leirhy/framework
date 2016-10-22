@@ -234,7 +234,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @return string
      */
     public function langPath() {
-        return $this->resourcePath() . DIRECTORY_SEPARATOR . 'lang';
+        return $this->resourcePath() . DIRECTORY_SEPARATOR . 'translations';
     }
     /**
      * @return string

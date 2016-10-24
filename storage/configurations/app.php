@@ -22,6 +22,7 @@ return [
         Illuminate\Encryption\EncryptionServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
+        Notadd\Install\InstallServiceProvider::class,
         Notadd\Foundation\Mail\MailServiceProvider::class,
         Notadd\Foundation\Notification\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,

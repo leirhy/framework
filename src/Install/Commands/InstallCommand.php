@@ -10,7 +10,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Console\Abstracts\Command;
-use Notadd\Foundation\Member\Abstracts\Member;
+use Notadd\Foundation\Member\Member;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use PDO;
 /**
@@ -109,10 +109,10 @@ class InstallCommand extends Command {
             case 'sqlite':
                 $this->config->set('database.connections.sqlite', [
                     'driver'   => 'sqlite',
-                    'database' => storage_path('notadd') . DIRECTORY_SEPARATOR . 'database.sqlite',
-                    'prefix'   => $this->data->get('prefix'),
+                    'database' => $this->container->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'database.sqlite',
+                    'prefix'   => $this->data->get('database_prefix'),
                 ]);
-                touch(storage_path('notadd') . DIRECTORY_SEPARATOR . 'database.sqlite');
+                touch($this->container->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'database.sqlite');
                 break;
         }
         $this->call('migrate', [
@@ -188,16 +188,14 @@ class InstallCommand extends Command {
      */
     protected function writingConfiguration() {
         $config = [
-            'database' => [
-                'fetch' => PDO::FETCH_OBJ,
-                'default' => $this->data->get('driver'),
-                'connections' => [],
-                'redis' => [],
-            ]
+            'fetch' => PDO::FETCH_OBJ,
+            'default' => $this->data->get('driver'),
+            'connections' => [],
+            'redis' => [],
         ];
         switch($this->data->get('driver')) {
             case 'mysql':
-                $config['database']['connections']['mysql'] =  [
+                $config['connections']['mysql'] =  [
                     'driver' => 'mysql',
                     'host' => $this->data->get('database_host'),
                     'database' => $this->data->get('database'),
@@ -211,7 +209,7 @@ class InstallCommand extends Command {
                 ];
                 break;
             case 'pgsql':
-                $config['database']['connections']['pgsql'] =  [
+                $config['connections']['pgsql'] =  [
                     'driver' => 'pgsql',
                     'host' => $this->data->get('database_host'),
                     'database' => $this->data->get('database'),
@@ -224,15 +222,15 @@ class InstallCommand extends Command {
                 ];
                 break;
             case 'sqlite':
-                $config['database']['connections']['sqlite'] =  [
+                $config['connections']['sqlite'] =  [
                     'driver'   => 'sqlite',
-                    'database' => storage_path('notadd') . DIRECTORY_SEPARATOR . 'database.sqlite',
-                    'prefix'   => $this->data->get('prefix'),
+                    'database' => $this->container->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'database.sqlite',
+                    'prefix'   => $this->data->get('database_prefix'),
                 ];
                 break;
         }
         file_put_contents(
-            realpath(storage_path('notadd')) . DIRECTORY_SEPARATOR . 'config.php',
+            $this->container->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'replace.php',
             '<?php return '.var_export($config, true).';'
         );
     }

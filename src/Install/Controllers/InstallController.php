@@ -8,6 +8,7 @@
 namespace Notadd\Install\Controllers;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Install\Contracts\Prerequisite;
+use Notadd\Install\Requests\InstallRequest;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 /**
@@ -45,17 +46,17 @@ class InstallController extends Controller {
         }
     }
     /**
+     * @param \Notadd\Install\Requests\InstallRequest $request
      * @return \Illuminate\Contracts\View\View
      */
-    public function store() {
+    public function store(InstallRequest $request) {
         $this->command = $this->getCommand('install');
-        $data = $this->request->input();
-        $this->command->setDataFromController($data);
+        $this->command->setDataFromController($request->all());
         $input = new ArrayInput([]);
         $output = new BufferedOutput();
         $this->command->run($input, $output);
-        $this->share('admin_account', $data['admin_account']);
-        $this->share('admin_email', $data['admin_email']);
+        $this->share('admin_account', $request->get('admin_account'));
+        $this->share('admin_email', $request->get('admin_email'));
         return $this->view('install::success');
     }
 }

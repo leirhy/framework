@@ -15,7 +15,7 @@ use Notadd\Foundation\Validation\ValidatesRequests;
  * Class Controller
  * @package Notadd\Foundation\Routing\Abstracts
  */
-class Controller extends IlluminateController {
+abstract class Controller extends IlluminateController {
     use ValidatesRequests;
     /**
      * @var \Illuminate\Container\Container
@@ -72,7 +72,9 @@ class Controller extends IlluminateController {
      * @return \Illuminate\Contracts\Console\Kernel|\Notadd\Foundation\Console\Application
      */
     public function getConsole() {
-        return $this->container->make(Kernel::class);
+        $kernel = $this->container->make(Kernel::class);
+        $kernel->bootstrap();
+        return $kernel->getArtisan();
     }
     /**
      * @return \Illuminate\Container\Container

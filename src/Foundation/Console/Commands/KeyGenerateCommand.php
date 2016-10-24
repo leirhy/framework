@@ -15,29 +15,41 @@ class KeyGenerateCommand extends Command {
     /**
      * @var string
      */
-    protected $signature = 'key:generate {--show : Display the key instead of modifying files}';
+    protected $description = 'Set the application key';
+    /**
+     * @var \Notadd\Foundation\Application
+     */
+    protected $laravel;
     /**
      * @var string
      */
-    protected $description = 'Set the application key';
+    protected $signature = 'key:generate {--show : Display the key instead of modifying files}';
     /**
-     * @return void
+     * @return bool
      */
     public function fire() {
         $key = $this->generateRandomKey();
         if($this->option('show')) {
-            return $this->line('<comment>' . $key . '</comment>');
+            $this->line('<comment>' . $key . '</comment>');
+            return false;
         }
         $this->setKeyInEnvironmentFile($key);
         $this->laravel['config']['app.key'] = $key;
         $this->info("Application key [$key] set successfully.");
+        return true;
     }
     /**
      * @param string $key
      * @return void
      */
     protected function setKeyInEnvironmentFile($key) {
-        file_put_contents($this->laravel->environmentFilePath(), str_replace('APP_KEY=' . $this->laravel['config']['app.key'], 'APP_KEY=' . $key, file_get_contents($this->laravel->environmentFilePath())));
+        $path = $this->laravel->environmentFilePath();
+        if(file_exists($path)) {
+            file_put_contents($path, str_replace('APP_KEY=' . $this->laravel['config']['app.key'], 'APP_KEY=' . $key, file_get_contents($path)));
+        } else {
+            touch($path);
+            file_put_contents($path, 'APP_KEY=' . $key);
+        }
     }
     /**
      * @return string

@@ -276,7 +276,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @return string
      */
     public function environmentPath() {
-        return $this->environmentPath ?: $this->basePath;
+        return $this->environmentPath ?: $this->storagePath() . DIRECTORY_SEPARATOR . 'environments';
     }
     /**
      * @param string $path
@@ -304,7 +304,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @return string
      */
     public function environmentFilePath() {
-        return $this->environmentPath() . '/' . $this->environmentFile();
+        return $this->environmentPath() . DIRECTORY_SEPARATOR . $this->environmentFile();
     }
     /**
      * @return string|bool

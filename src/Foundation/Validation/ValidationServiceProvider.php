@@ -12,4 +12,5 @@ use Illuminate\Validation\ValidationServiceProvider as IlluminateValidationServi
  * @package Notadd\Foundation\Validation
  */
 class ValidationServiceProvider extends IlluminateValidationServiceProvider {
+    protected $defer = true;
 }

@@ -33,11 +33,14 @@ class ExtensionServiceProvider extends ServiceProvider {
         $extensions->each(function(Extension $extension) use($manager) {
             $registrar = $extension->getRegistrar();
             static::$complies = static::$complies->merge($registrar->compiles());
-            (new Collection($registrar->loadMigrationsFrom()))->each(function($paths) {
-                $this->loadMigrationsFrom($paths);
+            (new Collection($registrar->loadCommandsFrom()))->each(function($command) {
+                $this->commands($command);
             });
             (new Collection($registrar->loadLocalizationsFrom()))->each(function($path, $namespace) {
                 $this->loadTranslationsFrom($path, $namespace);
+            });
+            (new Collection($registrar->loadMigrationsFrom()))->each(function($paths) {
+                $this->loadMigrationsFrom($paths);
             });
             (new Collection($registrar->loadViewsFrom()))->each(function($path, $namespace) {
                 $this->loadViewsFrom($path, $namespace);

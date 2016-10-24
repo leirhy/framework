@@ -63,6 +63,12 @@ abstract class ExtensionRegistrar {
     /**
      * @return array
      */
+    public function loadCommandsFrom() {
+        return [];
+    }
+    /**
+     * @return array
+     */
     public function loadLocalizationsFrom() {
         return [];
     }

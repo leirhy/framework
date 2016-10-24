@@ -22,6 +22,7 @@ return [
         Illuminate\Cookie\CookieServiceProvider::class,
         Notadd\Foundation\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
+        Notadd\Foundation\Extension\ExtensionServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Notadd\Install\InstallServiceProvider::class,

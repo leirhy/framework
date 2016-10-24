@@ -12,4 +12,8 @@ use Illuminate\Queue\QueueServiceProvider as IlluminateQueueServiceProvider;
  * @package Notadd\Foundation\Queue
  */
 class QueueServiceProvider extends IlluminateQueueServiceProvider {
+    /**
+     * @var bool
+     */
+    protected $defer = true;
 }

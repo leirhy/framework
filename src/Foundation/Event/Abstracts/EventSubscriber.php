@@ -5,7 +5,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 15:34
  */
-namespace Notadd\Foundation\Abstracts;
+namespace Notadd\Foundation\Event\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Str;

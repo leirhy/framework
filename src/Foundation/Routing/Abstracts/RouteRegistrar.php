@@ -9,7 +9,7 @@ namespace Notadd\Foundation\Routing\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Routing\Router;
-use Notadd\Foundation\Abstracts\EventSubscriber;
+use Notadd\Foundation\Event\Abstracts\EventSubscriber;
 use Notadd\Foundation\Routing\Events\RouteRegister as RouteRegisterEvent;
 /**
  * Class AbstractRouteRegister

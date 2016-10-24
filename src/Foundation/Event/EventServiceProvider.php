@@ -12,4 +12,10 @@ use Illuminate\Events\EventServiceProvider as IlluminateEventServiceProvider;
  * @package Notadd\Foundation\Event
  */
 class EventServiceProvider extends IlluminateEventServiceProvider {
+    /**
+     * @return void
+     */
+    public function register() {
+        parent::register();
+    }
 }

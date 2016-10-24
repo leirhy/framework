@@ -12,4 +12,8 @@ use Illuminate\Mail\MailServiceProvider as IlluminateMailServiceProvider;
  * @package Notadd\Foundation\Mail
  */
 class MailServiceProvider extends IlluminateMailServiceProvider {
+    /**
+     * @var bool
+     */
+    protected $defer = true;
 }

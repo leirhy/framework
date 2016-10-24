@@ -12,4 +12,10 @@ use Illuminate\Auth\AuthServiceProvider as IlluminateAuthServiceProvider;
  * @package Notadd\Foundation\Auth
  */
 class AuthServiceProvider extends IlluminateAuthServiceProvider {
+    /**
+     * @return void
+     */
+    public function register() {
+        parent::register();
+    }
 }

@@ -12,4 +12,8 @@ use Illuminate\Cache\CacheServiceProvider as IlluminateCacheServiceProvider;
  * @package Notadd\Foundation\Cache
  */
 class CacheServiceProvider extends IlluminateCacheServiceProvider {
+    /**
+     * @var bool
+     */
+    protected $defer = true;
 }

@@ -12,4 +12,10 @@ use Illuminate\Session\SessionServiceProvider as IlluminateSessionServiceProvide
  * @package Notadd\Foundation\Session
  */
 class SessionServiceProvider extends IlluminateSessionServiceProvider {
+    /**
+     * @return void
+     */
+    public function register() {
+        parent::register();
+    }
 }

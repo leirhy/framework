@@ -12,4 +12,10 @@ use Illuminate\Notifications\NotificationServiceProvider as IlluminateNotificati
  * @package Notadd\Foundation\Notification
  */
 class NotificationServiceProvider extends IlluminateNotificationServiceProvider {
+    /**
+     * @return void
+     */
+    public function register() {
+        parent::register();
+    }
 }

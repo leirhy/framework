@@ -12,4 +12,8 @@ use Illuminate\Bus\BusServiceProvider as IlluminateBusServiceProvider;
  * @package Notadd\Foundation\Bus
  */
 class BusServiceProvider extends IlluminateBusServiceProvider {
+    /**
+     * @var bool
+     */
+    protected $defer = true;
 }

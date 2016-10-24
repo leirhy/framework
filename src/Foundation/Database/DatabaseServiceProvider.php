@@ -7,9 +7,17 @@
  */
 namespace Notadd\Foundation\Database;
 use Illuminate\Database\DatabaseServiceProvider as IlluminateDatabaseServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 /**
  * Class DatabaseServiceProvider
  * @package Notadd\Foundation\Database
  */
 class DatabaseServiceProvider extends IlluminateDatabaseServiceProvider {
+    /**
+     * @return void
+     */
+    public function boot() {
+        Model::setConnectionResolver($this->app['db']);
+        Model::setEventDispatcher($this->app['events']);
+    }
 }

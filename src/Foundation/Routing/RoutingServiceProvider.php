@@ -12,4 +12,10 @@ use Illuminate\Routing\RoutingServiceProvider as IlluminateRoutingServiceProvide
  * @package Notadd\Foundation\Routing
  */
 class RoutingServiceProvider extends IlluminateRoutingServiceProvider {
+    /**
+     * @return void
+     */
+    public function register() {
+        parent::register();
+    }
 }

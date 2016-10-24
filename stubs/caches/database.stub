@@ -14,7 +14,7 @@ class CreateCacheTable extends Migration {
      * @return void
      */
     public function up() {
-        $this->schema->create('cache', function (Blueprint $table) {
+        $this->schema->create('caches', function (Blueprint $table) {
             $table->string('key')->unique();
             $table->text('value');
             $table->integer('expiration');
@@ -25,6 +25,6 @@ class CreateCacheTable extends Migration {
      * @return void
      */
     public function down() {
-        $this->schema->dropIfExists('cache');
+        $this->schema->dropIfExists('caches');
     }
 }

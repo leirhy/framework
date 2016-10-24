@@ -10,7 +10,7 @@ return [
         ],
         'database' => [
             'driver' => 'database',
-            'table' => 'cache',
+            'table' => 'caches',
             'connection' => null,
         ],
         'file' => [

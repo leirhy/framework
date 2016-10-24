@@ -493,6 +493,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'boot'
             ]);
         }
+        return null;
     }
     /**
      * @param mixed $callback

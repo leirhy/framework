@@ -31,6 +31,7 @@ return [
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Notadd\Foundation\Session\SessionServiceProvider::class,
+        Notadd\Foundation\Setting\SettingServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Notadd\Foundation\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,

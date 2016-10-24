@@ -17,23 +17,22 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class LoadConfiguration {
     /**
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      * @return void
      */
-    public function bootstrap(Application $app) {
+    public function bootstrap(Application $application) {
         $items = [];
-        if(file_exists($cached = $app->getCachedConfigPath())) {
+        if(file_exists($cached = $application->getCachedConfigPath())) {
             $items = require $cached;
             $loadedFromCache = true;
         }
-        $app->instance('config', $config = new Repository($items));
+        $application->instance('config', $config = new Repository($items));
         if(!isset($loadedFromCache)) {
-            $this->loadConfigurationFiles($app, $config);
+            $this->loadConfigurationFiles($application, $config);
         }
-        $app->detectEnvironment(function () use ($config) {
+        $application->detectEnvironment(function () use ($config) {
             return $config->get('app.env', 'production');
         });
-        date_default_timezone_set($config['app.timezone']);
         mb_internal_encoding('UTF-8');
     }
     /**

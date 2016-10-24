@@ -13,6 +13,7 @@ use Notadd\Foundation\Bootstrap\ConfigureLogging;
 use Notadd\Foundation\Bootstrap\DetectEnvironment;
 use Notadd\Foundation\Bootstrap\HandleExceptions;
 use Notadd\Foundation\Bootstrap\LoadConfiguration;
+use Notadd\Foundation\Bootstrap\LoadSetting;
 use Notadd\Foundation\Bootstrap\RegisterFacades;
 use Notadd\Foundation\Bootstrap\RegisterProviders;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
@@ -64,6 +65,7 @@ class Kernel implements KernelContract {
         SetRequestForConsole::class,
         RegisterProviders::class,
         BootProviders::class,
+        LoadSetting::class,
         RegisterRouter::class,
     ];
     /**

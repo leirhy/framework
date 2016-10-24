@@ -779,6 +779,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Session\Store',
                 'Symfony\Component\HttpFoundation\Session\SessionInterface'
             ],
+            'setting' => ['Notadd\Foundation\Setting\Contracts\SettingsRepository'],
             'url' => [
                 'Illuminate\Routing\UrlGenerator',
                 'Illuminate\Contracts\Routing\UrlGenerator'
@@ -822,5 +823,20 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             }
         }
         throw new RuntimeException('Unable to detect application namespace.');
+    }
+    /**
+     * @return bool
+     */
+    public function isInstalled() {
+        if($this->bound('installed')) {
+            return true;
+        } else {
+            if(file_exists($this->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'replace.php')) {
+                $this->instance('installed', true);
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

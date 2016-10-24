@@ -16,14 +16,14 @@ use Symfony\Component\Console\Input\ArgvInput;
  */
 class DetectEnvironment {
     /**
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      * @return void
      */
-    public function bootstrap(Application $app) {
-        if(!$app->configurationIsCached()) {
-            $this->checkForSpecificEnvironmentFile($app);
+    public function bootstrap(Application $application) {
+        if(!$application->configurationIsCached()) {
+            $this->checkForSpecificEnvironmentFile($application);
             try {
-                (new Dotenv($app->environmentPath(), $app->environmentFile()))->load();
+                (new Dotenv($application->environmentPath(), $application->environmentFile()))->load();
             } catch(InvalidPathException $e) {
             }
         }

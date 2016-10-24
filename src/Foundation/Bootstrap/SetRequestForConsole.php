@@ -14,11 +14,11 @@ use Illuminate\Http\Request;
  */
 class SetRequestForConsole {
     /**
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application $application
      * @return void
      */
-    public function bootstrap(Application $app) {
-        $url = $app->make('config')->get('app.url', 'http://localhost');
-        $app->instance('request', Request::create($url, 'GET', [], [], [], $_SERVER));
+    public function bootstrap(Application $application) {
+        $url = $application->make('config')->get('app.url', 'http://localhost');
+        $application->instance('request', Request::create($url, 'GET', [], [], [], $_SERVER));
     }
 }

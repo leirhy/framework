@@ -22,11 +22,11 @@ class HandleExceptions {
      */
     protected $app;
     /**
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      * @return void
      */
-    public function bootstrap(Application $app) {
-        $this->app = $app;
+    public function bootstrap(Application $application) {
+        $this->app = $application;
         error_reporting(-1);
         set_error_handler([
             $this,
@@ -40,7 +40,7 @@ class HandleExceptions {
             $this,
             'handleShutdown'
         ]);
-        if(!$app->environment('testing')) {
+        if(!$application->environment('testing')) {
             ini_set('display_errors', 'Off');
         }
     }

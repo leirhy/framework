@@ -36,12 +36,12 @@ class LoadConfiguration {
         mb_internal_encoding('UTF-8');
     }
     /**
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      * @param \Illuminate\Contracts\Config\Repository $repository
      * @return void
      */
-    protected function loadConfigurationFiles(Application $app, RepositoryContract $repository) {
-        foreach($this->getConfigurationFiles($app) as $key => $path) {
+    protected function loadConfigurationFiles(Application $application, RepositoryContract $repository) {
+        foreach($this->getConfigurationFiles($application) as $key => $path) {
             $repository->set($key, require $path);
         }
     }

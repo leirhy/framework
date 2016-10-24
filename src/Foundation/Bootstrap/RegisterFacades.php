@@ -15,12 +15,12 @@ use Notadd\Foundation\AliasLoader;
  */
 class RegisterFacades {
     /**
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application $application
      * @return void
      */
-    public function bootstrap(Application $app) {
+    public function bootstrap(Application $application) {
         Facade::clearResolvedInstances();
-        Facade::setFacadeApplication($app);
-        AliasLoader::getInstance($app->make('config')->get('app.aliases', []))->register();
+        Facade::setFacadeApplication($application);
+        AliasLoader::getInstance($application->make('config')->get('app.aliases', []))->register();
     }
 }

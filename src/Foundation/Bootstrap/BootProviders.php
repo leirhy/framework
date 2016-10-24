@@ -13,10 +13,10 @@ use Illuminate\Contracts\Foundation\Application;
  */
 class BootProviders {
     /**
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application $application
      * @return void
      */
-    public function bootstrap(Application $app) {
-        $app->boot();
+    public function bootstrap(Application $application) {
+        $application->boot();
     }
 }

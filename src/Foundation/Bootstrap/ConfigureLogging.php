@@ -15,15 +15,15 @@ use Monolog\Logger as Monolog;
  */
 class ConfigureLogging {
     /**
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      * @return void
      */
-    public function bootstrap(Application $app) {
-        $log = $this->registerLogger($app);
-        if($app->hasMonologConfigurator()) {
-            call_user_func($app->getMonologConfigurator(), $log->getMonolog());
+    public function bootstrap(Application $application) {
+        $log = $this->registerLogger($application);
+        if($application->hasMonologConfigurator()) {
+            call_user_func($application->getMonologConfigurator(), $log->getMonolog());
         } else {
-            $this->configureHandlers($app, $log);
+            $this->configureHandlers($application, $log);
         }
     }
     /**

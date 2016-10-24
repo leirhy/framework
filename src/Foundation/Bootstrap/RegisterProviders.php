@@ -13,10 +13,10 @@ use Illuminate\Contracts\Foundation\Application;
  */
 class RegisterProviders {
     /**
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application $application
      * @return void
      */
-    public function bootstrap(Application $app) {
-        $app->registerConfiguredProviders();
+    public function bootstrap(Application $application) {
+        $application->registerConfiguredProviders();
     }
 }

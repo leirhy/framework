@@ -14,19 +14,21 @@ use Notadd\Foundation\Routing\Events\RouteRegister;
  */
 class RegisterRouter {
     /**
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      * @return void
      */
-    public function bootstrap(Application $app) {
-        if($app->routesAreCached()) {
-            $app->booted(function () use($app) {
-                require $app->getCachedRoutesPath();
-            });
-        } else {
-            $app->make('events')->fire(new RouteRegister($app, $app['router']));
-            $app->booted(function () use($app) {
-                $app['router']->getRoutes()->refreshNameLookups();
-            });
+    public function bootstrap(Application $application) {
+        if($application->isInstalled()) {
+            if($application->routesAreCached()) {
+                $application->booted(function () use($application) {
+                    require $application->getCachedRoutesPath();
+                });
+            } else {
+                $application->make('events')->fire(new RouteRegister($application, $application['router']));
+                $application->booted(function () use($application) {
+                    $application['router']->getRoutes()->refreshNameLookups();
+                });
+            }
         }
     }
 }

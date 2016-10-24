@@ -7,6 +7,7 @@
  */
 namespace Notadd\Foundation\Routing\Abstracts;
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Routing\Controller as IlluminateController;
 use Illuminate\Support\Str;
 use Notadd\Foundation\Validation\ValidatesRequests;
@@ -52,14 +53,26 @@ class Controller extends IlluminateController {
         $this->events = $this->container->make('events');
         $this->redirector = $this->container->make('redirect');
         $this->request = $this->container->make('request');
-        //$this->session = $this->request->session();
         $this->view = $this->container->make('view');
+    }
+    /**
+     * @param string $name
+     * @return \Symfony\Component\Console\Command\Command|\Notadd\Foundation\Console\Abstracts\Command
+     */
+    public function getCommand($name) {
+        return $this->getConsole()->get($name);
     }
     /**
      * @return \Illuminate\Config\Repository
      */
     public function getConfig() {
         return $this->container->make('config');
+    }
+    /**
+     * @return \Illuminate\Contracts\Console\Kernel|\Notadd\Foundation\Console\Application
+     */
+    public function getConsole() {
+        return $this->container->make(Kernel::class);
     }
     /**
      * @return \Illuminate\Container\Container
@@ -78,6 +91,12 @@ class Controller extends IlluminateController {
      */
     public function getMailer() {
         return $this->container->make('mailer');
+    }
+    /**
+     * @return \Illuminate\Session\Store
+     */
+    public function getSession() {
+        return $this->container->make('session');
     }
     /**
      * @param $key

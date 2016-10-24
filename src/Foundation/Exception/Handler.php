@@ -7,6 +7,7 @@
  */
 namespace Notadd\Foundation\Exception;
 use Exception;
+use Illuminate\Config\Repository;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Routing\Redirector;
@@ -33,6 +34,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse
  */
 class Handler implements ExceptionHandlerContract {
     /**
+     * @var \Illuminate\Config\Repository
+     */
+    protected $configuration;
+    /**
      * @var \Illuminate\Contracts\Container\Container
      */
     protected $container;
@@ -54,155 +59,157 @@ class Handler implements ExceptionHandlerContract {
     protected $view;
     /**
      * @param \Illuminate\Contracts\Container\Container $container
+     * @param \Illuminate\Config\Repository $configuration
      * @param \Illuminate\Routing\Redirector $redirector
      * @param \Illuminate\Contracts\Routing\ResponseFactory $response
      * @param \Illuminate\Contracts\View\Factory|\Illuminate\View\View $view
      */
-    public function __construct(Container $container, Redirector $redirector, ResponseFactory $response, ViewFactory $view) {
+    public function __construct(Container $container, Repository $configuration, Redirector $redirector, ResponseFactory $response, ViewFactory $view) {
         $this->container = $container;
+        $this->configuration = $configuration;
         $this->redirector = $redirector;
         $this->response = $response;
         $this->view = $view;
     }
     /**
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return void
      * @throws \Exception
      */
-    public function report(Exception $e) {
-        if($this->shouldntReport($e)) {
+    public function report(Exception $exception) {
+        if($this->shouldntReport($exception)) {
             return;
         }
         try {
             $logger = $this->container->make(LoggerInterface::class);
         } catch(Exception $ex) {
-            throw $e;
+            throw $exception;
         }
-        $logger->error($e);
+        $logger->error($exception);
     }
     /**
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return bool
      */
-    public function shouldReport(Exception $e) {
-        return !$this->shouldntReport($e);
+    public function shouldReport(Exception $exception) {
+        return !$this->shouldntReport($exception);
     }
     /**
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return bool
      */
-    protected function shouldntReport(Exception $e) {
+    protected function shouldntReport(Exception $exception) {
         $dontReport = array_merge($this->dontReport, [HttpResponseException::class]);
         foreach($dontReport as $type) {
-            if($e instanceof $type) {
+            if($exception instanceof $type) {
                 return true;
             }
         }
         return false;
     }
     /**
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return \Exception
      */
-    protected function prepareException(Exception $e) {
-        if($e instanceof ModelNotFoundException) {
-            $e = new NotFoundHttpException($e->getMessage(), $e);
-        } elseif($e instanceof AuthorizationException) {
-            $e = new HttpException(403, $e->getMessage());
+    protected function prepareException(Exception $exception) {
+        if($exception instanceof ModelNotFoundException) {
+            $exception = new NotFoundHttpException($exception->getMessage(), $exception);
+        } elseif($exception instanceof AuthorizationException) {
+            $exception = new HttpException(403, $exception->getMessage());
         }
-        return $e;
+        return $exception;
     }
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function render($request, Exception $e) {
-        $e = $this->prepareException($e);
-        if($e instanceof HttpResponseException) {
-            return $e->getResponse();
-        } elseif($e instanceof AuthenticationException) {
-            return $this->unauthenticated($request, $e);
-        } elseif($e instanceof ValidationException) {
-            return $this->convertValidationExceptionToResponse($e, $request);
+    public function render($request, Exception $exception) {
+        $exception = $this->prepareException($exception);
+        if($exception instanceof HttpResponseException) {
+            return $exception->getResponse();
+        } elseif($exception instanceof AuthenticationException) {
+            return $this->unauthenticated($request, $exception);
+        } elseif($exception instanceof ValidationException) {
+            return $this->convertValidationExceptionToResponse($exception, $request);
         }
-        return $this->prepareResponse($request, $e);
+        return $this->prepareResponse($request, $exception);
     }
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function prepareResponse($request, Exception $e) {
-        if($this->isHttpException($e)) {
-            return $this->toIlluminateResponse($this->renderHttpException($e), $e);
+    protected function prepareResponse($request, Exception $exception) {
+        if($this->isHttpException($exception)) {
+            return $this->toIlluminateResponse($this->renderHttpException($exception), $exception);
         } else {
-            return $this->toIlluminateResponse($this->convertExceptionToResponse($e), $e);
+            return $this->toIlluminateResponse($this->convertExceptionToResponse($exception), $exception);
         }
     }
     /**
      * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return \Illuminate\Http\Response
      */
-    protected function toIlluminateResponse($response, Exception $e) {
+    protected function toIlluminateResponse($response, Exception $exception) {
         if($response instanceof SymfonyRedirectResponse) {
             $response = new RedirectResponse($response->getTargetUrl(), $response->getStatusCode(), $response->headers->all());
         } else {
             $response = new Response($response->getContent(), $response->getStatusCode(), $response->headers->all());
         }
-        return $response->withException($e);
+        return $response->withException($exception);
     }
     /**
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return void
      */
-    public function renderForConsole($output, Exception $e) {
-        (new ConsoleApplication)->renderException($e, $output);
+    public function renderForConsole($output, Exception $exception) {
+        (new ConsoleApplication)->renderException($exception, $output);
     }
     /**
-     * @param \Symfony\Component\HttpKernel\Exception\HttpException $e
+     * @param \Symfony\Component\HttpKernel\Exception\HttpException $exception
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function renderHttpException(HttpException $e) {
-        $status = $e->getStatusCode();
-        if($this->view->exists("error::{$status}")) {
-            return $this->response->view("error::{$status}", ['exception' => $e], $status, $e->getHeaders());
+    protected function renderHttpException(HttpException $exception) {
+        $status = $exception->getStatusCode();
+        if($this->view->exists("error::{$status}") && !$this->configuration->get('app.debug')) {
+            return $this->response->view("error::{$status}", ['exception' => $exception], $status, $exception->getHeaders());
         } else {
-            return $this->convertExceptionToResponse($e);
+            return $this->convertExceptionToResponse($exception);
         }
     }
     /**
-     * @param \Illuminate\Validation\ValidationException $e
+     * @param \Illuminate\Validation\ValidationException $exception
      * @param \Illuminate\Http\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function convertValidationExceptionToResponse(ValidationException $e, $request) {
-        if($e->response) {
-            return $e->response;
+    protected function convertValidationExceptionToResponse(ValidationException $exception, $request) {
+        if($exception->response) {
+            return $exception->response;
         }
-        $errors = $e->validator->errors()->getMessages();
+        $errors = $exception->validator->errors()->getMessages();
         if($request->expectsJson()) {
             return $this->response->json($errors, 422);
         }
         return $this->redirector->back()->withInput($request->input())->withErrors($errors);
     }
     /**
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function convertExceptionToResponse(Exception $e) {
-        $e = FlattenException::create($e);
-        $handler = new SymfonyExceptionHandler(config('app.debug'));
-        return SymfonyResponse::create($handler->getHtml($e), $e->getStatusCode(), $e->getHeaders());
+    protected function convertExceptionToResponse(Exception $exception) {
+        $exception = FlattenException::create($exception);
+        $handler = new SymfonyExceptionHandler($this->configuration->get('app.debug'));
+        return SymfonyResponse::create($handler->getHtml($exception), $exception->getStatusCode(), $exception->getHeaders());
     }
     /**
-     * @param \Exception $e
+     * @param \Exception $exception
      * @return bool
      */
-    protected function isHttpException(Exception $e) {
-        return $e instanceof HttpException;
+    protected function isHttpException(Exception $exception) {
+        return $exception instanceof HttpException;
     }
     /**
      * @param \Illuminate\Http\Request $request

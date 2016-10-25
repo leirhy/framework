@@ -84,15 +84,15 @@
     },
     "scripts": {
         "post-create-project-cmd": [
-            "php artisan key:generate"
+            "php notadd key:generate"
         ],
         "post-install-cmd": [
             "Notadd\\Foundation\\Composer\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "php notadd optimize"
         ],
         "post-update-cmd": [
             "Notadd\\Foundation\\Composer\\ComposerScripts::postUpdate",
-            "php artisan optimize"
+            "php notadd optimize"
         ]
     }
 }

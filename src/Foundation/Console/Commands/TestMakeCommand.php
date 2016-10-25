@@ -6,6 +6,7 @@
  * @datetime 2016-10-21 12:22
  */
 namespace Notadd\Foundation\Console\Commands;
+use Carbon\Carbon;
 use Illuminate\Console\GeneratorCommand;
 /**
  * Class TestMakeCommand
@@ -25,10 +26,11 @@ class TestMakeCommand extends GeneratorCommand {
      */
     protected $type = 'Test';
     /**
+     * @param string $rootNamespace
      * @return string
      */
-    protected function getStub() {
-        return __DIR__ . '/stubs/test.stub';
+    protected function getDefaultNamespace($rootNamespace) {
+        return $rootNamespace;
     }
     /**
      * @param string $name
@@ -39,10 +41,18 @@ class TestMakeCommand extends GeneratorCommand {
         return $this->laravel['path.base'] . '/tests/' . str_replace('\\', '/', $name) . '.php';
     }
     /**
-     * @param string $rootNamespace
      * @return string
      */
-    protected function getDefaultNamespace($rootNamespace) {
-        return $rootNamespace;
+    protected function getStub() {
+        return $this->laravel->basePath() . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . 'test.stub';
+    }
+    /**
+     * @param string $stub
+     * @param string $name
+     * @return mixed
+     */
+    protected function replaceClass($stub, $name) {
+        $stub = parent::replaceClass($stub, $name);
+        return str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
     }
 }

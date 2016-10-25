@@ -14,7 +14,7 @@ use Notadd\Foundation\Application;
  */
 class ComposerScripts {
     /**
-     * @param  \Composer\Script\Event $event
+     * @param \Composer\Script\Event $event
      * @return void
      */
     public static function postInstall(Event $event) {
@@ -22,7 +22,7 @@ class ComposerScripts {
         static::clearCompiled();
     }
     /**
-     * @param  \Composer\Script\Event $event
+     * @param \Composer\Script\Event $event
      * @return void
      */
     public static function postUpdate(Event $event) {

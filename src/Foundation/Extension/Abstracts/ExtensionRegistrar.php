@@ -55,11 +55,11 @@ abstract class ExtensionRegistrar {
     /**
      * @return string
      */
-    abstract protected function getExtensionName();
+    abstract public function getExtensionName();
     /**
      * @return string
      */
-    abstract protected function getExtensionPath();
+    abstract public function getExtensionPath();
     /**
      * @return array
      */
@@ -84,8 +84,4 @@ abstract class ExtensionRegistrar {
     public function loadViewsFrom() {
         return [];
     }
-    /**
-     * @return void
-     */
-    abstract public function register();
 }

@@ -44,7 +44,7 @@ return [
         Notadd\Foundation\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Notadd\Foundation\Http\HttpServiceProvider::class,
-        Notadd\Admin\AdminServiceProvider::class,
+        Notadd\Foundation\Administration\AdministrationServiceProvider::class,
     ],
     'aliases' => [
         'App' => Illuminate\Support\Facades\App::class,

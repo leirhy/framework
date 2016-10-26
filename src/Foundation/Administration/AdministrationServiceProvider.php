@@ -5,23 +5,19 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 13:24
  */
-namespace Notadd\Admin;
+namespace Notadd\Foundation\Administration;
 use Illuminate\Support\ServiceProvider;
-use Notadd\Admin\Listeners\RouteRegistrar;
 /**
- * Class AdminServiceProvider
+ * Class AdministrationServiceProvider
  * @package Notadd\Admin
  */
-class AdminServiceProvider extends ServiceProvider {
-    /**
-     * @return void
-     */
-    public function boot() {
-        $this->app->make('events')->subscribe(RouteRegistrar::class);
-    }
+class AdministrationServiceProvider extends ServiceProvider {
     /**
      * @return void
      */
     public function register() {
+        $this->app->singleton('administration', function($app) {
+            return new Administration($app, $app['events']);
+        });
     }
 }

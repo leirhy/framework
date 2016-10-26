@@ -755,6 +755,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Auth\Passwords\PasswordBroker',
                 'Illuminate\Contracts\Auth\PasswordBroker'
             ],
+            'administration' => ['Notadd\Foundation\Administration\Administration'],
             'queue' => [
                 'Illuminate\Queue\QueueManager',
                 'Illuminate\Contracts\Queue\Factory',

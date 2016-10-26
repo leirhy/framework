@@ -33,7 +33,7 @@ class ExtensionServiceProvider extends ServiceProvider {
         $extensions->each(function(Extension $extension) use($manager) {
             $registrar = $extension->getRegistrar();
             static::$complies = static::$complies->merge($registrar->compiles());
-            (new Collection($registrar->loadCommandsFrom()))->each(function($command) {
+            (new Collection($registrar->loadCommands()))->each(function($command) {
                 $this->commands($command);
             });
             (new Collection($registrar->loadLocalizationsFrom()))->each(function($path, $namespace) {

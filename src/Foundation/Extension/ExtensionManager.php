@@ -56,8 +56,6 @@ class ExtensionManager {
     public function bootExtension(ExtensionRegistrar $registrar) {
         if(method_exists($registrar, 'register')) {
             $this->container->call([$registrar, 'register']);
-        } else {
-            throw new \Exception("{$registrar->getExtensionName()} register Fail!");
         }
         $this->booted[get_class($registrar)] = $registrar;
     }

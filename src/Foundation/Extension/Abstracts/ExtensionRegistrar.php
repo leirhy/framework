@@ -63,7 +63,7 @@ abstract class ExtensionRegistrar {
     /**
      * @return array
      */
-    public function loadCommandsFrom() {
+    public function loadCommands() {
         return [];
     }
     /**

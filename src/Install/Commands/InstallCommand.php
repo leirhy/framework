@@ -191,6 +191,7 @@ class InstallCommand extends Command {
             'fetch' => PDO::FETCH_OBJ,
             'default' => $this->data->get('driver'),
             'connections' => [],
+            'migrations' => 'migrations',
             'redis' => [],
         ];
         switch($this->data->get('driver')) {

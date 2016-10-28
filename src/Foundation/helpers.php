@@ -28,7 +28,7 @@ if(!function_exists('abort')) {
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     function abort($code, $message = '', array $headers = []) {
-        return app()->abort($code, $message, $headers);
+        app()->abort($code, $message, $headers);
     }
 }
 if(!function_exists('abort_if')) {
@@ -160,7 +160,7 @@ if(!function_exists('broadcast')) {
 }
 if(!function_exists('cache')) {
     /**
-     * @param dynamic  key|key,default|data,expiration|null
+     * @param dynamic key|key,default|data,expiration|null
      * @return mixed
      * @throws \Exception
      */
@@ -331,7 +331,7 @@ if(!function_exists('env')) {
                 return '';
             case 'null':
             case '(null)':
-                return;
+                return null;
         }
         if(strlen($value) > 1 && Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
             return substr($value, 1, -1);
@@ -350,7 +350,7 @@ if(!function_exists('event')) {
 }
 if(!function_exists('factory')) {
     /**
-     * @param dynamic  class|class,name|class,amount|class,name,amount
+     * @param dynamic class|class,name|class,amount|class,name,amount
      * @return \Illuminate\Database\Eloquent\FactoryBuilder
      */
     function factory() {
@@ -372,7 +372,7 @@ if(!function_exists('info')) {
      * @return void
      */
     function info($message, $context = []) {
-        return app('log')->info($message, $context);
+        app('log')->info($message, $context);
     }
 }
 if(!function_exists('logger')) {

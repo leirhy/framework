@@ -6,12 +6,24 @@
  * @datetime 2016-10-21 13:24
  */
 namespace Notadd\Foundation\Administration;
+use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\ServiceProvider;
 /**
  * Class AdministrationServiceProvider
  * @package Notadd\Admin
  */
 class AdministrationServiceProvider extends ServiceProvider {
+    /**
+     * @return void
+     */
+    public function boot() {
+        $this->app->make('events')->listen(RouteMatched::class, function() {
+            $administration = $this->app->make(Administration::class);
+            if(is_null($administration->getAdministrator())) {
+                throw new \Exception("Administrator must be register!");
+            }
+        });
+    }
     /**
      * @return void
      */

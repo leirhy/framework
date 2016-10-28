@@ -36,7 +36,13 @@ class Administration {
         $this->events = $events;
     }
     /**
-     * @param $administrator
+     * @return \Notadd\Foundation\Administration\Abstracts\Administrator
+     */
+    public function getAdministrator() {
+        return $this->administrator;
+    }
+    /**
+     * @param \Notadd\Foundation\Administration\Abstracts\Administrator $administrator
      */
     public function setAdministrator(Administrator $administrator) {
         if(is_object($this->administrator)) {

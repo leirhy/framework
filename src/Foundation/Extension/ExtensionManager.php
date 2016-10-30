@@ -75,8 +75,8 @@ class ExtensionManager {
                 $packages->each(function (array $package) {
                     $name = Arr::get($package, 'name');
                     if(Arr::get($package, 'type') == 'notadd-extension' && $name) {
-                        $extension = new Extension($name, $this->getVendorPath() . DIRECTORY_SEPARATOR . $name);
-                        $this->extensions->put($extension->getId(), $extension);
+                        //$extension = new Extension($name, $this->getVendorPath() . DIRECTORY_SEPARATOR . $name);
+                        $this->extensions->put($name, $this->getVendorPath() . DIRECTORY_SEPARATOR . $name);
                     }
                 });
             }
@@ -84,15 +84,18 @@ class ExtensionManager {
                 (new Collection($directories))->each(function($directory) {
                     if($this->filesystem->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = new Collection(json_decode($this->filesystem->get($file), true));
-                        if(Arr::get($package, 'type') == 'notadd-extension' && $this->filesystem->exists($bootstrap = $directory . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
-                            $extension = $this->filesystem->getRequire($bootstrap);
-                            if(is_string($extension) && in_array(ExtensionRegistrar::class, class_parents($extension))) {
-                                $registrar = $this->container->make($extension);
-                                $extension = $registrar->getExtension();
-                            }
-                            if($extension instanceof Extension) {
-                                $this->extensions->put($extension->getId(), $extension);
-                            }
+                        //if(Arr::get($package, 'type') == 'notadd-extension' && $this->filesystem->exists($bootstrap = $directory . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
+                        //    $extension = $this->filesystem->getRequire($bootstrap);
+                        //    if(is_string($extension) && in_array(ExtensionRegistrar::class, class_parents($extension))) {
+                        //        $registrar = $this->container->make($extension);
+                        //        $extension = $registrar->getExtension();
+                        //    }
+                        //    if($extension instanceof Extension) {
+                        //        $this->extensions->put($extension->getId(), $extension);
+                        //    }
+                        //}
+                        if(Arr::get($package, 'type') == 'notadd-extension' && $name = Arr::get($package, 'name')) {
+                            $this->extensions->put($name, $directory);
                         }
                     }
                 });

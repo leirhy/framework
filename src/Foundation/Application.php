@@ -703,6 +703,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Cache\Repository',
                 'Illuminate\Contracts\Cache\Repository'
             ],
+            'composer' => ['Illuminate\Support\Composer'],
             'config' => [
                 'Illuminate\Config\Repository',
                 'Illuminate\Contracts\Config\Repository'

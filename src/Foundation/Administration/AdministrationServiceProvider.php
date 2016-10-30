@@ -18,9 +18,11 @@ class AdministrationServiceProvider extends ServiceProvider {
      */
     public function boot() {
         $this->app->make('events')->listen(RouteMatched::class, function() {
-            $administration = $this->app->make(Administration::class);
-            if(is_null($administration->getAdministrator())) {
-                throw new \Exception("Administrator must be register!");
+            if($this->app->isInstalled()) {
+                $administration = $this->app->make(Administration::class);
+                if(is_null($administration->getAdministrator())) {
+                    throw new \Exception("Administrator must be register!");
+                }
             }
         });
     }

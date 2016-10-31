@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
  */
 abstract class EventSubscriber {
     /**
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
     /**

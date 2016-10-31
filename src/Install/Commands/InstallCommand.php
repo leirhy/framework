@@ -121,13 +121,14 @@ class InstallCommand extends Command {
         ]);
         $setting = $this->container->make(SettingsRepository::class);
         $setting->set('setting.title', $this->data->get('website'));
+        $setting->set('setting.image.engine', 'webp');
         if($this->data->get('image_engine', false)) {
-            $setting->set('setting.image.engine', 'webp');
         } else {
             $setting->set('setting.image.engine', 'normal');
         }
         $this->createAdministrationUser();
         $this->writingConfiguration();
+        $this->call('key:generate');
         $this->info('Notadd Installed!');
     }
     /**

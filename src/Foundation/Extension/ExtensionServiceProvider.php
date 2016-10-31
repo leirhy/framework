@@ -31,7 +31,8 @@ class ExtensionServiceProvider extends ServiceProvider {
      */
     public function boot() {
         if($this->app->isInstalled()) {
-            $extensions = $this->app->make(ExtensionManager::class)->getExtensions();
+            $manager = $this->app->make(ExtensionManager::class);
+            $extensions = $manager->getExtensions();
             $extensions->each(function(Extension $extension) use($manager) {
                 $registrar = $extension->getRegistrar();
                 static::$complies = static::$complies->merge($registrar->compiles());

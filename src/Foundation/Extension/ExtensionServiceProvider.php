@@ -27,30 +27,32 @@ class ExtensionServiceProvider extends ServiceProvider {
         static::$complies = new Collection();
     }
     /**
-     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
+     * @return void
      */
-    public function boot(ExtensionManager $manager = null) {
-        $extensions = $manager->getExtensions();
-        $extensions->each(function(Extension $extension) use($manager) {
-            $registrar = $extension->getRegistrar();
-            static::$complies = static::$complies->merge($registrar->compiles());
-            (new Collection($registrar->loadCommands()))->each(function($command) {
-                $this->commands($command);
+    public function boot() {
+        if($this->app->isInstalled()) {
+            $extensions = $this->app->make(ExtensionManager::class)->getExtensions();
+            $extensions->each(function(Extension $extension) use($manager) {
+                $registrar = $extension->getRegistrar();
+                static::$complies = static::$complies->merge($registrar->compiles());
+                (new Collection($registrar->loadCommands()))->each(function($command) {
+                    $this->commands($command);
+                });
+                (new Collection($registrar->loadLocalizationsFrom()))->each(function($path, $namespace) {
+                    $this->loadTranslationsFrom($path, $namespace);
+                });
+                (new Collection($registrar->loadMigrationsFrom()))->each(function($paths) {
+                    $this->loadMigrationsFrom($paths);
+                });
+                (new Collection($registrar->loadViewsFrom()))->each(function($path, $namespace) {
+                    $this->loadViewsFrom($path, $namespace);
+                });
+                $manager->bootExtension($registrar);
             });
-            (new Collection($registrar->loadLocalizationsFrom()))->each(function($path, $namespace) {
-                $this->loadTranslationsFrom($path, $namespace);
-            });
-            (new Collection($registrar->loadMigrationsFrom()))->each(function($paths) {
-                $this->loadMigrationsFrom($paths);
-            });
-            (new Collection($registrar->loadViewsFrom()))->each(function($path, $namespace) {
-                $this->loadViewsFrom($path, $namespace);
-            });
-            $manager->bootExtension($registrar);
-        });
-        $this->commands([
-            InstallCommand::class,
-        ]);
+            $this->commands([
+                InstallCommand::class,
+            ]);
+        }
     }
     /**
      * @return array

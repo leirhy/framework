@@ -44,6 +44,10 @@ class LoadConfiguration {
         foreach($this->getConfigurationFiles($application) as $key => $path) {
             $repository->set($key, require $path);
         }
+        if($application->isInstalled()) {
+            $database = require $application->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'replace.php';
+            $repository->set('database', $database);
+        }
     }
     /**
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app

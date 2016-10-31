@@ -21,8 +21,6 @@ class LoadSetting {
     public function bootstrap(Application $application) {
         if($application->isInstalled()) {
             $config = $application->make(Repository::class);
-            $database = require $application->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'replace.php';
-            $config->set('database', $database);
             $setting = $application->make(SettingsRepository::class);
             date_default_timezone_set($setting->get('setting.timezone', $config['app.timezone']));
             $config->set('app.debug', $setting->get('setting.debug', true));

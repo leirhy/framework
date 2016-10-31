@@ -56,10 +56,9 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract {
     public function get($key, $default = null) {
         if(array_key_exists($key, $this->cache)) {
             return $this->cache[$key];
-        } elseif(!$this->isCached) {
+        } else {
             return array_get($this->all(), $key, $default);
         }
-        return $default;
     }
     /**
      * @param $key

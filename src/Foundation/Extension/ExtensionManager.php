@@ -12,6 +12,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar;
+use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 /**
  * Class ExtensionManager
  * @package Notadd\Extension
@@ -32,22 +33,33 @@ class ExtensionManager {
     /**
      * @var \Illuminate\Support\Collection
      */
+    protected $extensionPaths;
+    /**
+     * @var \Illuminate\Support\Collection
+     */
     protected $extensions;
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $filesystem;
     /**
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $settings;
+    /**
      * ExtensionManager constructor.
      * @param \Illuminate\Container\Container|\Notadd\Foundation\Application $container
      * @param \Illuminate\Events\Dispatcher $events
      * @param \Illuminate\Filesystem\Filesystem $filesystem
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(Container $container, Dispatcher $events, Filesystem $filesystem) {
+    public function __construct(Container $container, Dispatcher $events, Filesystem $filesystem, SettingsRepository $settings) {
         $this->container = $container;
         $this->events = $events;
+        $this->extensionPaths = new Collection();
         $this->extensions = new Collection();
         $this->filesystem = $filesystem;
+        $this->settings = $settings;
     }
     /**
      * @param \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar $registrar
@@ -62,21 +74,20 @@ class ExtensionManager {
     /**
      * @return string
      */
-    protected function getExtensionPath() {
+    public function getExtensionPath() {
         return $this->container->basePath() . DIRECTORY_SEPARATOR . 'extensions';
     }
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function getExtensions() {
-        if($this->extensions->isEmpty()) {
+    public function getExtensionPaths() {
+        if($this->extensionPaths->isEmpty()) {
             if($this->filesystem->exists($file = $this->getVendorPath() . DIRECTORY_SEPARATOR . 'composer' . DIRECTORY_SEPARATOR . 'installed.json')) {
                 $packages = new Collection(json_decode($this->filesystem->get($file), true));
                 $packages->each(function (array $package) {
                     $name = Arr::get($package, 'name');
                     if(Arr::get($package, 'type') == 'notadd-extension' && $name) {
-                        //$extension = new Extension($name, $this->getVendorPath() . DIRECTORY_SEPARATOR . $name);
-                        $this->extensions->put($name, $this->getVendorPath() . DIRECTORY_SEPARATOR . $name);
+                        $this->extensionPaths->put($name, $this->getVendorPath() . DIRECTORY_SEPARATOR . $name);
                     }
                 });
             }
@@ -84,29 +95,41 @@ class ExtensionManager {
                 (new Collection($directories))->each(function($directory) {
                     if($this->filesystem->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = new Collection(json_decode($this->filesystem->get($file), true));
-                        //if(Arr::get($package, 'type') == 'notadd-extension' && $this->filesystem->exists($bootstrap = $directory . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
-                        //    $extension = $this->filesystem->getRequire($bootstrap);
-                        //    if(is_string($extension) && in_array(ExtensionRegistrar::class, class_parents($extension))) {
-                        //        $registrar = $this->container->make($extension);
-                        //        $extension = $registrar->getExtension();
-                        //    }
-                        //    if($extension instanceof Extension) {
-                        //        $this->extensions->put($extension->getId(), $extension);
-                        //    }
-                        //}
                         if(Arr::get($package, 'type') == 'notadd-extension' && $name = Arr::get($package, 'name')) {
-                            $this->extensions->put($name, $directory);
+                            $this->extensionPaths->put($name, $directory);
                         }
                     }
                 });
             }
+        }
+        return $this->extensionPaths;
+    }
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getExtensions() {
+        if($this->extensions->isEmpty()) {
+            $this->getExtensionPaths()->each(function($directory, $key) {
+                if($this->settings->get('extension.' . $key . '.installed')) {
+                    if($this->filesystem->exists($bootstrap = $directory . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
+                        $extension = $this->filesystem->getRequire($bootstrap);
+                        if(is_string($extension) && in_array(ExtensionRegistrar::class, class_parents($extension))) {
+                            $registrar = $this->container->make($extension);
+                            $extension = $registrar->getExtension();
+                        }
+                        if($extension instanceof Extension) {
+                            $this->extensions->put($extension->getId(), $extension);
+                        }
+                    }
+                }
+            });
         }
         return $this->extensions;
     }
     /**
      * @return string
      */
-    protected function getVendorPath() {
+    public function getVendorPath() {
         return $this->container->basePath() . DIRECTORY_SEPARATOR . 'vendor';
     }
 }

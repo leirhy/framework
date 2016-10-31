@@ -6,18 +6,24 @@
  * @datetime 2016-10-28 19:11
  */
 namespace Notadd\Foundation\Extension\Commands;
-use Composer\Config;
 use Composer\Config\JsonConfigSource;
 use Composer\Json\JsonFile;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
+use Illuminate\Support\Str;
 use Notadd\Foundation\Console\Abstracts\Command;
 use Notadd\Foundation\Extension\ExtensionManager;
+use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\Console\Input\InputArgument;
 /**
  * Class InstallCommand
  * @package Notadd\Foundation\Extension\Commands
  */
 class InstallCommand extends Command {
+    /**
+     * @var mixed
+     */
+    protected $backup;
     /**
      * @var \Illuminate\Support\Composer
      */
@@ -27,14 +33,37 @@ class InstallCommand extends Command {
      */
     protected $manager;
     /**
+     * @var \Composer\Json\JsonFile
+     */
+    protected $file;
+    /**
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+    /**
+     * @var \Composer\Config\JsonConfigSource
+     */
+    protected $json;
+    /**
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $settings;
+    /**
      * InstallCommand constructor.
      * @param \Illuminate\Support\Composer $composer
+     * @param \Illuminate\Filesystem\Filesystem $files
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(Composer $composer, ExtensionManager $manager) {
+    public function __construct(Composer $composer, Filesystem $files, ExtensionManager $manager, SettingsRepository $settings) {
         parent::__construct();
         $this->composer = $composer;
+        $this->files = $files;
+        $this->file = new JsonFile($this->container->basePath() . DIRECTORY_SEPARATOR . 'composer.json');
+        $this->backup = $this->file->read();
+        $this->json = new JsonConfigSource($this->file);
         $this->manager = $manager;
+        $this->settings = $settings;
     }
     /**
      * @return void
@@ -49,13 +78,42 @@ class InstallCommand extends Command {
      */
     protected function fire() {
         $name = $this->input->getArgument('name');
-        $extensions = $this->manager->getExtensions();
+        $extensions = $this->manager->getExtensionPaths();
         if(!$extensions->offsetExists($name)) {
             $this->error("Extension {$name} do not exist!");
             return false;
         }
-        $file = new JsonFile($this->container->basePath() . DIRECTORY_SEPARATOR . 'composer.json');
-        dd(collect($file->read()));
+        if($this->settings->get('extension.' . $name . '.installed')) {
+            $this->error("Extension {$name} is installed!");
+            return false;
+        }
+        $extension = $extensions->get($name);
+        $path = $extension;
+        if(Str::contains($path, $this->manager->getVendorPath())) {
+            $this->error("Extension {$name} is installed!");
+            return false;
+        }
+        $extensionFile = new JsonFile($path . DIRECTORY_SEPARATOR . 'composer.json');
+        $extension = collect($extensionFile->read());
+        if($extension->has('autoload')) {
+            collect($extension->get('autoload'))->each(function($value, $key) use($path) {
+                switch($key) {
+                    case 'psr-4':
+                        collect($value)->each(function($value, $key) use($path) {
+                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value));
+                            $psr_4 = array_merge($this->backup['autoload']['psr-4'], [
+                                $key => $path . '/'
+                            ]);
+                            $this->backup['autoload']['psr-4'] = $psr_4;
+                            $this->json->addProperty('autoload', $this->backup['autoload']);
+                        });
+                        break;
+                }
+            });
+        }
+        $this->composer->dumpAutoloads();
+        $this->settings->set('extension.' . $name . '.installed', true);
+        $this->info("Extension {$name} has been installed!");
         return true;
     }
 }

@@ -9,9 +9,8 @@ namespace Notadd\Foundation\Extension\Commands;
 use Composer\Config\JsonConfigSource;
 use Composer\Json\JsonFile;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
-use Notadd\Foundation\Console\Abstracts\Command;
+use Notadd\Foundation\Composer\Abstracts\Command;
 use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\Console\Input\InputArgument;
@@ -24,10 +23,6 @@ class InstallCommand extends Command {
      * @var mixed
      */
     protected $backup;
-    /**
-     * @var \Illuminate\Support\Composer
-     */
-    protected $composer;
     /**
      * @var \Notadd\Foundation\Extension\ExtensionManager
      */
@@ -50,14 +45,12 @@ class InstallCommand extends Command {
     protected $settings;
     /**
      * InstallCommand constructor.
-     * @param \Illuminate\Support\Composer $composer
      * @param \Illuminate\Filesystem\Filesystem $files
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(Composer $composer, Filesystem $files, ExtensionManager $manager, SettingsRepository $settings) {
+    public function __construct(Filesystem $files, ExtensionManager $manager, SettingsRepository $settings) {
         parent::__construct();
-        $this->composer = $composer;
         $this->files = $files;
         $this->file = new JsonFile($this->container->basePath() . DIRECTORY_SEPARATOR . 'composer.json');
         $this->backup = $this->file->read();
@@ -111,7 +104,7 @@ class InstallCommand extends Command {
                 }
             });
         }
-        $this->composer->dumpAutoloads();
+        $this->dumpAutoloads(true, true);
         $this->settings->set('extension.' . $name . '.installed', true);
         $this->info("Extension {$name} has been installed!");
         return true;

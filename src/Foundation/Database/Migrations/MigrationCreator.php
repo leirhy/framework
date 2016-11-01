@@ -31,6 +31,6 @@ class MigrationCreator extends IlluminateMigrationCreator {
      * @return string
      */
     public function getStubPath() {
-        return $this->application->basePath() . 'stubs' . DIRECTORY_SEPARATOR . 'migrations';
+        return $this->application->basePath() . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'migrations';
     }
 }

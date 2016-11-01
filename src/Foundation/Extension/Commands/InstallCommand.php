@@ -91,18 +91,37 @@ class InstallCommand extends Command {
         if($extension->has('autoload')) {
             collect($extension->get('autoload'))->each(function($value, $key) use($path) {
                 switch($key) {
+                    case 'classmap':
+                        collect($value)->each(function($value) use($path) {
+                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                            if(!in_array($path, $this->backup['autoload']['classmap'])) {
+                                $this->backup['autoload']['classmap'][] = $path;
+                            }
+                        });
+                        break;
+                    case 'files':
+                        collect($value)->each(function($value) use($path) {
+                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value));
+                            if(!in_array($path, $this->backup['autoload']['files'])) {
+                                $this->backup['autoload']['files'][] = $path;
+                            }
+                        });
+                        break;
+                    case 'psr-0':
+                        collect($value)->each(function($value, $key) use($path) {
+                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                            $this->backup['autoload']['psr-0'][$key] = $path;
+                        });
+                        break;
                     case 'psr-4':
                         collect($value)->each(function($value, $key) use($path) {
-                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value));
-                            $psr_4 = array_merge($this->backup['autoload']['psr-4'], [
-                                $key => $path . '/'
-                            ]);
-                            $this->backup['autoload']['psr-4'] = $psr_4;
-                            $this->json->addProperty('autoload', $this->backup['autoload']);
+                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                            $this->backup['autoload']['psr-4'][$key] = $path;
                         });
                         break;
                 }
             });
+            $this->json->addProperty('autoload', $this->backup['autoload']);
         }
         $this->dumpAutoloads(true, true);
         $this->settings->set('extension.' . $name . '.installed', true);

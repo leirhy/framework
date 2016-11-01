@@ -22,6 +22,14 @@ abstract class ExtensionRegistrar {
      */
     protected $events;
     /**
+     * @var \Illuminate\Routing\Router
+     */
+    protected $router;
+    /**
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $setting;
+    /**
      * @var \Illuminate\Support\ServiceProvider
      */
     protected $provider;
@@ -31,6 +39,8 @@ abstract class ExtensionRegistrar {
     public function __construct() {
         $this->container = $this->getContainer();
         $this->events = $this->container->make('events');
+        $this->router = $this->container->make('router');
+        $this->setting = $this->container->make('setting');
     }
     /**
      * @return array

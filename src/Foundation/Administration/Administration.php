@@ -50,8 +50,9 @@ class Administration {
         }
         if($administrator instanceof Administrator) {
             $this->administrator = $administrator;
+            $this->administrator->init();
         } else {
-            throw new \InvalidArgumentException('Administrator must be instanceof \Notadd\Foundation\Administration\Abstracts\Administrator!');
+            throw new \InvalidArgumentException('Administrator must be instanceof ' . Administrator::class . '!');
         }
         $administrator->init();
     }

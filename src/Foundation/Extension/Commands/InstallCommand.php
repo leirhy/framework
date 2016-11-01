@@ -6,9 +6,7 @@
  * @datetime 2016-10-28 19:11
  */
 namespace Notadd\Foundation\Extension\Commands;
-use Composer\Config\JsonConfigSource;
 use Composer\Json\JsonFile;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Notadd\Foundation\Composer\Abstracts\Command;
 use Notadd\Foundation\Extension\ExtensionManager;
@@ -20,41 +18,20 @@ use Symfony\Component\Console\Input\InputArgument;
  */
 class InstallCommand extends Command {
     /**
-     * @var mixed
-     */
-    protected $backup;
-    /**
      * @var \Notadd\Foundation\Extension\ExtensionManager
      */
     protected $manager;
-    /**
-     * @var \Composer\Json\JsonFile
-     */
-    protected $file;
-    /**
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $files;
-    /**
-     * @var \Composer\Config\JsonConfigSource
-     */
-    protected $json;
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
     protected $settings;
     /**
      * InstallCommand constructor.
-     * @param \Illuminate\Filesystem\Filesystem $files
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(Filesystem $files, ExtensionManager $manager, SettingsRepository $settings) {
+    public function __construct(ExtensionManager $manager, SettingsRepository $settings) {
         parent::__construct();
-        $this->files = $files;
-        $this->file = new JsonFile($this->container->basePath() . DIRECTORY_SEPARATOR . 'composer.json');
-        $this->backup = $this->file->read();
-        $this->json = new JsonConfigSource($this->file);
         $this->manager = $manager;
         $this->settings = $settings;
     }
@@ -125,7 +102,7 @@ class InstallCommand extends Command {
         }
         $this->dumpAutoloads(true, true);
         $this->settings->set('extension.' . $name . '.installed', true);
-        $this->info("Extension {$name} has been installed!");
+        $this->info("Extension {$name} is installed!");
         return true;
     }
 }

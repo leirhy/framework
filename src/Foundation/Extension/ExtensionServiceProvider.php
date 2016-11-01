@@ -9,6 +9,8 @@ namespace Notadd\Foundation\Extension;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Extension\Commands\InstallCommand;
+use Notadd\Foundation\Extension\Commands\UninstallCommand;
+use Notadd\Foundation\Extension\Commands\UpdateCommand;
 /**
  * Class ExtensionServiceProvider
  * @package Notadd\Extension
@@ -52,6 +54,8 @@ class ExtensionServiceProvider extends ServiceProvider {
             });
             $this->commands([
                 InstallCommand::class,
+                UninstallCommand::class,
+                UpdateCommand::class,
             ]);
         }
     }

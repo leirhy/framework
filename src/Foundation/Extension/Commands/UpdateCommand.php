@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-10-31 19:15
+ * @datetime 2016-11-01 15:34
  */
 namespace Notadd\Foundation\Extension\Commands;
 use Composer\Json\JsonFile;
@@ -13,10 +13,10 @@ use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\Console\Input\InputArgument;
 /**
- * Class UninstallCommand
+ * Class UpdateCommand
  * @package Notadd\Foundation\Extension\Commands
  */
-class UninstallCommand extends Command {
+class UpdateCommand extends Command {
     /**
      * @var \Notadd\Foundation\Extension\ExtensionManager
      */
@@ -39,14 +39,14 @@ class UninstallCommand extends Command {
      * @return void
      */
     public function configure() {
-        $this->addArgument('name', InputArgument::REQUIRED, 'The name of a extension to be uninstall');
-        $this->setDescription('Uninstall a extension by name');
-        $this->setName('extension:uninstall');
+        $this->addArgument('name', InputArgument::REQUIRED, 'The name of a extension to be update');
+        $this->setDescription('Update a extension by name');
+        $this->setName('extension:update');
     }
     /**
-     * @return true
+     * @return bool
      */
-    public function fire() {
+    protected function fire() {
         $name = $this->input->getArgument('name');
         $extensions = $this->manager->getExtensionPaths();
         if(!$extensions->offsetExists($name)) {
@@ -60,7 +60,7 @@ class UninstallCommand extends Command {
         $extension = $extensions->get($name);
         $path = $extension;
         if(Str::contains($path, $this->manager->getVendorPath())) {
-            $this->error("Please remove extension {$name} from composer.json!");
+            $this->error("Please update extension {$name} from composer command!");
             return false;
         }
         $extensionFile = new JsonFile($path . DIRECTORY_SEPARATOR . 'composer.json');
@@ -71,29 +71,29 @@ class UninstallCommand extends Command {
                     case 'classmap':
                         collect($value)->each(function($value) use($path) {
                             $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                            if($key = array_search($path, $this->backup['autoload']['classmap'], true)) {
-                                unset($this->backup['autoload']['classmap'][$key]);
+                            if(!in_array($path, $this->backup['autoload']['classmap'])) {
+                                $this->backup['autoload']['classmap'][] = $path;
                             }
                         });
                         break;
                     case 'files':
                         collect($value)->each(function($value) use($path) {
                             $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value));
-                            if($key = array_search($path, $this->backup['autoload']['files'], true)) {
-                                unset($this->backup['autoload']['files'][$key]);
+                            if(!in_array($path, $this->backup['autoload']['files'])) {
+                                $this->backup['autoload']['files'][] = $path;
                             }
                         });
                         break;
                     case 'psr-0':
                         collect($value)->each(function($value, $key) use($path) {
                             $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                            unset($this->backup['autoload']['psr-0'][$key]);
+                            $this->backup['autoload']['psr-0'][$key] = $path;
                         });
                         break;
                     case 'psr-4':
                         collect($value)->each(function($value, $key) use($path) {
                             $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                            unset($this->backup['autoload']['psr-4'][$key]);
+                            $this->backup['autoload']['psr-4'][$key] = $path;
                         });
                         break;
                 }
@@ -101,8 +101,7 @@ class UninstallCommand extends Command {
             $this->json->addProperty('autoload', $this->backup['autoload']);
         }
         $this->dumpAutoloads(true, true);
-        $this->settings->set('extension.' . $name . '.installed', false);
-        $this->info("Extension {$name} is uninstalled!");
+        $this->info("Extension {$name} is updated!");
         return true;
     }
 }

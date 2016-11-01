@@ -6,8 +6,10 @@
  * @datetime 2016-10-31 17:10
  */
 namespace Notadd\Foundation\Composer\Abstracts;
+use Composer\Config\JsonConfigSource;
 use Composer\Factory;
 use Composer\IO\ConsoleIO;
+use Composer\Json\JsonFile;
 use Notadd\Foundation\Console\Abstracts\Command as AbstractCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,6 +19,10 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 abstract class Command extends AbstractCommand {
     /**
+     * @var mixed
+     */
+    protected $backup;
+    /**
      * @var \Composer\Composer
      */
     protected $composer;
@@ -25,9 +31,31 @@ abstract class Command extends AbstractCommand {
      */
     protected $disablePluginsByDefault = false;
     /**
+     * @var \Composer\Json\JsonFile
+     */
+    protected $file;
+    /**
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+    /**
      * @var \Composer\IO\ConsoleIO
      */
     protected $io;
+    /**
+     * @var \Composer\Config\JsonConfigSource
+     */
+    protected $json;
+    /**
+     * Command constructor.
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->file = new JsonFile($this->container->basePath() . DIRECTORY_SEPARATOR . 'composer.json');
+        $this->files = $this->container->make('files');
+        $this->backup = $this->file->read();
+        $this->json = new JsonConfigSource($this->file);
+    }
     /**
      * @param bool $optimize
      * @param bool $reload

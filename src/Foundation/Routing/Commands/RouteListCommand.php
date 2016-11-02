@@ -55,13 +55,15 @@ class RouteListCommand extends Command {
         $this->routes = $router->getRoutes();
     }
     /**
-     * @return void
+     * @return bool
      */
     public function fire() {
         if(count($this->routes) == 0) {
-            return $this->error("Your application doesn't have any routes.");
+            $this->error("Your application doesn't have any routes.");
+            return false;
         }
         $this->displayRoutes($this->getRoutes());
+        return true;
     }
     /**
      * @return array

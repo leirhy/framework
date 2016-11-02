@@ -18,10 +18,6 @@ abstract class Manager {
      */
     protected $events;
     /**
-     * @var string
-     */
-    protected $model;
-    /**
      * @var \Illuminate\Routing\Router
      */
     protected $router;
@@ -35,50 +31,31 @@ abstract class Manager {
         $this->router = $router;
     }
     /**
-     * @param array $data
+     * @param int $id
      * @param bool $force
      * @return mixed
      */
-    abstract public function create(array $data, $force = false);
+    abstract public function delete(int $id, $force = false);
     /**
-     * @param array $data
-     * @param bool $force
+     * @param int $id
      * @return mixed
      */
-    abstract public function delete(array $data, $force = false);
-    /**
-     * @param array $data
-     * @param bool $force
-     * @return mixed
-     */
-    abstract public function edit(array $data, $force = false);
-    /**
-     * @param array $data
-     * @param bool $force
-     * @return mixed
-     */
-    abstract public function find(array $data, $force = false);
+    abstract public function find(int $id);
     /**
      * @return void
      */
     public function init() {
     }
     /**
-     * @param string $model
+     * @param array $data
+     * @return mixed
      */
-    public function registerModel($model) {
-        $this->model = $model;
-    }
+    abstract public function store(array $data);
     /**
+     * @param int $id
      * @param array $data
      * @param bool $force
      * @return mixed
      */
-    abstract public function store(array $data, $force = false);
-    /**
-     * @param array $data
-     * @param bool $force
-     * @return mixed
-     */
-    abstract public function update(array $data, $force = false);
+    abstract public function update(int $id, array $data, $force = false);
 }

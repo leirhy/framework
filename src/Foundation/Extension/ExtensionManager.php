@@ -43,23 +43,17 @@ class ExtensionManager {
      */
     protected $filesystem;
     /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected $settings;
-    /**
      * ExtensionManager constructor.
      * @param \Illuminate\Container\Container|\Notadd\Foundation\Application $container
      * @param \Illuminate\Events\Dispatcher $events
      * @param \Illuminate\Filesystem\Filesystem $filesystem
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(Container $container, Dispatcher $events, Filesystem $filesystem, SettingsRepository $settings) {
+    public function __construct(Container $container, Dispatcher $events, Filesystem $filesystem) {
         $this->container = $container;
         $this->events = $events;
         $this->extensionPaths = new Collection();
         $this->extensions = new Collection();
         $this->filesystem = $filesystem;
-        $this->settings = $settings;
     }
     /**
      * @param \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar $registrar
@@ -110,7 +104,7 @@ class ExtensionManager {
     public function getExtensions() {
         if($this->extensions->isEmpty()) {
             $this->getExtensionPaths()->each(function($directory, $key) {
-                if($this->settings->get('extension.' . $key . '.installed')) {
+                if($this->container->make(SettingsRepository::class)->get('extension.' . $key . '.installed')) {
                     if($this->filesystem->exists($bootstrap = $directory . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
                         $extension = $this->filesystem->getRequire($bootstrap);
                         if(is_string($extension) && in_array(ExtensionRegistrar::class, class_parents($extension))) {

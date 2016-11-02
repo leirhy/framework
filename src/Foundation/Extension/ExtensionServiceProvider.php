@@ -30,13 +30,11 @@ class ExtensionServiceProvider extends ServiceProvider {
         static::$complies = new Collection();
     }
     /**
-     * @return void
+     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      */
-    public function boot() {
+    public function boot(ExtensionManager $manager) {
         if($this->app->isInstalled()) {
-            $manager = $this->app->make(ExtensionManager::class);
-            $extensions = $manager->getExtensions();
-            $extensions->each(function(Extension $extension) use($manager) {
+            $manager->getExtensions()->each(function(Extension $extension) use($manager) {
                 $registrar = $extension->getRegistrar();
                 static::$complies = static::$complies->merge($registrar->compiles());
                 (new Collection($registrar->loadCommands()))->each(function($command) {
@@ -53,13 +51,13 @@ class ExtensionServiceProvider extends ServiceProvider {
                 });
                 $manager->bootExtension($registrar);
             });
-            $this->commands([
-                InstallCommand::class,
-                ListCommand::class,
-                UninstallCommand::class,
-                UpdateCommand::class,
-            ]);
         }
+        $this->commands([
+            InstallCommand::class,
+            ListCommand::class,
+            UninstallCommand::class,
+            UpdateCommand::class,
+        ]);
     }
     /**
      * @return array
@@ -72,7 +70,7 @@ class ExtensionServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->app->singleton('extensions', function($app) {
-            return new ExtensionManager($app, $app['events'], $app['files'], $app['setting']);
+            return new ExtensionManager($app, $app['events'], $app['files']);
         });
     }
 }

@@ -22,18 +22,12 @@ class UpdateCommand extends Command {
      */
     protected $manager;
     /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected $settings;
-    /**
      * InstallCommand constructor.
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(ExtensionManager $manager, SettingsRepository $settings) {
+    public function __construct(ExtensionManager $manager) {
         parent::__construct();
         $this->manager = $manager;
-        $this->settings = $settings;
     }
     /**
      * @return void
@@ -53,7 +47,7 @@ class UpdateCommand extends Command {
             $this->error("Extension {$name} do not exist!");
             return false;
         }
-        if(!$this->settings->get('extension.' . $name . '.installed')) {
+        if(!$this->container->make(SettingsRepository::class)->get('extension.' . $name . '.installed')) {
             $this->error("Extension {$name} does not installed!");
             return false;
         }

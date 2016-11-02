@@ -22,18 +22,12 @@ class UninstallCommand extends Command {
      */
     protected $manager;
     /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected $settings;
-    /**
      * InstallCommand constructor.
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(ExtensionManager $manager, SettingsRepository $settings) {
+    public function __construct(ExtensionManager $manager) {
         parent::__construct();
         $this->manager = $manager;
-        $this->settings = $settings;
     }
     /**
      * @return void
@@ -49,11 +43,12 @@ class UninstallCommand extends Command {
     public function fire() {
         $name = $this->input->getArgument('name');
         $extensions = $this->manager->getExtensionPaths();
+        $settings = $this->container->make(SettingsRepository::class);
         if(!$extensions->offsetExists($name)) {
             $this->error("Extension {$name} do not exist!");
             return false;
         }
-        if(!$this->settings->get('extension.' . $name . '.installed')) {
+        if(!$settings->get('extension.' . $name . '.installed')) {
             $this->error("Extension {$name} does not installed!");
             return false;
         }
@@ -101,7 +96,7 @@ class UninstallCommand extends Command {
             $this->json->addProperty('autoload', $this->backup['autoload']);
         }
         $this->dumpAutoloads(true, true);
-        $this->settings->set('extension.' . $name . '.installed', false);
+        $settings->set('extension.' . $name . '.installed', false);
         $this->info("Extension {$name} is uninstalled!");
         return true;
     }

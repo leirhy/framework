@@ -28,18 +28,12 @@ class ListCommand extends Command {
      */
     protected $manager;
     /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected $settings;
-    /**
      * InstallCommand constructor.
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(ExtensionManager $manager, SettingsRepository $settings) {
+    public function __construct(ExtensionManager $manager) {
         parent::__construct();
         $this->manager = $manager;
-        $this->settings = $settings;
     }
     /**
      * @return void
@@ -54,12 +48,13 @@ class ListCommand extends Command {
     public function fire() {
         $paths = $this->manager->getExtensionPaths();
         $list = new Collection();
+        $settings = $this->container->make(SettingsRepository::class);
         $this->info('Extensions list:');
-        $paths->transform(function($path, $key) use($list) {
+        $paths->transform(function($path, $key) use($list, $settings) {
             $list->push([
                 $key,
                 $path,
-                $this->settings->get('extension.' . $key . '.installed') ? 'Yes' : 'No'
+                $settings->get('extension.' . $key . '.installed') ? 'Yes' : 'No'
             ]);
         });
         $this->table($this->headers, $list->toArray());

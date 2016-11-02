@@ -17,13 +17,11 @@ class MemberServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->app->singleton('member', function($app) {
-            $manager = new MemberManagement($app);
-            $manager->setDefaultDriver('notadd');
-            return $manager;
+            return new MemberManagement($app);
         });
-        $this->app->singleton('member.driver', function() {
+        $this->app->singleton('member.manager', function() {
             $manager = $this->app->make('member');
-            return $manager->driver();
+            return $manager->manager();
         });
     }
 }

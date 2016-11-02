@@ -78,7 +78,6 @@ class MemberManagement {
      * @param \Notadd\Foundation\Member\Abstracts\Manager $manager
      */
     public function registerManager(Manager $manager) {
-        dd($manager);
         if(is_object($this->manager)) {
             throw new InvalidArgumentException('Member Manager has been Registered!');
         }

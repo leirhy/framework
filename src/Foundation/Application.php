@@ -684,6 +684,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function registerCoreContainerAliases() {
         $aliases = [
+            'administration' => ['Notadd\Foundation\Administration\Administration'],
             'app' => [
                 'Illuminate\Contracts\Container\Container',
                 'Illuminate\Contracts\Foundation\Application',
@@ -694,6 +695,14 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Contracts\Auth\Factory'
             ],
             'auth.driver' => ['Illuminate\Contracts\Auth\Guard'],
+            'auth.password' => [
+                'Illuminate\Auth\Passwords\PasswordBrokerManager',
+                'Illuminate\Contracts\Auth\PasswordBrokerFactory'
+            ],
+            'auth.password.broker' => [
+                'Illuminate\Auth\Passwords\PasswordBroker',
+                'Illuminate\Contracts\Auth\PasswordBroker'
+            ],
             'blade.compiler' => ['Illuminate\View\Compilers\BladeCompiler'],
             'cache' => [
                 'Illuminate\Cache\CacheManager',
@@ -748,15 +757,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Contracts\Mail\Mailer',
                 'Illuminate\Contracts\Mail\MailQueue'
             ],
-            'auth.password' => [
-                'Illuminate\Auth\Passwords\PasswordBrokerManager',
-                'Illuminate\Contracts\Auth\PasswordBrokerFactory'
-            ],
-            'auth.password.broker' => [
-                'Illuminate\Auth\Passwords\PasswordBroker',
-                'Illuminate\Contracts\Auth\PasswordBroker'
-            ],
-            'administration' => ['Notadd\Foundation\Administration\Administration'],
+            'member' => ['Notadd\Foundation\Member\MemberManagement'],
             'queue' => [
                 'Illuminate\Queue\QueueManager',
                 'Illuminate\Contracts\Queue\Factory',

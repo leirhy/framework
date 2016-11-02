@@ -17,7 +17,7 @@ class RouteRegistrar extends AbstractRouteRegistrar {
      * @return void
      */
     public function handle() {
-        $this->router->group(['middleware' => 'web'], function() {
+        $this->router->group(['middleware' => ['web']], function() {
             $this->router->resource('/', IndexController::class, [
                 'only' => 'index'
             ]);

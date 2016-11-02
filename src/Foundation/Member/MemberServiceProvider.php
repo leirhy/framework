@@ -17,7 +17,7 @@ class MemberServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->app->singleton('member', function($app) {
-            $manager = new MemberManager($app);
+            $manager = new MemberManagement($app);
             $manager->setDefaultDriver('notadd');
             return $manager;
         });

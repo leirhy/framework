@@ -39,6 +39,18 @@ abstract class Administrator {
         $this->router = $router;
     }
     /**
+     * @return mixed
+     */
+    public function getHandler() {
+        return $this->handler;
+    }
+    /**
+     * @return string
+     */
+    public function getPath() {
+        return $this->path;
+    }
+    /**
      * @return void
      */
     final public function init() {
@@ -50,13 +62,13 @@ abstract class Administrator {
     /**
      * @param $handler
      */
-    public function registerAdministrationHandler($handler) {
+    public function registerHandler($handler) {
         $this->handler = $handler;
     }
     /**
      * @param string $path
      */
-    public function registerAdministrationUrl($path) {
+    public function registerPath($path) {
         $this->path = $path;
     }
 }

@@ -6,12 +6,14 @@
  * @datetime 2016-09-24 18:13
  */
 namespace Notadd\Foundation\Member;
+use Laravel\Passport\HasApiTokens;
 use Notadd\Foundation\Auth\User as Authenticatable;
 /**
  * Class Member
  * @package Notadd\Member\Models
  */
 class Member extends Authenticatable {
+    use HasApiTokens;
     /**
      * @var array
      */

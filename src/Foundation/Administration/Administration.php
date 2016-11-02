@@ -46,7 +46,7 @@ class Administration {
      */
     public function setAdministrator(Administrator $administrator) {
         if(is_object($this->administrator)) {
-            throw new \InvalidArgumentException('Administrator has been Setted!');
+            throw new \InvalidArgumentException('Administrator has been Registered!');
         }
         if($administrator instanceof Administrator) {
             $this->administrator = $administrator;
@@ -54,6 +54,5 @@ class Administration {
         } else {
             throw new \InvalidArgumentException('Administrator must be instanceof ' . Administrator::class . '!');
         }
-        $administrator->init();
     }
 }

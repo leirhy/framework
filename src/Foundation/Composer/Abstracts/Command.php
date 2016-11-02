@@ -10,6 +10,7 @@ use Composer\Config\JsonConfigSource;
 use Composer\Factory;
 use Composer\IO\ConsoleIO;
 use Composer\Json\JsonFile;
+use Exception;
 use Notadd\Foundation\Console\Abstracts\Command as AbstractCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -76,12 +77,16 @@ abstract class Command extends AbstractCommand {
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return mixed
+     * @throws \Exception
      */
     public function execute(InputInterface $input, OutputInterface $output) {
         $this->input = $input;
         $this->output = $output;
         $this->io = new ConsoleIO($input, $output, $this->getHelperSet());
         $this->composer = Factory::create($this->io, null, $this->disablePluginsByDefault);
-        return $this->fire();
+        if(!method_exists($this, 'fire')) {
+            throw new Exception('Method fire do not exits!', 404);
+        }
+        return $this->container->call([$this, 'fire']);
     }
 }

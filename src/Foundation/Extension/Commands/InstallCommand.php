@@ -41,8 +41,7 @@ class InstallCommand extends Command {
             $this->error("Extension {$name} is installed!");
             return false;
         }
-        $extension = $extensions->get($name);
-        $path = $extension;
+        $path = $extensions->get($name);
         if(Str::contains($path, $manager->getVendorPath())) {
             $this->error("Extension {$name} is installed!");
             return false;

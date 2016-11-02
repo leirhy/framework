@@ -76,7 +76,7 @@ abstract class Command extends SymfonyCommand {
         if(!method_exists($this, 'fire')) {
             throw new Exception('Method fire do not exits!', 404);
         }
-        return $this->container->call('fire');
+        return $this->container->call([$this, 'fire']);
     }
     /**
      * @return \Illuminate\Container\Container|\Notadd\Foundation\Application

@@ -30,7 +30,7 @@ class UpdateCommand extends Command {
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      * @return bool
      */
-    protected function fire(ExtensionManager $manager, SettingsRepository $settings) {
+    public function fire(ExtensionManager $manager, SettingsRepository $settings) {
         $name = $this->input->getArgument('name');
         $extensions = $manager->getExtensionPaths();
         if(!$extensions->offsetExists($name)) {
@@ -74,7 +74,15 @@ class UpdateCommand extends Command {
             $this->json->addProperty('autoload', $this->backup['autoload']);
             $settings->set('extension.' . $name . '.autoload', json_encode($autoload->toArray()));
         }
-        $this->dumpAutoloads(true, true);
+        if($extension->has('require')) {
+            $require = collect($extension->get('require'));
+            $require->each(function($version, $name) {
+                $this->backup['require'][$name] = $version;
+            });
+            $this->json->addProperty('require', $this->backup['require']);
+            $settings->set('extension.' . $name . '.require', json_encode($require->toArray()));
+        }
+        $this->updateComposer(true);
         $this->info("Extension {$name} is updated!");
         return true;
     }

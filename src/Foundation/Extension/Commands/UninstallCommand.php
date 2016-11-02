@@ -70,10 +70,18 @@ class UninstallCommand extends Command {
                 unset($this->backup['autoload']['psr-4'][$key]);
             });
             $this->json->addProperty('autoload', $this->backup['autoload']);
-            $settings->set('extension.' . $name . '.autoload', json_encode($autoload->toArray()));
+            $settings->set('extension.' . $name . '.autoload', json_encode([]));
         }
-        $this->dumpAutoloads(true, true);
+        $require = collect(json_decode($settings->get('extension.' . $name . '.require'), true));
+        if(!$require->isEmpty()) {
+            $require->each(function($version, $name) {
+                unset($this->backup['require'][$name]);
+            });
+            $this->json->addProperty('require', $this->backup['require']);
+            $settings->set('extension.' . $name . '.require', json_encode([]));
+        }
         $settings->set('extension.' . $name . '.installed', false);
+        $this->updateComposer(true);
         $this->info("Extension {$name} is uninstalled!");
         return true;
     }

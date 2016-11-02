@@ -8,6 +8,7 @@
 namespace Notadd\Foundation\Composer\Abstracts;
 use Composer\Config\JsonConfigSource;
 use Composer\Factory;
+use Composer\Installer;
 use Composer\IO\ConsoleIO;
 use Composer\Json\JsonFile;
 use Exception;
@@ -87,6 +88,44 @@ abstract class Command extends AbstractCommand {
         if(!method_exists($this, 'fire')) {
             throw new Exception('Method fire do not exits!', 404);
         }
-        return $this->container->call([$this, 'fire']);
+        return $this->container->call([
+            $this,
+            'fire'
+        ]);
+    }
+    /**
+     * @param bool $reload
+     * @return int
+     */
+    protected function updateComposer($reload = false) {
+        if($reload) {
+            $this->composer = Factory::create($this->io, null, $this->disablePluginsByDefault);
+        }
+        ini_set('memory_limit', '1024M');
+        $this->composer->getDownloadManager()->setOutputProgress(true);
+        $install = Installer::create($this->io, $this->composer);
+        $config = $this->composer->getConfig();
+        $preferSource = false;
+        $preferDist = true;
+        switch($config->get('preferred-install')) {
+            case 'source':
+                $preferSource = true;
+                break;
+            case 'dist':
+                $preferDist = true;
+                break;
+            case 'auto':
+            default:
+                break;
+        }
+        $optimize = $config->get('optimize-autoloader');
+        $authoritative = $config->get('classmap-authoritative');
+        $install->setPreferSource($preferSource);
+        $install->setPreferDist($preferDist);
+        $install->setDevMode(true);
+        $install->setDumpAutoloader(true);
+        $install->setOptimizeAutoloader(true);
+        $install->setUpdate(true);
+        return $install->run();
     }
 }

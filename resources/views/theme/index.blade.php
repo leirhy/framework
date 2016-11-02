@@ -8,11 +8,12 @@
                         <div class="navbar-header">
                             <a class="navbar-brand" href="{{ url('/') }}"> <img src="{{ asset('assets/default/images/logo.png') }}" alt="NotAdd"> </a>
                             <ul class="nav nav-pills">
-                                <li role="presentation" class="active"><a href="{{ url('/') }}" target="_self">首页</a></li>
-                                {{--<li role="presentation"><a href="https://docs.notadd.com" target="_blank">文档</a></li>--}}
-                                {{--<li role="presentation"><a href="version.html" target="_self">日志</a></li>--}}
-                                {{--<li role="presentation"><a href="https://bbs.notadd.com" target="_blank">社区</a></li>--}}
-                                {{--<li role="presentation"><a href="#" class="special">捐赠</a></li>--}}
+                                <li role="presentation" class="active"><a href="{{ url('') }}">首页</a></li>
+                                @if(auth()->guest())
+                                    <li role="presentation"><a href="{{ url('login') }}">登陆</a></li>
+                                @else
+                                    <li role="presentation"><a href="{{ url('logout') }}">退出</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>

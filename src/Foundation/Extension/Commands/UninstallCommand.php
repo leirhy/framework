@@ -47,41 +47,30 @@ class UninstallCommand extends Command {
             return false;
         }
         $extensionFile = new JsonFile($path . DIRECTORY_SEPARATOR . 'composer.json');
-        $extension = collect($extensionFile->read());
-        if($extension->has('autoload')) {
-            collect($extension->get('autoload'))->each(function($value, $key) use($path) {
-                switch($key) {
-                    case 'classmap':
-                        collect($value)->each(function($value) use($path) {
-                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                            if($key = array_search($path, $this->backup['autoload']['classmap'], true)) {
-                                unset($this->backup['autoload']['classmap'][$key]);
-                            }
-                        });
-                        break;
-                    case 'files':
-                        collect($value)->each(function($value) use($path) {
-                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value));
-                            if($key = array_search($path, $this->backup['autoload']['files'], true)) {
-                                unset($this->backup['autoload']['files'][$key]);
-                            }
-                        });
-                        break;
-                    case 'psr-0':
-                        collect($value)->each(function($value, $key) use($path) {
-                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                            unset($this->backup['autoload']['psr-0'][$key]);
-                        });
-                        break;
-                    case 'psr-4':
-                        collect($value)->each(function($value, $key) use($path) {
-                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                            unset($this->backup['autoload']['psr-4'][$key]);
-                        });
-                        break;
+        $autoload = collect(json_decode($settings->get('extension.' . $name . '.autoload'), true));
+        if(!$autoload->isEmpty()) {
+            $autoload->has('classmap') && collect($autoload->get('classmap'))->each(function($value) use($path) {
+                $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                if($key = array_search($path, $this->backup['autoload']['classmap'], true)) {
+                    unset($this->backup['autoload']['classmap'][$key]);
                 }
             });
+            $autoload->has('files') && collect($autoload->get('files'))->each(function($value) use($path) {
+                $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value));
+                if($key = array_search($path, $this->backup['autoload']['files'], true)) {
+                    unset($this->backup['autoload']['files'][$key]);
+                }
+            });
+            $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function($value, $key) use($path) {
+                $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                unset($this->backup['autoload']['psr-0'][$key]);
+            });
+            $autoload->has('psr-4') && collect($autoload->get('psr-4'))->each(function($value, $key) use($path) {
+                $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                unset($this->backup['autoload']['psr-4'][$key]);
+            });
             $this->json->addProperty('autoload', $this->backup['autoload']);
+            $settings->set('extension.' . $name . '.autoload', json_encode($autoload->toArray()));
         }
         $this->dumpAutoloads(true, true);
         $settings->set('extension.' . $name . '.installed', false);

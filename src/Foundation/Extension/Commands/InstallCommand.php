@@ -50,39 +50,29 @@ class InstallCommand extends Command {
         $extensionFile = new JsonFile($path . DIRECTORY_SEPARATOR . 'composer.json');
         $extension = collect($extensionFile->read());
         if($extension->has('autoload')) {
-            collect($extension->get('autoload'))->each(function($value, $key) use($path) {
-                switch($key) {
-                    case 'classmap':
-                        collect($value)->each(function($value) use($path) {
-                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                            if(!in_array($path, $this->backup['autoload']['classmap'])) {
-                                $this->backup['autoload']['classmap'][] = $path;
-                            }
-                        });
-                        break;
-                    case 'files':
-                        collect($value)->each(function($value) use($path) {
-                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value));
-                            if(!in_array($path, $this->backup['autoload']['files'])) {
-                                $this->backup['autoload']['files'][] = $path;
-                            }
-                        });
-                        break;
-                    case 'psr-0':
-                        collect($value)->each(function($value, $key) use($path) {
-                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                            $this->backup['autoload']['psr-0'][$key] = $path;
-                        });
-                        break;
-                    case 'psr-4':
-                        collect($value)->each(function($value, $key) use($path) {
-                            $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                            $this->backup['autoload']['psr-4'][$key] = $path;
-                        });
-                        break;
+            $autoload = collect($extension->get('autoload'));
+            $autoload->has('classmap') && collect($autoload->get('classmap'))->each(function($value) use($path) {
+                $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                if(!in_array($path, $this->backup['autoload']['classmap'])) {
+                    $this->backup['autoload']['classmap'][] = $path;
                 }
             });
+            $autoload->has('files') && collect($autoload->get('files'))->each(function($value) use($path) {
+                $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value));
+                if(!in_array($path, $this->backup['autoload']['files'])) {
+                    $this->backup['autoload']['files'][] = $path;
+                }
+            });
+            $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function($value, $key) use($path) {
+                $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                $this->backup['autoload']['psr-0'][$key] = $path;
+            });
+            $autoload->has('psr-4') && collect($autoload->get('psr-4'))->each(function($value, $key) use($path) {
+                $path = str_replace($this->container->basePath() . '/', '', realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                $this->backup['autoload']['psr-4'][$key] = $path;
+            });
             $this->json->addProperty('autoload', $this->backup['autoload']);
+            $settings->set('extension.' . $name . '.autoload', json_encode($autoload->toArray()));
         }
         $this->dumpAutoloads(true, true);
         $settings->set('extension.' . $name . '.installed', true);

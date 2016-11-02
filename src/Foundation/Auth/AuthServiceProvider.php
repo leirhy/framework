@@ -7,8 +7,8 @@
  */
 namespace Notadd\Foundation\Auth;
 use Illuminate\Auth\AuthServiceProvider as IlluminateAuthServiceProvider;
-use Illuminate\Routing\Router;
-use Notadd\Foundation\Auth\Controllers\AuthController;
+use Illuminate\Events\Dispatcher;
+use Notadd\Foundation\Auth\Listeners\RouteRegistrar;
 /**
  * Class AuthServiceProvider
  * @package Notadd\Foundation\Auth
@@ -18,15 +18,6 @@ class AuthServiceProvider extends IlluminateAuthServiceProvider {
      * @return void
      */
     public function boot() {
-        $this->app->make(Router::class)->group(['middleware' => 'web'], function() {
-            $this->app->make(Router::class)->get('logout', AuthController::class . '@logout');
-            $this->app->make(Router::class)->resource('login', AuthController::class);
-        });
-    }
-    /**
-     * @return void
-     */
-    public function register() {
-        parent::register();
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegistrar::class);
     }
 }

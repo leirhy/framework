@@ -18,18 +18,6 @@ use Symfony\Component\Console\Input\InputArgument;
  */
 class UninstallCommand extends Command {
     /**
-     * @var \Notadd\Foundation\Extension\ExtensionManager
-     */
-    protected $manager;
-    /**
-     * InstallCommand constructor.
-     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
-     */
-    public function __construct(ExtensionManager $manager) {
-        parent::__construct();
-        $this->manager = $manager;
-    }
-    /**
      * @return void
      */
     public function configure() {
@@ -38,12 +26,13 @@ class UninstallCommand extends Command {
         $this->setName('extension:uninstall');
     }
     /**
+     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      * @return true
      */
-    public function fire() {
+    public function fire(ExtensionManager $manager, SettingsRepository $settings) {
         $name = $this->input->getArgument('name');
-        $extensions = $this->manager->getExtensionPaths();
-        $settings = $this->container->make(SettingsRepository::class);
+        $extensions = $manager->getExtensionPaths();
         if(!$extensions->offsetExists($name)) {
             $this->error("Extension {$name} do not exist!");
             return false;
@@ -52,9 +41,8 @@ class UninstallCommand extends Command {
             $this->error("Extension {$name} does not installed!");
             return false;
         }
-        $extension = $extensions->get($name);
-        $path = $extension;
-        if(Str::contains($path, $this->manager->getVendorPath())) {
+        $path = $extensions->get($name);
+        if(Str::contains($path, $manager->getVendorPath())) {
             $this->error("Please remove extension {$name} from composer.json!");
             return false;
         }

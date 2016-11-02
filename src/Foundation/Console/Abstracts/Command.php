@@ -6,6 +6,7 @@
  * @datetime 2016-09-02 19:17
  */
 namespace Notadd\Foundation\Console\Abstracts;
+use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Support\Arrayable;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
@@ -67,16 +68,16 @@ abstract class Command extends SymfonyCommand {
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return mixed
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output) {
         $this->input = $input;
         $this->output = $output;
-        return $this->fire();
+        if(!method_exists($this, 'fire')) {
+            throw new Exception('Method fire do not exits!', 404);
+        }
+        return $this->container->call('fire');
     }
-    /**
-     * @return mixed
-     */
-    abstract protected function fire();
     /**
      * @return \Illuminate\Container\Container|\Notadd\Foundation\Application
      */

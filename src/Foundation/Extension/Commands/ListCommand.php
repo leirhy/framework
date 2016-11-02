@@ -24,18 +24,6 @@ class ListCommand extends Command {
         'Installed',
     ];
     /**
-     * @var \Notadd\Foundation\Extension\ExtensionManager
-     */
-    protected $manager;
-    /**
-     * InstallCommand constructor.
-     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
-     */
-    public function __construct(ExtensionManager $manager) {
-        parent::__construct();
-        $this->manager = $manager;
-    }
-    /**
      * @return void
      */
     public function configure() {
@@ -43,10 +31,10 @@ class ListCommand extends Command {
         $this->setName('extension:list');
     }
     /**
-     * @return void
+     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      */
-    public function fire() {
-        $paths = $this->manager->getExtensionPaths();
+    public function fire(ExtensionManager $manager) {
+        $paths = $manager->getExtensionPaths();
         $list = new Collection();
         $settings = $this->container->make(SettingsRepository::class);
         $this->info('Extensions list:');

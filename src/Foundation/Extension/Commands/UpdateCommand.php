@@ -18,18 +18,6 @@ use Symfony\Component\Console\Input\InputArgument;
  */
 class UpdateCommand extends Command {
     /**
-     * @var \Notadd\Foundation\Extension\ExtensionManager
-     */
-    protected $manager;
-    /**
-     * InstallCommand constructor.
-     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
-     */
-    public function __construct(ExtensionManager $manager) {
-        parent::__construct();
-        $this->manager = $manager;
-    }
-    /**
      * @return void
      */
     public function configure() {
@@ -38,11 +26,13 @@ class UpdateCommand extends Command {
         $this->setName('extension:update');
     }
     /**
+     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      * @return bool
      */
-    protected function fire() {
+    protected function fire(ExtensionManager $manager, SettingsRepository $settings) {
         $name = $this->input->getArgument('name');
-        $extensions = $this->manager->getExtensionPaths();
+        $extensions = $manager->getExtensionPaths();
         if(!$extensions->offsetExists($name)) {
             $this->error("Extension {$name} do not exist!");
             return false;
@@ -53,7 +43,7 @@ class UpdateCommand extends Command {
         }
         $extension = $extensions->get($name);
         $path = $extension;
-        if(Str::contains($path, $this->manager->getVendorPath())) {
+        if(Str::contains($path, $manager->getVendorPath())) {
             $this->error("Please update extension {$name} from composer command!");
             return false;
         }

@@ -59,7 +59,7 @@ class ListCommand extends Command {
             $list->push([
                 $key,
                 $path,
-                $this->settings->get('extension.' . $key . '.installed') ? 'true' : 'false'
+                $this->settings->get('extension.' . $key . '.installed') ? 'Yes' : 'No'
             ]);
         });
         $this->table($this->headers, $list->toArray());

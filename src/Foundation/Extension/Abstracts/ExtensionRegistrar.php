@@ -43,6 +43,15 @@ abstract class ExtensionRegistrar {
         $this->setting = $this->container->make('setting');
     }
     /**
+     * @param string $abstract
+     * @param array|string $alias
+     */
+    public function alias($abstract, $alias) {
+        foreach((array)$alias as $item) {
+            $this->container->alias($abstract, $item);
+        }
+    }
+    /**
      * @return array
      */
     public function compiles() {

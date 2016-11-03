@@ -63,6 +63,12 @@ class Extension implements ExtensionContract {
         $this->id = "$vendor-$package";
     }
     /**
+     * @param bool $status
+     */
+    public function enable($status = true) {
+        $this->enabled = $status;
+    }
+    /**
      * @return string
      */
     public function getId() {

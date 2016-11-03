@@ -6,12 +6,14 @@
  * @datetime 2016-08-29 14:06
  */
 namespace Notadd\Foundation\Extension;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Extension\Commands\InstallCommand;
 use Notadd\Foundation\Extension\Commands\ListCommand;
 use Notadd\Foundation\Extension\Commands\UninstallCommand;
 use Notadd\Foundation\Extension\Commands\UpdateCommand;
+use Notadd\Foundation\Extension\Events\ExtensionEnabled;
 /**
  * Class ExtensionServiceProvider
  * @package Notadd\Extension
@@ -49,7 +51,9 @@ class ExtensionServiceProvider extends ServiceProvider {
                 (new Collection($registrar->loadViewsFrom()))->each(function($path, $namespace) {
                     $this->loadViewsFrom($path, $namespace);
                 });
-                $manager->bootExtension($registrar);
+                $extension->enable();
+                $this->app->make(Dispatcher::class)->fire(new ExtensionEnabled($this->app, $manager, $extension));
+                $manager->boot($registrar);
             });
         }
         $this->commands([

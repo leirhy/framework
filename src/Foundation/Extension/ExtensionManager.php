@@ -59,7 +59,7 @@ class ExtensionManager {
      * @param \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar $registrar
      * @throws \Exception
      */
-    public function bootExtension(ExtensionRegistrar $registrar) {
+    public function boot(ExtensionRegistrar $registrar) {
         if(method_exists($registrar, 'register')) {
             $this->container->call([$registrar, 'register']);
         }

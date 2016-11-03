@@ -8,6 +8,7 @@
 namespace Notadd\Foundation\Composer;
 use Illuminate\Support\Composer;
 use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Composer\Commands\UpdateCommand;
 /**
  * Class ComposerServiceProvider
  * @package Notadd\Foundation\Providers
@@ -17,6 +18,14 @@ class ComposerServiceProvider extends ServiceProvider {
      * @var bool
      */
     protected $defer = true;
+    /**
+     * @return void
+     */
+    public function boot() {
+        $this->commands([
+            UpdateCommand::class,
+        ]);
+    }
     /**
      * @return void
      */

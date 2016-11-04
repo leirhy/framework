@@ -29,4 +29,11 @@ class Member extends Authenticatable {
         'password',
         'remember_token',
     ];
+    /**
+     * @param $name
+     * @return \Illuminate\Database\Eloquent\Builder|\Notadd\Foundation\Member\Member
+     */
+    public function findForPassport($name) {
+        return $this->newQuery()->where('name', $name)->first();
+    }
 }

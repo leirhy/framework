@@ -18,6 +18,8 @@ use Illuminate\Contracts\Cookie\Factory as CookieFactory;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Contracts\Broadcasting\Factory as BroadcastFactory;
+use Notadd\Foundation\SearchEngine\Optimization;
+use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 if(!function_exists('abort')) {
     /**
      * @param int $code
@@ -521,6 +523,15 @@ if(!function_exists('secure_url')) {
         return url($path, $parameters, true);
     }
 }
+if(!function_exists('seo')) {
+    /**
+     * @param string $meta
+     * @return string
+     */
+    function seo($meta) {
+        return app()->make(Optimization::class)->getData($meta);
+    }
+}
 if(!function_exists('session')) {
     /**
      * @param array|string $key
@@ -535,6 +546,16 @@ if(!function_exists('session')) {
             return app('session')->put($key);
         }
         return app('session')->get($key, $default);
+    }
+}
+if(!function_exists('setting')) {
+    /**
+     * @param string $key
+     * @param string $default
+     * @return string
+     */
+    function setting($key, $default = '') {
+        return app()->make(SettingsRepository::class)->get($key, $default);
     }
 }
 if(!function_exists('storage_path')) {

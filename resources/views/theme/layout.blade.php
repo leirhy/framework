@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-cn">
 <head>
-    <title>Notadd-基于Laravel的开源CMS/微信/商城平台</title>
+    <title>{{ seo('title') }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Notadd,LaravelCMS,Laravel商城,Laravel微信,Laravel论坛">
-    <meta name="description" content="Notadd是基于Laravel的一款开源CMS/商城/微信/论坛，原生支持PHP7，Notadd不仅完全面向对象，且代码简洁、优雅，是为开发者而生，也是为艺术家而存。此外，Notadd还引入了许多新的特性，诸如webp支持，更加灵活的插件模板机制，使得你可以快速构建出自己所想，使用Compeser管理相关依赖，对于一个生命周期超过3年的项目来说，Notadd再合适不过。总之，使用Notadd构建Web程序将带给开发者一场绝妙非凡的体验。">
+    <meta name="keywords" content="{{ seo('keywords') }}">
+    <meta name="description" content="{{ seo('description') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/default/images/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('assets/default/images/favicon-32x32.png') }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ asset('assets/default/images/favicon-16x16.png') }}" sizes="16x16">

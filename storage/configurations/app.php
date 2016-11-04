@@ -38,6 +38,7 @@ return [
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Console\ScheduleServiceProvider::class,
         Illuminate\Database\SeedServiceProvider::class,
+        Notadd\Foundation\SearchEngine\SearchEngineServiceProvider::class,
         Notadd\Foundation\Session\SessionServiceProvider::class,
         Notadd\Foundation\Setting\SettingServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,

@@ -57,7 +57,9 @@ abstract class Administrator {
         if(is_null($this->path) || is_null($this->handler)) {
             throw new \InvalidArgumentException('Handler or Path must be Setted!');
         }
-        $this->router->get($this->path, $this->handler);
+        $this->router->group(['middleware' => 'web'], function() {
+            $this->router->get($this->path, $this->handler);
+        });
     }
     /**
      * @param $handler

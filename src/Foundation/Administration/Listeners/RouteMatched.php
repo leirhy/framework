@@ -39,9 +39,6 @@ class RouteMatched extends EventSubscriber {
      */
     public function handle() {
         if($this->container->isInstalled() && !$this->container->runningInConsole()) {
-            if(is_null($this->administration->getAdministrator())) {
-                throw new Exception("Administrator must be register!");
-            }
         }
     }
 }

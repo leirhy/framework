@@ -42,6 +42,12 @@ class Administration {
         return $this->administrator;
     }
     /**
+     * @return bool
+     */
+    public function hasAdministrator() {
+        return is_null($this->administrator) ? false : true;
+    }
+    /**
      * @param \Notadd\Foundation\Administration\Abstracts\Administrator $administrator
      */
     public function setAdministrator(Administrator $administrator) {

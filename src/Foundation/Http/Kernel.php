@@ -16,6 +16,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Laravel\Passport\Http\Middleware\CheckForAnyScope;
+use Laravel\Passport\Http\Middleware\CheckScopes;
 use Notadd\Foundation\Bootstrap\BootProviders;
 use Notadd\Foundation\Bootstrap\ConfigureLogging;
 use Notadd\Foundation\Bootstrap\DetectEnvironment;
@@ -96,6 +98,8 @@ class Kernel implements KernelContract {
         'bindings' => SubstituteBindings::class,
         'can' => Authorize::class,
         'guest' => RedirectIfAuthenticated::class,
+        'scope' => CheckForAnyScope::class,
+        'scopes' => CheckScopes::class,
         'throttle' => ThrottleRequests::class,
     ];
     /**

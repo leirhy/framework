@@ -36,6 +36,7 @@ class AuthorizationController extends Controller {
      * @param \Illuminate\Contracts\Routing\ResponseFactory $response
      */
     public function __construct(AuthorizationServer $server, ResponseFactory $response) {
+        parent::__construct();
         $this->server = $server;
         $this->response = $response;
     }
@@ -43,8 +44,8 @@ class AuthorizationController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deny() {
-        $redirect = $this->getAuthRequestFromSession($request)->getClient()->getRedirectUri();
-        return $this->response->redirectTo($redirect . '?error=access_denied&state=' . $request->input('state'));
+        $redirect = $this->getAuthRequestFromSession($this->request)->getClient()->getRedirectUri();
+        return $this->response->redirectTo($redirect . '?error=access_denied&state=' . $this->request->input('state'));
     }
     /**
      * @param \Psr\Http\Message\ServerRequestInterface $psrRequest
@@ -57,9 +58,9 @@ class AuthorizationController extends Controller {
             $scopes = $this->parseScopes($authRequest);
             return $this->response->view('passport::authorize', [
                 'client' => $clients->find($authRequest->getClient()->getIdentifier()),
-                'user' => $request->user(),
+                'user' => $this->request->user(),
                 'scopes' => $scopes,
-                'request' => $request,
+                'request' => $this->request,
             ]);
         });
     }

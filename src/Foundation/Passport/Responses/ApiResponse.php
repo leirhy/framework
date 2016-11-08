@@ -19,7 +19,7 @@ class ApiResponse {
     protected $params = [];
     /**
      * @param \Psr\Http\Message\ResponseInterface|null $response
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response|static
+     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function generateHttpResponse(ResponseInterface $response = null, $params = []) {
         is_null($response) && $response = new Response();
@@ -33,8 +33,10 @@ class ApiResponse {
     }
     /**
      * @param array $params
+     * @return $this
      */
     public function withParams($params = []) {
         $this->params = array_merge($this->params, $params);
+        return $this;
     }
 }

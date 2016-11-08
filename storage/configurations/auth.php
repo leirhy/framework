@@ -6,7 +6,7 @@ return [
     ],
     'guards' => [
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
         ],
         'web' => [

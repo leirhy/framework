@@ -6,12 +6,20 @@
  * @datetime 2016-10-24 10:07
  */
 namespace Notadd\Foundation\Setting;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Setting\Listeners\RouteRegistrar;
 /**
  * Class SettingServiceProvider
  * @package Notadd\Foundation\Setting
  */
 class SettingServiceProvider extends ServiceProvider {
+    /**
+     * @return void
+     */
+    public function boot() {
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegistrar::class);
+    }
     /**
      * @return void
      */

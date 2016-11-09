@@ -101,6 +101,12 @@ abstract class Controller extends IlluminateController {
         return $this->container->make('session');
     }
     /**
+     * @return \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    public function getSetting() {
+        return $this->container->make('setting');
+    }
+    /**
      * @param $key
      * @param null $value
      */

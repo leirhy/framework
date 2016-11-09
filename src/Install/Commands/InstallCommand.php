@@ -68,7 +68,7 @@ class InstallCommand extends Command {
     /**
      * @return void
      */
-    protected function fire() {
+    public function fire() {
         if(!$this->isDataSetted) {
             $this->setDataFromConsoling();
         }

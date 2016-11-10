@@ -7,6 +7,7 @@
  */
 namespace Notadd\Foundation\Exception;
 use Exception;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory as ViewFactory;
@@ -132,6 +133,10 @@ class Handler implements ExceptionHandlerContract {
             return $this->unauthenticated($request, $exception);
         } elseif($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
+        } elseif($exception instanceof ClientException) {
+            if($request->expectsJson()) {
+                return $this->response->json(['error' => $exception->getMessage()], $exception->getCode());
+            }
         }
         return $this->prepareResponse($request, $exception);
     }

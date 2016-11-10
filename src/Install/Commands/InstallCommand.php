@@ -120,7 +120,7 @@ class InstallCommand extends Command {
             '--path' => str_replace(base_path() . DIRECTORY_SEPARATOR, '', database_path('migrations'))
         ]);
         $setting = $this->container->make(SettingsRepository::class);
-        $setting->set('setting.title', $this->data->get('website'));
+        $setting->set('site.name', $this->data->get('website'));
         $setting->set('setting.image.engine', 'webp');
         if($this->data->get('image_engine', false)) {
         } else {

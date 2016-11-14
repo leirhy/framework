@@ -5,7 +5,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-11-08 17:01
  */
-namespace Notadd\Foundation\Setting\Controllers;
+namespace Notadd\Foundation\Setting\Apis;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
@@ -13,7 +13,7 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
  * Class ApiController
  * @package Notadd\Foundation\Setting\Controllers
  */
-class ApiController extends Controller {
+class SettingController extends Controller {
     /**
      * @param \Notadd\Foundation\Passport\Responses\ApiResponse $response
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings

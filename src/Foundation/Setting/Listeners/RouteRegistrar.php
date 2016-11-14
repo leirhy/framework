@@ -7,7 +7,7 @@
  */
 namespace Notadd\Foundation\Setting\Listeners;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
-use Notadd\Foundation\Setting\Controllers\ApiController;
+use Notadd\Foundation\Setting\Apis\SettingController;
 /**
  * Class RouteRegistrar
  * @package Notadd\Foundation\Setting\Listeners
@@ -18,8 +18,8 @@ class RouteRegistrar extends AbstractRouteRegistrar {
      */
     public function handle() {
         $this->router->group(['middleware' => ['auth:api', 'web'], 'prefix' => 'api/setting'], function() {
-            $this->router->post('all', ApiController::class . '@all');
-            $this->router->post('set', ApiController::class . '@set');
+            $this->router->post('all', SettingController::class . '@all');
+            $this->router->post('set', SettingController::class . '@set');
         });
     }
 }

@@ -6,21 +6,17 @@
  * @datetime 2016-10-21 09:50
  */
 namespace Notadd\Foundation\Console;
-use Illuminate\Console\Command;
-use Illuminate\Console\Events\ArtisanStarting;
+use Illuminate\Console\Application as IlluminateApplication;
 use Illuminate\Contracts\Console\Application as ApplicationContract;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
-use Symfony\Component\Console\Application as SymfonyApplication;
-use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * Class Application
  * @package Notadd\Foundation\Console
  */
-class Application extends SymfonyApplication implements ApplicationContract {
+class Application extends IlluminateApplication implements ApplicationContract {
     /**
      * @var \Illuminate\Contracts\Container\Container|\Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
@@ -31,16 +27,13 @@ class Application extends SymfonyApplication implements ApplicationContract {
     protected $lastOutput;
     /**
      * Application constructor.
-     * @param \Illuminate\Contracts\Container\Container $container
+     * @param \Illuminate\Container\Container $container
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @param $version
      */
     public function __construct(Container $container, Dispatcher $events, $version) {
-        parent::__construct('Notadd Framework', $version);
+        parent::__construct($container, $events, $version);
         $this->container = $container;
-        $this->setAutoExit(false);
-        $this->setCatchExceptions(false);
-        $events->fire(new ArtisanStarting($this));
     }
     /**
      * @param string $command
@@ -56,33 +49,13 @@ class Application extends SymfonyApplication implements ApplicationContract {
         return $result;
     }
     /**
-     * @return string
-     */
-    public function output() {
-        return $this->lastOutput ? $this->lastOutput->fetch() : '';
-    }
-    /**
-     * @param \Symfony\Component\Console\Command\Command $command
-     * @return \Symfony\Component\Console\Command\Command
-     */
-    public function add(SymfonyCommand $command) {
-        if($command instanceof Command) {
-            $command->setLaravel($this->container);
-        }
-        return $this->addToParent($command);
-    }
-    /**
-     * @param \Symfony\Component\Console\Command\Command $command
-     * @return \Symfony\Component\Console\Command\Command
-     */
-    protected function addToParent(SymfonyCommand $command) {
-        return parent::add($command);
-    }
-    /**
      * @param string $command
      * @return \Symfony\Component\Console\Command\Command
      */
     public function resolve($command) {
+        if(is_null($this->container)) {
+            $this->container = Container::getInstance();
+        }
         return $this->add($this->container->make($command));
     }
     /**
@@ -95,21 +68,6 @@ class Application extends SymfonyApplication implements ApplicationContract {
             $this->resolve($command);
         }
         return $this;
-    }
-    /**
-     * @return \Symfony\Component\Console\Input\InputDefinition
-     */
-    protected function getDefaultInputDefinition() {
-        $definition = parent::getDefaultInputDefinition();
-        $definition->addOption($this->getEnvironmentOption());
-        return $definition;
-    }
-    /**
-     * @return \Symfony\Component\Console\Input\InputOption
-     */
-    protected function getEnvironmentOption() {
-        $message = 'The environment the command should run under.';
-        return new InputOption('--env', null, InputOption::VALUE_OPTIONAL, $message);
     }
     /**
      * @return \Illuminate\Contracts\Foundation\Application

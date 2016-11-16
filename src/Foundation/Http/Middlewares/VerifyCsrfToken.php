@@ -28,7 +28,9 @@ class VerifyCsrfToken {
     /**
      * @var array
      */
-    protected $except = [];
+    protected $except = [
+        'api*'
+    ];
     /**
      * @param \Notadd\Foundation\Application $app
      * @param \Illuminate\Contracts\Encryption\Encrypter $encrypter

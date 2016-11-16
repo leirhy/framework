@@ -21,6 +21,7 @@ return [
         Illuminate\Queue\ConsoleServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Notadd\Foundation\Database\DatabaseServiceProvider::class,
+        Notadd\Foundation\Debug\DebugServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
         Notadd\Foundation\Extension\ExtensionServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,

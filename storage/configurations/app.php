@@ -13,6 +13,7 @@ return [
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
     'providers' => [
         Notadd\Foundation\Console\ArtisanServiceProvider::class,
+        Notadd\Foundation\Attachment\AttachmentServiceProvider::class,
         Notadd\Foundation\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Notadd\Foundation\Bus\BusServiceProvider::class,

@@ -1,21 +1,24 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:16
  */
 namespace Notadd\Foundation\Console\Commands;
+
+use ClassPreloader\Exceptions\VisitorExceptionInterface;
 use ClassPreloader\Factory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 use Symfony\Component\Console\Input\InputOption;
-use ClassPreloader\Exceptions\VisitorExceptionInterface;
+
 /**
- * Class OptimizeCommand
- * @package Notadd\Foundation\Console\Consoles
+ * Class OptimizeCommand.
  */
-class OptimizeCommand extends Command {
+class OptimizeCommand extends Command
+{
     /**
      * @var array
      */
@@ -216,25 +219,30 @@ class OptimizeCommand extends Command {
      * @var \Illuminate\Support\Composer
      */
     protected $composer;
+
     /**
      * OptimizeCommand constructor.
+     *
      * @param \Illuminate\Support\Composer $composer
      */
-    public function __construct(Composer $composer) {
+    public function __construct(Composer $composer)
+    {
         parent::__construct();
         $this->composer = $composer;
     }
+
     /**
      * @return void
      */
-    public function fire() {
+    public function fire()
+    {
         $this->info('Generating optimized class loader');
-        if($this->option('psr')) {
+        if ($this->option('psr')) {
             $this->composer->dumpAutoloads();
         } else {
             $this->composer->dumpOptimized();
         }
-        if($this->option('force') || !$this->laravel['config']['app.debug']) {
+        if ($this->option('force') || !$this->laravel['config']['app.debug']) {
             $this->info('Compiling common classes');
             $this->compileClasses();
             $this->info('Compiled common classes');
@@ -242,52 +250,59 @@ class OptimizeCommand extends Command {
             $this->call('clear-compiled');
         }
     }
+
     /**
      * @return void
      */
-    protected function compileClasses() {
-        $preloader = (new Factory)->create(['skip' => true]);
+    protected function compileClasses()
+    {
+        $preloader = (new Factory())->create(['skip' => true]);
         $handle = $preloader->prepareOutput($this->laravel->getCachedCompilePath());
-        foreach($this->getClassFiles() as $file) {
+        foreach ($this->getClassFiles() as $file) {
             try {
-                fwrite($handle, $preloader->getCode($file, false) . "\n");
-            } catch(VisitorExceptionInterface $e) {
+                fwrite($handle, $preloader->getCode($file, false)."\n");
+            } catch (VisitorExceptionInterface $e) {
             }
         }
         fclose($handle);
     }
+
     /**
      * @return array
      */
-    protected function getClassFiles() {
-        $core = collect($this->complies)->transform(function($value) {
-            return $this->laravel->basePath() . $value;
+    protected function getClassFiles()
+    {
+        $core = collect($this->complies)->transform(function ($value) {
+            return $this->laravel->basePath().$value;
         })->toArray();
         $files = array_merge($core, $this->laravel['config']->get('compile.files', []));
-        foreach($this->laravel['config']->get('compile.providers', []) as $provider) {
+        foreach ($this->laravel['config']->get('compile.providers', []) as $provider) {
             $files = array_merge($files, forward_static_call([
                 $provider,
-                'compiles'
+                'compiles',
             ]));
         }
+
         return array_map('realpath', $files);
     }
+
     /**
      * @return array
      */
-    protected function getOptions() {
+    protected function getOptions()
+    {
         return [
             [
                 'force',
                 null,
                 InputOption::VALUE_NONE,
-                'Force the compiled class file to be written.'
+                'Force the compiled class file to be written.',
             ],
             [
                 'psr',
                 null,
                 InputOption::VALUE_NONE,
-                'Do not optimize Composer dump-autoload.'
+                'Do not optimize Composer dump-autoload.',
             ],
         ];
     }

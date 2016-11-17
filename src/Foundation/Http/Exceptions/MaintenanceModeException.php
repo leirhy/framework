@@ -1,19 +1,22 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 13:31
  */
 namespace Notadd\Foundation\Http\Exceptions;
+
 use Carbon\Carbon;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+
 /**
- * Class MaintenanceModeException
- * @package Notadd\Foundation\Http\Exceptions
+ * Class MaintenanceModeException.
  */
-class MaintenanceModeException extends ServiceUnavailableHttpException {
+class MaintenanceModeException extends ServiceUnavailableHttpException
+{
     /**
      * @var int
      */
@@ -26,18 +29,21 @@ class MaintenanceModeException extends ServiceUnavailableHttpException {
      * @var \Carbon\Carbon
      */
     public $willBeAvailableAt;
+
     /**
      * MaintenanceModeException constructor.
-     * @param int $time
-     * @param int $retryAfter
-     * @param string $message
+     *
+     * @param int        $time
+     * @param int        $retryAfter
+     * @param string     $message
      * @param \Exception $previous
-     * @param int $code
+     * @param int        $code
      */
-    public function __construct($time, $retryAfter = null, $message = null, Exception $previous = null, $code = 0) {
+    public function __construct($time, $retryAfter = null, $message = null, Exception $previous = null, $code = 0)
+    {
         parent::__construct($retryAfter, $message, $previous, $code);
         $this->wentDownAt = Carbon::createFromTimestamp($time);
-        if($retryAfter) {
+        if ($retryAfter) {
             $this->retryAfter = $retryAfter;
             $this->willBeAvailableAt = $this->wentDownAt->addSeconds($this->retryAfter);
         }

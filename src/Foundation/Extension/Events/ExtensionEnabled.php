@@ -1,19 +1,22 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-11-03 14:25
  */
 namespace Notadd\Foundation\Extension\Events;
+
 use Illuminate\Container\Container;
 use Notadd\Foundation\Extension\Extension;
 use Notadd\Foundation\Extension\ExtensionManager;
+
 /**
- * Class ExtensionEnabled
- * @package Notadd\Foundation\Extension\Events
+ * Class ExtensionEnabled.
  */
-class ExtensionEnabled {
+class ExtensionEnabled
+{
     /**
      * @var \Illuminate\Container\Container|\Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
@@ -26,13 +29,16 @@ class ExtensionEnabled {
      * @var \Notadd\Foundation\Extension\ExtensionManager
      */
     protected $manager;
+
     /**
      * ExtensionEnabled constructor.
+     *
      * @param \Illuminate\Container\Container|\Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $container
-     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
-     * @param \Notadd\Foundation\Extension\Extension $extension
+     * @param \Notadd\Foundation\Extension\ExtensionManager                                                               $manager
+     * @param \Notadd\Foundation\Extension\Extension                                                                      $extension
      */
-    public function __construct(Container $container, ExtensionManager $manager, Extension $extension) {
+    public function __construct(Container $container, ExtensionManager $manager, Extension $extension)
+    {
         $this->container = $container;
         $this->extension = $extension;
         $this->manager = $manager;

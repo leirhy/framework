@@ -1,11 +1,13 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-28 14:43
  */
 namespace Notadd\Foundation\Passport\Controllers;
+
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Laravel\Passport\ClientRepository;
 use Laravel\Passport\Http\Controllers\HandlesOAuthErrors;
@@ -16,11 +18,12 @@ use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response as Psr7Response;
+
 /**
- * Class AuthorizationController
- * @package Notadd\Foundation\Passport\Controllers
+ * Class AuthorizationController.
  */
-class AuthorizationController extends Controller {
+class AuthorizationController extends Controller
+{
     use HandlesOAuthErrors, RetrievesAuthRequestFromSession;
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
@@ -30,56 +33,72 @@ class AuthorizationController extends Controller {
      * @var \League\OAuth2\Server\AuthorizationServer
      */
     protected $server;
+
     /**
      * AuthorizationController constructor.
-     * @param \League\OAuth2\Server\AuthorizationServer $server
+     *
+     * @param \League\OAuth2\Server\AuthorizationServer     $server
      * @param \Illuminate\Contracts\Routing\ResponseFactory $response
      */
-    public function __construct(AuthorizationServer $server, ResponseFactory $response) {
+    public function __construct(AuthorizationServer $server, ResponseFactory $response)
+    {
         parent::__construct();
         $this->server = $server;
         $this->response = $response;
     }
+
     /**
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deny() {
+    public function deny()
+    {
         $redirect = $this->getAuthRequestFromSession($this->request)->getClient()->getRedirectUri();
-        return $this->response->redirectTo($redirect . '?error=access_denied&state=' . $this->request->input('state'));
+
+        return $this->response->redirectTo($redirect.'?error=access_denied&state='.$this->request->input('state'));
     }
+
     /**
      * @param \Psr\Http\Message\ServerRequestInterface $psrRequest
-     * @param \Laravel\Passport\ClientRepository $clients
+     * @param \Laravel\Passport\ClientRepository       $clients
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index(ServerRequestInterface $psrRequest, ClientRepository $clients) {
+    public function index(ServerRequestInterface $psrRequest, ClientRepository $clients)
+    {
         return $this->withErrorHandling(function () use ($psrRequest, $clients) {
             $this->request->session()->put('authRequest', $authRequest = $this->server->validateAuthorizationRequest($psrRequest));
             $scopes = $this->parseScopes($authRequest);
+
             return $this->response->view('passport::authorize', [
-                'client' => $clients->find($authRequest->getClient()->getIdentifier()),
-                'user' => $this->request->user(),
-                'scopes' => $scopes,
+                'client'  => $clients->find($authRequest->getClient()->getIdentifier()),
+                'user'    => $this->request->user(),
+                'scopes'  => $scopes,
                 'request' => $this->request,
             ]);
         });
     }
+
     /**
      * @param \League\OAuth2\Server\RequestTypes\AuthorizationRequest $authRequest
+     *
      * @return array
      */
-    protected function parseScopes(AuthorizationRequest $authRequest) {
+    protected function parseScopes(AuthorizationRequest $authRequest)
+    {
         return Passport::scopesFor(collect($authRequest->getScopes())->map(function ($scope) {
             return $scope->getIdentifier();
         })->all());
     }
+
     /**
      * @return \Illuminate\Http\Response
      */
-    public function store() {
+    public function store()
+    {
         return $this->withErrorHandling(function () use ($request) {
             $authRequest = $this->getAuthRequestFromSession($request);
-            return $this->server->completeAuthorizationRequest($authRequest, new Psr7Response);
+
+            return $this->server->completeAuthorizationRequest($authRequest, new Psr7Response());
         });
     }
 }

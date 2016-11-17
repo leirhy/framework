@@ -1,17 +1,20 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:06
  */
 namespace Notadd\Foundation\Console\Commands;
+
 use Illuminate\Console\Command;
+
 /**
- * Class ClearCompiledCommand
- * @package Notadd\Foundation\Console\Consoles
+ * Class ClearCompiledCommand.
  */
-class ClearCompiledCommand extends Command {
+class ClearCompiledCommand extends Command
+{
     /**
      * @var string
      */
@@ -20,16 +23,18 @@ class ClearCompiledCommand extends Command {
      * @var string
      */
     protected $description = 'Remove the compiled class file';
+
     /**
      * @return void
      */
-    public function fire() {
+    public function fire()
+    {
         $compiledPath = $this->laravel->getCachedCompilePath();
         $servicesPath = $this->laravel->getCachedServicesPath();
-        if(file_exists($compiledPath)) {
+        if (file_exists($compiledPath)) {
             @unlink($compiledPath);
         }
-        if(file_exists($servicesPath)) {
+        if (file_exists($servicesPath)) {
             @unlink($servicesPath);
         }
         $this->info('The compiled class file has been removed.');

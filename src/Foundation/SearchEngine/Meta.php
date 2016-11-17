@@ -1,17 +1,20 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-11-04 10:57
  */
 namespace Notadd\Foundation\SearchEngine;
+
 use Illuminate\Support\Collection;
+
 /**
- * Class Meta
- * @package Notadd\Foundation\SearchEngine
+ * Class Meta.
  */
-class Meta {
+class Meta
+{
     /**
      * @var string
      */
@@ -24,40 +27,51 @@ class Meta {
      * @var string
      */
     private $keywords;
+
     /**
      * Meta constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->title = '{sitename}';
         $this->description = '{description}';
         $this->keywords = '{keywords}';
     }
+
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function getData() {
+    public function getData()
+    {
         $data = new Collection();
         $data->put('title', $this->title);
         $data->put('description', $this->description);
         $data->put('keywords', $this->keywords);
+
         return $data;
     }
+
     /**
      * @param $title
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = trim($title);
     }
+
     /**
      * @param $description
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = trim($description);
     }
+
     /**
      * @param $keywords
      */
-    public function setKeywords($keywords) {
+    public function setKeywords($keywords)
+    {
         $this->keywords = trim($keywords);
     }
 }

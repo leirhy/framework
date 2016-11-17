@@ -1,17 +1,20 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 12:10
  */
 namespace Notadd\Foundation\Console\Commands;
+
 use Illuminate\Console\Command;
+
 /**
- * Class EnvironmentCommand
- * @package Notadd\Foundation\Console\Consoles
+ * Class EnvironmentCommand.
  */
-class EnvironmentCommand extends Command {
+class EnvironmentCommand extends Command
+{
     /**
      * @var string
      */
@@ -20,10 +23,12 @@ class EnvironmentCommand extends Command {
      * @var string
      */
     protected $description = 'Display the current framework environment';
+
     /**
      * @return void
      */
-    public function fire() {
-        $this->line('<info>Current application environment:</info> <comment>' . $this->laravel['env'] . '</comment>');
+    public function fire()
+    {
+        $this->line('<info>Current application environment:</info> <comment>'.$this->laravel['env'].'</comment>');
     }
 }

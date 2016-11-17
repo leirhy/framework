@@ -1,19 +1,24 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @datetime 2016-09-26 17:42:10
  */
 use Illuminate\Database\Schema\Blueprint;
 use Notadd\Foundation\Database\Migrations\Migration;
+
 /**
- * Class CreateMembersTable
+ * Class CreateMembersTable.
  */
-class CreateMembersTable extends Migration {
+class CreateMembersTable extends Migration
+{
     /**
      * Run the migrations.
+     *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         $this->schema->create('members', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
@@ -23,11 +28,14 @@ class CreateMembersTable extends Migration {
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
+     *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         $this->schema->drop('members');
     }
 }

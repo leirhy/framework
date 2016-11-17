@@ -1,22 +1,25 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 13:03
  */
 namespace Notadd\Foundation\Console\Commands;
+
 use Illuminate\Console\Command;
-use League\Flysystem\MountManager;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
-use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\Adapter\Local as LocalAdapter;
+use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\MountManager;
+
 /**
- * Class VendorPublishCommand
- * @package Notadd\Foundation\Console\Consoles
+ * Class VendorPublishCommand.
  */
-class VendorPublishCommand extends Command {
+class VendorPublishCommand extends Command
+{
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
@@ -31,37 +34,45 @@ class VendorPublishCommand extends Command {
      * @var string
      */
     protected $description = 'Publish any publishable assets from vendor packages';
+
     /**
      * VendorPublishCommand constructor.
+     *
      * @param \Illuminate\Filesystem\Filesystem $files
      */
-    public function __construct(Filesystem $files) {
+    public function __construct(Filesystem $files)
+    {
         parent::__construct();
         $this->files = $files;
     }
+
     /**
      * @return void
      */
-    public function fire() {
+    public function fire()
+    {
         $tags = $this->option('tag');
         $tags = $tags ?: [null];
-        foreach((array)$tags as $tag) {
+        foreach ((array) $tags as $tag) {
             $this->publishTag($tag);
         }
     }
+
     /**
      * @param string $tag
+     *
      * @return mixed
      */
-    protected function publishTag($tag) {
+    protected function publishTag($tag)
+    {
         $paths = ServiceProvider::pathsToPublish($this->option('provider'), $tag);
-        if(empty($paths)) {
+        if (empty($paths)) {
             return $this->comment("Nothing to publish for tag [{$tag}].");
         }
-        foreach($paths as $from => $to) {
-            if($this->files->isFile($from)) {
+        foreach ($paths as $from => $to) {
+            if ($this->files->isFile($from)) {
                 $this->publishFile($from, $to);
-            } elseif($this->files->isDirectory($from)) {
+            } elseif ($this->files->isDirectory($from)) {
                 $this->publishDirectory($from, $to);
             } else {
                 $this->error("Can't locate path: <{$from}>");
@@ -69,54 +80,66 @@ class VendorPublishCommand extends Command {
         }
         $this->info("Publishing complete for tag [{$tag}]!");
     }
+
     /**
      * @param string $from
      * @param string $to
+     *
      * @return void
      */
-    protected function publishFile($from, $to) {
-        if($this->files->exists($to) && !$this->option('force')) {
+    protected function publishFile($from, $to)
+    {
+        if ($this->files->exists($to) && !$this->option('force')) {
             return;
         }
         $this->createParentDirectory(dirname($to));
         $this->files->copy($from, $to);
         $this->status($from, $to, 'File');
     }
+
     /**
      * @param string $from
      * @param string $to
+     *
      * @return void
      */
-    protected function publishDirectory($from, $to) {
+    protected function publishDirectory($from, $to)
+    {
         $manager = new MountManager([
             'from' => new Flysystem(new LocalAdapter($from)),
-            'to' => new Flysystem(new LocalAdapter($to)),
+            'to'   => new Flysystem(new LocalAdapter($to)),
         ]);
-        foreach($manager->listContents('from://', true) as $file) {
-            if($file['type'] === 'file' && (!$manager->has('to://' . $file['path']) || $this->option('force'))) {
-                $manager->put('to://' . $file['path'], $manager->read('from://' . $file['path']));
+        foreach ($manager->listContents('from://', true) as $file) {
+            if ($file['type'] === 'file' && (!$manager->has('to://'.$file['path']) || $this->option('force'))) {
+                $manager->put('to://'.$file['path'], $manager->read('from://'.$file['path']));
             }
         }
         $this->status($from, $to, 'Directory');
     }
+
     /**
      * @param string $directory
+     *
      * @return void
      */
-    protected function createParentDirectory($directory) {
-        if(!$this->files->isDirectory($directory)) {
+    protected function createParentDirectory($directory)
+    {
+        if (!$this->files->isDirectory($directory)) {
             $this->files->makeDirectory($directory, 0755, true);
         }
     }
+
     /**
      * @param string $from
      * @param string $to
      * @param string $type
+     *
      * @return void
      */
-    protected function status($from, $to, $type) {
+    protected function status($from, $to, $type)
+    {
         $from = str_replace(base_path(), '', realpath($from));
         $to = str_replace(base_path(), '', realpath($to));
-        $this->line('<info>Copied ' . $type . '</info> <comment>[' . $from . ']</comment> <info>To</info> <comment>[' . $to . ']</comment>');
+        $this->line('<info>Copied '.$type.'</info> <comment>['.$from.']</comment> <info>To</info> <comment>['.$to.']</comment>');
     }
 }

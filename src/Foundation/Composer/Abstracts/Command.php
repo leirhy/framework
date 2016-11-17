@@ -1,11 +1,13 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-31 17:10
  */
 namespace Notadd\Foundation\Composer\Abstracts;
+
 use Composer\Config\JsonConfigSource;
 use Composer\Factory;
 use Composer\Installer;
@@ -15,11 +17,12 @@ use Exception;
 use Notadd\Foundation\Console\Abstracts\Command as AbstractCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 /**
- * Class Command
- * @package Notadd\Foundation\Composer\Abstracts
+ * Class Command.
  */
-abstract class Command extends AbstractCommand {
+abstract class Command extends AbstractCommand
+{
     /**
      * @var mixed
      */
@@ -48,22 +51,26 @@ abstract class Command extends AbstractCommand {
      * @var \Composer\Config\JsonConfigSource
      */
     protected $json;
+
     /**
      * Command constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        $this->file = new JsonFile($this->container->basePath() . DIRECTORY_SEPARATOR . 'composer.json');
+        $this->file = new JsonFile($this->container->basePath().DIRECTORY_SEPARATOR.'composer.json');
         $this->files = $this->container->make('files');
         $this->backup = $this->file->read();
         $this->json = new JsonConfigSource($this->file);
     }
+
     /**
      * @param bool $optimize
      * @param bool $reload
      */
-    protected function dumpAutoloads($optimize = true, $reload = false) {
-        if($reload) {
+    protected function dumpAutoloads($optimize = true, $reload = false)
+    {
+        if ($reload) {
             $this->composer = Factory::create($this->io, null, $this->disablePluginsByDefault);
         }
         $config = $this->composer->getConfig();
@@ -74,31 +81,39 @@ abstract class Command extends AbstractCommand {
         $generator->dump($config, $localRepository, $package, $installationManager, 'composer', $optimize);
         $this->info('Composer DumpAutoloads Completed!');
     }
+
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
-    public function execute(InputInterface $input, OutputInterface $output) {
+    public function execute(InputInterface $input, OutputInterface $output)
+    {
         $this->input = $input;
         $this->output = $output;
         $this->io = new ConsoleIO($input, $output, $this->getHelperSet());
         $this->composer = Factory::create($this->io, null, $this->disablePluginsByDefault);
-        if(!method_exists($this, 'fire')) {
+        if (!method_exists($this, 'fire')) {
             throw new Exception('Method fire do not exits!', 404);
         }
+
         return $this->container->call([
             $this,
-            'fire'
+            'fire',
         ]);
     }
+
     /**
      * @param bool $reload
+     *
      * @return int
      */
-    protected function updateComposer($reload = false) {
-        if($reload) {
+    protected function updateComposer($reload = false)
+    {
+        if ($reload) {
             $this->composer = Factory::create($this->io, null, $this->disablePluginsByDefault);
         }
         ini_set('memory_limit', '1024M');
@@ -107,7 +122,7 @@ abstract class Command extends AbstractCommand {
         $config = $this->composer->getConfig();
         $preferSource = false;
         $preferDist = true;
-        switch($config->get('preferred-install')) {
+        switch ($config->get('preferred-install')) {
             case 'source':
                 $preferSource = true;
                 break;
@@ -126,6 +141,7 @@ abstract class Command extends AbstractCommand {
         $install->setDumpAutoloader(true);
         $install->setOptimizeAutoloader(true);
         $install->setUpdate(true);
+
         return $install->run();
     }
 }

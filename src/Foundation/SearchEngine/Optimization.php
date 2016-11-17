@@ -1,20 +1,23 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-11-04 10:53
  */
 namespace Notadd\Foundation\SearchEngine;
+
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Illuminate\View\Factory;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
+
 /**
- * Class Optimization
- * @package Notadd\Foundation\SearchEngine
+ * Class Optimization.
  */
-class Optimization {
+class Optimization
+{
     /**
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
@@ -35,13 +38,16 @@ class Optimization {
      * @var \Illuminate\View\Factory
      */
     private $view;
+
     /**
      * Optimization constructor.
-     * @param \Illuminate\Container\Container $container
+     *
+     * @param \Illuminate\Container\Container                         $container
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
-     * @param \Illuminate\View\Factory $view
+     * @param \Illuminate\View\Factory                                $view
      */
-    public function __construct(Container $container, SettingsRepository $settings, Factory $view) {
+    public function __construct(Container $container, SettingsRepository $settings, Factory $view)
+    {
         $this->container = $container;
         $this->view = $view;
         $this->code = new Collection();
@@ -51,56 +57,69 @@ class Optimization {
         $this->code->put('{keywords}', $this->settings->get('seo.keyword', 'Notadd CMS'));
         $this->code->put('{description}', $this->settings->get('seo.description', 'Notadd CMS'));
     }
+
     /**
      * @param string $key
+     *
      * @return mixed
      */
-    public function getData($key = '') {
+    public function getData($key = '')
+    {
         $data = $this->meta->getData();
-        foreach($data as $k=>$v) {
+        foreach ($data as $k => $v) {
             $data->put($k, strip_tags(trim(strtr($v, $this->code->toArray()), '-_ ')));
         }
-        if($key) {
+        if ($key) {
             return $data->get($key);
         } else {
             return $data;
         }
     }
+
     /**
      * @param $key
      * @param $value
      */
-    public function setCode($key, $value) {
+    public function setCode($key, $value)
+    {
         $this->code->put($key, $value);
     }
+
     /**
      * @param $title
      * @param $description
      * @param $keywords
      */
-    public function setCustomMeta($title, $description, $keywords) {
-        if($title || $keywords || $description) {
+    public function setCustomMeta($title, $description, $keywords)
+    {
+        if ($title || $keywords || $description) {
             $this->meta->setTitle($title);
             $this->meta->setDescription($description);
             $this->meta->setKeywords($keywords);
         }
     }
+
     /**
      * @param $title
      */
-    public function setTitleMeta($title) {
+    public function setTitleMeta($title)
+    {
         $this->meta->setTitle($title);
     }
+
     /**
      * @param $description
      */
-    public function setDescriptionMeta($description) {
+    public function setDescriptionMeta($description)
+    {
         $this->meta->setDescription($description);
     }
+
     /**
      * @param $keywords
      */
-    public function setKeywordsMeta($keywords) {
+    public function setKeywordsMeta($keywords)
+    {
         $this->meta->setKeywords($keywords);
     }
 }

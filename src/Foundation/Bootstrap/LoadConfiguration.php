@@ -1,33 +1,38 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 11:04
  */
 namespace Notadd\Foundation\Bootstrap;
+
 use Illuminate\Config\Repository;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
+use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+
 /**
- * Class LoadConfiguration
- * @package Notadd\Foundation\Bootstrap
+ * Class LoadConfiguration.
  */
-class LoadConfiguration {
+class LoadConfiguration
+{
     /**
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
+     *
      * @return void
      */
-    public function bootstrap(Application $application) {
+    public function bootstrap(Application $application)
+    {
         $items = [];
-        if(file_exists($cached = $application->getCachedConfigPath())) {
+        if (file_exists($cached = $application->getCachedConfigPath())) {
             $items = require $cached;
             $loadedFromCache = true;
         }
         $application->instance('config', $config = new Repository($items));
-        if(!isset($loadedFromCache)) {
+        if (!isset($loadedFromCache)) {
             $this->loadConfigurationFiles($application, $config);
         }
         $application->detectEnvironment(function () use ($config) {
@@ -35,43 +40,54 @@ class LoadConfiguration {
         });
         mb_internal_encoding('UTF-8');
     }
+
     /**
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
-     * @param \Illuminate\Contracts\Config\Repository $repository
+     * @param \Illuminate\Contracts\Config\Repository                                     $repository
+     *
      * @return void
      */
-    protected function loadConfigurationFiles(Application $application, RepositoryContract $repository) {
-        foreach($this->getConfigurationFiles($application) as $key => $path) {
+    protected function loadConfigurationFiles(Application $application, RepositoryContract $repository)
+    {
+        foreach ($this->getConfigurationFiles($application) as $key => $path) {
             $repository->set($key, require $path);
         }
-        if($application->isInstalled()) {
-            $database = require $application->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'replace.php';
+        if ($application->isInstalled()) {
+            $database = require $application->storagePath().DIRECTORY_SEPARATOR.'bootstraps'.DIRECTORY_SEPARATOR.'replace.php';
             $repository->set('database', $database);
         }
     }
+
     /**
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
+     *
      * @return array
      */
-    protected function getConfigurationFiles(Application $app) {
+    protected function getConfigurationFiles(Application $app)
+    {
         $files = [];
         $configPath = realpath($app->configPath());
-        foreach(Finder::create()->files()->name('*.php')->in($configPath) as $file) {
+        foreach (Finder::create()->files()->name('*.php')->in($configPath) as $file) {
             $nesting = $this->getConfigurationNesting($file, $configPath);
-            $files[$nesting . basename($file->getRealPath(), '.php')] = $file->getRealPath();
+            $files[$nesting.basename($file->getRealPath(), '.php')] = $file->getRealPath();
         }
+
         return $files;
     }
+
     /**
      * @param \Symfony\Component\Finder\SplFileInfo $file
-     * @param string $configPath
+     * @param string                                $configPath
+     *
      * @return string
      */
-    protected function getConfigurationNesting(SplFileInfo $file, $configPath) {
+    protected function getConfigurationNesting(SplFileInfo $file, $configPath)
+    {
         $directory = dirname($file->getRealPath());
-        if($tree = trim(str_replace($configPath, '', $directory), DIRECTORY_SEPARATOR)) {
-            $tree = str_replace(DIRECTORY_SEPARATOR, '.', $tree) . '.';
+        if ($tree = trim(str_replace($configPath, '', $directory), DIRECTORY_SEPARATOR)) {
+            $tree = str_replace(DIRECTORY_SEPARATOR, '.', $tree).'.';
         }
+
         return $tree;
     }
 }

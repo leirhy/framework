@@ -1,25 +1,30 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-24 10:15
  */
 namespace Notadd\Foundation\Bootstrap;
+
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
+
 /**
- * Class LoadSetting
- * @package Notadd\Foundation\Bootstrap
+ * Class LoadSetting.
  */
-class LoadSetting {
+class LoadSetting
+{
     /**
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
+     *
      * @return void
      */
-    public function bootstrap(Application $application) {
-        if($application->isInstalled()) {
+    public function bootstrap(Application $application)
+    {
+        if ($application->isInstalled()) {
             $config = $application->make(ConfigRepository::class);
             $setting = $application->make(SettingsRepository::class);
             date_default_timezone_set($setting->get('setting.timezone', $config['app.timezone']));

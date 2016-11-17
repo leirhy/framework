@@ -1,28 +1,34 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 16:40
  */
 namespace Notadd\Foundation\Http\Middlewares;
+
 use Closure;
 use Illuminate\Support\Facades\Auth;
+
 /**
- * Class RedirectIfAuthenticated
- * @package Notadd\Foundation\Http\Middlewares
+ * Class RedirectIfAuthenticated.
  */
-class RedirectIfAuthenticated {
+class RedirectIfAuthenticated
+{
     /**
      * @param $request
      * @param \Closure $next
-     * @param null $guard
+     * @param null     $guard
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function handle($request, Closure $next, $guard = null) {
-        if(Auth::guard($guard)->check()) {
+    public function handle($request, Closure $next, $guard = null)
+    {
+        if (Auth::guard($guard)->check()) {
             return redirect('/');
         }
+
         return $next($request);
     }
 }

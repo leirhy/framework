@@ -1,18 +1,21 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-09 10:44
  */
 namespace Notadd\Foundation\Extension\Abstracts;
+
 use Illuminate\Container\Container;
 use Notadd\Foundation\Extension\Extension;
+
 /**
- * Class ExtensionRegistrar
- * @package Notadd\Extension\Abstracts
+ * Class ExtensionRegistrar.
  */
-abstract class ExtensionRegistrar {
+abstract class ExtensionRegistrar
+{
     /**
      * @var \Illuminate\Container\Container
      */
@@ -33,74 +36,95 @@ abstract class ExtensionRegistrar {
      * @var \Illuminate\Support\ServiceProvider
      */
     protected $provider;
+
     /**
      * ExtensionRegistrar constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->container = $this->getContainer();
         $this->events = $this->container->make('events');
         $this->router = $this->container->make('router');
         $this->setting = $this->container->make('setting');
     }
+
     /**
-     * @param string $abstract
+     * @param string       $abstract
      * @param array|string $alias
      */
-    public function alias($abstract, $alias) {
-        foreach((array)$alias as $item) {
+    public function alias($abstract, $alias)
+    {
+        foreach ((array) $alias as $item) {
             $this->container->alias($abstract, $item);
         }
     }
+
     /**
      * @return array
      */
-    public function compiles() {
+    public function compiles()
+    {
         return [];
     }
+
     /**
      * @return \Illuminate\Container\Container
      */
-    protected function getContainer() {
+    protected function getContainer()
+    {
         return Container::getInstance();
     }
+
     /**
      * @return \Notadd\Foundation\Extension\Extension
      */
-    final public function getExtension() {
+    final public function getExtension()
+    {
         $extension = new Extension($this->getExtensionName(), $this->getExtensionPath());
         $extension->setRegistrar($this);
+
         return $extension;
     }
+
     /**
      * @return string
      */
     abstract public function getExtensionName();
+
     /**
      * @return string
      */
     abstract public function getExtensionPath();
+
     /**
      * @return array
      */
-    public function loadCommands() {
+    public function loadCommands()
+    {
         return [];
     }
+
     /**
      * @return array
      */
-    public function loadLocalizationsFrom() {
+    public function loadLocalizationsFrom()
+    {
         return [];
     }
+
     /**
      * @return array
      */
-    public function loadMigrationsFrom() {
+    public function loadMigrationsFrom()
+    {
         return [];
     }
+
     /**
      * @return array
      */
-    public function loadViewsFrom() {
+    public function loadViewsFrom()
+    {
         return [];
     }
 }

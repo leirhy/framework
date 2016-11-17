@@ -1,20 +1,28 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-20 20:04
  */
 namespace Notadd\Foundation\Http;
+
 use Exception;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Routing\Pipeline;
+use Illuminate\Routing\Router;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Laravel\Passport\Http\Middleware\CheckForAnyScope;
 use Laravel\Passport\Http\Middleware\CheckScopes;
@@ -30,19 +38,14 @@ use Notadd\Foundation\Bootstrap\RegisterRouter;
 use Notadd\Foundation\Http\Middlewares\CheckForMaintenanceMode;
 use Notadd\Foundation\Http\Middlewares\RedirectIfAuthenticated;
 use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
-use Throwable;
-use Illuminate\Routing\Router;
-use Illuminate\Routing\Pipeline;
-use Illuminate\Support\Facades\Facade;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Throwable;
+
 /**
- * Class Kernel
- * @package Notadd\Http
+ * Class Kernel.
  */
-class Kernel implements KernelContract {
+class Kernel implements KernelContract
+{
     /**
      * @var \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
@@ -93,14 +96,14 @@ class Kernel implements KernelContract {
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => Authenticate::class,
+        'auth'       => Authenticate::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,
-        'bindings' => SubstituteBindings::class,
-        'can' => Authorize::class,
-        'guest' => RedirectIfAuthenticated::class,
-        'scope' => CheckForAnyScope::class,
-        'scopes' => CheckScopes::class,
-        'throttle' => ThrottleRequests::class,
+        'bindings'   => SubstituteBindings::class,
+        'can'        => Authorize::class,
+        'guest'      => RedirectIfAuthenticated::class,
+        'scope'      => CheckForAnyScope::class,
+        'scopes'     => CheckScopes::class,
+        'throttle'   => ThrottleRequests::class,
     ];
     /**
      * @var array
@@ -112,165 +115,213 @@ class Kernel implements KernelContract {
         SubstituteBindings::class,
         Authorize::class,
     ];
+
     /**
      * Kernel constructor.
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
-     * @param \Illuminate\Routing\Router $router
+     * @param \Illuminate\Routing\Router                                                  $router
      */
-    public function __construct(Application $app, Router $router) {
+    public function __construct(Application $app, Router $router)
+    {
         $this->app = $app;
         $this->router = $router;
         $router->middlewarePriority = $this->middlewarePriority;
-        foreach($this->middlewareGroups as $key => $middleware) {
+        foreach ($this->middlewareGroups as $key => $middleware) {
             $router->middlewareGroup($key, $middleware);
         }
-        foreach($this->routeMiddleware as $key => $middleware) {
+        foreach ($this->routeMiddleware as $key => $middleware) {
             $router->middleware($key, $middleware);
         }
     }
+
     /**
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function handle($request) {
+    public function handle($request)
+    {
         try {
             $request->enableHttpMethodParameterOverride();
             $response = $this->sendRequestThroughRouter($request);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->reportException($e);
             $response = $this->renderException($request, $e);
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             $this->reportException($e = new FatalThrowableError($e));
             $response = $this->renderException($request, $e);
         }
         $this->app['events']->fire('kernel.handled', [
             $request,
-            $response
+            $response,
         ]);
+
         return $response;
     }
+
     /**
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    protected function sendRequestThroughRouter($request) {
+    protected function sendRequestThroughRouter($request)
+    {
         $this->app->instance('request', $request);
         Facade::clearResolvedInstance('request');
         $this->bootstrap();
+
         return (new Pipeline($this->app))->send($request)->through($this->app->shouldSkipMiddleware() ? [] : $this->middleware)->then($this->dispatchToRouter());
     }
+
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Illuminate\Http\Response $response
+     *
      * @return void
      */
-    public function terminate($request, $response) {
+    public function terminate($request, $response)
+    {
         $middlewares = $this->app->shouldSkipMiddleware() ? [] : array_merge($this->gatherRouteMiddleware($request), $this->middleware);
-        foreach($middlewares as $middleware) {
-            if(!is_string($middleware)) {
+        foreach ($middlewares as $middleware) {
+            if (!is_string($middleware)) {
                 continue;
             }
             list($name, $parameters) = $this->parseMiddleware($middleware);
             $instance = $this->app->make($name);
-            if(method_exists($instance, 'terminate')) {
+            if (method_exists($instance, 'terminate')) {
                 $instance->terminate($request, $response);
             }
         }
         $this->app->terminate();
     }
+
     /**
      * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
-    protected function gatherRouteMiddleware($request) {
-        if($route = $request->route()) {
+    protected function gatherRouteMiddleware($request)
+    {
+        if ($route = $request->route()) {
             return $this->router->gatherRouteMiddleware($route);
         }
+
         return [];
     }
+
     /**
      * @param string $middleware
+     *
      * @return array
      */
-    protected function parseMiddleware($middleware) {
+    protected function parseMiddleware($middleware)
+    {
         list($name, $parameters) = array_pad(explode(':', $middleware, 2), 2, []);
-        if(is_string($parameters)) {
+        if (is_string($parameters)) {
             $parameters = explode(',', $parameters);
         }
+
         return [
             $name,
-            $parameters
+            $parameters,
         ];
     }
+
     /**
      * @param string $middleware
+     *
      * @return $this
      */
-    public function prependMiddleware($middleware) {
-        if(array_search($middleware, $this->middleware) === false) {
+    public function prependMiddleware($middleware)
+    {
+        if (array_search($middleware, $this->middleware) === false) {
             array_unshift($this->middleware, $middleware);
         }
+
         return $this;
     }
+
     /**
      * @param string $middleware
+     *
      * @return $this
      */
-    public function pushMiddleware($middleware) {
-        if(array_search($middleware, $this->middleware) === false) {
+    public function pushMiddleware($middleware)
+    {
+        if (array_search($middleware, $this->middleware) === false) {
             $this->middleware[] = $middleware;
         }
+
         return $this;
     }
+
     /**
      * @return void
      */
-    public function bootstrap() {
-        if(!$this->app->hasBeenBootstrapped()) {
+    public function bootstrap()
+    {
+        if (!$this->app->hasBeenBootstrapped()) {
             $this->app->bootstrapWith($this->bootstrappers());
         }
     }
+
     /**
      * @return \Closure
      */
-    protected function dispatchToRouter() {
+    protected function dispatchToRouter()
+    {
         return function ($request) {
             $this->app->instance('request', $request);
+
             return $this->router->dispatch($request);
         };
     }
+
     /**
      * @param string $middleware
+     *
      * @return bool
      */
-    public function hasMiddleware($middleware) {
+    public function hasMiddleware($middleware)
+    {
         return in_array($middleware, $this->middleware);
     }
+
     /**
      * @return array
      */
-    protected function bootstrappers() {
+    protected function bootstrappers()
+    {
         return $this->bootstrappers;
     }
+
     /**
      * @param \Exception $e
+     *
      * @return void
      */
-    protected function reportException(Exception $e) {
+    protected function reportException(Exception $e)
+    {
         $this->app[ExceptionHandler::class]->report($e);
     }
+
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \Exception $e
+     * @param \Exception               $e
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function renderException($request, Exception $e) {
+    protected function renderException($request, Exception $e)
+    {
         return $this->app[ExceptionHandler::class]->render($request, $e);
     }
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application
      */
-    public function getApplication() {
+    public function getApplication()
+    {
         return $this->app;
     }
 }

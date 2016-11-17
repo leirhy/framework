@@ -1,19 +1,22 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 13:05
  */
 namespace Notadd\Foundation\Console\Commands;
-use RuntimeException;
+
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use RuntimeException;
+
 /**
- * Class ViewClearCommand
- * @package Notadd\Foundation\Console\Consoles
+ * Class ViewClearCommand.
  */
-class ViewClearCommand extends Command {
+class ViewClearCommand extends Command
+{
     /**
      * @var string
      */
@@ -26,23 +29,28 @@ class ViewClearCommand extends Command {
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
+
     /**
      * ViewClearCommand constructor.
+     *
      * @param \Illuminate\Filesystem\Filesystem $files
      */
-    public function __construct(Filesystem $files) {
+    public function __construct(Filesystem $files)
+    {
         parent::__construct();
         $this->files = $files;
     }
+
     /**
      * @return void
      */
-    public function fire() {
+    public function fire()
+    {
         $path = $this->laravel['config']['view.compiled'];
-        if(!$path) {
+        if (!$path) {
             throw new RuntimeException('View path not found.');
         }
-        foreach($this->files->glob("{$path}/*") as $view) {
+        foreach ($this->files->glob("{$path}/*") as $view) {
             $this->files->delete($view);
         }
         $this->info('Compiled views cleared!');

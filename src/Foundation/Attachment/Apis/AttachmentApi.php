@@ -13,14 +13,12 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
- * Class AttachmentApi
- *
- * @package Notadd\Foundation\Attachment\Apis
+ * Class AttachmentApi.
  */
 class AttachmentApi extends Controller
 {
     /**
-     * @param \Notadd\Foundation\Passport\Responses\ApiResponse $response
+     * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
@@ -40,6 +38,7 @@ class AttachmentApi extends Controller
         $settings->set('attachment.watermark', $this->request->get('allow_watermark'));
         dd($settings->all()->toArray());
         $response->withParams($settings->all()->toArray());
+
         return $response->generateHttpResponse();
     }
 

@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: TwilRoad
- * Date: 2016/11/17 0017
- * Time: 14:41.
+ * This file is part of Notadd.
+ *
+ * @author TwilRoad <269044570@qq.com>
+ * @copyright (c) 2016, iBenchu.org
+ * @datetime 2016-11-02 15:55
  */
 namespace Notadd\Foundation\Attachment;
 

@@ -13,7 +13,6 @@ use Notadd\Foundation\SearchEngine\Apis\SeoApi;
 
 class RouterRegistrar extends AbstractRouteRegistrar
 {
-
     /**
      * @return void
      */

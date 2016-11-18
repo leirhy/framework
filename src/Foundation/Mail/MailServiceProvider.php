@@ -8,7 +8,9 @@
  */
 namespace Notadd\Foundation\Mail;
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Mail\MailServiceProvider as IlluminateMailServiceProvider;
+use Notadd\Foundation\Mail\Listeners\RouterRegistrar;
 
 /**
  * Class MailServiceProvider.
@@ -19,4 +21,12 @@ class MailServiceProvider extends IlluminateMailServiceProvider
      * @var bool
      */
     protected $defer = true;
+
+    /**
+     * @return void
+     */
+    public function boot()
+    {
+        $this->app->make(Dispatcher::class)->subscribe(RouterRegistrar::class);
+    }
 }

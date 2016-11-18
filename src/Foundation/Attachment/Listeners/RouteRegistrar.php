@@ -23,7 +23,7 @@ class RouteRegistrar extends AbstractRouteRegistrar
      */
     public function handle()
     {
-        $this->router->group(['middleware' => ['web', 'auth:api'], 'prefix' => 'api/attachment'], function () {
+        $this->router->group(['middleware' => ['auth:api', 'web'], 'prefix' => 'api/attachment'], function () {
             $this->router->post('/', AttachmentApi::class.'@handle');
             $this->router->post('cdn', CdnApi::class.'@handle');
             $this->router->post('storage', StorageApi::class.'@handle');

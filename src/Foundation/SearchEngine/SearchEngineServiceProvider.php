@@ -8,13 +8,24 @@
  */
 namespace Notadd\Foundation\SearchEngine;
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\SearchEngine\Listeners\RouterRegistrar;
 
 /**
  * Class SearchEngineServiceProvider.
  */
 class SearchEngineServiceProvider extends ServiceProvider
 {
+    protected $defer = true;
+    /**
+     * @return void
+     */
+    public function boot()
+    {
+        $this->app->make(Dispatcher::class)->subscribe(RouterRegistrar::class);
+    }
+
     /**
      * @return void
      */

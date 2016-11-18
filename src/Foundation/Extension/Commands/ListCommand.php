@@ -45,7 +45,7 @@ class ListCommand extends Command
         $list = new Collection();
         $settings = $this->container->make(SettingsRepository::class);
         $this->info('Extensions list:');
-        $paths->each(function ($path, $key) use ($list,$settings) {
+        $paths->each(function ($path, $key) use ($list, $settings) {
             $list->push([
                 $key,
                 $path,

@@ -24,7 +24,7 @@ class StorageApi extends Controller
     {
         $settings->set('storage.default', $this->request->input('default'));
         $response->withParams($settings->all()->toArray());
+
         return $response->generateHttpResponse();
     }
-
 }

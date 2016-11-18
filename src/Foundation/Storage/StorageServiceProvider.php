@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Storage;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class StorageServiceProvider
+ * Class StorageServiceProvider.
  */
 class StorageServiceProvider extends ServiceProvider
 {
@@ -21,5 +21,4 @@ class StorageServiceProvider extends ServiceProvider
     public function boot()
     {
     }
-
 }

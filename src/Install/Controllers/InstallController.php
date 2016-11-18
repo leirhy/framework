@@ -69,6 +69,7 @@ class InstallController extends Controller
         $this->command->run($input, $output);
         $this->share('admin_account', $request->get('admin_account'));
         $this->share('admin_email', $request->get('admin_email'));
+        $this->share('admin_password', $request->get('admin_password'));
 
         return $this->view('install::success');
     }

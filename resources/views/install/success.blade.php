@@ -13,8 +13,8 @@
                     <ul class="install-info">
                         <li><label for="address">后台管理地址：</label><a href="{{ url('admin') }}"><span id="address">{{ url('admin') }}</span></a></li>
                         <li><label for="index">前台首页：</label><a href="{{ url('/') }}"><span id="index">{{ url('/') }}</span></a></li>
-                        <li class="finish"><label for="account">账号：</label><span id="account">{{ $admin_account }}</span></li>
-                        <li class="finish"><label for="psw">密码：</label><span id="psw">{{ $admin_email }}</span></li>
+                        <li class="finish"><label for="account">后台账号：</label><span id="account">{{ $admin_account }}</span></li>
+                        <li class="finish"><label for="psw">密码：</label><span id="psw">{{ $admin_password }}</span></li>
                         <li class="finish"><label for="help">获取帮助：</label><a href="https://www.notadd.com"><span id="help" style="color: #1BC9A8">点此获取帮助</span></a></li>
                     </ul>
                 </div>

@@ -44,6 +44,14 @@ abstract class Migration
     abstract public function down();
 
     /**
+     * @return string
+     */
+    public function getConnection()
+    {
+        return '';
+    }
+
+    /**
      * @return void
      */
     abstract public function up();

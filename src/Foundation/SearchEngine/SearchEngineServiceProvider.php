@@ -18,11 +18,6 @@ use Notadd\Foundation\SearchEngine\Listeners\RouterRegistrar;
 class SearchEngineServiceProvider extends ServiceProvider
 {
     /**
-     * @var bool
-     */
-    protected $defer = true;
-
-    /**
      * @return void
      */
     public function boot()

@@ -1,7 +1,6 @@
 {
     "name": "notadd/foundation",
     "description": "The Notadd Foundation Framework.",
-    "type": "project",
     "keywords": ["notadd", "cms", "foundation", "framework"],
     "homepage": "https://notadd.com",
     "license": "Apache-2.0",
@@ -12,9 +11,6 @@
         }
     ],
     "autoload": {
-        "classmap": [
-            "databases"
-        ],
         "files": [
             "src/Foundation/helpers.php"
         ],
@@ -92,17 +88,5 @@
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*"
     },
-    "scripts": {
-        "post-create-project-cmd": [
-            "php notadd key:generate"
-        ],
-        "post-install-cmd": [
-            "Notadd\\Foundation\\Composer\\ComposerScripts::postInstall",
-            "php notadd optimize"
-        ],
-        "post-update-cmd": [
-            "Notadd\\Foundation\\Composer\\ComposerScripts::postUpdate",
-            "php notadd optimize"
-        ]
-    }
+    "minimum-stability": "dev"
 }

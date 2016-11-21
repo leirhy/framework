@@ -22,10 +22,18 @@ class CacheTableCommand extends IlluminateCacheTableCommand
     public function fire()
     {
         $fullPath = $this->createBaseMigration();
-        $stub = $this->files->get($this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'caches'.DIRECTORY_SEPARATOR.'database.stub');
+        $stub = $this->files->get($this->getStubPath());
         $stub = str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
         $this->files->put($fullPath, $stub);
         $this->info('Migration created successfully!');
         $this->composer->dumpAutoloads();
+    }
+
+    /**
+     * @return string
+     */
+    public function getStubPath()
+    {
+        return __DIR__ . '/../../../../stubs/caches/database.stub';
     }
 }

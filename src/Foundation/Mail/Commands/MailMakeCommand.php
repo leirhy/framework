@@ -44,7 +44,7 @@ class MailMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'mails'.DIRECTORY_SEPARATOR.'mail.stub';
+        return __DIR__ . '/../../../../stubs/mails/mail.stub';
     }
 
     /**

@@ -44,7 +44,7 @@ class NotificationMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'notifications'.DIRECTORY_SEPARATOR.'class.stub';
+        return __DIR__ . '/../../../../stubs/notifications/class.stub';
     }
 
     /**

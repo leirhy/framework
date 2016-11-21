@@ -44,7 +44,7 @@ class RequestMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'requests'.DIRECTORY_SEPARATOR.'request.stub';
+        return __DIR__ . '/../../../../stubs/requests/request.stub';
     }
 
     /**

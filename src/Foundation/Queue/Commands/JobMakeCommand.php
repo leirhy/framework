@@ -36,9 +36,9 @@ class JobMakeCommand extends GeneratorCommand
     protected function getStub()
     {
         if ($this->option('sync')) {
-            return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'jobs'.DIRECTORY_SEPARATOR.'job.stub';
+            return __DIR__ . '/../../../../stubs/jobs/job.stub';
         } else {
-            return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'jobs'.DIRECTORY_SEPARATOR.'job-queued.stub';
+            return __DIR__ . '/../../../../stubs/jobs/job-queued.stub';
         }
     }
 

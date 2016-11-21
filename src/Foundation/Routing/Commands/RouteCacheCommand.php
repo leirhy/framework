@@ -91,9 +91,17 @@ class RouteCacheCommand extends Command
      */
     protected function buildRouteCacheFile(RouteCollection $routes)
     {
-        $stub = $this->files->get($this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'routes'.DIRECTORY_SEPARATOR.'caches.stub');
+        $stub = $this->files->get($this->getStub());
         $stub = str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
 
         return str_replace('{{routes}}', base64_encode(serialize($routes)), $stub);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getStub()
+    {
+        return __DIR__ . '/../../../../stubs/routes/caches.stub';
     }
 }

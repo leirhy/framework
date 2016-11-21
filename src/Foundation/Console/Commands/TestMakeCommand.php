@@ -56,7 +56,7 @@ class TestMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'test.stub';
+        return __DIR__ . '/../../../../stubs/tests/test.stub';
     }
 
     /**

@@ -71,9 +71,9 @@ class ListenerMakeCommand extends GeneratorCommand
     protected function getStub()
     {
         if ($this->option('queued')) {
-            return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'events'.DIRECTORY_SEPARATOR.'listener-queued.stub';
+            return __DIR__ . '/../../../../stubs/events/listener-queued.stub';
         } else {
-            return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'events'.DIRECTORY_SEPARATOR.'listener.stub';
+            return __DIR__ . '/../../../../stubs/events/listener.stub';
         }
     }
 

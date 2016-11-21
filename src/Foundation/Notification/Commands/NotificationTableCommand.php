@@ -22,10 +22,18 @@ class NotificationTableCommand extends IlluminateNotificationTableCommand
     public function fire()
     {
         $fullPath = $this->createBaseMigration();
-        $stub = $this->files->get($this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'notifications'.DIRECTORY_SEPARATOR.'database.stub');
+        $stub = $this->files->get($this->getStub());
         $stub = str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
         $this->files->put($fullPath, $stub);
         $this->info('Migration created successfully!');
         $this->composer->dumpAutoloads();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getStub()
+    {
+        return __DIR__ . '/../../../../stubs/notifications/database.stub';
     }
 }

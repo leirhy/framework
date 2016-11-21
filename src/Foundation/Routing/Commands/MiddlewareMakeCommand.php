@@ -21,7 +21,7 @@ class MiddlewareMakeCommand extends IlluminateMiddlewareMakeCommand
      */
     protected function getStub()
     {
-        return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'routes'.DIRECTORY_SEPARATOR.'middleware.stub';
+        return __DIR__ . '/../../../../stubs/routes/middleware.stub';
     }
 
     /**

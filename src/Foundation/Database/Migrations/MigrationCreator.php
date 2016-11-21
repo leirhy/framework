@@ -39,6 +39,6 @@ class MigrationCreator extends IlluminateMigrationCreator
      */
     public function getStubPath()
     {
-        return $this->application->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'migrations';
+        return __DIR__ . '/../../../../stubs/migrations';
     }
 }

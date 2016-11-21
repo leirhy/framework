@@ -54,7 +54,7 @@ class EventMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'events'.DIRECTORY_SEPARATOR.'event.stub';
+        return __DIR__ . '/../../../../stubs/events/event.stub';
     }
 
     /**

@@ -50,7 +50,7 @@ class ConsoleMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'consoles'.DIRECTORY_SEPARATOR.'command.stub';
+        return __DIR__ . '/../../../../stubs/consoles/command.stub';
     }
 
     /**
@@ -60,7 +60,7 @@ class ConsoleMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Console\Commands';
+        return $rootNamespace . '\Console\Commands';
     }
 
     /**
@@ -92,4 +92,5 @@ class ConsoleMakeCommand extends GeneratorCommand
             ],
         ];
     }
+
 }

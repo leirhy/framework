@@ -90,7 +90,7 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->laravel->basePath().DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'model.stub';
+        return __DIR__ . '/../../../../stubs/models/model.stub';
     }
 
     /**

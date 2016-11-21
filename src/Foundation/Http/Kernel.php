@@ -171,6 +171,7 @@ class Kernel implements KernelContract
         Facade::clearResolvedInstance('request');
         $this->bootstrap();
 
+
         return (new Pipeline($this->app))->send($request)->through($this->app->shouldSkipMiddleware() ? [] : $this->middleware)->then($this->dispatchToRouter());
     }
 

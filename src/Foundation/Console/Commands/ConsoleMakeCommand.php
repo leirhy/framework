@@ -92,5 +92,4 @@ class ConsoleMakeCommand extends GeneratorCommand
             ],
         ];
     }
-
 }

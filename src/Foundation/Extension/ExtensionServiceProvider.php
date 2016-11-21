@@ -56,7 +56,7 @@ class ExtensionServiceProvider extends ServiceProvider
                 (new Collection($registrar->loadMigrationsFrom()))->each(function ($paths) {
                     $this->loadMigrationsFrom($paths);
                 });
-                (new Collection($registrar->loadPublishesFrom()))->each(function($to, $from) {
+                (new Collection($registrar->loadPublishesFrom()))->each(function ($to, $from) {
                     $this->publishes([
                         $from => $to
                     ], 'public');

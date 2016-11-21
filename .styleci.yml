@@ -27,7 +27,4 @@ finder:
         - "*.php" # 查找.php文件
     # 排除查找配置
     exclude:
-        - "extensions"
-        - "resources"
-        - "storage"
         - "stubs"

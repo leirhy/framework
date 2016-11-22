@@ -43,5 +43,8 @@ class PassportServiceProvider extends LaravelPassportServiceProvider
         $this->registerAuthorizationServer();
         $this->registerResourceServer();
         $this->registerGuard();
+        $this->app->singleton('api', function ($app) {
+            return new Passport($app, $app['events']);
+        });
     }
 }

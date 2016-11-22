@@ -21,6 +21,19 @@ use Symfony\Component\Console\Input\InputArgument;
 class InstallCommand extends Command
 {
     /**
+     * @var \Illuminate\Support\Collection
+     */
+    protected $extension;
+    /**
+     * @var string
+     */
+    protected $name;
+    /**
+     * @var string
+     */
+    protected $path;
+
+    /**
      * @return void
      */
     protected function configure()
@@ -38,67 +51,88 @@ class InstallCommand extends Command
      */
     public function fire(ExtensionManager $manager, SettingsRepository $settings)
     {
-        $name = $this->input->getArgument('name');
+        $this->name = $this->input->getArgument('name');
         $extensions = $manager->getExtensionPaths();
-        if (!$extensions->offsetExists($name)) {
-            $this->error("Extension {$name} do not exist!");
+        if (!$extensions->offsetExists($this->name)) {
+            $this->error("Extension {$this->name} do not exist!");
 
             return false;
         }
-        if ($settings->get('extension.' . $name . '.installed')) {
-            $this->error("Extension {$name} is installed!");
+        if ($settings->get('extension.' . $this->name . '.installed')) {
+            $this->error("Extension {$this->name} is installed!");
 
             return false;
         }
-        $path = $extensions->get($name);
-        if (Str::contains($path, $manager->getVendorPath())) {
-            $this->error("Extension {$name} is installed!");
+        $this->path = $extensions->get($this->name);
+        if (Str::contains($this->path, $manager->getVendorPath())) {
+            $this->error("Extension {$this->name} is installed!");
 
             return false;
         }
-        $extensionFile = new JsonFile($path . DIRECTORY_SEPARATOR . 'composer.json');
-        $extension = collect($extensionFile->read());
-        if ($extension->has('autoload')) {
-            $autoload = collect($extension->get('autoload'));
-            $autoload->has('classmap') && collect($autoload->get('classmap'))->each(function ($value) use ($path) {
+        $extensionFile = new JsonFile($this->path . DIRECTORY_SEPARATOR . 'composer.json');
+        $this->extension = collect($extensionFile->read());
+        $this->preInstall();
+        // TODO: 加载环境变量判断、执行Extension安装
+        $this->postInstall($settings);
+        $this->updateComposer(true);
+        $settings->set('extension.' . $this->name . '.installed', true);
+        $this->info("Extension {$this->name} is installed!");
+
+        return true;
+    }
+
+    /**
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     */
+    public function postInstall(SettingsRepository $settings)
+    {
+        if ($this->extension->has('autoload')) {
+            $this->json->addProperty('autoload', $this->backup['autoload']);
+            $settings->set('extension.' . $this->name . '.autoload', json_encode($this->extension->get('autoload')));
+        }
+        if ($this->extension->has('require')) {
+            $this->json->addProperty('require', $this->backup['require']);
+            $settings->set('extension.' . $this->name . '.require', json_encode($this->extension->get('require')));
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function preInstall()
+    {
+        if ($this->extension->has('autoload')) {
+            $autoload = collect($this->extension->get('autoload'));
+            $autoload->has('classmap') && collect($autoload->get('classmap'))->each(function ($value) {
                 $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
                 if (!in_array($path, $this->backup['autoload']['classmap'])) {
                     $this->backup['autoload']['classmap'][] = $path;
                 }
             });
-            $autoload->has('files') && collect($autoload->get('files'))->each(function ($value) use ($path) {
+            $autoload->has('files') && collect($autoload->get('files'))->each(function ($value) {
                 $path = str_replace($this->container->basePath() . '/', '',
-                    realpath($path . DIRECTORY_SEPARATOR . $value));
+                    realpath($this->path . DIRECTORY_SEPARATOR . $value));
                 if (!in_array($path, $this->backup['autoload']['files'])) {
                     $this->backup['autoload']['files'][] = $path;
                 }
             });
-            $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function ($value, $key) use ($path) {
+            $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function ($value, $key) {
                 $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
                 $this->backup['autoload']['psr-0'][$key] = $path;
             });
-            $autoload->has('psr-4') && collect($autoload->get('psr-4'))->each(function ($value, $key) use ($path) {
+            $autoload->has('psr-4') && collect($autoload->get('psr-4'))->each(function ($value, $key) {
                 $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
+                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
                 $this->backup['autoload']['psr-4'][$key] = $path;
             });
-            $this->json->addProperty('autoload', $this->backup['autoload']);
-            $settings->set('extension.' . $name . '.autoload', json_encode($autoload->toArray()));
         }
-        if ($extension->has('require')) {
-            $require = collect($extension->get('require'));
+        if ($this->extension->has('require')) {
+            $require = collect($this->extension->get('require'));
             $require->each(function ($version, $name) {
                 $this->backup['require'][$name] = $version;
             });
-            $this->json->addProperty('require', $this->backup['require']);
-            $settings->set('extension.' . $name . '.require', json_encode($require->toArray()));
         }
-        $this->updateComposer(true);
-        $settings->set('extension.' . $name . '.installed', true);
-        $this->info("Extension {$name} is installed!");
-
-        return true;
     }
 }

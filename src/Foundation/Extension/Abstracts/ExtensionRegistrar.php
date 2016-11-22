@@ -68,6 +68,14 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * @return bool
+     */
+    public function environment()
+    {
+        return true;
+    }
+
+    /**
      * @return \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected function getContainer()
@@ -100,6 +108,13 @@ abstract class ExtensionRegistrar
      * @return string
      */
     abstract public function getExtensionPath();
+
+    /**
+     * @return bool
+     */
+    public function install() {
+        return true;
+    }
 
     /**
      * @return array
@@ -139,5 +154,12 @@ abstract class ExtensionRegistrar
     public function loadViewsFrom()
     {
         return [];
+    }
+
+    /**
+     * @return bool
+     */
+    public function uninstall() {
+        return true;
     }
 }

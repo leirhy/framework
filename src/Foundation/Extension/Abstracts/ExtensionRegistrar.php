@@ -17,7 +17,7 @@ use Notadd\Foundation\Extension\Extension;
 abstract class ExtensionRegistrar
 {
     /**
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
     /**
@@ -68,7 +68,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * @return \Illuminate\Container\Container
+     * @return \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected function getContainer()
     {
@@ -116,6 +116,14 @@ abstract class ExtensionRegistrar
      * @return array
      */
     public function loadMigrationsFrom()
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    public function loadPublishesFrom()
     {
         return [];
     }

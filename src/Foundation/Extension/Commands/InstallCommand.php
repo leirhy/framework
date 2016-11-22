@@ -73,6 +73,7 @@ class InstallCommand extends Command
         $this->extension = collect($extensionFile->read());
         $this->preInstall();
         // TODO: 加载环境变量判断、执行Extension安装
+        // TODO: Extension信息通过composer.json加载还是通过bootstrap.php加载
         $this->postInstall($settings);
         $this->updateComposer(true);
         $settings->set('extension.' . $this->name . '.installed', true);

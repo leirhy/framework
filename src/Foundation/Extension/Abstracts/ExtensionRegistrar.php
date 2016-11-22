@@ -112,7 +112,8 @@ abstract class ExtensionRegistrar
     /**
      * @return bool
      */
-    public function install() {
+    public function install()
+    {
         return true;
     }
 
@@ -159,7 +160,8 @@ abstract class ExtensionRegistrar
     /**
      * @return bool
      */
-    public function uninstall() {
+    public function uninstall()
+    {
         return true;
     }
 }

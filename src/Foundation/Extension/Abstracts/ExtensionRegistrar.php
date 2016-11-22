@@ -87,6 +87,11 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * @return array
+     */
+    abstract public function getExtensionInfo();
+
+    /**
      * @return string
      */
     abstract public function getExtensionName();

@@ -34,7 +34,7 @@ class Application extends IlluminateApplication implements ApplicationContract
      *
      * @param \Illuminate\Container\Container         $container
      * @param \Illuminate\Contracts\Events\Dispatcher $events
-     * @param $version
+     * @param                                         $version
      */
     public function __construct(Container $container, Dispatcher $events, $version)
     {

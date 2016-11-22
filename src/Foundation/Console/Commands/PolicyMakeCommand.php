@@ -55,7 +55,7 @@ class PolicyMakeCommand extends GeneratorCommand
         if (Str::startsWith($model, '\\')) {
             $stub = str_replace('NamespacedDummyModel', trim($model, '\\'), $stub);
         } else {
-            $stub = str_replace('NamespacedDummyModel', $this->laravel->getNamespace().$model, $stub);
+            $stub = str_replace('NamespacedDummyModel', $this->laravel->getNamespace() . $model, $stub);
         }
         $model = class_basename(trim($model, '\\'));
         $stub = str_replace('DummyModel', $model, $stub);
@@ -70,10 +70,10 @@ class PolicyMakeCommand extends GeneratorCommand
     protected function getStub()
     {
         if ($this->option('model')) {
-            return __DIR__.'/stubs/policy.stub';
+            return __DIR__ . '/stubs/policy.stub';
         }
 
-        return __DIR__.'/stubs/policy.plain.stub';
+        return __DIR__ . '/stubs/policy.plain.stub';
     }
 
     /**
@@ -83,7 +83,7 @@ class PolicyMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Policies';
+        return $rootNamespace . '\Policies';
     }
 
     /**

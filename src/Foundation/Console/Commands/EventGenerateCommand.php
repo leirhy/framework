@@ -45,7 +45,7 @@ class EventGenerateCommand extends Command
             foreach ($listeners as $listener) {
                 $listener = preg_replace('/@.+$/', '', $listener);
                 $this->callSilent('make:listener', [
-                    'name'    => $listener,
+                    'name' => $listener,
                     '--event' => $event,
                 ]);
             }

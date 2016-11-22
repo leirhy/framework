@@ -41,8 +41,7 @@ class InstallServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(Prerequisite::class, function () {
-            return new Composite(new PhpVersion('5.5.0'),
-                new PhpExtension([
+            return new Composite(new PhpVersion('5.5.0'), new PhpExtension([
                     'dom',
                     'fileinfo',
                     'gd',
@@ -50,8 +49,7 @@ class InstallServiceProvider extends ServiceProvider
                     'mbstring',
                     'openssl',
                     'pdo_mysql',
-                ]),
-                new WritablePath([
+                ]), new WritablePath([
                     public_path(),
                     storage_path(),
                 ]));

@@ -58,7 +58,7 @@ abstract class Command extends AbstractCommand
     public function __construct()
     {
         parent::__construct();
-        $this->file = new JsonFile($this->container->basePath().DIRECTORY_SEPARATOR.'composer.json');
+        $this->file = new JsonFile($this->container->basePath() . DIRECTORY_SEPARATOR . 'composer.json');
         $this->files = $this->container->make('files');
         $this->backup = $this->file->read();
         $this->json = new JsonConfigSource($this->file);
@@ -87,7 +87,6 @@ abstract class Command extends AbstractCommand
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @throws \Exception
-     *
      * @return mixed
      */
     public function execute(InputInterface $input, OutputInterface $output)

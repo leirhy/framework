@@ -107,7 +107,7 @@ class MemberManagement
             $this->manager = $manager;
             $this->manager->init();
         } else {
-            throw new InvalidArgumentException('Member Manager must be instanceof '.Manager::class.'!');
+            throw new InvalidArgumentException('Member Manager must be instanceof ' . Manager::class . '!');
         }
     }
 

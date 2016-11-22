@@ -69,11 +69,12 @@ class ClientsController extends Controller
     public function store()
     {
         $this->validation->make($this->request->all(), [
-            'name'     => 'required|max:255',
+            'name' => 'required|max:255',
             'redirect' => 'required|url',
         ])->validate();
 
-        return $this->clients->create($this->request->user()->getKey(), $this->request->name, $request->redirect)->makeVisible('secret');
+        return $this->clients->create($this->request->user()->getKey(), $this->request->name,
+            $request->redirect)->makeVisible('secret');
     }
 
     /**
@@ -87,7 +88,7 @@ class ClientsController extends Controller
             return new Response('', 404);
         }
         $this->validation->make($request->all(), [
-            'name'     => 'required|max:255',
+            'name' => 'required|max:255',
             'redirect' => 'required|url',
         ])->validate();
 

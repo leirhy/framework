@@ -69,8 +69,13 @@ class Handler implements ExceptionHandlerContract
      * @param \Illuminate\Contracts\Routing\ResponseFactory            $response
      * @param \Illuminate\Contracts\View\Factory|\Illuminate\View\View $view
      */
-    public function __construct(Container $container, Repository $configuration, Redirector $redirector, ResponseFactory $response, ViewFactory $view)
-    {
+    public function __construct(
+        Container $container,
+        Repository $configuration,
+        Redirector $redirector,
+        ResponseFactory $response,
+        ViewFactory $view
+    ) {
         $this->container = $container;
         $this->configuration = $configuration;
         $this->redirector = $redirector;
@@ -82,7 +87,6 @@ class Handler implements ExceptionHandlerContract
      * @param \Exception $exception
      *
      * @throws \Exception
-     *
      * @return void
      */
     public function report(Exception $exception)
@@ -189,7 +193,8 @@ class Handler implements ExceptionHandlerContract
     protected function toIlluminateResponse($response, Exception $exception)
     {
         if ($response instanceof SymfonyRedirectResponse) {
-            $response = new RedirectResponse($response->getTargetUrl(), $response->getStatusCode(), $response->headers->all());
+            $response = new RedirectResponse($response->getTargetUrl(), $response->getStatusCode(),
+                $response->headers->all());
         } else {
             $response = new Response($response->getContent(), $response->getStatusCode(), $response->headers->all());
         }
@@ -217,7 +222,8 @@ class Handler implements ExceptionHandlerContract
     {
         $status = $exception->getStatusCode();
         if ($this->view->exists("error::{$status}") && !$this->configuration->get('app.debug')) {
-            return $this->response->view("error::{$status}", ['exception' => $exception], $status, $exception->getHeaders());
+            return $this->response->view("error::{$status}", ['exception' => $exception], $status,
+                $exception->getHeaders());
         } else {
             return $this->convertExceptionToResponse($exception);
         }
@@ -252,7 +258,8 @@ class Handler implements ExceptionHandlerContract
         $exception = FlattenException::create($exception);
         $handler = new SymfonyExceptionHandler($this->configuration->get('app.debug'));
 
-        return SymfonyResponse::create($handler->getHtml($exception), $exception->getStatusCode(), $exception->getHeaders());
+        return SymfonyResponse::create($handler->getHtml($exception), $exception->getStatusCode(),
+            $exception->getHeaders());
     }
 
     /**

@@ -50,7 +50,6 @@ trait MocksApplicationServices
      * @param array|string $events
      *
      * @throws \Exception
-     *
      * @return $this
      */
     public function expectsEvents($events)
@@ -60,7 +59,7 @@ trait MocksApplicationServices
         $this->beforeApplicationDestroyed(function () use ($events) {
             $fired = $this->getFiredEvents($events);
             if ($eventsNotFired = array_diff($events, $fired)) {
-                throw new Exception('These expected events were not fired: ['.implode(', ', $eventsNotFired).']');
+                throw new Exception('These expected events were not fired: [' . implode(', ', $eventsNotFired) . ']');
             }
         });
 
@@ -81,7 +80,7 @@ trait MocksApplicationServices
         $this->withoutEvents();
         $this->beforeApplicationDestroyed(function () use ($events) {
             if ($fired = $this->getFiredEvents($events)) {
-                throw new Exception('These unexpected events were fired: ['.implode(', ', $fired).']');
+                throw new Exception('These unexpected events were fired: [' . implode(', ', $fired) . ']');
             }
         });
 
@@ -112,7 +111,6 @@ trait MocksApplicationServices
      * @param array|string $events
      *
      * @throws \Exception
-     *
      * @return $this
      */
     public function expectsModelEvents($model, $events)
@@ -122,7 +120,8 @@ trait MocksApplicationServices
         $this->beforeApplicationDestroyed(function () use ($events) {
             $fired = $this->getFiredModelEvents($events);
             if ($eventsNotFired = array_diff($events, $fired)) {
-                throw new Exception('These expected Eloquent events were not fired: ['.implode(', ', $eventsNotFired).']');
+                throw new Exception('These expected Eloquent events were not fired: [' . implode(', ',
+                        $eventsNotFired) . ']');
             }
         });
 
@@ -137,7 +136,6 @@ trait MocksApplicationServices
      * @param array|string $events
      *
      * @throws \Exception
-     *
      * @return $this
      */
     public function doesntExpectModelEvents($model, $events)
@@ -146,7 +144,7 @@ trait MocksApplicationServices
         $this->withoutModelEvents();
         $this->beforeApplicationDestroyed(function () use ($events) {
             if ($fired = $this->getFiredModelEvents($events)) {
-                throw new Exception('These unexpected Eloquent events were fired: ['.implode(', ', $fired).']');
+                throw new Exception('These unexpected Eloquent events were fired: [' . implode(', ', $fired) . ']');
             }
         });
 
@@ -163,11 +161,11 @@ trait MocksApplicationServices
      */
     private function formatModelEvents($model, $events)
     {
-        $events = (array) $events;
+        $events = (array)$events;
 
         return array_map(function ($event) use ($model) {
             return "eloquent.{$event}: {$model}";
-        }, (array) $events);
+        }, (array)$events);
     }
 
     /**
@@ -252,7 +250,8 @@ trait MocksApplicationServices
         $this->beforeApplicationDestroyed(function () use ($jobs) {
             $dispatched = $this->getDispatchedJobs($jobs);
             if ($jobsNotDispatched = array_diff($jobs, $dispatched)) {
-                throw new Exception('These expected jobs were not dispatched: ['.implode(', ', $jobsNotDispatched).']');
+                throw new Exception('These expected jobs were not dispatched: [' . implode(', ',
+                        $jobsNotDispatched) . ']');
             }
         });
 
@@ -273,7 +272,7 @@ trait MocksApplicationServices
         $this->withoutJobs();
         $this->beforeApplicationDestroyed(function () use ($jobs) {
             if ($dispatched = $this->getDispatchedJobs($jobs)) {
-                throw new Exception('These unexpected jobs were dispatched: ['.implode(', ', $dispatched).']');
+                throw new Exception('These unexpected jobs were dispatched: [' . implode(', ', $dispatched) . ']');
             }
         });
 
@@ -334,7 +333,9 @@ trait MocksApplicationServices
     protected function wasDispatched($needle, array $haystack)
     {
         foreach ($haystack as $dispatched) {
-            if ((is_string($dispatched) && ($dispatched === $needle || is_subclass_of($dispatched, $needle))) || $dispatched instanceof $needle) {
+            if ((is_string($dispatched) && ($dispatched === $needle || is_subclass_of($dispatched,
+                            $needle))) || $dispatched instanceof $needle
+            ) {
                 return true;
             }
         }
@@ -376,7 +377,7 @@ trait MocksApplicationServices
                     return $this;
                 }
             }
-            throw new Exception('The following expected notification were not dispatched: ['.$notification.']');
+            throw new Exception('The following expected notification were not dispatched: [' . $notification . ']');
         });
 
         return $this;

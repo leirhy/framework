@@ -108,7 +108,7 @@ class Extension implements ExtensionContract
      */
     public function hasAssets()
     {
-        return realpath($this->path.'/assets/') !== false;
+        return realpath($this->path . '/assets/') !== false;
     }
 
     /**
@@ -116,7 +116,7 @@ class Extension implements ExtensionContract
      */
     public function hasMigrations()
     {
-        return realpath($this->path.'/migrations/') !== false;
+        return realpath($this->path . '/migrations/') !== false;
     }
 
     /**

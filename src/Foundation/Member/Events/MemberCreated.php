@@ -22,10 +22,6 @@ class MemberCreated
      */
     protected $container;
     /**
-     * @var \Notadd\Foundation\Member\Abstracts\Driver
-     */
-    protected $driver;
-    /**
      * @var \Notadd\Foundation\Member\Member
      */
     protected $member;
@@ -33,14 +29,12 @@ class MemberCreated
     /**
      * MemberUpdated constructor.
      *
-     * @param \Illuminate\Container\Container            $container
-     * @param \Notadd\Foundation\Member\Abstracts\Driver $driver
-     * @param \Notadd\Foundation\Member\Member           $member
+     * @param \Illuminate\Container\Container  $container
+     * @param \Notadd\Foundation\Member\Member $member
      */
-    public function __construct(Container $container, Driver $driver, Member $member)
+    public function __construct(Container $container, Member $member)
     {
         $this->container = $container;
-        $this->driver = $driver;
         $this->member = $member;
     }
 }

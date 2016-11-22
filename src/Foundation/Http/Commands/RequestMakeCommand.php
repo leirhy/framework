@@ -36,7 +36,7 @@ class RequestMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Http\Requests';
+        return $rootNamespace . '\Http\Requests';
     }
 
     /**

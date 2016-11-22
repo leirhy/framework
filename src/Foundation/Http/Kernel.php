@@ -96,14 +96,14 @@ class Kernel implements KernelContract
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'       => Authenticate::class,
+        'auth' => Authenticate::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,
-        'bindings'   => SubstituteBindings::class,
-        'can'        => Authorize::class,
-        'guest'      => RedirectIfAuthenticated::class,
-        'scope'      => CheckForAnyScope::class,
-        'scopes'     => CheckScopes::class,
-        'throttle'   => ThrottleRequests::class,
+        'bindings' => SubstituteBindings::class,
+        'can' => Authorize::class,
+        'guest' => RedirectIfAuthenticated::class,
+        'scope' => CheckForAnyScope::class,
+        'scopes' => CheckScopes::class,
+        'throttle' => ThrottleRequests::class,
     ];
     /**
      * @var array
@@ -171,7 +171,6 @@ class Kernel implements KernelContract
         Facade::clearResolvedInstance('request');
         $this->bootstrap();
 
-
         return (new Pipeline($this->app))->send($request)->through($this->app->shouldSkipMiddleware() ? [] : $this->middleware)->then($this->dispatchToRouter());
     }
 
@@ -183,7 +182,8 @@ class Kernel implements KernelContract
      */
     public function terminate($request, $response)
     {
-        $middlewares = $this->app->shouldSkipMiddleware() ? [] : array_merge($this->gatherRouteMiddleware($request), $this->middleware);
+        $middlewares = $this->app->shouldSkipMiddleware() ? [] : array_merge($this->gatherRouteMiddleware($request),
+            $this->middleware);
         foreach ($middlewares as $middleware) {
             if (!is_string($middleware)) {
                 continue;

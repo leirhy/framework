@@ -58,7 +58,7 @@ trait AuthenticatesUsers
     {
         $this->validate($request, [
             $this->username() => 'required',
-            'password'        => 'required',
+            'password' => 'required',
         ]);
     }
 
@@ -103,8 +103,8 @@ trait AuthenticatesUsers
     protected function sendFailedLoginResponse(Request $request)
     {
         return redirect()->back()->withInput($request->only($this->username(), 'remember'))->withErrors([
-                $this->username() => Lang::get('auth.failed'),
-            ]);
+            $this->username() => Lang::get('auth.failed'),
+        ]);
     }
 
     /**

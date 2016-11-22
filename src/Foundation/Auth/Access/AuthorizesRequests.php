@@ -20,7 +20,6 @@ trait AuthorizesRequests
      * @param mixed|array $arguments
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
-     *
      * @return \Illuminate\Auth\Access\Response
      */
     public function authorize($ability, $arguments = [])
@@ -36,7 +35,6 @@ trait AuthorizesRequests
      * @param mixed|array                                      $arguments
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
-     *
      * @return \Illuminate\Auth\Access\Response
      */
     public function authorizeForUser($user, $ability, $arguments = [])
@@ -111,11 +109,11 @@ trait AuthorizesRequests
     protected function resourceAbilityMap()
     {
         return [
-            'show'    => 'view',
-            'create'  => 'create',
-            'store'   => 'create',
-            'edit'    => 'update',
-            'update'  => 'update',
+            'show' => 'view',
+            'create' => 'create',
+            'store' => 'create',
+            'edit' => 'update',
+            'update' => 'update',
             'destroy' => 'delete',
         ];
     }

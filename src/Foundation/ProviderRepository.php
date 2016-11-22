@@ -142,7 +142,7 @@ class ProviderRepository
      */
     public function writeManifest($manifest)
     {
-        $this->files->put($this->manifestPath, '<?php return '.var_export($manifest, true).';');
+        $this->files->put($this->manifestPath, '<?php return ' . var_export($manifest, true) . ';');
 
         return array_merge(['when' => []], $manifest);
     }
@@ -156,8 +156,8 @@ class ProviderRepository
     {
         return [
             'providers' => $providers,
-            'eager'     => [],
-            'deferred'  => [],
+            'eager' => [],
+            'deferred' => [],
         ];
     }
 }

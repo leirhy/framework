@@ -30,7 +30,6 @@ if (!function_exists('abort')) {
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     *
      * @return void
      */
     function abort($code, $message = '', array $headers = [])
@@ -47,7 +46,6 @@ if (!function_exists('abort_if')) {
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     *
      * @return void
      */
     function abort_if($boolean, $code, $message = '', array $headers = [])
@@ -66,7 +64,6 @@ if (!function_exists('abort_unless')) {
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     *
      * @return void
      */
     function abort_unless($boolean, $code, $message = '', array $headers = [])
@@ -115,7 +112,7 @@ if (!function_exists('app_path')) {
      */
     function app_path($path = '')
     {
-        return app('path').($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app('path') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
 if (!function_exists('asset')) {
@@ -165,7 +162,7 @@ if (!function_exists('base_path')) {
      */
     function base_path($path = '')
     {
-        return app()->basePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->basePath() . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
 if (!function_exists('bcrypt')) {
@@ -196,7 +193,6 @@ if (!function_exists('cache')) {
      * @param dynamic key|key,default|data,expiration|null
      *
      * @throws \Exception
-     *
      * @return mixed
      */
     function cache()
@@ -244,7 +240,7 @@ if (!function_exists('config_path')) {
      */
     function config_path($path = '')
     {
-        return app()->make('path.config').($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->make('path.config') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
 if (!function_exists('cookie')) {
@@ -259,8 +255,15 @@ if (!function_exists('cookie')) {
      *
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
-    function cookie($name = null, $value = null, $minutes = 0, $path = null, $domain = null, $secure = false, $httpOnly = true)
-    {
+    function cookie(
+        $name = null,
+        $value = null,
+        $minutes = 0,
+        $path = null,
+        $domain = null,
+        $secure = false,
+        $httpOnly = true
+    ) {
         $cookie = app(CookieFactory::class);
         if (is_null($name)) {
             return $cookie;
@@ -275,13 +278,12 @@ if (!function_exists('csrf_field')) {
      */
     function csrf_field()
     {
-        return new HtmlString('<input type="hidden" name="_token" value="'.csrf_token().'">');
+        return new HtmlString('<input type="hidden" name="_token" value="' . csrf_token() . '">');
     }
 }
 if (!function_exists('csrf_token')) {
     /**
      * @throws \RuntimeException
-     *
      * @return string
      */
     function csrf_token()
@@ -301,7 +303,7 @@ if (!function_exists('database_path')) {
      */
     function database_path($path = '')
     {
-        return app()->databasePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->databasePath() . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
 if (!function_exists('decrypt')) {
@@ -332,7 +334,6 @@ if (!function_exists('elixir')) {
      * @param string $buildDirectory
      *
      * @throws \InvalidArgumentException
-     *
      * @return string
      */
     function elixir($file, $buildDirectory = 'build')
@@ -340,18 +341,18 @@ if (!function_exists('elixir')) {
         static $manifest = [];
         static $manifestPath;
         if (empty($manifest) || $manifestPath !== $buildDirectory) {
-            $path = public_path($buildDirectory.'/rev-manifest.json');
+            $path = public_path($buildDirectory . '/rev-manifest.json');
             if (file_exists($path)) {
                 $manifest = json_decode(file_get_contents($path), true);
                 $manifestPath = $buildDirectory;
             }
         }
         if (isset($manifest[$file])) {
-            return '/'.trim($buildDirectory.'/'.$manifest[$file], '/');
+            return '/' . trim($buildDirectory . '/' . $manifest[$file], '/');
         }
         $unversioned = public_path($file);
         if (file_exists($unversioned)) {
-            return '/'.trim($file, '/');
+            return '/' . trim($file, '/');
         }
         throw new InvalidArgumentException("File {$file} not defined in asset manifest.");
     }
@@ -467,7 +468,7 @@ if (!function_exists('method_field')) {
      */
     function method_field($method)
     {
-        return new HtmlString('<input type="hidden" name="_method" value="'.$method.'">');
+        return new HtmlString('<input type="hidden" name="_method" value="' . $method . '">');
     }
 }
 if (!function_exists('old')) {
@@ -487,7 +488,6 @@ if (!function_exists('policy')) {
      * @param object|string $class
      *
      * @throws \InvalidArgumentException
-     *
      * @return mixed
      */
     function policy($class)
@@ -503,7 +503,7 @@ if (!function_exists('public_path')) {
      */
     function public_path($path = '')
     {
-        return app()->make('path.public').($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->make('path.public') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
 if (!function_exists('redirect')) {
@@ -563,7 +563,7 @@ if (!function_exists('resource_path')) {
      */
     function resource_path($path = '')
     {
-        return app()->resourcePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->resourcePath() . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
 if (!function_exists('response')) {
@@ -670,7 +670,7 @@ if (!function_exists('storage_path')) {
      */
     function storage_path($path = '')
     {
-        return app('path.storage').($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app('path.storage') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
 if (!function_exists('trans')) {

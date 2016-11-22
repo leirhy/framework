@@ -29,13 +29,14 @@ class Passport
      * Passport constructor.
      *
      * @param \Illuminate\Container\Container|\Notadd\Foundation\Application $container
-     * @param \Illuminate\Events\Dispatcher   $events
+     * @param \Illuminate\Events\Dispatcher                                  $events
      */
     public function __construct(Container $container, Dispatcher $events)
     {
         $this->container = $container;
         $this->events = $events;
     }
+
     /**
      * @return mixed
      */
@@ -43,5 +44,4 @@ class Passport
     {
         return true;
     }
-
 }

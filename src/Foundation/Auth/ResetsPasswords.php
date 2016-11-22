@@ -29,9 +29,9 @@ trait ResetsPasswords
     public function showResetForm(Request $request, $token = null)
     {
         return view('auth.passwords.reset')->with([
-                'token' => $token,
-                'email' => $request->email,
-            ]);
+            'token' => $token,
+            'email' => $request->email,
+        ]);
     }
 
     /**
@@ -42,15 +42,16 @@ trait ResetsPasswords
     public function reset(Request $request)
     {
         $this->validate($request, [
-            'token'    => 'required',
-            'email'    => 'required|email',
+            'token' => 'required',
+            'email' => 'required|email',
             'password' => 'required|confirmed|min:6',
         ]);
         $response = $this->broker()->reset($this->credentials($request), function ($user, $password) {
             $this->resetPassword($user, $password);
         });
 
-        return $response == Password::PASSWORD_RESET ? $this->sendResetResponse($response) : $this->sendResetFailedResponse($request, $response);
+        return $response == Password::PASSWORD_RESET ? $this->sendResetResponse($response) : $this->sendResetFailedResponse($request,
+            $response);
     }
 
     /**
@@ -72,7 +73,7 @@ trait ResetsPasswords
     protected function resetPassword($user, $password)
     {
         $user->forceFill([
-            'password'       => bcrypt($password),
+            'password' => bcrypt($password),
             'remember_token' => Str::random(60),
         ])->save();
         $this->guard()->login($user);

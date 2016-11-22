@@ -149,7 +149,7 @@ trait InteractsWithSession
     public function assertSessionHasErrors($bindings = [], $format = null)
     {
         $this->assertSessionHas('errors');
-        $bindings = (array) $bindings;
+        $bindings = (array)$bindings;
         $errors = $this->app['session.store']->get('errors');
         foreach ($bindings as $key => $value) {
             if (is_int($key)) {

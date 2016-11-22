@@ -126,7 +126,8 @@ trait InteractsWithPages
     {
         $files = $this->convertUploadsForTesting($form, $uploads);
 
-        return $this->makeRequest($form->getMethod(), $form->getUri(), $this->extractParametersFromForm($form), [], $files);
+        return $this->makeRequest($form->getMethod(), $form->getUri(), $this->extractParametersFromForm($form), [],
+            $files);
     }
 
     /**
@@ -205,7 +206,6 @@ trait InteractsWithPages
      * @param string|null $message
      *
      * @throws \Notadd\Foundation\Testing\HttpException
-     *
      * @return void
      */
     protected function assertPageLoaded($uri, $message = null)
@@ -486,7 +486,6 @@ trait InteractsWithPages
      * @param string $name
      *
      * @throws \InvalidArgumentException
-     *
      * @return $this
      */
     protected function click($name)
@@ -620,7 +619,6 @@ trait InteractsWithPages
      * @param string|null $buttonText
      *
      * @throws \InvalidArgumentException
-     *
      * @return \Symfony\Component\DomCrawler\Form
      */
     protected function getForm($buttonText = null)
@@ -662,7 +660,6 @@ trait InteractsWithPages
      * @param string $filter
      *
      * @throws \InvalidArgumentException
-     *
      * @return void
      */
     protected function assertFilterProducesResults($filter)
@@ -754,6 +751,7 @@ trait InteractsWithPages
      */
     protected function getUploadedFileForTesting($file, $uploads, $name)
     {
-        return new UploadedFile($file['tmp_name'], basename($uploads[$name]), $file['type'], $file['size'], $file['error'], true);
+        return new UploadedFile($file['tmp_name'], basename($uploads[$name]), $file['type'], $file['size'],
+            $file['error'], true);
     }
 }

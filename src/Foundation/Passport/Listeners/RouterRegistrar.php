@@ -27,16 +27,15 @@ class RouterRegistrar extends RouteRegistrar
     public function handle()
     {
         $this->router->group(['prefix' => 'oauth'], function () {
-            $this->router->post('access', AccessTokenController::class.'@issueToken');
+            $this->router->post('access', AccessTokenController::class . '@issueToken');
         });
         $this->router->group(['middleware' => ['web', 'auth'], 'prefix' => 'oauth'], function () {
-            $this->router->delete('access/authorize', AuthorizationController::class.'@deny');
+            $this->router->delete('access/authorize', AuthorizationController::class . '@deny');
             $this->router->resource('authorize', AuthorizationController::class);
             $this->router->resource('clients', ClientsController::class);
             $this->router->post('refresh', function (ApiTokenCookieFactory $cookieFactory, Request $request) {
-                return (new Response('Refreshed.'))->withCookie($cookieFactory->make(
-                    $request->user()->getKey(), $request->session()->token()
-                ));
+                return (new Response('Refreshed.'))->withCookie($cookieFactory->make($request->user()->getKey(),
+                    $request->session()->token()));
             });
             $this->router->resource('access/token', AccessTokenController::class, [
                 'only' => ['index', 'store'],

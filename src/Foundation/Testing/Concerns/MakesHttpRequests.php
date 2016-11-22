@@ -71,8 +71,8 @@ trait MakesHttpRequests
         $content = json_encode($data);
         $headers = array_merge([
             'CONTENT_LENGTH' => mb_strlen($content, '8bit'),
-            'CONTENT_TYPE'   => 'application/json',
-            'Accept'         => 'application/json',
+            'CONTENT_TYPE' => 'application/json',
+            'Accept' => 'application/json',
         ], $headers);
         $this->call($method, $uri, [], [], $files, $this->transformHeadersToServerVars($headers), $content);
 
@@ -387,10 +387,11 @@ trait MakesHttpRequests
     protected function seeJsonContains(array $data, $negate = false)
     {
         $method = $negate ? 'assertFalse' : 'assertTrue';
-        $actual = json_encode(Arr::sortRecursive((array) $this->decodeResponseJson()));
+        $actual = json_encode(Arr::sortRecursive((array)$this->decodeResponseJson()));
         foreach (Arr::sortRecursive($data) as $key => $value) {
             $expected = $this->formatToExpectedJson($key, $value);
-            $this->{$method}(Str::contains($actual, $expected), ($negate ? 'Found unexpected' : 'Unable to find').' JSON fragment'.PHP_EOL."[{$expected}]".PHP_EOL.'within'.PHP_EOL."[{$actual}].");
+            $this->{$method}(Str::contains($actual, $expected),
+                ($negate ? 'Found unexpected' : 'Unable to find') . ' JSON fragment' . PHP_EOL . "[{$expected}]" . PHP_EOL . 'within' . PHP_EOL . "[{$actual}].");
         }
 
         return $this;
@@ -473,7 +474,8 @@ trait MakesHttpRequests
         $headers = $this->response->headers;
         $this->assertTrue($headers->has($headerName), "Header [{$headerName}] not present on response.");
         if (!is_null($value)) {
-            $this->assertEquals($headers->get($headerName), $value, "Header [{$headerName}] was found, but value [{$headers->get($headerName)}] does not match [{$value}].");
+            $this->assertEquals($headers->get($headerName), $value,
+                "Header [{$headerName}] was found, but value [{$headers->get($headerName)}] does not match [{$value}].");
         }
 
         return $this;
@@ -517,7 +519,8 @@ trait MakesHttpRequests
         }
         $cookieValue = $cookie->getValue();
         $actual = $encrypted ? $this->app['encrypter']->decrypt($cookieValue) : $cookieValue;
-        $this->assertEquals($actual, $value, "Cookie [{$cookieName}] was found, but value [{$actual}] does not match [{$value}].");
+        $this->assertEquals($actual, $value,
+            "Cookie [{$cookieName}] was found, but value [{$actual}] does not match [{$value}].");
 
         return $this;
     }
@@ -554,7 +557,8 @@ trait MakesHttpRequests
         $kernel = $this->app->make('Illuminate\Contracts\Http\Kernel');
         $this->currentUri = $this->prepareUrlForRequest($uri);
         $this->resetPageContext();
-        $symfonyRequest = SymfonyRequest::create($this->currentUri, $method, $parameters, $cookies, $this->filterFiles($files), array_replace($this->serverVariables, $server), $content);
+        $symfonyRequest = SymfonyRequest::create($this->currentUri, $method, $parameters, $cookies,
+            $this->filterFiles($files), array_replace($this->serverVariables, $server), $content);
         $request = Request::createFromBase($symfonyRequest);
         $response = $kernel->handle($request);
         $kernel->terminate($request, $response);
@@ -575,8 +579,15 @@ trait MakesHttpRequests
      *
      * @return \Illuminate\Http\Response
      */
-    public function callSecure($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
-    {
+    public function callSecure(
+        $method,
+        $uri,
+        $parameters = [],
+        $cookies = [],
+        $files = [],
+        $server = [],
+        $content = null
+    ) {
         $uri = $this->app['url']->secure(ltrim($uri, '/'));
 
         return $this->response = $this->call($method, $uri, $parameters, $cookies, $files, $server, $content);
@@ -596,8 +607,16 @@ trait MakesHttpRequests
      *
      * @return \Illuminate\Http\Response
      */
-    public function action($method, $action, $wildcards = [], $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
-    {
+    public function action(
+        $method,
+        $action,
+        $wildcards = [],
+        $parameters = [],
+        $cookies = [],
+        $files = [],
+        $server = [],
+        $content = null
+    ) {
         $uri = $this->app['url']->action($action, $wildcards, true);
 
         return $this->response = $this->call($method, $uri, $parameters, $cookies, $files, $server, $content);
@@ -617,8 +636,16 @@ trait MakesHttpRequests
      *
      * @return \Illuminate\Http\Response
      */
-    public function route($method, $name, $routeParameters = [], $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
-    {
+    public function route(
+        $method,
+        $name,
+        $routeParameters = [],
+        $parameters = [],
+        $cookies = [],
+        $files = [],
+        $server = [],
+        $content = null
+    ) {
         $uri = $this->app['url']->route($name, $routeParameters);
 
         return $this->response = $this->call($method, $uri, $parameters, $cookies, $files, $server, $content);
@@ -637,7 +664,7 @@ trait MakesHttpRequests
             $uri = substr($uri, 1);
         }
         if (!Str::startsWith($uri, 'http')) {
-            $uri = $this->baseUrl.'/'.$uri;
+            $uri = $this->baseUrl . '/' . $uri;
         }
 
         return trim($uri, '/');
@@ -657,7 +684,7 @@ trait MakesHttpRequests
         foreach ($headers as $name => $value) {
             $name = strtr(strtoupper($name), '-', '_');
             if (!Str::startsWith($name, $prefix) && $name != 'CONTENT_TYPE') {
-                $name = $prefix.$name;
+                $name = $prefix . $name;
             }
             $server[$name] = $value;
         }

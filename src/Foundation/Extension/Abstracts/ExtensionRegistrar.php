@@ -54,7 +54,7 @@ abstract class ExtensionRegistrar
      */
     public function alias($abstract, $alias)
     {
-        foreach ((array) $alias as $item) {
+        foreach ((array)$alias as $item) {
             $this->container->alias($abstract, $item);
         }
     }

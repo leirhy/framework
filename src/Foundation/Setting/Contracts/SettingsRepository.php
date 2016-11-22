@@ -24,7 +24,7 @@ interface SettingsRepository
     public function delete($keyLike);
 
     /**
-     * @param $key
+     * @param      $key
      * @param null $default
      *
      * @return mixed

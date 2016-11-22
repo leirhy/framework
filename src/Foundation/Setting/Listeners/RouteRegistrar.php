@@ -22,8 +22,8 @@ class RouteRegistrar extends AbstractRouteRegistrar
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'web'], 'prefix' => 'api/setting'], function () {
-            $this->router->post('all', SettingController::class.'@all');
-            $this->router->post('set', SettingController::class.'@set');
+            $this->router->post('all', SettingController::class . '@all');
+            $this->router->post('set', SettingController::class . '@set');
         });
     }
 }

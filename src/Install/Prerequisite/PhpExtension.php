@@ -39,7 +39,7 @@ class PhpExtension extends Prerequisite
             if (!extension_loaded($extension)) {
                 $this->errors[] = [
                     'message' => "The PHP extension '{$extension}' is required.",
-                    'detail'  => "The PHP extension '{$extension}' is required.",
+                    'detail' => "The PHP extension '{$extension}' is required.",
                 ];
             }
         }

@@ -36,7 +36,7 @@ class MailMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Mail';
+        return $rootNamespace . '\Mail';
     }
 
     /**

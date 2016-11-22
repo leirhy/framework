@@ -80,7 +80,7 @@ class ExtensionManager
      */
     public function getExtensionPath()
     {
-        return $this->container->basePath().DIRECTORY_SEPARATOR.'extensions';
+        return $this->container->basePath() . DIRECTORY_SEPARATOR . 'extensions';
     }
 
     /**
@@ -89,18 +89,18 @@ class ExtensionManager
     public function getExtensionPaths()
     {
         if ($this->extensionPaths->isEmpty()) {
-            if ($this->filesystem->exists($file = $this->getVendorPath().DIRECTORY_SEPARATOR.'composer'.DIRECTORY_SEPARATOR.'installed.json')) {
+            if ($this->filesystem->exists($file = $this->getVendorPath() . DIRECTORY_SEPARATOR . 'composer' . DIRECTORY_SEPARATOR . 'installed.json')) {
                 $packages = new Collection(json_decode($this->filesystem->get($file), true));
                 $packages->each(function (array $package) {
                     $name = Arr::get($package, 'name');
                     if (Arr::get($package, 'type') == 'notadd-extension' && $name) {
-                        $this->extensionPaths->put($name, $this->getVendorPath().DIRECTORY_SEPARATOR.$name);
+                        $this->extensionPaths->put($name, $this->getVendorPath() . DIRECTORY_SEPARATOR . $name);
                     }
                 });
             }
             if ($this->filesystem->isDirectory($this->getExtensionPath()) && !empty($directories = $this->filesystem->directories($this->getExtensionPath()))) {
                 (new Collection($directories))->each(function ($directory) {
-                    if ($this->filesystem->exists($file = $directory.DIRECTORY_SEPARATOR.'composer.json')) {
+                    if ($this->filesystem->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = new Collection(json_decode($this->filesystem->get($file), true));
                         if (Arr::get($package, 'type') == 'notadd-extension' && $name = Arr::get($package, 'name')) {
                             $this->extensionPaths->put($name, $directory);
@@ -120,8 +120,8 @@ class ExtensionManager
     {
         if ($this->extensions->isEmpty()) {
             $this->getExtensionPaths()->each(function ($directory, $key) {
-                if ($this->container->make(SettingsRepository::class)->get('extension.'.$key.'.installed')) {
-                    if ($this->filesystem->exists($bootstrap = $directory.DIRECTORY_SEPARATOR.'bootstrap.php')) {
+                if ($this->container->make(SettingsRepository::class)->get('extension.' . $key . '.installed')) {
+                    if ($this->filesystem->exists($bootstrap = $directory . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
                         $extension = $this->filesystem->getRequire($bootstrap);
                         if (is_string($extension) && in_array(ExtensionRegistrar::class, class_parents($extension))) {
                             $registrar = $this->container->make($extension);
@@ -143,6 +143,6 @@ class ExtensionManager
      */
     public function getVendorPath()
     {
-        return $this->container->basePath().DIRECTORY_SEPARATOR.'vendor';
+        return $this->container->basePath() . DIRECTORY_SEPARATOR . 'vendor';
     }
 }

@@ -54,7 +54,7 @@ class AuthorizationController extends Controller
     {
         $redirect = $this->getAuthRequestFromSession($this->request)->getClient()->getRedirectUri();
 
-        return $this->response->redirectTo($redirect.'?error=access_denied&state='.$this->request->input('state'));
+        return $this->response->redirectTo($redirect . '?error=access_denied&state=' . $this->request->input('state'));
     }
 
     /**
@@ -66,13 +66,14 @@ class AuthorizationController extends Controller
     public function index(ServerRequestInterface $psrRequest, ClientRepository $clients)
     {
         return $this->withErrorHandling(function () use ($psrRequest, $clients) {
-            $this->request->session()->put('authRequest', $authRequest = $this->server->validateAuthorizationRequest($psrRequest));
+            $this->request->session()->put('authRequest',
+                $authRequest = $this->server->validateAuthorizationRequest($psrRequest));
             $scopes = $this->parseScopes($authRequest);
 
             return $this->response->view('passport::authorize', [
-                'client'  => $clients->find($authRequest->getClient()->getIdentifier()),
-                'user'    => $this->request->user(),
-                'scopes'  => $scopes,
+                'client' => $clients->find($authRequest->getClient()->getIdentifier()),
+                'user' => $this->request->user(),
+                'scopes' => $scopes,
                 'request' => $this->request,
             ]);
         });

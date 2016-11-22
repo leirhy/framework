@@ -52,7 +52,7 @@ class ConfigureLogging
      */
     protected function configureHandlers(Application $app, Writer $log)
     {
-        $method = 'configure'.ucfirst($app['config']['app.log']).'Handler';
+        $method = 'configure' . ucfirst($app['config']['app.log']) . 'Handler';
         $this->{$method}($app, $log);
     }
 
@@ -64,7 +64,7 @@ class ConfigureLogging
      */
     protected function configureSingleHandler(Application $app, Writer $log)
     {
-        $log->useFiles($app->storagePath().'/logs/laravel.log', $app->make('config')->get('app.log_level', 'debug'));
+        $log->useFiles($app->storagePath() . '/logs/laravel.log', $app->make('config')->get('app.log_level', 'debug'));
     }
 
     /**
@@ -77,7 +77,8 @@ class ConfigureLogging
     {
         $config = $app->make('config');
         $maxFiles = $config->get('app.log_max_files');
-        $log->useDailyFiles($app->storagePath().'/logs/laravel.log', is_null($maxFiles) ? 5 : $maxFiles, $config->get('app.log_level', 'debug'));
+        $log->useDailyFiles($app->storagePath() . '/logs/laravel.log', is_null($maxFiles) ? 5 : $maxFiles,
+            $config->get('app.log_level', 'debug'));
     }
 
     /**

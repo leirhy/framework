@@ -61,7 +61,7 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * @param $key
+     * @param      $key
      * @param null $default
      *
      * @return mixed|null

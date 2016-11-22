@@ -102,6 +102,7 @@ class AccessTokenController extends Controller
     protected function revokeOtherAccessTokens(array $payload)
     {
         $token = $this->tokens->find($tokenId = $this->jwt->parse($payload['access_token'])->getClaim('jti'));
-        $this->tokens->revokeOtherAccessTokens($token->client_id, $token->user_id, $tokenId, Passport::$pruneRevokedTokens);
+        $this->tokens->revokeOtherAccessTokens($token->client_id, $token->user_id, $tokenId,
+            Passport::$pruneRevokedTokens);
     }
 }

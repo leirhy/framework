@@ -94,7 +94,6 @@ class FormRequest extends Request implements ValidatesWhenResolved
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
      * @throws \Illuminate\Validation\ValidationException
-     *
      * @return void
      */
     protected function failedValidation(Validator $validator)
@@ -119,7 +118,6 @@ class FormRequest extends Request implements ValidatesWhenResolved
 
     /**
      * @throws \Illuminate\Http\Exception\HttpResponseException
-     *
      * @return void
      */
     protected function failedAuthorization()
@@ -138,7 +136,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
             return new JsonResponse($errors, 422);
         }
 
-        return $this->redirector->to($this->getRedirectUrl())->withInput($this->except($this->dontFlash))->withErrors($errors, $this->errorBag);
+        return $this->redirector->to($this->getRedirectUrl())->withInput($this->except($this->dontFlash))->withErrors($errors,
+            $this->errorBag);
     }
 
     /**

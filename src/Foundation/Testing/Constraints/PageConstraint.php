@@ -77,7 +77,6 @@ abstract class PageConstraint extends PHPUnit_Framework_Constraint
      * @param \SebastianBergmann\Comparator\ComparisonFailure|null $comparisonFailure
      *
      * @throws \PHPUnit_Framework_ExpectationFailedException
-     *
      * @return void
      */
     protected function fail($crawler, $description, ComparisonFailure $comparisonFailure = null)
@@ -102,7 +101,7 @@ abstract class PageConstraint extends PHPUnit_Framework_Constraint
      */
     protected function getFailureDescription()
     {
-        return 'the page contains '.$this->toString();
+        return 'the page contains ' . $this->toString();
     }
 
     /**
@@ -112,7 +111,7 @@ abstract class PageConstraint extends PHPUnit_Framework_Constraint
      */
     protected function getReverseFailureDescription()
     {
-        return 'the page does not contain '.$this->toString();
+        return 'the page does not contain ' . $this->toString();
     }
 
     /**

@@ -40,7 +40,6 @@ abstract class EventSubscriber
 
     /**
      * @throws \Exception
-     *
      * @return string|object
      */
     protected function getEvent()
@@ -54,7 +53,7 @@ abstract class EventSubscriber
     public function subscribe()
     {
         $method = 'handle';
-        if (method_exists($this, $getHandler = 'get'.Str::ucfirst($method).'r')) {
+        if (method_exists($this, $getHandler = 'get' . Str::ucfirst($method) . 'r')) {
             $method = $this->{$getHandler}();
         }
         $this->events->listen($this->getEvent(), [

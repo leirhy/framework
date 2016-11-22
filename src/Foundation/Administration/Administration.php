@@ -70,7 +70,7 @@ class Administration
             $this->administrator = $administrator;
             $this->administrator->init();
         } else {
-            throw new \InvalidArgumentException('Administrator must be instanceof '.Administrator::class.'!');
+            throw new \InvalidArgumentException('Administrator must be instanceof ' . Administrator::class . '!');
         }
     }
 }

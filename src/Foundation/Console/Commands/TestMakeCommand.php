@@ -48,7 +48,7 @@ class TestMakeCommand extends GeneratorCommand
     {
         $name = str_replace($this->laravel->getNamespace(), '', $name);
 
-        return $this->laravel['path.base'].'/tests/'.str_replace('\\', '/', $name).'.php';
+        return $this->laravel['path.base'] . '/tests/' . str_replace('\\', '/', $name) . '.php';
     }
 
     /**

@@ -29,11 +29,11 @@ class InstallRequest extends FormRequest
     public function messages()
     {
         return [
-            'admin_account.required'   => '必须填写管理员账号',
-            'admin_email.required'     => '必须填写管理员邮箱',
-            'admin_password.required'  => '必须填写管理员密码',
+            'admin_account.required' => '必须填写管理员账号',
+            'admin_email.required' => '必须填写管理员邮箱',
+            'admin_password.required' => '必须填写管理员密码',
             'admin_password.confirmed' => '管理员密码验证不正确',
-            'website.required'         => '必须填写网站名称',
+            'website.required' => '必须填写网站名称',
         ];
     }
 
@@ -43,10 +43,10 @@ class InstallRequest extends FormRequest
     public function rules()
     {
         return [
-            'admin_account'  => 'required',
-            'admin_email'    => 'required',
+            'admin_account' => 'required',
+            'admin_email' => 'required',
             'admin_password' => 'required|confirmed',
-            'website'        => 'required',
+            'website' => 'required',
         ];
     }
 }

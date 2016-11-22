@@ -148,9 +148,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this->hasBeenBootstrapped = true;
         foreach ($bootstrappers as $bootstrapper) {
-            $this['events']->fire('bootstrapping: '.$bootstrapper, [$this]);
+            $this['events']->fire('bootstrapping: ' . $bootstrapper, [$this]);
             $this->make($bootstrapper)->bootstrap($this);
-            $this['events']->fire('bootstrapped: '.$bootstrapper, [$this]);
+            $this['events']->fire('bootstrapped: ' . $bootstrapper, [$this]);
         }
     }
 
@@ -172,7 +172,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function beforeBootstrapping($bootstrapper, Closure $callback)
     {
-        $this['events']->listen('bootstrapping: '.$bootstrapper, $callback);
+        $this['events']->listen('bootstrapping: ' . $bootstrapper, $callback);
     }
 
     /**
@@ -183,7 +183,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function afterBootstrapping($bootstrapper, Closure $callback)
     {
-        $this['events']->listen('bootstrapped: '.$bootstrapper, $callback);
+        $this['events']->listen('bootstrapped: ' . $bootstrapper, $callback);
     }
 
     /**
@@ -228,7 +228,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function path()
     {
-        return $this->basePath.DIRECTORY_SEPARATOR.'src';
+        return $this->basePath . DIRECTORY_SEPARATOR . 'src';
     }
 
     /**
@@ -244,7 +244,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function bootstrapPath()
     {
-        return $this->basePath.DIRECTORY_SEPARATOR.'bootstrap';
+        return $this->basePath . DIRECTORY_SEPARATOR . 'bootstrap';
     }
 
     /**
@@ -252,7 +252,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function configPath()
     {
-        return $this->storagePath().DIRECTORY_SEPARATOR.'configurations';
+        return $this->storagePath() . DIRECTORY_SEPARATOR . 'configurations';
     }
 
     /**
@@ -260,7 +260,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function databasePath()
     {
-        return $this->databasePath ?: $this->basePath.DIRECTORY_SEPARATOR.'databases';
+        return $this->databasePath ?: $this->basePath . DIRECTORY_SEPARATOR . 'databases';
     }
 
     /**
@@ -281,7 +281,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function langPath()
     {
-        return $this->resourcePath().DIRECTORY_SEPARATOR.'translations';
+        return $this->resourcePath() . DIRECTORY_SEPARATOR . 'translations';
     }
 
     /**
@@ -289,7 +289,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function publicPath()
     {
-        return $this->publicPath ?: $this->basePath.DIRECTORY_SEPARATOR.'public';
+        return $this->publicPath ?: $this->basePath . DIRECTORY_SEPARATOR . 'public';
     }
 
     /**
@@ -310,7 +310,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function storagePath()
     {
-        return $this->storagePath ?: $this->basePath.DIRECTORY_SEPARATOR.'storage';
+        return $this->storagePath ?: $this->basePath . DIRECTORY_SEPARATOR . 'storage';
     }
 
     /**
@@ -331,7 +331,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function resourcePath()
     {
-        return $this->basePath.DIRECTORY_SEPARATOR.'resources';
+        return $this->basePath . DIRECTORY_SEPARATOR . 'resources';
     }
 
     /**
@@ -339,7 +339,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function environmentPath()
     {
-        return $this->environmentPath ?: $this->storagePath().DIRECTORY_SEPARATOR.'environments';
+        return $this->environmentPath ?: $this->storagePath() . DIRECTORY_SEPARATOR . 'environments';
     }
 
     /**
@@ -379,7 +379,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function environmentFilePath()
     {
-        return $this->environmentPath().DIRECTORY_SEPARATOR.$this->environmentFile();
+        return $this->environmentPath() . DIRECTORY_SEPARATOR . $this->environmentFile();
     }
 
     /**
@@ -684,7 +684,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function getCachedConfigPath()
     {
-        return $this->storagePath().'/bootstraps/configurations.php';
+        return $this->storagePath() . '/bootstraps/configurations.php';
     }
 
     /**
@@ -700,7 +700,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function getCachedRoutesPath()
     {
-        return $this->storagePath().'/bootstraps/routes.php';
+        return $this->storagePath() . '/bootstraps/routes.php';
     }
 
     /**
@@ -708,7 +708,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function getCachedCompilePath()
     {
-        return $this->storagePath().'/bootstraps/compiled.php';
+        return $this->storagePath() . '/bootstraps/compiled.php';
     }
 
     /**
@@ -716,7 +716,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function getCachedServicesPath()
     {
-        return $this->storagePath().'/bootstraps/services.php';
+        return $this->storagePath() . '/bootstraps/services.php';
     }
 
     /**
@@ -724,7 +724,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function isDownForMaintenance()
     {
-        return file_exists($this->storagePath().'/bootstraps/down');
+        return file_exists($this->storagePath() . '/bootstraps/down');
     }
 
     /**
@@ -733,7 +733,6 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @param array  $headers
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     *
      * @return void
      */
     public function abort($code, $message = '', array $headers = [])
@@ -877,7 +876,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $aliases = [
             'administration' => ['Notadd\Foundation\Administration\Administration'],
-            'app'            => [
+            'app' => [
                 'Illuminate\Contracts\Container\Container',
                 'Illuminate\Contracts\Foundation\Application',
                 'Notadd\Foundation\Application',
@@ -886,7 +885,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Auth\AuthManager',
                 'Illuminate\Contracts\Auth\Factory',
             ],
-            'auth.driver'   => ['Illuminate\Contracts\Auth\Guard'],
+            'auth.driver' => ['Illuminate\Contracts\Auth\Guard'],
             'auth.password' => [
                 'Illuminate\Auth\Passwords\PasswordBrokerManager',
                 'Illuminate\Contracts\Auth\PasswordBrokerFactory',
@@ -896,7 +895,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Contracts\Auth\PasswordBroker',
             ],
             'blade.compiler' => ['Illuminate\View\Compilers\BladeCompiler'],
-            'cache'          => [
+            'cache' => [
                 'Illuminate\Cache\CacheManager',
                 'Illuminate\Contracts\Cache\Factory',
             ],
@@ -905,7 +904,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Contracts\Cache\Repository',
             ],
             'composer' => ['Illuminate\Support\Composer'],
-            'config'   => [
+            'config' => [
                 'Illuminate\Config\Repository',
                 'Illuminate\Contracts\Config\Repository',
             ],
@@ -918,25 +917,25 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Encryption\Encrypter',
                 'Illuminate\Contracts\Encryption\Encrypter',
             ],
-            'db'            => ['Illuminate\Database\DatabaseManager'],
+            'db' => ['Illuminate\Database\DatabaseManager'],
             'db.connection' => [
                 'Illuminate\Database\Connection',
                 'Illuminate\Database\ConnectionInterface',
             ],
             'extensions' => ['Notadd\Foundation\Extension\ExtensionManager'],
-            'events'     => [
+            'events' => [
                 'Illuminate\Events\Dispatcher',
                 'Illuminate\Contracts\Events\Dispatcher',
             ],
-            'files'      => ['Illuminate\Filesystem\Filesystem'],
+            'files' => ['Illuminate\Filesystem\Filesystem'],
             'filesystem' => [
                 'Illuminate\Filesystem\FilesystemManager',
                 'Illuminate\Contracts\Filesystem\Factory',
             ],
-            'filesystem.disk'  => ['Illuminate\Contracts\Filesystem\Filesystem'],
+            'filesystem.disk' => ['Illuminate\Contracts\Filesystem\Filesystem'],
             'filesystem.cloud' => ['Illuminate\Contracts\Filesystem\Cloud'],
-            'hash'             => ['Illuminate\Contracts\Hashing\Hasher'],
-            'translator'       => [
+            'hash' => ['Illuminate\Contracts\Hashing\Hasher'],
+            'translator' => [
                 'Illuminate\Translation\Translator',
                 'Symfony\Component\Translation\TranslatorInterface',
             ],
@@ -951,15 +950,15 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Contracts\Mail\MailQueue',
             ],
             'member' => ['Notadd\Foundation\Member\MemberManagement'],
-            'queue'  => [
+            'queue' => [
                 'Illuminate\Queue\QueueManager',
                 'Illuminate\Contracts\Queue\Factory',
                 'Illuminate\Contracts\Queue\Monitor',
             ],
             'queue.connection' => ['Illuminate\Contracts\Queue\Queue'],
-            'queue.failer'     => ['Illuminate\Queue\Failed\FailedJobProviderInterface'],
-            'redirect'         => ['Illuminate\Routing\Redirector'],
-            'redis'            => [
+            'queue.failer' => ['Illuminate\Queue\Failed\FailedJobProviderInterface'],
+            'redirect' => ['Illuminate\Routing\Redirector'],
+            'redis' => [
                 'Illuminate\Redis\Database',
                 'Illuminate\Contracts\Redis\Database',
             ],
@@ -972,13 +971,13 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Contracts\Routing\Registrar',
             ],
             'searchengine.optimization' => ['Notadd\Foundation\SearchEngine\Optimization'],
-            'session'                   => ['Illuminate\Session\SessionManager'],
-            'session.store'             => [
+            'session' => ['Illuminate\Session\SessionManager'],
+            'session.store' => [
                 'Illuminate\Session\Store',
                 'Symfony\Component\HttpFoundation\Session\SessionInterface',
             ],
             'setting' => ['Notadd\Foundation\Setting\Contracts\SettingsRepository'],
-            'url'     => [
+            'url' => [
                 'Illuminate\Routing\UrlGenerator',
                 'Illuminate\Contracts\Routing\UrlGenerator',
             ],
@@ -1009,7 +1008,6 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 
     /**
      * @throws \RuntimeException
-     *
      * @return string
      */
     public function getNamespace()
@@ -1018,9 +1016,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             return $this->namespace;
         }
         $composer = json_decode(file_get_contents(base_path('composer.json')), true);
-        foreach ((array) data_get($composer, 'autoload.psr-4') as $namespace => $path) {
-            foreach ((array) $path as $pathChoice) {
-                if (realpath(app_path()) == realpath(base_path().'/'.$pathChoice)) {
+        foreach ((array)data_get($composer, 'autoload.psr-4') as $namespace => $path) {
+            foreach ((array)$path as $pathChoice) {
+                if (realpath(app_path()) == realpath(base_path() . '/' . $pathChoice)) {
                     return $this->namespace = $namespace;
                 }
             }
@@ -1036,7 +1034,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         if ($this->bound('installed')) {
             return true;
         } else {
-            if (file_exists($this->storagePath().DIRECTORY_SEPARATOR.'bootstraps'.DIRECTORY_SEPARATOR.'replace.php')) {
+            if (file_exists($this->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'replace.php')) {
                 $this->instance('installed', true);
 
                 return true;

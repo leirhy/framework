@@ -66,11 +66,15 @@ trait ValidatesRequests
      * @param array                    $customAttributes
      *
      * @throws \Illuminate\Validation\ValidationException
-     *
      * @return void
      */
-    public function validateWithBag($errorBag, Request $request, array $rules, array $messages = [], array $customAttributes = [])
-    {
+    public function validateWithBag(
+        $errorBag,
+        Request $request,
+        array $rules,
+        array $messages = [],
+        array $customAttributes = []
+    ) {
         $this->withErrorBag($errorBag, function () use ($request, $rules, $messages, $customAttributes) {
             $this->validate($request, $rules, $messages, $customAttributes);
         });
@@ -81,12 +85,12 @@ trait ValidatesRequests
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
      * @throws \Illuminate\Validation\ValidationException
-     *
      * @return void
      */
     protected function throwValidationException(Request $request, $validator)
     {
-        throw new ValidationException($validator, $this->buildFailedValidationResponse($request, $this->formatValidationErrors($validator)));
+        throw new ValidationException($validator,
+            $this->buildFailedValidationResponse($request, $this->formatValidationErrors($validator)));
     }
 
     /**
@@ -101,7 +105,8 @@ trait ValidatesRequests
             return new JsonResponse($errors, 422);
         }
 
-        return redirect()->to($this->getRedirectUrl())->withInput($request->input())->withErrors($errors, $this->errorBag());
+        return redirect()->to($this->getRedirectUrl())->withInput($request->input())->withErrors($errors,
+            $this->errorBag());
     }
 
     /**

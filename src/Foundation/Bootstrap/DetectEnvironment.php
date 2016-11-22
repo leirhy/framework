@@ -44,7 +44,7 @@ class DetectEnvironment
         if (php_sapi_name() == 'cli') {
             $input = new ArgvInput();
             if ($input->hasParameterOption('--env')) {
-                $file = $app->environmentFile().'.'.$input->getParameterOption('--env');
+                $file = $app->environmentFile() . '.' . $input->getParameterOption('--env');
                 $this->loadEnvironmentFile($app, $file);
             }
         }
@@ -52,7 +52,7 @@ class DetectEnvironment
             return;
         }
         if (empty($file)) {
-            $file = $app->environmentFile().'.'.env('APP_ENV');
+            $file = $app->environmentFile() . '.' . env('APP_ENV');
             $this->loadEnvironmentFile($app, $file);
         }
     }
@@ -65,7 +65,7 @@ class DetectEnvironment
      */
     protected function loadEnvironmentFile($app, $file)
     {
-        if (file_exists($app->environmentPath().'/'.$file)) {
+        if (file_exists($app->environmentPath() . '/' . $file)) {
             $app->loadEnvironmentFrom($file);
         }
     }

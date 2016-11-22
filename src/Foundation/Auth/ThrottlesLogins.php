@@ -49,7 +49,8 @@ trait ThrottlesLogins
         $seconds = $this->limiter()->availableIn($this->throttleKey($request));
         $message = Lang::get('auth.throttle', ['seconds' => $seconds]);
 
-        return redirect()->back()->withInput($request->only($this->username(), 'remember'))->withErrors([$this->username() => $message]);
+        return redirect()->back()->withInput($request->only($this->username(),
+            'remember'))->withErrors([$this->username() => $message]);
     }
 
     /**
@@ -79,7 +80,7 @@ trait ThrottlesLogins
      */
     protected function throttleKey(Request $request)
     {
-        return Str::lower($request->input($this->username())).'|'.$request->ip();
+        return Str::lower($request->input($this->username())) . '|' . $request->ip();
     }
 
     /**

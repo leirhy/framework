@@ -53,7 +53,7 @@ class VendorPublishCommand extends Command
     {
         $tags = $this->option('tag');
         $tags = $tags ?: [null];
-        foreach ((array) $tags as $tag) {
+        foreach ((array)$tags as $tag) {
             $this->publishTag($tag);
         }
     }
@@ -107,11 +107,11 @@ class VendorPublishCommand extends Command
     {
         $manager = new MountManager([
             'from' => new Flysystem(new LocalAdapter($from)),
-            'to'   => new Flysystem(new LocalAdapter($to)),
+            'to' => new Flysystem(new LocalAdapter($to)),
         ]);
         foreach ($manager->listContents('from://', true) as $file) {
-            if ($file['type'] === 'file' && (!$manager->has('to://'.$file['path']) || $this->option('force'))) {
-                $manager->put('to://'.$file['path'], $manager->read('from://'.$file['path']));
+            if ($file['type'] === 'file' && (!$manager->has('to://' . $file['path']) || $this->option('force'))) {
+                $manager->put('to://' . $file['path'], $manager->read('from://' . $file['path']));
             }
         }
         $this->status($from, $to, 'Directory');
@@ -140,6 +140,6 @@ class VendorPublishCommand extends Command
     {
         $from = str_replace(base_path(), '', realpath($from));
         $to = str_replace(base_path(), '', realpath($to));
-        $this->line('<info>Copied '.$type.'</info> <comment>['.$from.']</comment> <info>To</info> <comment>['.$to.']</comment>');
+        $this->line('<info>Copied ' . $type . '</info> <comment>[' . $from . ']</comment> <info>To</info> <comment>[' . $to . ']</comment>');
     }
 }

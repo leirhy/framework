@@ -38,7 +38,7 @@ class PhpVersion extends Prerequisite
         if (version_compare(PHP_VERSION, $this->minVersion, '<')) {
             $this->errors[] = [
                 'message' => "PHP {$this->minVersion} is required.",
-                'detail'  => 'You are running version '.PHP_VERSION.'. Talk to your hosting provider about upgrading to the latest PHP version.',
+                'detail' => 'You are running version ' . PHP_VERSION . '. Talk to your hosting provider about upgrading to the latest PHP version.',
             ];
         }
     }

@@ -56,7 +56,7 @@ class ListenerMakeCommand extends GeneratorCommand
         $stub = parent::buildClass($name);
         $event = $this->option('event');
         if (!Str::startsWith($event, $this->laravel->getNamespace()) && !Str::startsWith($event, 'Illuminate')) {
-            $event = $this->laravel->getNamespace().'Events\\'.$event;
+            $event = $this->laravel->getNamespace() . 'Events\\' . $event;
         }
         $stub = str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
         $stub = str_replace('DummyEvent', class_basename($event), $stub);
@@ -94,7 +94,7 @@ class ListenerMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Listeners';
+        return $rootNamespace . '\Listeners';
     }
 
     /**

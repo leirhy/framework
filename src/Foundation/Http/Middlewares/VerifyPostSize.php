@@ -21,7 +21,6 @@ class VerifyPostSize
      * @param \Closure                 $next
      *
      * @throws \Illuminate\Http\Exception\PostTooLargeException
-     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -39,18 +38,18 @@ class VerifyPostSize
     protected function getPostMaxSize()
     {
         if (is_numeric($postMaxSize = ini_get('post_max_size'))) {
-            return (int) $postMaxSize;
+            return (int)$postMaxSize;
         }
         $metric = strtoupper(substr($postMaxSize, -1));
         switch ($metric) {
             case 'K':
-                return (int) $postMaxSize * 1024;
+                return (int)$postMaxSize * 1024;
             case 'M':
-                return (int) $postMaxSize * 1048576;
+                return (int)$postMaxSize * 1048576;
             case 'G':
-                return (int) $postMaxSize * 1073741824;
+                return (int)$postMaxSize * 1073741824;
             default:
-                return (int) $postMaxSize;
+                return (int)$postMaxSize;
         }
     }
 }

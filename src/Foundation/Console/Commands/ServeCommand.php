@@ -29,7 +29,6 @@ class ServeCommand extends Command
 
     /**
      * @throws \Exception
-     *
      * @return void
      */
     public function fire()

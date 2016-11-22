@@ -37,7 +37,7 @@ abstract class FormFieldConstraint extends PageConstraint
     public function __construct($selector, $value)
     {
         $this->selector = $selector;
-        $this->value = (string) $value;
+        $this->value = (string)$value;
     }
 
     /**
@@ -54,7 +54,6 @@ abstract class FormFieldConstraint extends PageConstraint
      * @param \Symfony\Component\DomCrawler\Crawler $crawler
      *
      * @throws \PHPUnit_Framework_ExpectationFailedException
-     *
      * @return \Symfony\Component\DomCrawler\Crawler
      */
     protected function field(Crawler $crawler)
@@ -63,7 +62,8 @@ abstract class FormFieldConstraint extends PageConstraint
         if ($field->count() > 0) {
             return $field;
         }
-        $this->fail($crawler, sprintf('There is no %s with the name or ID [%s]', $this->validElements(), $this->selector));
+        $this->fail($crawler,
+            sprintf('There is no %s with the name or ID [%s]', $this->validElements(), $this->selector));
     }
 
     /**

@@ -53,7 +53,8 @@ class HttpServiceProvider extends ServiceProvider
     {
         $files = $current->files->all();
         $files = is_array($files) ? array_filter($files) : $files;
-        $form->initialize($current->query->all(), $current->request->all(), $current->attributes->all(), $current->cookies->all(), $files, $current->server->all(), $current->getContent());
+        $form->initialize($current->query->all(), $current->request->all(), $current->attributes->all(),
+            $current->cookies->all(), $files, $current->server->all(), $current->getContent());
         if ($session = $current->getSession()) {
             $form->setSession($session);
         }

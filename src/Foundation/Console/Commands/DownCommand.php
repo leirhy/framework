@@ -31,7 +31,8 @@ class DownCommand extends Command
      */
     public function fire()
     {
-        file_put_contents($this->laravel->storagePath().'/bootstraps/down', json_encode($this->getDownFilePayload(), JSON_PRETTY_PRINT));
+        file_put_contents($this->laravel->storagePath() . '/bootstraps/down',
+            json_encode($this->getDownFilePayload(), JSON_PRETTY_PRINT));
         $this->comment('Application is now in maintenance mode.');
     }
 
@@ -41,9 +42,9 @@ class DownCommand extends Command
     protected function getDownFilePayload()
     {
         return [
-            'time'    => Carbon::now()->getTimestamp(),
+            'time' => Carbon::now()->getTimestamp(),
             'message' => $this->option('message'),
-            'retry'   => $this->getRetryTime(),
+            'retry' => $this->getRetryTime(),
         ];
     }
 
@@ -54,6 +55,6 @@ class DownCommand extends Command
     {
         $retry = $this->option('retry');
 
-        return is_numeric($retry) && $retry > 0 ? (int) $retry : null;
+        return is_numeric($retry) && $retry > 0 ? (int)$retry : null;
     }
 }

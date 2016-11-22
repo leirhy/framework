@@ -35,7 +35,7 @@ class KeyGenerateCommand extends Command
     {
         $key = $this->generateRandomKey();
         if ($this->option('show')) {
-            $this->line('<comment>'.$key.'</comment>');
+            $this->line('<comment>' . $key . '</comment>');
 
             return false;
         }
@@ -55,10 +55,11 @@ class KeyGenerateCommand extends Command
     {
         $path = $this->laravel->environmentFilePath();
         if (file_exists($path)) {
-            file_put_contents($path, str_replace('APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)));
+            file_put_contents($path, str_replace('APP_KEY=' . $this->laravel['config']['app.key'], 'APP_KEY=' . $key,
+                file_get_contents($path)));
         } else {
             touch($path);
-            file_put_contents($path, 'APP_KEY='.$key);
+            file_put_contents($path, 'APP_KEY=' . $key);
         }
     }
 
@@ -67,6 +68,6 @@ class KeyGenerateCommand extends Command
      */
     protected function generateRandomKey()
     {
-        return 'base64:'.base64_encode(random_bytes($this->laravel['config']['app.cipher'] == 'AES-128-CBC' ? 16 : 32));
+        return 'base64:' . base64_encode(random_bytes($this->laravel['config']['app.cipher'] == 'AES-128-CBC' ? 16 : 32));
     }
 }

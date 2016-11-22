@@ -96,7 +96,7 @@ class HasElement extends PageConstraint
     {
         $message = "the element [{$this->selector}]";
         if (!empty($this->attributes)) {
-            $message .= ' with the attributes '.json_encode($this->attributes);
+            $message .= ' with the attributes ' . json_encode($this->attributes);
         }
 
         return $message;

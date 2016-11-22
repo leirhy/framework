@@ -46,7 +46,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * @param $question
+     * @param      $question
      * @param null $default
      *
      * @return string
@@ -59,7 +59,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * @param $command
+     * @param       $command
      * @param array $arguments
      *
      * @return int
@@ -85,7 +85,6 @@ abstract class Command extends SymfonyCommand
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @throws \Exception
-     *
      * @return mixed
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -163,8 +162,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * @param array $headers
-     * @param $rows
+     * @param array  $headers
+     * @param        $rows
      * @param string $style
      */
     public function table(array $headers, $rows, $style = 'default')

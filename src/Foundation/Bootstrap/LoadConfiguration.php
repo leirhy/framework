@@ -53,7 +53,7 @@ class LoadConfiguration
             $repository->set($key, require $path);
         }
         if ($application->isInstalled()) {
-            $database = require $application->storagePath().DIRECTORY_SEPARATOR.'bootstraps'.DIRECTORY_SEPARATOR.'replace.php';
+            $database = require $application->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'replace.php';
             $repository->set('database', $database);
         }
     }
@@ -69,7 +69,7 @@ class LoadConfiguration
         $configPath = realpath($app->configPath());
         foreach (Finder::create()->files()->name('*.php')->in($configPath) as $file) {
             $nesting = $this->getConfigurationNesting($file, $configPath);
-            $files[$nesting.basename($file->getRealPath(), '.php')] = $file->getRealPath();
+            $files[$nesting . basename($file->getRealPath(), '.php')] = $file->getRealPath();
         }
 
         return $files;
@@ -85,7 +85,7 @@ class LoadConfiguration
     {
         $directory = dirname($file->getRealPath());
         if ($tree = trim(str_replace($configPath, '', $directory), DIRECTORY_SEPARATOR)) {
-            $tree = str_replace(DIRECTORY_SEPARATOR, '.', $tree).'.';
+            $tree = str_replace(DIRECTORY_SEPARATOR, '.', $tree) . '.';
         }
 
         return $tree;

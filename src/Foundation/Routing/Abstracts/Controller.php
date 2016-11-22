@@ -131,7 +131,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * @param $key
+     * @param      $key
      * @param null $value
      */
     protected function share($key, $value = null)
@@ -140,7 +140,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * @param $template
+     * @param       $template
      * @param array $data
      * @param array $mergeData
      *
@@ -151,7 +151,7 @@ abstract class Controller extends IlluminateController
         if (Str::contains($template, '::')) {
             return $this->view->make($template, $data, $mergeData);
         } else {
-            return $this->view->make('theme::'.$template, $data, $mergeData);
+            return $this->view->make('theme::' . $template, $data, $mergeData);
         }
     }
 }

@@ -33,8 +33,12 @@ class Migrator extends IlluminateMigrator
      * @param \Illuminate\Database\ConnectionResolverInterface             $resolver
      * @param \Illuminate\Filesystem\Filesystem                            $files
      */
-    public function __construct(Container $container, MigrationRepositoryInterface $repository, Resolver $resolver, Filesystem $files)
-    {
+    public function __construct(
+        Container $container,
+        MigrationRepositoryInterface $repository,
+        Resolver $resolver,
+        Filesystem $files
+    ) {
         $this->container = $container;
         parent::__construct($repository, $resolver, $files);
     }

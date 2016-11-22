@@ -29,7 +29,7 @@ class UpCommand extends Command
      */
     public function fire()
     {
-        @unlink($this->laravel->storagePath().'/bootstraps/down');
+        @unlink($this->laravel->storagePath() . '/bootstraps/down');
         $this->info('Application is now live.');
     }
 }

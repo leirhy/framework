@@ -260,7 +260,7 @@ class OptimizeCommand extends Command
         $handle = $preloader->prepareOutput($this->laravel->getCachedCompilePath());
         foreach ($this->getClassFiles() as $file) {
             try {
-                fwrite($handle, $preloader->getCode($file, false)."\n");
+                fwrite($handle, $preloader->getCode($file, false) . "\n");
             } catch (VisitorExceptionInterface $e) {
             }
         }
@@ -273,7 +273,7 @@ class OptimizeCommand extends Command
     protected function getClassFiles()
     {
         $core = collect($this->complies)->transform(function ($value) {
-            return $this->laravel->basePath().$value;
+            return $this->laravel->basePath() . $value;
         })->toArray();
         $files = array_merge($core, $this->laravel['config']->get('compile.files', []));
         foreach ($this->laravel['config']->get('compile.providers', []) as $provider) {

@@ -45,7 +45,7 @@ class UninstallCommand extends Command
 
             return false;
         }
-        if (!$settings->get('extension.'.$name.'.installed')) {
+        if (!$settings->get('extension.' . $name . '.installed')) {
             $this->error("Extension {$name} does not installed!");
 
             return false;
@@ -56,41 +56,45 @@ class UninstallCommand extends Command
 
             return false;
         }
-        $extensionFile = new JsonFile($path.DIRECTORY_SEPARATOR.'composer.json');
-        $autoload = collect(json_decode($settings->get('extension.'.$name.'.autoload'), true));
+        $extensionFile = new JsonFile($path . DIRECTORY_SEPARATOR . 'composer.json');
+        $autoload = collect(json_decode($settings->get('extension.' . $name . '.autoload'), true));
         if (!$autoload->isEmpty()) {
             $autoload->has('classmap') && collect($autoload->get('classmap'))->each(function ($value) use ($path) {
-                $path = str_replace($this->container->basePath().'/', '', realpath($path.DIRECTORY_SEPARATOR.$value)).'/';
+                $path = str_replace($this->container->basePath() . '/', '',
+                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
                 if ($key = array_search($path, $this->backup['autoload']['classmap'], true)) {
                     unset($this->backup['autoload']['classmap'][$key]);
                 }
             });
             $autoload->has('files') && collect($autoload->get('files'))->each(function ($value) use ($path) {
-                $path = str_replace($this->container->basePath().'/', '', realpath($path.DIRECTORY_SEPARATOR.$value));
+                $path = str_replace($this->container->basePath() . '/', '',
+                    realpath($path . DIRECTORY_SEPARATOR . $value));
                 if ($key = array_search($path, $this->backup['autoload']['files'], true)) {
                     unset($this->backup['autoload']['files'][$key]);
                 }
             });
             $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function ($value, $key) use ($path) {
-                $path = str_replace($this->container->basePath().'/', '', realpath($path.DIRECTORY_SEPARATOR.$value)).'/';
+                $path = str_replace($this->container->basePath() . '/', '',
+                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
                 unset($this->backup['autoload']['psr-0'][$key]);
             });
             $autoload->has('psr-4') && collect($autoload->get('psr-4'))->each(function ($value, $key) use ($path) {
-                $path = str_replace($this->container->basePath().'/', '', realpath($path.DIRECTORY_SEPARATOR.$value)).'/';
+                $path = str_replace($this->container->basePath() . '/', '',
+                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
                 unset($this->backup['autoload']['psr-4'][$key]);
             });
             $this->json->addProperty('autoload', $this->backup['autoload']);
-            $settings->set('extension.'.$name.'.autoload', json_encode([]));
+            $settings->set('extension.' . $name . '.autoload', json_encode([]));
         }
-        $require = collect(json_decode($settings->get('extension.'.$name.'.require'), true));
+        $require = collect(json_decode($settings->get('extension.' . $name . '.require'), true));
         if (!$require->isEmpty()) {
             $require->each(function ($version, $name) {
                 unset($this->backup['require'][$name]);
             });
             $this->json->addProperty('require', $this->backup['require']);
-            $settings->set('extension.'.$name.'.require', json_encode([]));
+            $settings->set('extension.' . $name . '.require', json_encode([]));
         }
-        $settings->set('extension.'.$name.'.installed', false);
+        $settings->set('extension.' . $name . '.installed', false);
         $this->updateComposer(true);
         $this->info("Extension {$name} is uninstalled!");
 

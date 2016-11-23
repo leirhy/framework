@@ -27,9 +27,10 @@ abstract class DataHandler extends Handler
     /**
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      */
-    public function toResponse() {
+    public function toResponse()
+    {
         $data = $this->data();
-        if(empty($data)) {
+        if (empty($data)) {
             $messages = $this->errors();
         } else {
             $messages = $this->messages();

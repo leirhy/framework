@@ -39,9 +39,10 @@ abstract class SetHandler extends DataHandler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      */
-    public function toResponse(Request $request) {
+    public function toResponse(Request $request)
+    {
         $result = $this->execute($request);
-        if($result) {
+        if ($result) {
             $messages = $this->messages();
         } else {
             $messages = $this->errors();

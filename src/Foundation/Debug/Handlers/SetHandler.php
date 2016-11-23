@@ -4,9 +4,9 @@
  *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-11-23 15:09
+ * @datetime 2016-11-23 15:48
  */
-namespace Notadd\Foundation\Setting\Handlers;
+namespace Notadd\Foundation\Debug\Handlers;
 
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
@@ -60,13 +60,7 @@ class SetHandler extends AbstractSetHandler
      */
     public function execute(Request $request)
     {
-        $this->settings->set('site.enabled', $request->input('enabled'));
-        $this->settings->set('site.name', $request->input('name'));
-        $this->settings->set('site.domain', $request->input('domain'));
-        $this->settings->set('site.beian', $request->input('beian'));
-        $this->settings->set('site.company', $request->input('company'));
-        $this->settings->set('site.copyright', $request->input('copyright'));
-        $this->settings->set('site.statistics', $request->input('statistics'));
+        $this->settings->set('debug.enabled', $request->input('enabled'));
 
         return true;
     }

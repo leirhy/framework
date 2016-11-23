@@ -28,7 +28,7 @@ abstract class ApiController extends Controller
      *
      * @return mixed
      */
-    public function send($handler) {
-
+    public function send($handler)
+    {
     }
 }

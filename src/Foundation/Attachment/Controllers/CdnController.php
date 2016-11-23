@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Attachment\Controllers;
 
+use Notadd\Foundation\Attachment\Handlers\CdnSetHandler;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
@@ -18,15 +19,14 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 class CdnController extends Controller
 {
     /**
-     * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handle(ApiResponse $response, SettingsRepository $settings)
+    public function handle(SettingsRepository $settings)
     {
-        $settings->set('attachment.cnd.default', $this->request->input('default'));
-        $response->withParams($settings->all()->toArray());
+        $handler = new CdnSetHandler($this->container, $settings);
+        $response = $handler->toResponse($this->request);
 
         return $response->generateHttpResponse();
     }

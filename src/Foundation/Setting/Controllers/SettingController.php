@@ -8,9 +8,10 @@
  */
 namespace Notadd\Foundation\Setting\Controllers;
 
-use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
+use Notadd\Foundation\Setting\Handlers\AllHandler;
+use Notadd\Foundation\Setting\Handlers\SetHandler;
 
 /**
  * Class ApiController.
@@ -18,34 +19,39 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 class SettingController extends Controller
 {
     /**
-     * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $settings;
+
+    /**
+     * SettingController constructor.
      *
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     */
+    public function __construct(SettingsRepository $settings)
+    {
+        parent::__construct();
+        $this->settings = $settings;
+    }
+
+    /**
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function all(ApiResponse $response, SettingsRepository $settings)
+    public function all()
     {
-        $response->withParams($settings->all()->toArray());
+        $handler = new AllHandler($this->container, $this->settings);
+        $response = $handler->toResponse();
 
         return $response->generateHttpResponse();
     }
 
     /**
-     * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
-     *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function set(ApiResponse $response, SettingsRepository $settings)
+    public function set()
     {
-        $settings->set('site.enabled', $this->request->input('enabled'));
-        $settings->set('site.name', $this->request->input('name'));
-        $settings->set('site.domain', $this->request->input('domain'));
-        $settings->set('site.beian', $this->request->input('beian'));
-        $settings->set('site.company', $this->request->input('company'));
-        $settings->set('site.copyright', $this->request->input('copyright'));
-        $settings->set('site.statistics', $this->request->input('statistics'));
-        $response->withParams($settings->all()->toArray());
+        $handler = new SetHandler($this->container, $this->settings);
+        $response = $handler->toResponse($this->request);
 
         return $response->generateHttpResponse();
     }

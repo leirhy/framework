@@ -8,8 +8,8 @@
  */
 namespace Notadd\Foundation\SearchEngine\Controllers;
 
-use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\ApiController;
+use Notadd\Foundation\SearchEngine\Handlers\SetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
@@ -18,17 +18,14 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 class SeoController extends ApiController
 {
     /**
-     * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handle(ApiResponse $response, SettingsRepository $settings)
+    public function handle(SettingsRepository $settings)
     {
-        $settings->set('seo.description', $this->request->get('description'));
-        $settings->set('seo.keyword', $this->request->get('keyword'));
-        $settings->set('seo.title', $this->request->get('title'));
-        $response->withParams($settings->all()->toArray());
+        $handler = new SetHandler($this->container, $settings);
+        $response = $handler->toResponse($this->request);
 
         return $response->generateHttpResponse();
     }

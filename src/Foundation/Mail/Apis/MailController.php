@@ -12,7 +12,7 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
-class MailApi extends Controller
+class MailController extends Controller
 {
     /**
      * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response

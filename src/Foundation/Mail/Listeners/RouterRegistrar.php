@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Mail\Listeners;
 
-use Notadd\Foundation\Mail\Apis\MailApi;
+use Notadd\Foundation\Mail\Apis\MailController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 
 class RouterRegistrar extends AbstractRouteRegistrar
@@ -19,7 +19,7 @@ class RouterRegistrar extends AbstractRouteRegistrar
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'web'], 'prefix' => 'api'], function () {
-            $this->router->post('mail', MailApi::class . '@handle');
+            $this->router->post('mail', MailController::class . '@handle');
         });
     }
 }

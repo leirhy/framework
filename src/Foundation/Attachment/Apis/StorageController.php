@@ -4,7 +4,7 @@
  *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-11-18 15:40
+ * @datetime 2016-11-17 19:22
  */
 namespace Notadd\Foundation\Attachment\Apis;
 
@@ -12,7 +12,7 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
-class WatermarkApi extends Controller
+class StorageController extends Controller
 {
     /**
      * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response
@@ -22,7 +22,7 @@ class WatermarkApi extends Controller
      */
     public function handle(ApiResponse $response, SettingsRepository $settings)
     {
-        $settings->set('', $this->request->input(''));
+        $settings->set('storage.default', $this->request->input('default'));
         $response->withParams($settings->all()->toArray());
 
         return $response->generateHttpResponse();

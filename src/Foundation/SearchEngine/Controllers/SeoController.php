@@ -1,20 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: TwilRoad
- * Date: 2016/11/16 0016
- * Time: 13:56.
+ * This file is part of Notadd.
+ *
+ * @author TwilRoad <269044570@qq.com>
+ * @copyright (c) 2016, iBenchu.org
+ * @datetime 2016-11-18 19:03
  */
-namespace Notadd\Foundation\Debug\Apis;
+namespace Notadd\Foundation\SearchEngine\Controllers;
 
 use Notadd\Foundation\Passport\Responses\ApiResponse;
-use Notadd\Foundation\Routing\Abstracts\Controller;
+use Notadd\Foundation\Routing\Abstracts\ApiController;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
-/**
- * Class DebugApi.
- */
-class DebugApi extends Controller
+class SeoController extends ApiController
 {
     /**
      * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response
@@ -24,7 +22,9 @@ class DebugApi extends Controller
      */
     public function handle(ApiResponse $response, SettingsRepository $settings)
     {
-        $settings->set('debug.enabled', $this->request->input('enabled'));
+        $settings->set('seo.description', $this->request->get('description'));
+        $settings->set('seo.keyword', $this->request->get('keyword'));
+        $settings->set('seo.title', $this->request->get('title'));
         $response->withParams($settings->all()->toArray());
 
         return $response->generateHttpResponse();

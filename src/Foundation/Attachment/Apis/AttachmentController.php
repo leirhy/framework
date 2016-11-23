@@ -15,7 +15,7 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 /**
  * Class AttachmentApi.
  */
-class AttachmentApi extends Controller
+class AttachmentController extends Controller
 {
     /**
      * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response

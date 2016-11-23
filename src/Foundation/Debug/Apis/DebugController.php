@@ -1,18 +1,20 @@
 <?php
 /**
- * This file is part of Notadd.
- *
- * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-11-17 19:22
+ * Created by PhpStorm.
+ * User: TwilRoad
+ * Date: 2016/11/16 0016
+ * Time: 13:56.
  */
-namespace Notadd\Foundation\Attachment\Apis;
+namespace Notadd\Foundation\Debug\Apis;
 
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
-class StorageApi extends Controller
+/**
+ * Class DebugApi.
+ */
+class DebugController extends Controller
 {
     /**
      * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response
@@ -22,7 +24,7 @@ class StorageApi extends Controller
      */
     public function handle(ApiResponse $response, SettingsRepository $settings)
     {
-        $settings->set('storage.default', $this->request->input('default'));
+        $settings->set('debug.enabled', $this->request->input('enabled'));
         $response->withParams($settings->all()->toArray());
 
         return $response->generateHttpResponse();

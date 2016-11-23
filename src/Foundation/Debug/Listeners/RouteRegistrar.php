@@ -7,7 +7,7 @@
  */
 namespace Notadd\Foundation\Debug\Listeners;
 
-use Notadd\Foundation\Debug\Apis\DebugApi;
+use Notadd\Foundation\Debug\Apis\DebugController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 
 /**
@@ -21,7 +21,7 @@ class RouteRegistrar extends AbstractRouteRegistrar
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'web'], 'prefix' => 'api'], function () {
-            $this->router->post('debug', DebugApi::class . '@handle');
+            $this->router->post('debug', DebugController::class . '@handle');
         });
     }
 }

@@ -37,6 +37,7 @@ if (!function_exists('abort')) {
         app()->abort($code, $message, $headers);
     }
 }
+
 if (!function_exists('abort_if')) {
     /**
      * @param bool   $boolean
@@ -55,6 +56,7 @@ if (!function_exists('abort_if')) {
         }
     }
 }
+
 if (!function_exists('abort_unless')) {
     /**
      * @param bool   $boolean
@@ -73,6 +75,7 @@ if (!function_exists('abort_unless')) {
         }
     }
 }
+
 if (!function_exists('action')) {
     /**
      * @param string $name
@@ -86,6 +89,7 @@ if (!function_exists('action')) {
         return app('url')->action($name, $parameters, $absolute);
     }
 }
+
 if (!function_exists('app')) {
     /**
      * Get the available container instance.
@@ -104,6 +108,7 @@ if (!function_exists('app')) {
         return Container::getInstance()->make($make, $parameters);
     }
 }
+
 if (!function_exists('app_path')) {
     /**
      * @param string $path
@@ -115,6 +120,7 @@ if (!function_exists('app_path')) {
         return app('path') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
+
 if (!function_exists('asset')) {
     /**
      * @param string $path
@@ -127,6 +133,7 @@ if (!function_exists('asset')) {
         return app('url')->asset($path, $secure);
     }
 }
+
 if (!function_exists('auth')) {
     /**
      * @param string|null $guard
@@ -142,6 +149,7 @@ if (!function_exists('auth')) {
         }
     }
 }
+
 if (!function_exists('back')) {
     /**
      * @param int   $status
@@ -154,6 +162,7 @@ if (!function_exists('back')) {
         return app('redirect')->back($status, $headers);
     }
 }
+
 if (!function_exists('base_path')) {
     /**
      * @param string $path
@@ -165,6 +174,7 @@ if (!function_exists('base_path')) {
         return app()->basePath() . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
+
 if (!function_exists('bcrypt')) {
     /**
      * @param string $value
@@ -177,6 +187,7 @@ if (!function_exists('bcrypt')) {
         return app('hash')->make($value, $options);
     }
 }
+
 if (!function_exists('broadcast')) {
     /**
      * @param mixed|null $event
@@ -188,6 +199,7 @@ if (!function_exists('broadcast')) {
         return app(BroadcastFactory::class)->event($event);
     }
 }
+
 if (!function_exists('cache')) {
     /**
      * @param dynamic key|key,default|data,expiration|null
@@ -213,6 +225,7 @@ if (!function_exists('cache')) {
         }
     }
 }
+
 if (!function_exists('config')) {
     /**
      * @param array|string $key
@@ -232,6 +245,7 @@ if (!function_exists('config')) {
         return app('config')->get($key, $default);
     }
 }
+
 if (!function_exists('config_path')) {
     /**
      * @param string $path
@@ -243,6 +257,7 @@ if (!function_exists('config_path')) {
         return app()->make('path.config') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
+
 if (!function_exists('cookie')) {
     /**
      * @param string $name
@@ -272,6 +287,7 @@ if (!function_exists('cookie')) {
         return $cookie->make($name, $value, $minutes, $path, $domain, $secure, $httpOnly);
     }
 }
+
 if (!function_exists('csrf_field')) {
     /**
      * @return \Illuminate\Support\HtmlString
@@ -281,6 +297,7 @@ if (!function_exists('csrf_field')) {
         return new HtmlString('<input type="hidden" name="_token" value="' . csrf_token() . '">');
     }
 }
+
 if (!function_exists('csrf_token')) {
     /**
      * @throws \RuntimeException
@@ -295,6 +312,7 @@ if (!function_exists('csrf_token')) {
         throw new RuntimeException('Application session store not set.');
     }
 }
+
 if (!function_exists('database_path')) {
     /**
      * @param string $path
@@ -306,6 +324,7 @@ if (!function_exists('database_path')) {
         return app()->databasePath() . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
+
 if (!function_exists('decrypt')) {
     /**
      * @param string $value
@@ -317,6 +336,7 @@ if (!function_exists('decrypt')) {
         return app('encrypter')->decrypt($value);
     }
 }
+
 if (!function_exists('dispatch')) {
     /**
      * @param mixed $job
@@ -328,6 +348,7 @@ if (!function_exists('dispatch')) {
         return app(Dispatcher::class)->dispatch($job);
     }
 }
+
 if (!function_exists('elixir')) {
     /**
      * @param string $file
@@ -357,6 +378,7 @@ if (!function_exists('elixir')) {
         throw new InvalidArgumentException("File {$file} not defined in asset manifest.");
     }
 }
+
 if (!function_exists('encrypt')) {
     /**
      * @param string $value
@@ -368,6 +390,7 @@ if (!function_exists('encrypt')) {
         return app('encrypter')->encrypt($value);
     }
 }
+
 if (!function_exists('env')) {
     /**
      * @param string $key
@@ -402,6 +425,7 @@ if (!function_exists('env')) {
         return $value;
     }
 }
+
 if (!function_exists('event')) {
     /**
      * @param array ...$args
@@ -413,6 +437,7 @@ if (!function_exists('event')) {
         return app('events')->fire(...$args);
     }
 }
+
 if (!function_exists('factory')) {
     /**
      * @param dynamic class|class,name|class,amount|class,name,amount
@@ -432,6 +457,7 @@ if (!function_exists('factory')) {
         }
     }
 }
+
 if (!function_exists('info')) {
     /**
      * @param string $message
@@ -444,6 +470,7 @@ if (!function_exists('info')) {
         app('log')->info($message, $context);
     }
 }
+
 if (!function_exists('logger')) {
     /**
      * @param string $message
@@ -460,6 +487,7 @@ if (!function_exists('logger')) {
         return app('log')->debug($message, $context);
     }
 }
+
 if (!function_exists('method_field')) {
     /**
      * @param string $method
@@ -471,6 +499,7 @@ if (!function_exists('method_field')) {
         return new HtmlString('<input type="hidden" name="_method" value="' . $method . '">');
     }
 }
+
 if (!function_exists('old')) {
     /**
      * @param string $key
@@ -483,6 +512,7 @@ if (!function_exists('old')) {
         return app('request')->old($key, $default);
     }
 }
+
 if (!function_exists('policy')) {
     /**
      * @param object|string $class
@@ -495,6 +525,7 @@ if (!function_exists('policy')) {
         return app(Gate::class)->getPolicyFor($class);
     }
 }
+
 if (!function_exists('public_path')) {
     /**
      * @param string $path
@@ -506,6 +537,7 @@ if (!function_exists('public_path')) {
         return app()->make('path.public') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
+
 if (!function_exists('redirect')) {
     /**
      * @param string|null $to
@@ -524,6 +556,7 @@ if (!function_exists('redirect')) {
         return app('redirect')->to($to, $status, $headers, $secure);
     }
 }
+
 if (!function_exists('request')) {
     /**
      * @param array|string $key
@@ -543,6 +576,7 @@ if (!function_exists('request')) {
         return app('request')->input($key, $default);
     }
 }
+
 if (!function_exists('resolve')) {
     /**
      * @param string $name
@@ -555,6 +589,7 @@ if (!function_exists('resolve')) {
         return app($name, $parameters);
     }
 }
+
 if (!function_exists('resource_path')) {
     /**
      * @param string $path
@@ -566,6 +601,7 @@ if (!function_exists('resource_path')) {
         return app()->resourcePath() . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
+
 if (!function_exists('response')) {
     /**
      * @param string $content
@@ -584,6 +620,7 @@ if (!function_exists('response')) {
         return $factory->make($content, $status, $headers);
     }
 }
+
 if (!function_exists('route')) {
     /**
      * @param string $name
@@ -597,6 +634,7 @@ if (!function_exists('route')) {
         return app('url')->route($name, $parameters, $absolute);
     }
 }
+
 if (!function_exists('secure_asset')) {
     /**
      * @param string $path
@@ -608,6 +646,7 @@ if (!function_exists('secure_asset')) {
         return asset($path, true);
     }
 }
+
 if (!function_exists('secure_url')) {
     /**
      * @param string $path
@@ -620,6 +659,7 @@ if (!function_exists('secure_url')) {
         return url($path, $parameters, true);
     }
 }
+
 if (!function_exists('seo')) {
     /**
      * @param string $meta
@@ -631,6 +671,7 @@ if (!function_exists('seo')) {
         return app()->make(Optimization::class)->getData($meta);
     }
 }
+
 if (!function_exists('session')) {
     /**
      * @param array|string $key
@@ -650,6 +691,7 @@ if (!function_exists('session')) {
         return app('session')->get($key, $default);
     }
 }
+
 if (!function_exists('setting')) {
     /**
      * @param string $key
@@ -662,6 +704,7 @@ if (!function_exists('setting')) {
         return app()->make(SettingsRepository::class)->get($key, $default);
     }
 }
+
 if (!function_exists('storage_path')) {
     /**
      * @param string $path
@@ -673,6 +716,7 @@ if (!function_exists('storage_path')) {
         return app('path.storage') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
+
 if (!function_exists('trans')) {
     /**
      * @param string $id
@@ -691,6 +735,7 @@ if (!function_exists('trans')) {
         return app('translator')->trans($id, $parameters, $domain, $locale);
     }
 }
+
 if (!function_exists('trans_choice')) {
     /**
      * @param string               $id
@@ -706,6 +751,7 @@ if (!function_exists('trans_choice')) {
         return app('translator')->transChoice($id, $number, $parameters, $domain, $locale);
     }
 }
+
 if (!function_exists('url')) {
     /**
      * @param string $path
@@ -723,6 +769,7 @@ if (!function_exists('url')) {
         return app(UrlGenerator::class)->to($path, $parameters, $secure);
     }
 }
+
 if (!function_exists('validator')) {
     /**
      * @param array $data
@@ -742,6 +789,7 @@ if (!function_exists('validator')) {
         return $factory->make($data, $rules, $messages, $customAttributes);
     }
 }
+
 if (!function_exists('view')) {
     /**
      * @param string $view

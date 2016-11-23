@@ -8,9 +8,9 @@
  */
 namespace Notadd\Foundation\Attachment\Listeners;
 
-use Notadd\Foundation\Attachment\Apis\AttachmentApi;
-use Notadd\Foundation\Attachment\Apis\CdnApi;
-use Notadd\Foundation\Attachment\Apis\StorageApi;
+use Notadd\Foundation\Attachment\Apis\AttachmentController;
+use Notadd\Foundation\Attachment\Apis\CdnController;
+use Notadd\Foundation\Attachment\Apis\StorageController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 
 /**
@@ -24,9 +24,9 @@ class RouteRegistrar extends AbstractRouteRegistrar
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'web'], 'prefix' => 'api/attachment'], function () {
-            $this->router->post('/', AttachmentApi::class . '@handle');
-            $this->router->post('cdn', CdnApi::class . '@handle');
-            $this->router->post('storage', StorageApi::class . '@handle');
+            $this->router->post('/', AttachmentController::class . '@handle');
+            $this->router->post('cdn', CdnController::class . '@handle');
+            $this->router->post('storage', StorageController::class . '@handle');
         });
     }
 }

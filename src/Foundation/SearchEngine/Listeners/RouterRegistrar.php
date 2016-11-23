@@ -9,7 +9,7 @@
 namespace Notadd\Foundation\SearchEngine\Listeners;
 
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
-use Notadd\Foundation\SearchEngine\Apis\SeoApi;
+use Notadd\Foundation\SearchEngine\Controllers\SeoController;
 
 class RouterRegistrar extends AbstractRouteRegistrar
 {
@@ -19,7 +19,7 @@ class RouterRegistrar extends AbstractRouteRegistrar
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'web'], 'prefix' => 'api'], function () {
-            $this->router->post('seo', SeoApi::class . '@handle');
+            $this->router->post('seo', SeoController::class . '@handle');
         });
     }
 }

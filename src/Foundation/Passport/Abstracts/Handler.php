@@ -8,11 +8,27 @@
  */
 namespace Notadd\Foundation\Passport\Abstracts;
 
+use Illuminate\Container\Container;
+
 /**
  * Class Handler.
  */
 abstract class Handler
 {
+    /**
+     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
+     */
+    protected $container;
+
+    /**
+     * Handler constructor.
+     *
+     * @param \Illuminate\Container\Container|\Notadd\Foundation\Application $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
     /**
      * @return int
      * @throws \Exception
@@ -26,28 +42,17 @@ abstract class Handler
      * @return array
      * @throws \Exception
      */
-    public function data()
+    public function errors()
     {
-        throw new \Exception('Data is not setted!');
-    }
-
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    public function message()
-    {
-        throw new \Exception('Message is not setted!');
+        throw new \Exception('Error is not setted!');
     }
 
     /**
      * @return array
+     * @throws \Exception
      */
-    public function toArray() {
-        return [
-            'code' => $this->code(),
-            'data' => $this->data(),
-            'message' => $this->message(),
-        ];
+    public function messages()
+    {
+        throw new \Exception('Message is not setted!');
     }
 }

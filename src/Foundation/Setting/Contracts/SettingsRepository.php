@@ -14,7 +14,7 @@ namespace Notadd\Foundation\Setting\Contracts;
 interface SettingsRepository
 {
     /**
-     * @return mixed
+     * @return \Illuminate\Support\Collection
      */
     public function all();
 

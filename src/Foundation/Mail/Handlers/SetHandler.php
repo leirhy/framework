@@ -80,5 +80,4 @@ class SetHandler extends AbstractSetHandler
             '修改设置成功!',
         ];
     }
-
 }

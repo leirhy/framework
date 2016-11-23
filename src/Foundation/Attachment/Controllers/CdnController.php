@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\Attachment\Controllers;
 
 use Notadd\Foundation\Attachment\Handlers\CdnSetHandler;
-use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -19,13 +18,27 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 class CdnController extends Controller
 {
     /**
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $settings;
+
+    /**
+     * WatermarkController constructor.
      *
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     */
+    public function __construct(SettingsRepository $settings)
+    {
+        parent::__construct();
+        $this->settings = $settings;
+    }
+
+    /**
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handle(SettingsRepository $settings)
+    public function handle()
     {
-        $handler = new CdnSetHandler($this->container, $settings);
+        $handler = new CdnSetHandler($this->container, $this->settings);
         $response = $handler->toResponse($this->request);
 
         return $response->generateHttpResponse();

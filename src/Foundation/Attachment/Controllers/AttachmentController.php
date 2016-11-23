@@ -18,13 +18,27 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 class AttachmentController extends Controller
 {
     /**
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $settings;
+
+    /**
+     * WatermarkController constructor.
      *
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     */
+    public function __construct(SettingsRepository $settings)
+    {
+        parent::__construct();
+        $this->settings = $settings;
+    }
+
+    /**
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handle(SettingsRepository $settings)
+    public function handle()
     {
-        $handler = new AttachmentSetHandler($this->container, $settings);
+        $handler = new AttachmentSetHandler($this->container, $this->settings);
         $response = $handler->toResponse($this->request);
 
         return $response->generateHttpResponse();

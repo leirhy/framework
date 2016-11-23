@@ -9,21 +9,33 @@
 namespace Notadd\Foundation\Attachment\Controllers;
 
 use Notadd\Foundation\Attachment\Handlers\WatermarkSetHandler;
-use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 class WatermarkController extends Controller
 {
     /**
-     * @param \Notadd\Foundation\Passport\Responses\ApiResponse       $response
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $settings;
+
+    /**
+     * WatermarkController constructor.
      *
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     */
+    public function __construct(SettingsRepository $settings)
+    {
+        parent::__construct();
+        $this->settings = $settings;
+    }
+
+    /**
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handle(ApiResponse $response, SettingsRepository $settings)
+    public function handle()
     {
-        $handler = new WatermarkSetHandler($this->container, $settings);
+        $handler = new WatermarkSetHandler($this->container, $this->settings);
         $response = $handler->toResponse($this->request);
 
         return $response->generateHttpResponse();

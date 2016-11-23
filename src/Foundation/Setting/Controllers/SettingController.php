@@ -6,7 +6,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-11-08 17:01
  */
-namespace Notadd\Foundation\Setting\Apis;
+namespace Notadd\Foundation\Setting\Controllers;
 
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;

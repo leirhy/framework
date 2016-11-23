@@ -6,7 +6,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-11-02 15:55
  */
-namespace Notadd\Foundation\Attachment\Apis;
+namespace Notadd\Foundation\Attachment\Controllers;
 
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
@@ -40,12 +40,5 @@ class AttachmentController extends Controller
         $response->withParams($settings->all()->toArray());
 
         return $response->generateHttpResponse();
-    }
-
-    /**
-     * @return void
-     */
-    public function JKJK()
-    {
     }
 }

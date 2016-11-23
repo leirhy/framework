@@ -7,7 +7,7 @@
  */
 namespace Notadd\Foundation\Debug\Listeners;
 
-use Notadd\Foundation\Debug\Apis\DebugController;
+use Notadd\Foundation\Debug\Controllers\DebugController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 
 /**

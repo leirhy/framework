@@ -8,9 +8,9 @@
  */
 namespace Notadd\Foundation\Attachment\Listeners;
 
-use Notadd\Foundation\Attachment\Apis\AttachmentController;
-use Notadd\Foundation\Attachment\Apis\CdnController;
-use Notadd\Foundation\Attachment\Apis\StorageController;
+use Notadd\Foundation\Attachment\Controllers\AttachmentController;
+use Notadd\Foundation\Attachment\Controllers\CdnController;
+use Notadd\Foundation\Attachment\Controllers\StorageController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 
 /**

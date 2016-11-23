@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Mail\Listeners;
 
-use Notadd\Foundation\Mail\Apis\MailController;
+use Notadd\Foundation\Mail\Controllers\MailController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 
 class RouterRegistrar extends AbstractRouteRegistrar

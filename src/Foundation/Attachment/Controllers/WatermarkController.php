@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Attachment\Controllers;
 
+use Notadd\Foundation\Attachment\Handlers\WatermarkSetHandler;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
@@ -22,8 +23,8 @@ class WatermarkController extends Controller
      */
     public function handle(ApiResponse $response, SettingsRepository $settings)
     {
-        $settings->set('', $this->request->input(''));
-        $response->withParams($settings->all()->toArray());
+        $handler = new WatermarkSetHandler($this->container, $settings);
+        $response = $handler->toResponse($this->request);
 
         return $response->generateHttpResponse();
     }

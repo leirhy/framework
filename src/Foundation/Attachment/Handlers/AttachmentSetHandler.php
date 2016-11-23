@@ -4,19 +4,19 @@
  *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-11-23 16:00
+ * @datetime 2016-11-23 16:08
  */
-namespace Notadd\Foundation\SearchEngine\Handlers;
+namespace Notadd\Foundation\Attachment\Handlers;
 
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
-use Notadd\Foundation\Passport\Abstracts\SetHandler as AbstractSetHandler;
+use Notadd\Foundation\Passport\Abstracts\SetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
- * Class SetHandler.
+ * Class AttachmentSetHandler.
  */
-class SetHandler extends AbstractSetHandler
+class AttachmentSetHandler extends SetHandler
 {
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
@@ -60,9 +60,17 @@ class SetHandler extends AbstractSetHandler
      */
     public function execute(Request $request)
     {
-        $this->settings->set('seo.description', $request->get('description'));
-        $this->settings->set('seo.keyword', $request->get('keyword'));
-        $this->settings->set('seo.title', $request->get('title'));
+        $this->settings->set('attachment.engine', $request->get('engine'));
+        $this->settings->set('attachment.limit.file', $request->get('limit_file'));
+        $this->settings->set('attachment.limit.image', $request->get('limit_image'));
+        $this->settings->set('attachment.limit.video', $request->get('limit_video'));
+        $this->settings->set('attachment.format.image', $request->get('allow_image'));
+        $this->settings->set('attachment.format.catcher', $request->get('allow_catcher'));
+        $this->settings->set('attachment.format.video', $request->get('allow_video'));
+        $this->settings->set('attachment.format.file', $request->get('allow_file'));
+        $this->settings->set('attachment.manager.image', $request->get('allow_manager_image'));
+        $this->settings->set('attachment.manager.file', $request->get('allow_manager_file'));
+        $this->settings->set('attachment.watermark', $request->get('allow_watermark'));
 
         return true;
     }

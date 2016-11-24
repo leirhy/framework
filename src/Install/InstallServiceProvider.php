@@ -41,7 +41,7 @@ class InstallServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(Prerequisite::class, function () {
-            return new Composite(new PhpVersion('5.5.0'), new PhpExtension([
+            return new Composite(new PhpVersion('5.6.28'), new PhpExtension([
                     'dom',
                     'fileinfo',
                     'gd',

@@ -73,7 +73,7 @@ class InstallCommand extends Command
 
             return false;
         }
-        if($this->files->exists($bootstrap = $this->path . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
+        if ($this->files->exists($bootstrap = $this->path . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
             $class = $this->files->getRequire($bootstrap);
         } else {
             $this->error('Extension files do not exists!');
@@ -85,7 +85,7 @@ class InstallCommand extends Command
         $extensionFile = new JsonFile($this->path . DIRECTORY_SEPARATOR . 'composer.json');
         $this->extension = collect($extensionFile->read());
         $this->preInstall();
-        if($bootstrap->install() === true) {
+        if ($bootstrap->install() === true) {
             $this->postInstall($settings);
             $this->updateComposer(true);
             $settings->set("extension.{$this->name}.installed", true);
@@ -123,27 +123,23 @@ class InstallCommand extends Command
         if ($this->extension->has('autoload')) {
             $autoload = collect($this->extension->get('autoload'));
             $autoload->has('classmap') && collect($autoload->get('classmap'))->each(function ($value) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
+                $path = str_replace($this->container->basePath() . '/', '', realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
                 if (!in_array($path, $this->backup['autoload']['classmap'])) {
                     $this->backup['autoload']['classmap'][] = $path;
                 }
             });
             $autoload->has('files') && collect($autoload->get('files'))->each(function ($value) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                    realpath($this->path . DIRECTORY_SEPARATOR . $value));
+                $path = str_replace($this->container->basePath() . '/', '', realpath($this->path . DIRECTORY_SEPARATOR . $value));
                 if (!in_array($path, $this->backup['autoload']['files'])) {
                     $this->backup['autoload']['files'][] = $path;
                 }
             });
             $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function ($value, $key) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
+                $path = str_replace($this->container->basePath() . '/', '', realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
                 $this->backup['autoload']['psr-0'][$key] = $path;
             });
             $autoload->has('psr-4') && collect($autoload->get('psr-4'))->each(function ($value, $key) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
+                $path = str_replace($this->container->basePath() . '/', '', realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
                 $this->backup['autoload']['psr-4'][$key] = $path;
             });
         }

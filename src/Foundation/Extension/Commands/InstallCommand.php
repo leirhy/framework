@@ -77,6 +77,7 @@ class InstallCommand extends Command
             $class = $this->files->getRequire($bootstrap);
         } else {
             $this->error('Extension files do not exists!');
+
             return false;
         }
         $bootstrap = $this->container->make($class);
@@ -84,11 +85,15 @@ class InstallCommand extends Command
         $extensionFile = new JsonFile($this->path . DIRECTORY_SEPARATOR . 'composer.json');
         $this->extension = collect($extensionFile->read());
         $this->preInstall();
-        // TODO: 加载环境变量判断、执行Extension安装
-        // TODO: Extension信息通过composer.json加载还是通过bootstrap.php加载
-        $this->postInstall($settings);
-        $this->updateComposer(true);
-        $settings->set("extension.{$this->name}.installed", true);
+        if($bootstrap->install() === true) {
+            $this->postInstall($settings);
+            $this->updateComposer(true);
+            $settings->set("extension.{$this->name}.installed", true);
+        } else {
+            $this->error('Extension install fail!');
+
+            return false;
+        }
         $this->info("Extension {$this->name} is installed!");
 
         return true;

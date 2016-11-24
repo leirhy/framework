@@ -25,6 +25,10 @@ class InstallCommand extends Command
      */
     protected $extension;
     /**
+     * @var array
+     */
+    protected $info = [];
+    /**
      * @var string
      */
     protected $name;
@@ -58,7 +62,7 @@ class InstallCommand extends Command
 
             return false;
         }
-        if ($settings->get('extension.' . $this->name . '.installed')) {
+        if ($settings->get("extension.{$this->name}.installed")) {
             $this->error("Extension {$this->name} is installed!");
 
             return false;
@@ -69,6 +73,14 @@ class InstallCommand extends Command
 
             return false;
         }
+        if($this->files->exists($bootstrap = $this->path . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
+            $class = $this->files->getRequire($bootstrap);
+        } else {
+            $this->error('Extension files do not exists!');
+            return false;
+        }
+        $bootstrap = $this->container->make($class);
+        $this->info = $bootstrap->getExtensionInfo();
         $extensionFile = new JsonFile($this->path . DIRECTORY_SEPARATOR . 'composer.json');
         $this->extension = collect($extensionFile->read());
         $this->preInstall();
@@ -76,7 +88,7 @@ class InstallCommand extends Command
         // TODO: Extension信息通过composer.json加载还是通过bootstrap.php加载
         $this->postInstall($settings);
         $this->updateComposer(true);
-        $settings->set('extension.' . $this->name . '.installed', true);
+        $settings->set("extension.{$this->name}.installed", true);
         $this->info("Extension {$this->name} is installed!");
 
         return true;
@@ -89,12 +101,13 @@ class InstallCommand extends Command
     {
         if ($this->extension->has('autoload')) {
             $this->json->addProperty('autoload', $this->backup['autoload']);
-            $settings->set('extension.' . $this->name . '.autoload', json_encode($this->extension->get('autoload')));
+            $settings->set("extension.{$this->name}.autoload", json_encode($this->extension->get('autoload')));
         }
         if ($this->extension->has('require')) {
             $this->json->addProperty('require', $this->backup['require']);
-            $settings->set('extension.' . $this->name . '.require', json_encode($this->extension->get('require')));
+            $settings->set("extension.{$this->name}.require", json_encode($this->extension->get('require')));
         }
+        $settings->set("extension.{$this->name}.info", json_encode($this->info));
     }
 
     /**

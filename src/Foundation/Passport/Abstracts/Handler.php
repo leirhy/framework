@@ -21,6 +21,11 @@ abstract class Handler
     protected $container;
 
     /**
+     * @var \Symfony\Component\Translation\TranslatorInterface
+     */
+    protected $translator;
+
+    /**
      * Handler constructor.
      *
      * @param \Illuminate\Container\Container|\Notadd\Foundation\Application $container
@@ -28,6 +33,7 @@ abstract class Handler
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->translator = $this->container->make('translator');
     }
     /**
      * @return int

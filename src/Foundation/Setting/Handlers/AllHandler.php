@@ -45,19 +45,19 @@ class AllHandler extends DataHandler
     /**
      * @return array
      */
-    public function errors()
+    public function data()
     {
-        return [
-            '获取全局设置失败！'
-        ];
+        return $this->settings->all()->toArray();
     }
 
     /**
      * @return array
      */
-    public function data()
+    public function errors()
     {
-        return $this->settings->all()->toArray();
+        return [
+            '获取全局设置失败！'
+        ];
     }
 
     /**

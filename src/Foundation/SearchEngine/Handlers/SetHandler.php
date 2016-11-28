@@ -10,6 +10,7 @@ namespace Notadd\Foundation\SearchEngine\Handlers;
 
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
 use Notadd\Foundation\Passport\Abstracts\SetHandler as AbstractSetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -27,11 +28,13 @@ class SetHandler extends AbstractSetHandler
      * SetHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
+     * @param \Illuminate\Http\Request                                $request
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @param \Illuminate\Translation\Translator                      $translator
      */
-    public function __construct(Container $container, SettingsRepository $settings)
+    public function __construct(Container $container, Request $request, SettingsRepository $settings, Translator $translator)
     {
-        parent::__construct($container);
+        parent::__construct($container, $request, $translator);
         $this->settings = $settings;
     }
 
@@ -54,15 +57,13 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
      * @return bool
      */
-    public function execute(Request $request)
+    public function execute()
     {
-        $this->settings->set('seo.description', $request->get('description'));
-        $this->settings->set('seo.keyword', $request->get('keyword'));
-        $this->settings->set('seo.title', $request->get('title'));
+        $this->settings->set('seo.description', $this->request->get('description'));
+        $this->settings->set('seo.keyword', $this->request->get('keyword'));
+        $this->settings->set('seo.title', $this->request->get('title'));
 
         return true;
     }

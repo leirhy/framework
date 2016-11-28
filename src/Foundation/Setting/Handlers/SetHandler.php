@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Setting\Handlers;
 
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
 use Notadd\Foundation\Passport\Abstracts\SetHandler as AbstractSetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -27,11 +28,13 @@ class SetHandler extends AbstractSetHandler
      * SetHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
+     * @param \Illuminate\Http\Request                                $request
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @param \Illuminate\Translation\Translator                      $translator
      */
-    public function __construct(Container $container, SettingsRepository $settings)
+    public function __construct(Container $container, Request $request, SettingsRepository $settings, Translator $translator)
     {
-        parent::__construct($container);
+        parent::__construct($container, $request, $translator);
         $this->settings = $settings;
     }
 
@@ -54,19 +57,17 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
      * @return bool
      */
-    public function execute(Request $request)
+    public function execute()
     {
-        $this->settings->set('site.enabled', $request->input('enabled'));
-        $this->settings->set('site.name', $request->input('name'));
-        $this->settings->set('site.domain', $request->input('domain'));
-        $this->settings->set('site.beian', $request->input('beian'));
-        $this->settings->set('site.company', $request->input('company'));
-        $this->settings->set('site.copyright', $request->input('copyright'));
-        $this->settings->set('site.statistics', $request->input('statistics'));
+        $this->settings->set('site.enabled', $this->request->input('enabled'));
+        $this->settings->set('site.name', $this->request->input('name'));
+        $this->settings->set('site.domain', $this->request->input('domain'));
+        $this->settings->set('site.beian', $this->request->input('beian'));
+        $this->settings->set('site.company', $this->request->input('company'));
+        $this->settings->set('site.copyright', $this->request->input('copyright'));
+        $this->settings->set('site.statistics', $this->request->input('statistics'));
 
         return true;
     }

@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Attachment\Handlers;
 
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -27,11 +28,13 @@ class AttachmentSetHandler extends SetHandler
      * SetHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
+     * @param \Illuminate\Http\Request                                $request
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @param \Illuminate\Translation\Translator                      $translator
      */
-    public function __construct(Container $container, SettingsRepository $settings)
+    public function __construct(Container $container, Request $request, SettingsRepository $settings, Translator $translator)
     {
-        parent::__construct($container);
+        parent::__construct($container, $request, $translator);
         $this->settings = $settings;
     }
 
@@ -54,23 +57,21 @@ class AttachmentSetHandler extends SetHandler
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
      * @return bool
      */
-    public function execute(Request $request)
+    public function execute()
     {
-        $this->settings->set('attachment.engine', $request->get('engine'));
-        $this->settings->set('attachment.limit.file', $request->get('limit_file'));
-        $this->settings->set('attachment.limit.image', $request->get('limit_image'));
-        $this->settings->set('attachment.limit.video', $request->get('limit_video'));
-        $this->settings->set('attachment.format.image', $request->get('allow_image'));
-        $this->settings->set('attachment.format.catcher', $request->get('allow_catcher'));
-        $this->settings->set('attachment.format.video', $request->get('allow_video'));
-        $this->settings->set('attachment.format.file', $request->get('allow_file'));
-        $this->settings->set('attachment.manager.image', $request->get('allow_manager_image'));
-        $this->settings->set('attachment.manager.file', $request->get('allow_manager_file'));
-        $this->settings->set('attachment.watermark', $request->get('allow_watermark'));
+        $this->settings->set('attachment.engine', $this->request->get('engine'));
+        $this->settings->set('attachment.limit.file', $this->request->get('limit_file'));
+        $this->settings->set('attachment.limit.image', $this->request->get('limit_image'));
+        $this->settings->set('attachment.limit.video', $this->request->get('limit_video'));
+        $this->settings->set('attachment.format.image', $this->request->get('allow_image'));
+        $this->settings->set('attachment.format.catcher', $this->request->get('allow_catcher'));
+        $this->settings->set('attachment.format.video', $this->request->get('allow_video'));
+        $this->settings->set('attachment.format.file', $this->request->get('allow_file'));
+        $this->settings->set('attachment.manager.image', $this->request->get('allow_manager_image'));
+        $this->settings->set('attachment.manager.file', $this->request->get('allow_manager_file'));
+        $this->settings->set('attachment.watermark', $this->request->get('allow_watermark'));
 
         return true;
     }

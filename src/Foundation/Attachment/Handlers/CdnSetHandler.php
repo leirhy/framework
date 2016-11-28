@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Attachment\Handlers;
 
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -27,11 +28,13 @@ class CdnSetHandler extends SetHandler
      * SetHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
+     * @param \Illuminate\Http\Request                                $request
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @param \Illuminate\Translation\Translator                      $translator
      */
-    public function __construct(Container $container, SettingsRepository $settings)
+    public function __construct(Container $container, Request $request, SettingsRepository $settings, Translator $translator)
     {
-        parent::__construct($container);
+        parent::__construct($container, $request, $translator);
         $this->settings = $settings;
     }
 
@@ -54,13 +57,11 @@ class CdnSetHandler extends SetHandler
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
      * @return bool
      */
-    public function execute(Request $request)
+    public function execute()
     {
-        $this->settings->set('attachment.cnd.default', $request->get('default'));
+        $this->settings->set('attachment.cnd.default', $this->request->get('default'));
 
         return true;
     }

@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Passport\Abstracts;
 
-use Illuminate\Http\Request;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 
 /**
@@ -25,29 +24,26 @@ abstract class SetHandler extends DataHandler
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
      * @return bool
      */
-    public function execute(Request $request)
+    public function execute()
     {
         return true;
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      */
-    public function toResponse(Request $request)
+    public function toResponse()
     {
-        $result = $this->execute($request);
+        $result = $this->execute();
         if ($result) {
             $messages = $this->messages();
         } else {
             $messages = $this->errors();
         }
         $response = new ApiResponse();
+
         return $response->withParams([
             'code' => $this->code(),
             'data' => $this->data(),

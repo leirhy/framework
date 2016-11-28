@@ -8,7 +8,10 @@
  */
 namespace Notadd\Foundation\Passport\Abstracts;
 
+use Exception;
 use Illuminate\Container\Container;
+use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
 
 /**
  * Class Handler.
@@ -21,6 +24,11 @@ abstract class Handler
     protected $container;
 
     /**
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
+
+    /**
      * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected $translator;
@@ -29,11 +37,14 @@ abstract class Handler
      * Handler constructor.
      *
      * @param \Illuminate\Container\Container|\Notadd\Foundation\Application $container
+     * @param \Illuminate\Http\Request                                       $request
+     * @param \Illuminate\Translation\Translator                             $translator
      */
-    public function __construct(Container $container)
+    public function __construct(Container $container, Request $request, Translator $translator)
     {
         $this->container = $container;
-        $this->translator = $this->container->make('translator');
+        $this->request = $request;
+        $this->translator = $translator;
     }
     /**
      * @return int
@@ -41,7 +52,7 @@ abstract class Handler
      */
     public function code()
     {
-        throw new \Exception('Code is not setted!');
+        throw new Exception('Code is not setted!');
     }
 
     /**
@@ -50,7 +61,7 @@ abstract class Handler
      */
     public function errors()
     {
-        throw new \Exception('Error is not setted!');
+        throw new Exception('Error is not setted!');
     }
 
     /**
@@ -59,6 +70,6 @@ abstract class Handler
      */
     public function messages()
     {
-        throw new \Exception('Message is not setted!');
+        throw new Exception('Message is not setted!');
     }
 }

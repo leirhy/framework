@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Passport\Abstracts;
 
+use Exception;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 
 /**
@@ -21,7 +22,7 @@ abstract class DataHandler extends Handler
      */
     public function data()
     {
-        throw new \Exception('Data is not setted!');
+        throw new Exception('Data is not setted!');
     }
 
     /**

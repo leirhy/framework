@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Passport\Abstracts;
 
+use Exception;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 
 /**
@@ -25,10 +26,11 @@ abstract class SetHandler extends DataHandler
 
     /**
      * @return bool
+     * @throws \Exception
      */
     public function execute()
     {
-        return true;
+        throw new Exception('Method execute is not setted!');
     }
 
     /**

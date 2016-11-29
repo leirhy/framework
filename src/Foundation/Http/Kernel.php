@@ -10,22 +10,16 @@ namespace Notadd\Foundation\Http;
 
 use Exception;
 use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Http\Kernel as KernelContract;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Pipeline;
 use Illuminate\Routing\Router;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Laravel\Passport\Http\Middleware\CheckForAnyScope;
-use Laravel\Passport\Http\Middleware\CheckScopes;
 use Notadd\Foundation\Bootstrap\BootProviders;
 use Notadd\Foundation\Bootstrap\ConfigureLogging;
 use Notadd\Foundation\Bootstrap\DetectEnvironment;
@@ -35,9 +29,6 @@ use Notadd\Foundation\Bootstrap\LoadSetting;
 use Notadd\Foundation\Bootstrap\RegisterFacades;
 use Notadd\Foundation\Bootstrap\RegisterProviders;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
-use Notadd\Foundation\Http\Middlewares\CheckForMaintenanceMode;
-use Notadd\Foundation\Http\Middlewares\RedirectIfAuthenticated;
-use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 
@@ -50,10 +41,12 @@ class Kernel implements KernelContract
      * @var \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
     protected $app;
+
     /**
      * @var \Illuminate\Routing\Router
      */
     protected $router;
+
     /**
      * @var array
      */
@@ -68,43 +61,22 @@ class Kernel implements KernelContract
         LoadSetting::class,
         RegisterRouter::class,
     ];
+
     /**
      * @var array
      */
-    protected $middleware = [
-        CheckForMaintenanceMode::class,
-    ];
+    protected $middleware = [];
+
     /**
      * @var array
      */
-    protected $middlewareGroups = [
-        'web' => [
-            EncryptCookies::class,
-            AddQueuedCookiesToResponse::class,
-            StartSession::class,
-            ShareErrorsFromSession::class,
-            //ShareMessagesFromSession::class,
-            VerifyCsrfToken::class,
-            SubstituteBindings::class,
-        ],
-        'api' => [
-            'throttle:60,1',
-            'bindings',
-        ],
-    ];
+    protected $middlewareGroups = [];
+
     /**
      * @var array
      */
-    protected $routeMiddleware = [
-        'auth' => Authenticate::class,
-        'auth.basic' => AuthenticateWithBasicAuth::class,
-        'bindings' => SubstituteBindings::class,
-        'can' => Authorize::class,
-        'guest' => RedirectIfAuthenticated::class,
-        'scope' => CheckForAnyScope::class,
-        'scopes' => CheckScopes::class,
-        'throttle' => ThrottleRequests::class,
-    ];
+    protected $routeMiddleware = [];
+
     /**
      * @var array
      */

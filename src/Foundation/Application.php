@@ -34,66 +34,82 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @var string
      */
     const VERSION = '1.0';
+
     /**
      * @var string
      */
     protected $basePath;
+
     /**
      * @var bool
      */
     protected $hasBeenBootstrapped = false;
+
     /**
      * @var bool
      */
     protected $booted = false;
+
     /**
      * @var array
      */
     protected $bootingCallbacks = [];
+
     /**
      * @var array
      */
     protected $bootedCallbacks = [];
+
     /**
      * @var array
      */
     protected $terminatingCallbacks = [];
+
     /**
      * @var array
      */
     protected $serviceProviders = [];
+
     /**
      * @var array
      */
     protected $loadedProviders = [];
+
     /**
      * @var array
      */
     protected $deferredServices = [];
+
     /**
      * @var callable|null
      */
     protected $monologConfigurator;
+
     /**
      * @var string
      */
     protected $databasePath;
+
     /**
      * @var string
      */
     protected $publicPath;
+
     /**
      * @var string
      */
     protected $storagePath;
+
     /**
      * @var string
      */
     protected $environmentPath;
+
     /**
      * @var string
      */
     protected $environmentFile = '.env';
+
     /**
      * @var string
      */
@@ -244,7 +260,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function bootstrapPath()
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'bootstrap';
+        return $this->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps';
     }
 
     /**
@@ -252,7 +268,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function configPath()
     {
-        return $this->storagePath() . DIRECTORY_SEPARATOR . 'configurations';
+        return $this->basePath . DIRECTORY_SEPARATOR . 'configurations';
     }
 
     /**
@@ -875,117 +891,117 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function registerCoreContainerAliases()
     {
         $aliases = [
-            'administration' => ['Notadd\Foundation\Administration\Administration'],
-            'app' => [
+            'administration'            => ['Notadd\Foundation\Administration\Administration'],
+            'app'                       => [
                 'Illuminate\Contracts\Container\Container',
                 'Illuminate\Contracts\Foundation\Application',
                 'Notadd\Foundation\Application',
             ],
-            'auth' => [
+            'auth'                      => [
                 'Illuminate\Auth\AuthManager',
                 'Illuminate\Contracts\Auth\Factory',
             ],
-            'auth.driver' => ['Illuminate\Contracts\Auth\Guard'],
-            'auth.password' => [
+            'auth.driver'               => ['Illuminate\Contracts\Auth\Guard'],
+            'auth.password'             => [
                 'Illuminate\Auth\Passwords\PasswordBrokerManager',
                 'Illuminate\Contracts\Auth\PasswordBrokerFactory',
             ],
-            'auth.password.broker' => [
+            'auth.password.broker'      => [
                 'Illuminate\Auth\Passwords\PasswordBroker',
                 'Illuminate\Contracts\Auth\PasswordBroker',
             ],
-            'blade.compiler' => ['Illuminate\View\Compilers\BladeCompiler'],
-            'cache' => [
+            'blade.compiler'            => ['Illuminate\View\Compilers\BladeCompiler'],
+            'cache'                     => [
                 'Illuminate\Cache\CacheManager',
                 'Illuminate\Contracts\Cache\Factory',
             ],
-            'cache.store' => [
+            'cache.store'               => [
                 'Illuminate\Cache\Repository',
                 'Illuminate\Contracts\Cache\Repository',
             ],
-            'composer' => ['Illuminate\Support\Composer'],
-            'config' => [
+            'composer'                  => ['Illuminate\Support\Composer'],
+            'config'                    => [
                 'Illuminate\Config\Repository',
                 'Illuminate\Contracts\Config\Repository',
             ],
-            'cookie' => [
+            'cookie'                    => [
                 'Illuminate\Cookie\CookieJar',
                 'Illuminate\Contracts\Cookie\Factory',
                 'Illuminate\Contracts\Cookie\QueueingFactory',
             ],
-            'encrypter' => [
+            'encrypter'                 => [
                 'Illuminate\Encryption\Encrypter',
                 'Illuminate\Contracts\Encryption\Encrypter',
             ],
-            'db' => ['Illuminate\Database\DatabaseManager'],
-            'db.connection' => [
+            'db'                        => ['Illuminate\Database\DatabaseManager'],
+            'db.connection'             => [
                 'Illuminate\Database\Connection',
                 'Illuminate\Database\ConnectionInterface',
             ],
-            'extensions' => ['Notadd\Foundation\Extension\ExtensionManager'],
-            'events' => [
+            'extensions'                => ['Notadd\Foundation\Extension\ExtensionManager'],
+            'events'                    => [
                 'Illuminate\Events\Dispatcher',
                 'Illuminate\Contracts\Events\Dispatcher',
             ],
-            'files' => ['Illuminate\Filesystem\Filesystem'],
-            'filesystem' => [
+            'files'                     => ['Illuminate\Filesystem\Filesystem'],
+            'filesystem'                => [
                 'Illuminate\Filesystem\FilesystemManager',
                 'Illuminate\Contracts\Filesystem\Factory',
             ],
-            'filesystem.disk' => ['Illuminate\Contracts\Filesystem\Filesystem'],
-            'filesystem.cloud' => ['Illuminate\Contracts\Filesystem\Cloud'],
-            'hash' => ['Illuminate\Contracts\Hashing\Hasher'],
-            'translator' => [
+            'filesystem.disk'           => ['Illuminate\Contracts\Filesystem\Filesystem'],
+            'filesystem.cloud'          => ['Illuminate\Contracts\Filesystem\Cloud'],
+            'hash'                      => ['Illuminate\Contracts\Hashing\Hasher'],
+            'translator'                => [
                 'Illuminate\Translation\Translator',
                 'Symfony\Component\Translation\TranslatorInterface',
             ],
-            'log' => [
+            'log'                       => [
                 'Illuminate\Log\Writer',
                 'Illuminate\Contracts\Logging\Log',
                 'Psr\Log\LoggerInterface',
             ],
-            'mailer' => [
+            'mailer'                    => [
                 'Illuminate\Mail\Mailer',
                 'Illuminate\Contracts\Mail\Mailer',
                 'Illuminate\Contracts\Mail\MailQueue',
             ],
-            'member' => ['Notadd\Foundation\Member\MemberManagement'],
-            'queue' => [
+            'member'                    => ['Notadd\Foundation\Member\MemberManagement'],
+            'queue'                     => [
                 'Illuminate\Queue\QueueManager',
                 'Illuminate\Contracts\Queue\Factory',
                 'Illuminate\Contracts\Queue\Monitor',
             ],
-            'queue.connection' => ['Illuminate\Contracts\Queue\Queue'],
-            'queue.failer' => ['Illuminate\Queue\Failed\FailedJobProviderInterface'],
-            'redirect' => ['Illuminate\Routing\Redirector'],
-            'redis' => [
+            'queue.connection'          => ['Illuminate\Contracts\Queue\Queue'],
+            'queue.failer'              => ['Illuminate\Queue\Failed\FailedJobProviderInterface'],
+            'redirect'                  => ['Illuminate\Routing\Redirector'],
+            'redis'                     => [
                 'Illuminate\Redis\Database',
                 'Illuminate\Contracts\Redis\Database',
             ],
-            'request' => [
+            'request'                   => [
                 'Illuminate\Http\Request',
                 'Symfony\Component\HttpFoundation\Request',
             ],
-            'router' => [
+            'router'                    => [
                 'Illuminate\Routing\Router',
                 'Illuminate\Contracts\Routing\Registrar',
             ],
             'searchengine.optimization' => ['Notadd\Foundation\SearchEngine\Optimization'],
-            'session' => ['Illuminate\Session\SessionManager'],
-            'session.store' => [
+            'session'                   => ['Illuminate\Session\SessionManager'],
+            'session.store'             => [
                 'Illuminate\Session\Store',
                 'Symfony\Component\HttpFoundation\Session\SessionInterface',
             ],
-            'setting' => ['Notadd\Foundation\Setting\Contracts\SettingsRepository'],
-            'url' => [
+            'setting'                   => ['Notadd\Foundation\Setting\Contracts\SettingsRepository'],
+            'url'                       => [
                 'Illuminate\Routing\UrlGenerator',
                 'Illuminate\Contracts\Routing\UrlGenerator',
             ],
-            'validator' => [
+            'validator'                 => [
                 'Illuminate\Validation\Factory',
                 'Illuminate\Contracts\Validation\Factory',
             ],
-            'view' => [
+            'view'                      => [
                 'Illuminate\View\Factory',
                 'Illuminate\Contracts\View\Factory',
             ],

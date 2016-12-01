@@ -13,7 +13,7 @@ use Illuminate\Contracts\Foundation\Application;
 /**
  * Class BootProviders.
  */
-class BootProviders
+class LoadProviders
 {
     /**
      * @param \Illuminate\Contracts\Foundation\Application $application
@@ -22,6 +22,7 @@ class BootProviders
      */
     public function bootstrap(Application $application)
     {
+        $application->registerConfiguredProviders();
         $application->boot();
     }
 }

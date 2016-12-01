@@ -15,14 +15,13 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
-use Notadd\Foundation\Bootstrap\BootProviders;
+use Notadd\Foundation\Bootstrap\LoadProviders;
 use Notadd\Foundation\Bootstrap\ConfigureLogging;
 use Notadd\Foundation\Bootstrap\DetectEnvironment;
 use Notadd\Foundation\Bootstrap\HandleExceptions;
 use Notadd\Foundation\Bootstrap\LoadConfiguration;
 use Notadd\Foundation\Bootstrap\LoadSetting;
 use Notadd\Foundation\Bootstrap\RegisterFacades;
-use Notadd\Foundation\Bootstrap\RegisterProviders;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
 use Notadd\Foundation\Bootstrap\SetRequestForConsole;
 use Notadd\Foundation\Console\Application as Artisan;
@@ -67,8 +66,7 @@ class Kernel implements KernelContract
         HandleExceptions::class,
         RegisterFacades::class,
         SetRequestForConsole::class,
-        RegisterProviders::class,
-        BootProviders::class,
+        LoadProviders::class,
         LoadSetting::class,
         RegisterRouter::class,
     ];

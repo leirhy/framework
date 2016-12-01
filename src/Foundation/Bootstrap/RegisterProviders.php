@@ -22,6 +22,6 @@ class RegisterProviders
      */
     public function bootstrap(Application $application)
     {
-        $application->registerConfiguredProviders();
+
     }
 }

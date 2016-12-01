@@ -58,8 +58,7 @@ trait KeyParser
         $group = $segments[0];
         if (count($segments) == 1) {
             return [null, $group, null];
-        }
-        else {
+        } else {
             $item = implode('.', array_slice($segments, 1));
 
             return [null, $group, $item];

@@ -25,22 +25,32 @@ class ExtensionManager
      * @var array
      */
     protected $booted = [];
+
+    /**
+     * @var array
+     */
+    protected $bootedExtensions = [];
+
     /**
      * @var \Illuminate\Container\Container
      */
     protected $container;
+
     /**
      * @var \Illuminate\Events\Dispatcher
      */
     protected $events;
+
     /**
      * @var \Illuminate\Support\Collection
      */
     protected $extensionPaths;
+
     /**
      * @var \Illuminate\Support\Collection
      */
     protected $extensions;
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
@@ -72,6 +82,7 @@ class ExtensionManager
         if (method_exists($registrar, 'register')) {
             $this->container->call([$registrar, 'register']);
         }
+        $this->bootedExtensions[$registrar->getExtensionName()] = true;
         $this->booted[get_class($registrar)] = $registrar;
     }
 

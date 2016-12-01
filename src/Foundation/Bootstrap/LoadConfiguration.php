@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Bootstrap;
 
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Configuration\Loaders\FileLoader;
 use Notadd\Foundation\Configuration\Repository;
 use Symfony\Component\Finder\Finder;
@@ -27,16 +28,10 @@ class LoadConfiguration
      */
     public function bootstrap(Application $application)
     {
-        $items = [];
-        $loader = new FileLoader($application['files'], $application['path'] . DIRECTORY_SEPARATOR . 'configurations');
-//        if (file_exists($cached = $application->getCachedConfigPath())) {
-//            $items = require $cached;
-//            $loadedFromCache = true;
-//        }
-        $application->instance('config', $config = new Repository($loader, $application['env']));
-        dd($config);
+        $loader = new FileLoader(new Filesystem(), $application['path'] . DIRECTORY_SEPARATOR . 'configurations');
+        $application->instance('config', $configuration = new Repository($loader, $application->environment()));
         if (!isset($loadedFromCache)) {
-            $this->loadConfigurationFiles($application, $config);
+            $this->loadConfigurationFiles($application, $configuration);
         }
         mb_internal_encoding('UTF-8');
     }

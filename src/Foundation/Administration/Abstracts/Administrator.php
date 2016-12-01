@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Administration\Abstracts;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Routing\Router;
+use InvalidArgumentException;
 
 /**
  * Class Administrator.
@@ -20,14 +21,17 @@ abstract class Administrator
      * @var \Illuminate\Events\Dispatcher
      */
     protected $events;
+
     /**
      * @var mixed
      */
     protected $handler;
+
     /**
      * @var string
      */
     protected $path;
+
     /**
      * @var \Illuminate\Routing\Router
      */
@@ -63,11 +67,12 @@ abstract class Administrator
 
     /**
      * @return void
+     * @throws \InvalidArgumentException
      */
     final public function init()
     {
         if (is_null($this->path) || is_null($this->handler)) {
-            throw new \InvalidArgumentException('Handler or Path must be Setted!');
+            throw new InvalidArgumentException('Handler or Path must be Setted!');
         }
         $this->router->group(['middleware' => 'web'], function () {
             $this->router->get($this->path, $this->handler);

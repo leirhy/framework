@@ -8,10 +8,10 @@
  */
 namespace Notadd\Foundation\Http;
 
+use Application\Http\Listeners\RouteRegistrar;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\ServiceProvider;
-use Notadd\Foundation\Http\Listeners\RouteRegistrar;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

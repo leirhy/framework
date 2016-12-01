@@ -49,6 +49,9 @@ class HandleExceptions
         if (!$application->environment('testing')) {
             ini_set('display_errors', 'Off');
         }
+        if ($application->make('config')->get('app.debug')) {
+            ini_set('display_errors', true);
+        }
     }
 
     /**
@@ -59,7 +62,6 @@ class HandleExceptions
      * @param array  $context
      *
      * @throws \ErrorException
-     *
      * @return void
      */
     public function handleError($level, $message, $file = '', $line = 0, $context = [])
@@ -125,7 +127,8 @@ class HandleExceptions
      */
     protected function fatalExceptionFromError(array $error, $traceOffset = null)
     {
-        return new FatalErrorException($error['message'], $error['type'], 0, $error['file'], $error['line'], $traceOffset);
+        return new FatalErrorException($error['message'], $error['type'], 0, $error['file'], $error['line'],
+            $traceOffset);
     }
 
     /**

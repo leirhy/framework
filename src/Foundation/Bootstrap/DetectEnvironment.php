@@ -32,6 +32,9 @@ class DetectEnvironment
             } catch (InvalidPathException $e) {
             }
         }
+        $application->detectEnvironment(function () {
+            return env('APP_ENV', 'production');
+        });
     }
 
     /**

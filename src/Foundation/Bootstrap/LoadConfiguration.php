@@ -38,9 +38,6 @@ class LoadConfiguration
         if (!isset($loadedFromCache)) {
             $this->loadConfigurationFiles($application, $config);
         }
-        $application->detectEnvironment(function () use ($config) {
-            return $config->get('app.env', 'production');
-        });
         mb_internal_encoding('UTF-8');
     }
 

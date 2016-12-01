@@ -921,8 +921,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             ],
             'composer'                  => ['Illuminate\Support\Composer'],
             'config'                    => [
-                'Illuminate\Config\Repository',
                 'Illuminate\Contracts\Config\Repository',
+                'Notadd\Foundation\Configuration\Repository',
             ],
             'cookie'                    => [
                 'Illuminate\Cookie\CookieJar',

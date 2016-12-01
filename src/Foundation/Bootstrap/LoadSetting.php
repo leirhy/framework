@@ -8,8 +8,8 @@
  */
 namespace Notadd\Foundation\Bootstrap;
 
-use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Configuration\Repository as ConfigRepository;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**

@@ -72,7 +72,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * @return \Illuminate\Config\Repository
+     * @return \Notadd\Foundation\Configuration\Repository
      */
     public function getConfig()
     {

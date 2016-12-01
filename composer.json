@@ -34,7 +34,6 @@
         "illuminate/broadcasting": "5.3.*",
         "illuminate/bus": "5.3.*",
         "illuminate/cache": "5.3.*",
-        "illuminate/config": "5.3.*",
         "illuminate/console": "5.3.*",
         "illuminate/container": "5.3.*",
         "illuminate/contracts": "5.3.*",

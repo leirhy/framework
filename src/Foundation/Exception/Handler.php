@@ -12,7 +12,6 @@ use Exception;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -23,6 +22,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Validation\ValidationException;
+use Notadd\Foundation\Configuration\Repository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Debug\Exception\FlattenException;
@@ -38,7 +38,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class Handler implements ExceptionHandlerContract
 {
     /**
-     * @var \Illuminate\Config\Repository
+     * @var \Notadd\Foundation\Configuration\Repository
      */
     protected $configuration;
     /**
@@ -63,11 +63,11 @@ class Handler implements ExceptionHandlerContract
     protected $view;
 
     /**
-     * @param \Illuminate\Contracts\Container\Container                $container
-     * @param \Illuminate\Config\Repository                            $configuration
-     * @param \Illuminate\Routing\Redirector                           $redirector
-     * @param \Illuminate\Contracts\Routing\ResponseFactory            $response
-     * @param \Illuminate\Contracts\View\Factory|\Illuminate\View\View $view
+     * @param \Illuminate\Contracts\Container\Container                                 $container
+     * @param \Notadd\Foundation\Configuration\Repository $configuration
+     * @param \Illuminate\Routing\Redirector                                            $redirector
+     * @param \Illuminate\Contracts\Routing\ResponseFactory                             $response
+     * @param \Illuminate\Contracts\View\Factory|\Illuminate\View\View                  $view
      */
     public function __construct(
         Container $container,

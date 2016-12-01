@@ -10,7 +10,7 @@ namespace Notadd\Foundation\Configuration;
 
 use ArrayAccess;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
-use Notadd\Foundation\Configuration\Contract\Loader;
+use Notadd\Foundation\Configuration\Contracts\Loader;
 use Notadd\Foundation\Configuration\Traits\KeyParser;
 
 /**
@@ -21,7 +21,7 @@ class Repository implements ArrayAccess, ConfigContract
     use KeyParser;
 
     /**
-     * @var \Notadd\Foundation\Configuration\Contract\Loader
+     * @var \Notadd\Foundation\Configuration\Contracts\Loader
      */
     protected $loader;
 
@@ -47,9 +47,10 @@ class Repository implements ArrayAccess, ConfigContract
 
     /**
      * Repository constructor.
-     *
-     * @param \Notadd\Foundation\Configuration\Contract\Loader $loader
-     * @param string                                           $environment
+
+*
+*@param \Notadd\Foundation\Configuration\Contracts\Loader $loader
+     * @param string                                      $environment
      */
     public function __construct(Loader $loader, $environment)
     {

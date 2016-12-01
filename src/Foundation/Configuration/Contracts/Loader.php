@@ -7,7 +7,7 @@
  * @datetime 2016-11-30 14:48
  */
 
-namespace Notadd\Foundation\Configuration\Contract;
+namespace Notadd\Foundation\Configuration\Contracts;
 
 /**
  * Interface Loader.

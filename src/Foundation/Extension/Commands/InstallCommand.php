@@ -125,9 +125,7 @@ class InstallCommand extends Command
             $autoload->has('files') && collect($autoload->get('files'))->each(function ($value) {
                 $path = str_replace($this->container->basePath() . '/', '',
                     realpath($this->path . DIRECTORY_SEPARATOR . $value));
-                if (!in_array($path, $this->backup['autoload']['files'])) {
-                    $this->backup['autoload']['files'][] = $path;
-                }
+                $this->backup['autoload']['files'][] = $path;
             });
             $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function ($value, $key) {
                 $path = str_replace($this->container->basePath() . '/', '',

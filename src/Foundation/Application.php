@@ -124,7 +124,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         $this->registerBaseServiceProviders();
         $this->registerCoreContainerAliases();
         if ($basePath) {
-            $this->setBasePath($basePath);
+            $this->setBasePath(realpath($basePath));
         }
     }
 

@@ -117,25 +117,25 @@ class InstallCommand extends Command
         if ($this->extension->has('autoload')) {
             $autoload = collect($this->extension->get('autoload'));
             $autoload->has('classmap') && collect($autoload->get('classmap'))->each(function ($value) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
+                $path = str_replace($this->container->basePath() . DIRECTORY_SEPARATOR, '',
+                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . DIRECTORY_SEPARATOR;
                 if (!in_array($path, $this->backup['autoload']['classmap'])) {
                     $this->backup['autoload']['classmap'][] = $path;
                 }
             });
             $autoload->has('files') && collect($autoload->get('files'))->each(function ($value) {
-                $path = str_replace($this->container->basePath() . '/', '',
+                $path = str_replace($this->container->basePath() . DIRECTORY_SEPARATOR, '',
                     realpath($this->path . DIRECTORY_SEPARATOR . $value));
                 $this->backup['autoload']['files'][] = $path;
             });
             $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function ($value, $key) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
+                $path = str_replace($this->container->basePath() . DIRECTORY_SEPARATOR, '',
+                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . DIRECTORY_SEPARATOR;
                 $this->backup['autoload']['psr-0'][$key] = $path;
             });
             $autoload->has('psr-4') && collect($autoload->get('psr-4'))->each(function ($value, $key) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . '/';
+                $path = str_replace($this->container->basePath() . DIRECTORY_SEPARATOR, '',
+                        realpath($this->path . DIRECTORY_SEPARATOR . $value)) . DIRECTORY_SEPARATOR;
                 $this->backup['autoload']['psr-4'][$key] = $path;
             });
         }

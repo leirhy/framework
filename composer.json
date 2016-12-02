@@ -28,7 +28,7 @@
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "classpreloader/classpreloader": "~3.0",
-        "composer/composer": "^1.2",
+        "composer-plugin-api": "^1.0",
         "doctrine/inflector": "~1.0",
         "illuminate/auth": "5.3.*",
         "illuminate/broadcasting": "5.3.*",
@@ -87,5 +87,8 @@
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "extra": {
+        "class": "Notadd\\Foundation\\Composer\\Plugin"
+    }
 }

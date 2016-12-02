@@ -86,6 +86,7 @@ class InstallCommand extends Command
         $this->preInstall();
         $this->updateComposer(true);
         $this->postInstall($settings);
+        $this->resetOpcache();
         $settings->set("extension.{$this->name}.installed", true);
         $this->info("Extension {$this->name} is installed!");
 
@@ -143,6 +144,19 @@ class InstallCommand extends Command
             $require->each(function ($version, $name) {
                 $this->backup['require'][$name] = $version;
             });
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function resetOpcache()
+    {
+        if (function_exists('opcache_reset')) {
+            call_user_func('opcache_reset');
+        }
+        if (function_exists('accelerator_reset')) {
+            call_user_func('accelerator_reset');
         }
     }
 }

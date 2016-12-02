@@ -76,9 +76,7 @@ class InstallCommand extends Command
 
             return false;
         }
-        if ($this->files->exists($bootstrap = $this->path . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
-            $class = $this->files->getRequire($bootstrap);
-        } else {
+        if (!$this->files->exists($bootstrap = $this->path . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
             $this->error('Extension files do not exists!');
 
             return false;
@@ -87,16 +85,8 @@ class InstallCommand extends Command
         $this->extension = collect($extensionFile->read());
         $this->preInstall();
         $this->updateComposer(true);
-        $bootstrap = $this->container->make($class);
-        $this->info = $bootstrap->getExtensionInfo();
-        if ($bootstrap->install() === true) {
-            $this->postInstall($settings);
-            $settings->set("extension.{$this->name}.installed", true);
-        } else {
-            $this->error('Extension install fail!');
-
-            return false;
-        }
+        $this->postInstall($settings);
+        $settings->set("extension.{$this->name}.installed", true);
         $this->info("Extension {$this->name} is installed!");
 
         return true;

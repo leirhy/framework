@@ -132,8 +132,6 @@ abstract class Command extends AbstractCommand
             default:
                 break;
         }
-        $optimize = $config->get('optimize-autoloader');
-        $authoritative = $config->get('classmap-authoritative');
         $install->setPreferSource($preferSource);
         $install->setPreferDist($preferDist);
         $install->setDevMode(true);

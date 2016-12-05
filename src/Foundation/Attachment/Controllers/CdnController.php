@@ -34,12 +34,13 @@ class CdnController extends Controller
     }
 
     /**
+     * @param \Notadd\Foundation\Attachment\Handlers\CdnSetHandler $handler
+     *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handle()
+    public function handle(CdnSetHandler $handler)
     {
-        $handler = new CdnSetHandler($this->container, $this->settings);
-        $response = $handler->toResponse($this->request);
+        $response = $handler->toResponse();
 
         return $response->generateHttpResponse();
     }

@@ -34,12 +34,13 @@ class AttachmentController extends Controller
     }
 
     /**
+     * @param \Notadd\Foundation\Attachment\Handlers\AttachmentSetHandler $handler
+     *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handle()
+    public function handle(AttachmentSetHandler $handler)
     {
-        $handler = new AttachmentSetHandler($this->container, $this->settings);
-        $response = $handler->toResponse($this->request);
+        $response = $handler->toResponse();
 
         return $response->generateHttpResponse();
     }

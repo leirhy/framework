@@ -31,12 +31,13 @@ class StorageController extends Controller
     }
 
     /**
+     * @param \Notadd\Foundation\Attachment\Handlers\StorageSetHandler $handler
+     *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handle()
+    public function handle(StorageSetHandler $handler)
     {
-        $handler = new StorageSetHandler($this->container, $this->settings);
-        $response = $handler->toResponse($this->request);
+        $response = $handler->toResponse();
 
         return $response->generateHttpResponse();
     }

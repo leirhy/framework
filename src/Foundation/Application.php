@@ -973,7 +973,10 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             ],
             'queue.connection'          => ['Illuminate\Contracts\Queue\Queue'],
             'queue.failer'              => ['Illuminate\Queue\Failed\FailedJobProviderInterface'],
-            'redirect'                  => ['Illuminate\Routing\Redirector'],
+            'redirect'                  => [
+                'Illuminate\Routing\Redirector',
+                'Notadd\Foundation\Routing\Redirector',
+            ],
             'redis'                     => [
                 'Illuminate\Redis\Database',
                 'Illuminate\Contracts\Redis\Database',

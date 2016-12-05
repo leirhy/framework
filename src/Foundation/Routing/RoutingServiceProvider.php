@@ -18,8 +18,15 @@ class RoutingServiceProvider extends IlluminateRoutingServiceProvider
     /**
      * @return void
      */
-    public function register()
+    protected function registerRedirector()
     {
-        parent::register();
+        $this->app['redirect'] = $this->app->share(function ($app) {
+            $redirector = new Redirector($app['url']);
+            if (isset($app['session.store'])) {
+                $redirector->setSession($app['session.store']);
+            }
+
+            return $redirector;
+        });
     }
 }

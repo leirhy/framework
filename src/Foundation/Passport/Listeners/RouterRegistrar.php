@@ -22,7 +22,7 @@ use Notadd\Foundation\Routing\Abstracts\RouteRegistrar;
 class RouterRegistrar extends RouteRegistrar
 {
     /**
-     * TODO: Method handle Description
+     * Handle Route Registrar.
      */
     public function handle()
     {

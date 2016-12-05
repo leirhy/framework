@@ -48,7 +48,7 @@ abstract class RouteRegistrar extends EventSubscriber
     }
 
     /**
-     * TODO: Method handle Description
+     * Handle Route Registrar.
      *
      * @return mixed
      */

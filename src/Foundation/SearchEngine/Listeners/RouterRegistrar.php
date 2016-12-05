@@ -17,7 +17,7 @@ use Notadd\Foundation\SearchEngine\Controllers\SeoController;
 class RouterRegistrar extends AbstractRouteRegistrar
 {
     /**
-     * TODO: Method handle Description
+     * Handle Route Registrar.
      */
     public function handle()
     {

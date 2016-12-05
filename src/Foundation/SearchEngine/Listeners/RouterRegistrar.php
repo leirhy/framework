@@ -11,10 +11,12 @@ namespace Notadd\Foundation\SearchEngine\Listeners;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 use Notadd\Foundation\SearchEngine\Controllers\SeoController;
 
+/**
+ * Class RouterRegistrar.
+ */
 class RouterRegistrar extends AbstractRouteRegistrar
 {
     /**
-     * @return void
      * TODO: Method handle Description
      */
     public function handle()

@@ -23,7 +23,6 @@ class MailServiceProvider extends IlluminateMailServiceProvider
     protected $defer = true;
 
     /**
-     * @return void
      * TODO: Method boot Description
      */
     public function boot()

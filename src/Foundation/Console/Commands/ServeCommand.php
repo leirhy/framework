@@ -29,8 +29,6 @@ class ServeCommand extends Command
     protected $description = 'Serve the application on the PHP development server';
 
     /**
-     * @throws \Exception
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()

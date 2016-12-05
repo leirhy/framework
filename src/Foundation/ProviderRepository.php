@@ -135,9 +135,10 @@ class ProviderRepository
     }
 
     /**
-     * @return array|null
      * TODO: Method loadManifest Description
      *
+     * @return array
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function loadManifest()
     {
@@ -150,9 +151,9 @@ class ProviderRepository
     }
 
     /**
-     * @param array $manifest
      * TODO: Method writeManifest Description
      *
+     * @param $manifest
      *
      * @return array
      */
@@ -174,8 +175,8 @@ class ProviderRepository
     {
         return [
             'providers' => $providers,
-            'eager' => [],
-            'deferred' => [],
+            'eager'     => [],
+            'deferred'  => [],
         ];
     }
 }

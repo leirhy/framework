@@ -34,14 +34,16 @@ class SeoController extends ApiController
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * TODO: Method handle Description
      *
+     * @param \Notadd\Foundation\SearchEngine\Handlers\SetHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse * @throws \Exception
+     * @throws \Exception
      */
-    public function handle()
+    public function handle(SetHandler $handler)
     {
-        $handler = new SetHandler($this->container, $this->settings);
-        $response = $handler->toResponse($this->request);
+        $response = $handler->toResponse();
 
         return $response->generateHttpResponse();
     }

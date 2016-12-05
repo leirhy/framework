@@ -49,7 +49,6 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()
@@ -62,10 +61,9 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * @param string $tag
      * TODO: Method publishTag Description
      *
-     * @return mixed
+     * @param string $tag
      */
     protected function publishTag($tag)
     {
@@ -90,8 +88,6 @@ class VendorPublishCommand extends Command
      *
      * @param string $from
      * @param string $to
-     *
-     * @return void
      */
     protected function publishFile($from, $to)
     {
@@ -104,17 +100,16 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * @param string $from
-     * @param string $to
      * TODO: Method publishDirectory Description
      *
-     * @return void
+     * @param $from
+     * @param $to
      */
     protected function publishDirectory($from, $to)
     {
         $manager = new MountManager([
             'from' => new Flysystem(new LocalAdapter($from)),
-            'to' => new Flysystem(new LocalAdapter($to)),
+            'to'   => new Flysystem(new LocalAdapter($to)),
         ]);
         foreach ($manager->listContents('from://', true) as $file) {
             if ($file['type'] === 'file' && (!$manager->has('to://' . $file['path']) || $this->option('force'))) {
@@ -125,10 +120,9 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * @param string $directory
      * TODO: Method createParentDirectory Description
      *
-     * @return void
+     * @param $directory
      */
     protected function createParentDirectory($directory)
     {
@@ -138,12 +132,11 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * @param string $from
-     * @param string $to
-     * @param string $type
      * TODO: Method status Description
      *
-     * @return void
+     * @param $from
+     * @param $to
+     * @param $type
      */
     protected function status($from, $to, $type)
     {

@@ -28,7 +28,6 @@ class DownCommand extends Command
     protected $description = 'Put the application into maintenance mode';
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()
@@ -46,9 +45,9 @@ class DownCommand extends Command
     protected function getDownFilePayload()
     {
         return [
-            'time' => Carbon::now()->getTimestamp(),
+            'time'    => Carbon::now()->getTimestamp(),
             'message' => $this->option('message'),
-            'retry' => $this->getRetryTime(),
+            'retry'   => $this->getRetryTime(),
         ];
     }
 

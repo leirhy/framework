@@ -68,11 +68,11 @@ class Handler implements ExceptionHandlerContract
     protected $view;
 
     /**
-     * @param \Illuminate\Contracts\Container\Container                                 $container
-     * @param \Notadd\Foundation\Configuration\Repository $configuration
-     * @param \Illuminate\Routing\Redirector                                            $redirector
-     * @param \Illuminate\Contracts\Routing\ResponseFactory                             $response
-     * @param \Illuminate\Contracts\View\Factory|\Illuminate\View\View                  $view
+     * @param \Illuminate\Contracts\Container\Container                $container
+     * @param \Notadd\Foundation\Configuration\Repository              $configuration
+     * @param \Illuminate\Routing\Redirector                           $redirector
+     * @param \Illuminate\Contracts\Routing\ResponseFactory            $response
+     * @param \Illuminate\Contracts\View\Factory|\Illuminate\View\View $view
      */
     public function __construct(
         Container $container,
@@ -89,6 +89,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method report Description
+     *
      * @param \Exception $exception
      *
      * @throws \Exception
@@ -108,6 +110,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method shouldReport Description
+     *
      * @param \Exception $exception
      *
      * @return bool
@@ -118,6 +122,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method shouldntReport Description
+     *
      * @param \Exception $exception
      *
      * @return bool
@@ -135,6 +141,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method prepareException Description
+     *
      * @param \Exception $exception
      *
      * @return \Exception
@@ -151,6 +159,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method render Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param \Exception               $exception
      *
@@ -175,6 +185,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method prepareResponse Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param \Exception               $exception
      *
@@ -190,6 +202,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method toIlluminateResponse Description
+     *
      * @param \Symfony\Component\HttpFoundation\Response $response
      * @param \Exception                                 $exception
      *

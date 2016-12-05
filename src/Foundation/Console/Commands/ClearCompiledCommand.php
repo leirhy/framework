@@ -26,7 +26,6 @@ class ClearCompiledCommand extends Command
     protected $description = 'Remove the compiled class file';
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()

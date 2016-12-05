@@ -34,7 +34,6 @@ class ModelMakeCommand extends GeneratorCommand
     protected $type = 'Model';
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()

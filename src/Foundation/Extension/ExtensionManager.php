@@ -102,6 +102,7 @@ class ExtensionManager
      * TODO: Method getExtensionPaths Description
      *
      * @return \Illuminate\Support\Collection
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function getExtensionPaths()
     {
@@ -134,6 +135,7 @@ class ExtensionManager
      * TODO: Method getExtensions Description
      *
      * @return \Illuminate\Support\Collection
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function getExtensions()
     {

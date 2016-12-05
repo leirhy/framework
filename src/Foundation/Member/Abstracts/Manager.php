@@ -57,7 +57,6 @@ abstract class Manager
     abstract public function find(int $id);
 
     /**
-     * @return void
      * TODO: Method init Description
      */
     public function init()

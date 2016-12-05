@@ -43,7 +43,6 @@ class ComposerScripts
     }
 
     /**
-     * @return void
      * TODO: Method clearCompiled Description
      */
     protected static function clearCompiled()

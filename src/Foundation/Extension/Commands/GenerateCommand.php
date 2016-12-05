@@ -17,7 +17,6 @@ use Symfony\Component\Console\Input\InputArgument;
 class GenerateCommand extends Command
 {
     /**
-     * @return void
      * TODO: Method configure Description
      */
     public function configure()
@@ -28,9 +27,9 @@ class GenerateCommand extends Command
     }
 
     /**
-     * @return true
      * TODO: Method fire Description
      *
+     * @return bool
      */
     public function fire()
     {

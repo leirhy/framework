@@ -41,9 +41,9 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * @return array|mixed
      * TODO: Method all Description
      *
+     * @return array|\Illuminate\Support\Collection
      */
     public function all()
     {
@@ -72,7 +72,7 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
      * @param      $key
      * @param null $default
      *
-     * @return mixed|null
+     * @return mixed
      */
     public function get($key, $default = null)
     {

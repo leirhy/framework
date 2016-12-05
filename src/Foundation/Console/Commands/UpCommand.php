@@ -25,7 +25,6 @@ class UpCommand extends Command
     protected $description = 'Bring the application out of maintenance mode';
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()

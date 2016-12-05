@@ -74,8 +74,8 @@ trait MakesHttpRequests
         $content = json_encode($data);
         $headers = array_merge([
             'CONTENT_LENGTH' => mb_strlen($content, '8bit'),
-            'CONTENT_TYPE' => 'application/json',
-            'Accept' => 'application/json',
+            'CONTENT_TYPE'   => 'application/json',
+            'Accept'         => 'application/json',
         ], $headers);
         $this->call($method, $uri, [], [], $files, $this->transformHeadersToServerVars($headers), $content);
 

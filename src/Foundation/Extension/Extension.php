@@ -65,7 +65,6 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * @return void
      * TODO: Method assignId Description
      */
     protected function assignId()

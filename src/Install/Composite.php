@@ -45,9 +45,9 @@ class Composite implements Prerequisite
     }
 
     /**
-     * @return array
      * TODO: Method getErrors Description
      *
+     * @return mixed
      */
     public function getErrors()
     {

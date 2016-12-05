@@ -16,7 +16,6 @@ use Illuminate\Events\EventServiceProvider as IlluminateEventServiceProvider;
 class EventServiceProvider extends IlluminateEventServiceProvider
 {
     /**
-     * @return void
      * TODO: Method register Description
      */
     public function register()

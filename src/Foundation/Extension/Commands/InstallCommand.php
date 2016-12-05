@@ -57,6 +57,7 @@ class InstallCommand extends Command
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      *
      * @return bool
+     * @throws \Exception
      */
     public function fire(ExtensionManager $manager, SettingsRepository $settings)
     {
@@ -114,7 +115,6 @@ class InstallCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method preInstall Description
      */
     public function preInstall()
@@ -153,7 +153,6 @@ class InstallCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method resetOpcache Description
      */
     public function resetOpcache()

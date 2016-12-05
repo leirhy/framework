@@ -42,7 +42,6 @@ class TinkerCommand extends Command
     protected $description = 'Interact with your application';
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()
@@ -81,8 +80,8 @@ class TinkerCommand extends Command
     protected function getCasters()
     {
         return [
-            'Notadd\Foundation\Application' => 'Notadd\Foundation\Console\IlluminateCaster::castApplication',
-            'Illuminate\Support\Collection' => 'Notadd\Foundation\Console\IlluminateCaster::castCollection',
+            'Notadd\Foundation\Application'      => 'Notadd\Foundation\Console\IlluminateCaster::castApplication',
+            'Illuminate\Support\Collection'      => 'Notadd\Foundation\Console\IlluminateCaster::castCollection',
             'Illuminate\Database\Eloquent\Model' => 'Notadd\Foundation\Console\IlluminateCaster::castModel',
         ];
     }

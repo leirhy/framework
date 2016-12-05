@@ -51,9 +51,9 @@ abstract class EventSubscriber
     }
 
     /**
-     * @return void
      * TODO: Method subscribe Description
      *
+     * @throws \Exception
      */
     public function subscribe()
     {

@@ -235,7 +235,6 @@ class OptimizeCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()
@@ -256,7 +255,6 @@ class OptimizeCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method compileClasses Description
      */
     protected function compileClasses()

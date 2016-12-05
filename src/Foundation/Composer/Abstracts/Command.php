@@ -115,6 +115,7 @@ abstract class Command extends AbstractCommand
      * @param bool $reload
      *
      * @return int
+     * @throws \Exception
      */
     protected function updateComposer($reload = false)
     {

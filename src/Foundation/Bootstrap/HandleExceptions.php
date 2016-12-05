@@ -120,7 +120,6 @@ class HandleExceptions
     }
 
     /**
-     * @return void
      * TODO: Method handleShutdown Description
      */
     public function handleShutdown()

@@ -110,25 +110,24 @@ class RouteListCommand extends Command
      *
      * @param \Illuminate\Routing\Route $route
      *
-     * @return array
+     * @return array|null
      */
     protected function getRouteInformation(Route $route)
     {
         return $this->filterRoute([
-            'host' => $route->domain(),
-            'method' => implode('|', $route->methods()),
-            'uri' => $route->uri(),
-            'name' => $route->getName(),
-            'action' => $route->getActionName(),
+            'host'       => $route->domain(),
+            'method'     => implode('|', $route->methods()),
+            'uri'        => $route->uri(),
+            'name'       => $route->getName(),
+            'action'     => $route->getActionName(),
             'middleware' => $this->getMiddleware($route),
         ]);
     }
 
     /**
-     * @param array $routes
      * TODO: Method displayRoutes Description
      *
-     * @return void
+     * @param array $routes
      */
     protected function displayRoutes(array $routes)
     {
@@ -136,9 +135,9 @@ class RouteListCommand extends Command
     }
 
     /**
-     * @param \Illuminate\Routing\Route $route
      * TODO: Method getMiddleware Description
      *
+     * @param $route
      *
      * @return string
      */
@@ -154,7 +153,7 @@ class RouteListCommand extends Command
      *
      * @param array $route
      *
-     * @return array|null
+     * @return array|void
      */
     protected function filterRoute(array $route)
     {

@@ -11,10 +11,12 @@ namespace Notadd\Foundation\Mail\Listeners;
 use Notadd\Foundation\Mail\Controllers\MailController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 
+/**
+ * Class RouterRegistrar.
+ */
 class RouterRegistrar extends AbstractRouteRegistrar
 {
     /**
-     * @return void
      * TODO: Method handle Description
      */
     public function handle()

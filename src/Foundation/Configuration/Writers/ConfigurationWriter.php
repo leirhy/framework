@@ -23,6 +23,7 @@ class ConfigurationWriter
      * @param bool $useValidation
      *
      * @return mixed|string
+     * @throws \Exception
      */
     public function toFile($filePath, $newValues, $useValidation = true)
     {
@@ -143,8 +144,15 @@ class ConfigurationWriter
         return '[' . implode(', ', $result) . ']';
     }
 
+    /**
      * TODO: Method buildStringExpression Description
      *
+     * @param        $targetKey
+     * @param array  $arrayItems
+     * @param string $quoteChar
+     *
+     * @return string
+     */
     protected function buildStringExpression($targetKey, $arrayItems = [], $quoteChar = "'")
     {
         $expression = [];
@@ -152,6 +160,7 @@ class ConfigurationWriter
         $expression[] = '([\'|"]' . $targetKey . '[\'|"]\s*=>\s*)[' . $quoteChar . ']';
         $expression[] = '([^' . $quoteChar . ']*)';
         $expression[] = '[' . $quoteChar . ']';
+
         return '/' . implode('', $expression) . '/';
     }
 
@@ -169,6 +178,7 @@ class ConfigurationWriter
         $expression[] = $this->buildArrayOpeningExpression($arrayItems);
         $expression[] = '([\'|"]' . $targetKey . '[\'|"]\s*=>\s*)';
         $expression[] = '([tT][rR][uU][eE]|[fF][aA][lL][sS][eE]|[nN][uU][lL]{2}|[\d]+)';
+
         return '/' . implode('', $expression) . '/';
     }
 
@@ -186,6 +196,7 @@ class ConfigurationWriter
         $expression[] = $this->buildArrayOpeningExpression($arrayItems);
         $expression[] = '([\'|"]' . $targetKey . '[\'|"]\s*=>\s*)';
         $expression[] = '(?:[aA][rR]{2}[aA][yY]\(|[\[])([^\]|)]*)[\]|)]';
+
         return '/' . implode('', $expression) . '/';
     }
 

@@ -56,7 +56,6 @@ class InstallCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method configure Description
      */
     protected function configure()
@@ -66,14 +65,13 @@ class InstallCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method createAdministrationUser Description
      */
     protected function createAdministrationUser()
     {
         $user = Member::create([
-            'name' => $this->data->get('admin_account'),
-            'email' => $this->data->get('admin_email'),
+            'name'     => $this->data->get('admin_account'),
+            'email'    => $this->data->get('admin_email'),
             'password' => bcrypt($this->data->get('admin_password')),
         ]);
         if ($this->container->bound('request')) {
@@ -82,7 +80,6 @@ class InstallCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()
@@ -91,56 +88,56 @@ class InstallCommand extends Command
             $this->setDataFromConsoling();
         }
         $this->config->set('database', [
-            'fetch' => PDO::FETCH_OBJ,
-            'default' => $this->data->get('driver'),
+            'fetch'       => PDO::FETCH_OBJ,
+            'default'     => $this->data->get('driver'),
             'connections' => [],
-            'redis' => [],
+            'redis'       => [],
         ]);
         switch ($this->data->get('driver')) {
             case 'mysql':
                 $this->config->set('database.connections.mysql', [
-                    'driver' => 'mysql',
-                    'host' => $this->data->get('database_host'),
-                    'database' => $this->data->get('database'),
-                    'username' => $this->data->get('database_username'),
-                    'password' => $this->data->get('database_password'),
-                    'charset' => 'utf8',
+                    'driver'    => 'mysql',
+                    'host'      => $this->data->get('database_host'),
+                    'database'  => $this->data->get('database'),
+                    'username'  => $this->data->get('database_username'),
+                    'password'  => $this->data->get('database_password'),
+                    'charset'   => 'utf8',
                     'collation' => 'utf8_unicode_ci',
-                    'prefix' => $this->data->get('database_prefix'),
-                    'strict' => true,
-                    'engine' => null,
+                    'prefix'    => $this->data->get('database_prefix'),
+                    'strict'    => true,
+                    'engine'    => null,
                 ]);
                 break;
             case 'pgsql':
                 $this->config->set('database.connections.pgsql', [
-                    'driver' => 'pgsql',
-                    'host' => $this->data->get('database_host'),
+                    'driver'   => 'pgsql',
+                    'host'     => $this->data->get('database_host'),
                     'database' => $this->data->get('database'),
                     'username' => $this->data->get('database_username'),
                     'password' => $this->data->get('database_password'),
-                    'charset' => 'utf8',
-                    'prefix' => $this->data->get('database_prefix'),
-                    'schema' => 'public',
-                    'sslmode' => 'prefer',
+                    'charset'  => 'utf8',
+                    'prefix'   => $this->data->get('database_prefix'),
+                    'schema'   => 'public',
+                    'sslmode'  => 'prefer',
                 ]);
                 break;
             case 'sqlite':
                 $this->config->set('database.connections.sqlite', [
-                    'driver' => 'sqlite',
+                    'driver'   => 'sqlite',
                     'database' => $this->container->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'database.sqlite',
-                    'prefix' => $this->data->get('database_prefix'),
+                    'prefix'   => $this->data->get('database_prefix'),
                 ]);
                 touch($this->container->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'database.sqlite');
                 break;
         }
         $this->call('migrate', [
             '--force' => true,
-            '--path' => str_replace(base_path() . DIRECTORY_SEPARATOR, '', database_path('migrations')),
+            '--path'  => str_replace(base_path() . DIRECTORY_SEPARATOR, '', database_path('migrations')),
         ]);
         $this->call('passport:keys');
         $this->call('passport:client', [
             '--password' => true,
-            '--name' => 'Notadd Administrator Client',
+            '--name'     => 'Notadd Administrator Client',
         ]);
         $setting = $this->container->make(SettingsRepository::class);
         $setting->set('site.name', $this->data->get('website'));
@@ -156,7 +153,6 @@ class InstallCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method setDataFromConsoling Description
      */
     public function setDataFromConsoling()
@@ -222,51 +218,50 @@ class InstallCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method writingConfiguration Description
      */
     protected function writingConfiguration()
     {
         $config = [
-            'fetch' => PDO::FETCH_OBJ,
-            'default' => $this->data->get('driver'),
+            'fetch'       => PDO::FETCH_OBJ,
+            'default'     => $this->data->get('driver'),
             'connections' => [],
-            'migrations' => 'migrations',
-            'redis' => [],
+            'migrations'  => 'migrations',
+            'redis'       => [],
         ];
         switch ($this->data->get('driver')) {
             case 'mysql':
                 $config['connections']['mysql'] = [
-                    'driver' => 'mysql',
-                    'host' => $this->data->get('database_host'),
-                    'database' => $this->data->get('database'),
-                    'username' => $this->data->get('database_username'),
-                    'password' => $this->data->get('database_password'),
-                    'charset' => 'utf8',
+                    'driver'    => 'mysql',
+                    'host'      => $this->data->get('database_host'),
+                    'database'  => $this->data->get('database'),
+                    'username'  => $this->data->get('database_username'),
+                    'password'  => $this->data->get('database_password'),
+                    'charset'   => 'utf8',
                     'collation' => 'utf8_unicode_ci',
-                    'prefix' => $this->data->get('database_prefix'),
-                    'strict' => false,
-                    'engine' => null,
+                    'prefix'    => $this->data->get('database_prefix'),
+                    'strict'    => false,
+                    'engine'    => null,
                 ];
                 break;
             case 'pgsql':
                 $config['connections']['pgsql'] = [
-                    'driver' => 'pgsql',
-                    'host' => $this->data->get('database_host'),
+                    'driver'   => 'pgsql',
+                    'host'     => $this->data->get('database_host'),
                     'database' => $this->data->get('database'),
                     'username' => $this->data->get('database_username'),
                     'password' => $this->data->get('database_password'),
-                    'charset' => 'utf8',
-                    'prefix' => $this->data->get('database_prefix'),
-                    'schema' => 'public',
-                    'sslmode' => 'prefer',
+                    'charset'  => 'utf8',
+                    'prefix'   => $this->data->get('database_prefix'),
+                    'schema'   => 'public',
+                    'sslmode'  => 'prefer',
                 ];
                 break;
             case 'sqlite':
                 $config['connections']['sqlite'] = [
-                    'driver' => 'sqlite',
+                    'driver'   => 'sqlite',
                     'database' => $this->container->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'database.sqlite',
-                    'prefix' => $this->data->get('database_prefix'),
+                    'prefix'   => $this->data->get('database_prefix'),
                 ];
                 break;
         }

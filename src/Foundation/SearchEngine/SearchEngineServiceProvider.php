@@ -18,7 +18,6 @@ use Notadd\Foundation\SearchEngine\Listeners\RouterRegistrar;
 class SearchEngineServiceProvider extends ServiceProvider
 {
     /**
-     * @return void
      * TODO: Method boot Description
      */
     public function boot()
@@ -27,7 +26,6 @@ class SearchEngineServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method register Description
      */
     public function register()

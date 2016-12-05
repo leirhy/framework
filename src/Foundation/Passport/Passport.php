@@ -39,9 +39,9 @@ class Passport
     }
 
     /**
-     * @return mixed
      * TODO: Method call Description
      *
+     * @return bool
      */
     public function call()
     {

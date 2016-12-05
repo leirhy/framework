@@ -22,7 +22,6 @@ use Notadd\Install\Prerequisite\WritablePath;
 class InstallServiceProvider extends ServiceProvider
 {
     /**
-     * @return void
      * TODO: Method boot Description
      */
     public function boot()
@@ -37,24 +36,23 @@ class InstallServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method register Description
      */
     public function register()
     {
         $this->app->bind(Prerequisite::class, function () {
             return new Composite(new PhpVersion('5.6.28'), new PhpExtension([
-                    'dom',
-                    'fileinfo',
-                    'gd',
-                    'json',
-                    'mbstring',
-                    'openssl',
-                    'pdo_mysql',
-                ]), new WritablePath([
-                    public_path(),
-                    storage_path(),
-                ]));
+                'dom',
+                'fileinfo',
+                'gd',
+                'json',
+                'mbstring',
+                'openssl',
+                'pdo_mysql',
+            ]), new WritablePath([
+                public_path(),
+                storage_path(),
+            ]));
         });
     }
 }

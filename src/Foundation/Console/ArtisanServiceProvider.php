@@ -57,52 +57,53 @@ class ArtisanServiceProvider extends ServiceProvider
      */
     protected $commands = [
         'ClearCompiled' => 'command.clear-compiled',
-        'ClearResets' => 'command.auth.resets.clear',
-        'ConfigCache' => 'command.config.cache',
-        'ConfigClear' => 'command.config.clear',
-        'Down' => 'command.down',
-        'Environment' => 'command.environment',
-        'KeyGenerate' => 'command.key.generate',
-        'Optimize' => 'command.optimize',
-        'RouteCache' => 'command.route.cache',
-        'RouteClear' => 'command.route.clear',
-        'RouteList' => 'command.route.list',
-        'StorageLink' => 'command.storage.link',
-        'Tinker' => 'command.tinker',
-        'Up' => 'command.up',
-        'ViewClear' => 'command.view.clear',
+        'ClearResets'   => 'command.auth.resets.clear',
+        'ConfigCache'   => 'command.config.cache',
+        'ConfigClear'   => 'command.config.clear',
+        'Down'          => 'command.down',
+        'Environment'   => 'command.environment',
+        'KeyGenerate'   => 'command.key.generate',
+        'Optimize'      => 'command.optimize',
+        'RouteCache'    => 'command.route.cache',
+        'RouteClear'    => 'command.route.clear',
+        'RouteList'     => 'command.route.list',
+        'StorageLink'   => 'command.storage.link',
+        'Tinker'        => 'command.tinker',
+        'Up'            => 'command.up',
+        'ViewClear'     => 'command.view.clear',
     ];
+
     /**
      * @var array
      */
     protected $devCommands = [
         //'AppName' => 'command.app.name',
-        'AuthMake' => 'command.auth.make',
-        'CacheTable' => 'command.cache.table',
-        'ConsoleMake' => 'command.console.make',
-        'ControllerMake' => 'command.controller.make',
-        'EventGenerate' => 'command.event.generate',
-        'EventMake' => 'command.event.make',
-        'JobMake' => 'command.job.make',
-        'ListenerMake' => 'command.listener.make',
-        'MailMake' => 'command.mail.make',
-        'MiddlewareMake' => 'command.middleware.make',
-        'ModelMake' => 'command.model.make',
-        'NotificationMake' => 'command.notification.make',
+        'AuthMake'          => 'command.auth.make',
+        'CacheTable'        => 'command.cache.table',
+        'ConsoleMake'       => 'command.console.make',
+        'ControllerMake'    => 'command.controller.make',
+        'EventGenerate'     => 'command.event.generate',
+        'EventMake'         => 'command.event.make',
+        'JobMake'           => 'command.job.make',
+        'ListenerMake'      => 'command.listener.make',
+        'MailMake'          => 'command.mail.make',
+        'MiddlewareMake'    => 'command.middleware.make',
+        'ModelMake'         => 'command.model.make',
+        'NotificationMake'  => 'command.notification.make',
         'NotificationTable' => 'command.notification.table',
-        'PolicyMake' => 'command.policy.make',
-        'QueueFailedTable' => 'command.queue.failed-table',
-        'QueueTable' => 'command.queue.table',
-        'RequestMake' => 'command.request.make',
-        'SeederMake' => 'command.seeder.make',
-        'SessionTable' => 'command.session.table',
-        'Serve' => 'command.serve',
-        'TestMake' => 'command.test.make',
-        'VendorPublish' => 'command.vendor.publish',
+        'PolicyMake'        => 'command.policy.make',
+        'QueueFailedTable'  => 'command.queue.failed-table',
+        'QueueTable'        => 'command.queue.table',
+        'RequestMake'       => 'command.request.make',
+        'SeederMake'        => 'command.seeder.make',
+        'SessionTable'      => 'command.session.table',
+        'Serve'             => 'command.serve',
+        'TestMake'          => 'command.test.make',
+        'VendorPublish'     => 'command.vendor.publish',
     ];
 
     /**
-     * @return void
+     * TODO: Method register Description
      */
     public function register()
     {
@@ -111,9 +112,9 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param array $commands
+     * TODO: Method registerCommands Description
      *
-     * @return void
+     * @param array $commands
      */
     protected function registerCommands(array $commands)
     {
@@ -128,7 +129,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerAppNameCommand Description
      */
     protected function registerAppNameCommand()
@@ -139,7 +139,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerAuthMakeCommand Description
      */
     protected function registerAuthMakeCommand()
@@ -150,7 +149,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerCacheTableCommand Description
      */
     protected function registerCacheTableCommand()
@@ -161,7 +159,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerClearCompiledCommand Description
      */
     protected function registerClearCompiledCommand()
@@ -172,7 +169,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerClearResetsCommand Description
      */
     protected function registerClearResetsCommand()
@@ -183,7 +179,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerConfigCacheCommand Description
      */
     protected function registerConfigCacheCommand()
@@ -194,7 +189,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerConfigClearCommand Description
      */
     protected function registerConfigClearCommand()
@@ -205,7 +199,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerConsoleMakeCommand Description
      */
     protected function registerConsoleMakeCommand()
@@ -216,7 +209,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerControllerMakeCommand Description
      */
     protected function registerControllerMakeCommand()
@@ -227,7 +219,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerEventGenerateCommand Description
      */
     protected function registerEventGenerateCommand()
@@ -238,7 +229,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerEventMakeCommand Description
      */
     protected function registerEventMakeCommand()
@@ -249,7 +239,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerDownCommand Description
      */
     protected function registerDownCommand()
@@ -260,7 +249,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerEnvironmentCommand Description
      */
     protected function registerEnvironmentCommand()
@@ -271,7 +259,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerJobMakeCommand Description
      */
     protected function registerJobMakeCommand()
@@ -282,7 +269,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerKeyGenerateCommand Description
      */
     protected function registerKeyGenerateCommand()
@@ -293,7 +279,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerListenerMakeCommand Description
      */
     protected function registerListenerMakeCommand()
@@ -304,7 +289,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerMailMakeCommand Description
      */
     protected function registerMailMakeCommand()
@@ -315,7 +299,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerMiddlewareMakeCommand Description
      */
     protected function registerMiddlewareMakeCommand()
@@ -326,7 +309,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerModelMakeCommand Description
      */
     protected function registerModelMakeCommand()
@@ -337,7 +319,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerNotificationMakeCommand Description
      */
     protected function registerNotificationMakeCommand()
@@ -348,7 +329,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerOptimizeCommand Description
      */
     protected function registerOptimizeCommand()
@@ -359,7 +339,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerQueueFailedTableCommand Description
      */
     protected function registerQueueFailedTableCommand()
@@ -370,7 +349,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerQueueTableCommand Description
      */
     protected function registerQueueTableCommand()
@@ -381,7 +359,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerRequestMakeCommand Description
      */
     protected function registerRequestMakeCommand()
@@ -392,7 +369,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerSeederMakeCommand Description
      */
     protected function registerSeederMakeCommand()
@@ -403,7 +379,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerSessionTableCommand Description
      */
     protected function registerSessionTableCommand()
@@ -414,7 +389,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerStorageLinkCommand Description
      */
     protected function registerStorageLinkCommand()
@@ -425,7 +399,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerRouteCacheCommand Description
      */
     protected function registerRouteCacheCommand()
@@ -436,7 +409,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerRouteClearCommand Description
      */
     protected function registerRouteClearCommand()
@@ -447,7 +419,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerRouteListCommand Description
      */
     protected function registerRouteListCommand()
@@ -458,7 +429,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerServeCommand Description
      */
     protected function registerServeCommand()
@@ -469,7 +439,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerTestMakeCommand Description
      */
     protected function registerTestMakeCommand()
@@ -480,7 +449,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerTinkerCommand Description
      */
     protected function registerTinkerCommand()
@@ -491,7 +459,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerUpCommand Description
      */
     protected function registerUpCommand()
@@ -502,7 +469,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerVendorPublishCommand Description
      */
     protected function registerVendorPublishCommand()
@@ -513,7 +479,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerViewClearCommand Description
      */
     protected function registerViewClearCommand()
@@ -524,7 +489,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerPolicyMakeCommand Description
      */
     protected function registerPolicyMakeCommand()
@@ -535,7 +499,6 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method registerNotificationTableCommand Description
      */
     protected function registerNotificationTableCommand()

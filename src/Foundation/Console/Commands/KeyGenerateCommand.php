@@ -51,10 +51,9 @@ class KeyGenerateCommand extends Command
     }
 
     /**
-     * @param string $key
      * TODO: Method setKeyInEnvironmentFile Description
      *
-     * @return void
+     * @param string $key
      */
     protected function setKeyInEnvironmentFile($key)
     {

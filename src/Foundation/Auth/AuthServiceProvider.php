@@ -18,7 +18,6 @@ use Notadd\Foundation\Auth\Listeners\RouteRegistrar;
 class AuthServiceProvider extends IlluminateAuthServiceProvider
 {
     /**
-     * @return void
      * TODO: Method boot Description
      */
     public function boot()

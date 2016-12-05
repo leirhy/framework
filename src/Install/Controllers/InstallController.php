@@ -23,6 +23,7 @@ class InstallController extends Controller
      * @var \Notadd\Install\Commands\InstallCommand
      */
     protected $command;
+
     /**
      * @var \Notadd\Install\Contracts\Prerequisite
      */

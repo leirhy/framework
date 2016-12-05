@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Administration;
 
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
+use InvalidArgumentException;
 use Notadd\Foundation\Administration\Abstracts\Administrator;
 
 /**
@@ -68,17 +69,19 @@ class Administration
      * TODO: Method setAdministrator Description
      *
      * @param \Notadd\Foundation\Administration\Abstracts\Administrator $administrator
+     *
+     * @throws \InvalidArgumentException
      */
     public function setAdministrator(Administrator $administrator)
     {
         if (is_object($this->administrator)) {
-            throw new \InvalidArgumentException('Administrator has been Registered!');
+            throw new InvalidArgumentException('Administrator has been Registered!');
         }
         if ($administrator instanceof Administrator) {
             $this->administrator = $administrator;
             $this->administrator->init();
         } else {
-            throw new \InvalidArgumentException('Administrator must be instanceof ' . Administrator::class . '!');
+            throw new InvalidArgumentException('Administrator must be instanceof ' . Administrator::class . '!');
         }
     }
 }

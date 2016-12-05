@@ -41,6 +41,7 @@ abstract class SetHandler extends DataHandler
      * TODO: Method toResponse Description
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @throws \Exception
      */
     public function toResponse()
     {

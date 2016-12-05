@@ -242,7 +242,6 @@ class Kernel implements KernelContract
     }
 
     /**
-     * @return void
      * TODO: Method bootstrap Description
      */
     public function bootstrap()
@@ -267,9 +266,9 @@ class Kernel implements KernelContract
     }
 
     /**
-     * @param string $middleware
      * TODO: Method hasMiddleware Description
      *
+     * @param $middleware
      *
      * @return bool
      */
@@ -289,10 +288,9 @@ class Kernel implements KernelContract
     }
 
     /**
-     * @param \Exception $e
      * TODO: Method reportException Description
      *
-     * @return void
+     * @param \Exception $e
      */
     protected function reportException(Exception $e)
     {

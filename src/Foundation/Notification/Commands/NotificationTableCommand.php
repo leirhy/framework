@@ -17,9 +17,9 @@ use Illuminate\Notifications\Console\NotificationTableCommand as IlluminateNotif
 class NotificationTableCommand extends IlluminateNotificationTableCommand
 {
     /**
-     * @return void
      * TODO: Method fire Description
      *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function fire()
     {

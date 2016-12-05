@@ -42,6 +42,8 @@ class ExtensionServiceProvider extends ServiceProvider
      * TODO: Method boot Description
      *
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function boot(ExtensionManager $manager)
     {
@@ -58,7 +60,7 @@ class ExtensionServiceProvider extends ServiceProvider
                 });
                 (new Collection($registrar->loadPublishesFrom()))->each(function ($to, $from) {
                     $this->publishes([
-                        $from => $to
+                        $from => $to,
                     ], 'public');
                 });
                 (new Collection($registrar->loadViewsFrom()))->each(function ($path, $namespace) {
@@ -88,7 +90,6 @@ class ExtensionServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method register Description
      */
     public function register()

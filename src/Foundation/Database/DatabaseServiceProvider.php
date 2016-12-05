@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
 class DatabaseServiceProvider extends IlluminateDatabaseServiceProvider
 {
     /**
-     * @return void
      * TODO: Method boot Description
      */
     public function boot()

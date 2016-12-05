@@ -17,9 +17,9 @@ use Illuminate\Cache\Console\CacheTableCommand as IlluminateCacheTableCommand;
 class CacheTableCommand extends IlluminateCacheTableCommand
 {
     /**
-     * @return void
      * TODO: Method fire Description
      *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function fire()
     {

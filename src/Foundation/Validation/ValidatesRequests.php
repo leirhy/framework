@@ -31,7 +31,7 @@ trait ValidatesRequests
      * @param \Illuminate\Contracts\Validation\Validator|array $validator
      * @param \Illuminate\Http\Request|null                    $request
      *
-     * @return void
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function validateWith($validator, Request $request = null)
     {
@@ -52,7 +52,7 @@ trait ValidatesRequests
      * @param array                    $messages
      * @param array                    $customAttributes
      *
-     * @return void
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
     {

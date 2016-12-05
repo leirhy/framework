@@ -31,6 +31,7 @@ abstract class DataHandler extends Handler
      * TODO: Method toResponse Description
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @throws \Exception
      */
     public function toResponse()
     {
@@ -41,9 +42,10 @@ abstract class DataHandler extends Handler
             $messages = $this->messages();
         }
         $response = new ApiResponse();
+
         return $response->withParams([
-            'code' => $this->code(),
-            'data' => $data,
+            'code'    => $this->code(),
+            'data'    => $data,
             'message' => $messages,
         ]);
     }

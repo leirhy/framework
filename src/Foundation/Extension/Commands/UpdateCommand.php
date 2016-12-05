@@ -21,7 +21,6 @@ use Symfony\Component\Console\Input\InputArgument;
 class UpdateCommand extends Command
 {
     /**
-     * @return void
      * TODO: Method configure Description
      */
     public function configure()
@@ -38,6 +37,7 @@ class UpdateCommand extends Command
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      *
      * @return bool
+     * @throws \Exception
      */
     public function fire(ExtensionManager $manager, SettingsRepository $settings)
     {

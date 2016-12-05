@@ -28,7 +28,6 @@ class ListCommand extends Command
     ];
 
     /**
-     * @return void
      * TODO: Method configure Description
      */
     public function configure()

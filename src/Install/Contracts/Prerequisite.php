@@ -14,16 +14,16 @@ namespace Notadd\Install\Contracts;
 interface Prerequisite
 {
     /**
-     * @return void
      * TODO: Method check Description
      *
+     * @return mixed
      */
     public function check();
 
     /**
-     * @return array
      * TODO: Method getErrors Description
      *
+     * @return mixed
      */
     public function getErrors();
 }

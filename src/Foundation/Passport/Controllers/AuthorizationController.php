@@ -77,9 +77,9 @@ class AuthorizationController extends Controller
             $scopes = $this->parseScopes($authRequest);
 
             return $this->response->view('passport::authorize', [
-                'client' => $clients->find($authRequest->getClient()->getIdentifier()),
-                'user' => $this->request->user(),
-                'scopes' => $scopes,
+                'client'  => $clients->find($authRequest->getClient()->getIdentifier()),
+                'user'    => $this->request->user(),
+                'scopes'  => $scopes,
                 'request' => $this->request,
             ]);
         });

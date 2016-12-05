@@ -38,9 +38,9 @@ abstract class RouteRegistrar extends EventSubscriber
     }
 
     /**
-     * @return string
      * TODO: Method getEvent Description
      *
+     * @return mixed
      */
     protected function getEvent()
     {
@@ -48,9 +48,9 @@ abstract class RouteRegistrar extends EventSubscriber
     }
 
     /**
-     * @return void
      * TODO: Method handle Description
      *
+     * @return mixed
      */
     abstract public function handle();
 }

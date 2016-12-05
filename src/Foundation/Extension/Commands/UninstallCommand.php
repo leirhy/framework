@@ -21,7 +21,6 @@ use Symfony\Component\Console\Input\InputArgument;
 class UninstallCommand extends Command
 {
     /**
-     * @return void
      * TODO: Method configure Description
      */
     public function configure()
@@ -38,6 +37,7 @@ class UninstallCommand extends Command
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      *
      * @return true
+     * @throws \Exception
      */
     public function fire(ExtensionManager $manager, SettingsRepository $settings)
     {

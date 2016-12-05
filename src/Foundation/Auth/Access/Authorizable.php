@@ -16,10 +16,10 @@ use Illuminate\Contracts\Auth\Access\Gate;
 trait Authorizable
 {
     /**
-     * @param string      $ability
-     * @param array|mixed $arguments
      * TODO: Method can Description
      *
+     * @param       $ability
+     * @param array $arguments
      *
      * @return bool
      */
@@ -29,10 +29,10 @@ trait Authorizable
     }
 
     /**
-     * @param string      $ability
-     * @param array|mixed $arguments
      * TODO: Method cant Description
      *
+     * @param       $ability
+     * @param array $arguments
      *
      * @return bool
      */
@@ -42,10 +42,10 @@ trait Authorizable
     }
 
     /**
-     * @param string      $ability
-     * @param array|mixed $arguments
      * TODO: Method cannot Description
      *
+     * @param       $ability
+     * @param array $arguments
      *
      * @return bool
      */

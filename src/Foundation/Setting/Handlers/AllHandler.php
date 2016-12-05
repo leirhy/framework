@@ -9,6 +9,8 @@
 namespace Notadd\Foundation\Setting\Handlers;
 
 use Illuminate\Container\Container;
+use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
 use Notadd\Foundation\Passport\Abstracts\DataHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -26,11 +28,17 @@ class AllHandler extends DataHandler
      * AllHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
+     * @param \Illuminate\Http\Request                                $request
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @param \Illuminate\Translation\Translator                      $translator
      */
-    public function __construct(Container $container, SettingsRepository $settings)
-    {
-        parent::__construct($container);
+    public function __construct(
+        Container $container,
+        Request $request,
+        SettingsRepository $settings,
+        Translator $translator
+    ) {
+        parent::__construct($container, $request, $translator);
         $this->settings = $settings;
     }
 
@@ -62,7 +70,7 @@ class AllHandler extends DataHandler
     public function errors()
     {
         return [
-            '获取全局设置失败！'
+            '获取全局设置失败！',
         ];
     }
 
@@ -74,7 +82,7 @@ class AllHandler extends DataHandler
     public function messages()
     {
         return [
-            '获取全局设置成功！'
+            '获取全局设置成功！',
         ];
     }
 }

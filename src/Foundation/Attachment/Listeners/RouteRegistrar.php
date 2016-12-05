@@ -19,7 +19,6 @@ use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar
 class RouteRegistrar extends AbstractRouteRegistrar
 {
     /**
-     * @return void
      * TODO: Method handle Description
      */
     public function handle()

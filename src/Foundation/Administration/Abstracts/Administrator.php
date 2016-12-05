@@ -70,7 +70,6 @@ abstract class Administrator
     }
 
     /**
-     * @return void
      * TODO: Method init Description
      *
      * @throws \InvalidArgumentException

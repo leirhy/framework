@@ -90,7 +90,6 @@ class Kernel implements KernelContract
     }
 
     /**
-     * @return void
      * TODO: Method defineConsoleSchedule Description
      */
     protected function defineConsoleSchedule()
@@ -156,7 +155,6 @@ class Kernel implements KernelContract
     }
 
     /**
-     * @return void
      * TODO: Method commands Description
      */
     protected function commands()
@@ -200,6 +198,7 @@ class Kernel implements KernelContract
      * @param array  $parameters
      *
      * @return int
+     * @throws \Exception
      */
     public function call($command, array $parameters = [])
     {

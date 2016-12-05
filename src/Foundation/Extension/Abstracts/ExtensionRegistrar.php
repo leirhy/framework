@@ -150,9 +150,9 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * @example $namespace => $path
      * TODO: Method loadLocalizationsFrom Description
      *
+     * @example $namespace => $path
      * @return array
      */
     public function loadLocalizationsFrom()
@@ -171,9 +171,9 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * @example $namespace => $path
      * TODO: Method loadPublishesFrom Description
      *
+     * @example $namespace => $path
      * @return array
      */
     public function loadPublishesFrom()
@@ -183,7 +183,6 @@ abstract class ExtensionRegistrar
 
     /**
      * @example $namespace => $path
-     *
      * @return array
      */
     public function loadViewsFrom()

@@ -46,7 +46,7 @@ class ClientsController extends Controller
      *
      * @param $clientId
      *
-     * @return \Illuminate\Http\Response|null
+     * @return \Illuminate\Http\Response
      */
     public function destroy($clientId)
     {
@@ -69,14 +69,14 @@ class ClientsController extends Controller
     }
 
     /**
-     * @return \Laravel\Passport\Client
      * TODO: Method store Description
      *
+     * @return \Laravel\Passport\Client * @throws \Illuminate\Validation\ValidationException
      */
     public function store()
     {
         $this->validation->make($this->request->all(), [
-            'name' => 'required|max:255',
+            'name'     => 'required|max:255',
             'redirect' => 'required|url',
         ])->validate();
 
@@ -90,6 +90,7 @@ class ClientsController extends Controller
      * @param $clientId
      *
      * @return \Illuminate\Http\Response|\Laravel\Passport\Client
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update($clientId)
     {
@@ -97,7 +98,7 @@ class ClientsController extends Controller
             return new Response('', 404);
         }
         $this->validation->make($request->all(), [
-            'name' => 'required|max:255',
+            'name'     => 'required|max:255',
             'redirect' => 'required|url',
         ])->validate();
 

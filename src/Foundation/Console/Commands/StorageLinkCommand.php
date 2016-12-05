@@ -26,7 +26,6 @@ class StorageLinkCommand extends Command
     protected $description = 'Create a symbolic link from "public/storage" to "storage/app/public"';
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()

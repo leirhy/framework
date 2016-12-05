@@ -20,9 +20,9 @@ trait AuthenticatesUsers
     use RedirectsUsers, ThrottlesLogins;
 
     /**
-     * @return \Illuminate\Http\Response
      * TODO: Method showLoginForm Description
      *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showLoginForm()
     {
@@ -34,7 +34,7 @@ trait AuthenticatesUsers
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function login(Request $request)
     {
@@ -54,16 +54,15 @@ trait AuthenticatesUsers
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
      * TODO: Method validateLogin Description
      *
-     * @return void
+     * @param \Illuminate\Http\Request $request
      */
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
             $this->username() => 'required',
-            'password' => 'required',
+            'password'        => 'required',
         ]);
     }
 
@@ -84,7 +83,7 @@ trait AuthenticatesUsers
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -98,7 +97,7 @@ trait AuthenticatesUsers
      * TODO: Method authenticated Description
      *
      * @param \Illuminate\Http\Request $request
-     * @param mixed                    $user
+     * @param                          $user
      *
      * @return mixed
      */
@@ -131,10 +130,11 @@ trait AuthenticatesUsers
     }
 
     /**
-     * @param Request $request
      * TODO: Method logout Description
      *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function logout(Request $request)
     {

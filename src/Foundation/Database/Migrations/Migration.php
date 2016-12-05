@@ -40,9 +40,9 @@ abstract class Migration
     }
 
     /**
-     * @return void
      * TODO: Method down Description
      *
+     * @return mixed
      */
     abstract public function down();
 
@@ -57,9 +57,9 @@ abstract class Migration
     }
 
     /**
-     * @return void
      * TODO: Method up Description
      *
+     * @return mixed
      */
     abstract public function up();
 }

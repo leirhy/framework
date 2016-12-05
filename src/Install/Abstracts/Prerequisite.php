@@ -21,9 +21,9 @@ abstract class Prerequisite implements PrerequisiteContract
     protected $errors = [];
 
     /**
-     * @return void
      * TODO: Method check Description
      *
+     * @return mixed
      */
     abstract public function check();
 

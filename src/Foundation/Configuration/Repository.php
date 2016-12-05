@@ -47,10 +47,9 @@ class Repository implements ArrayAccess, ConfigContract
 
     /**
      * Repository constructor.
-
-*
-*@param \Notadd\Foundation\Configuration\Contracts\Loader $loader
-     * @param string                                      $environment
+     *
+     * @param \Notadd\Foundation\Configuration\Contracts\Loader $loader
+     * @param string                                            $environment
      */
     public function __construct(Loader $loader, $environment)
     {

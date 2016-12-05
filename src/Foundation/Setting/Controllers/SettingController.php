@@ -35,9 +35,10 @@ class SettingController extends Controller
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * TODO: Method  Description
      *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @throws \Exception
      */
     public function all()
     {
@@ -48,12 +49,14 @@ class SettingController extends Controller
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @param \Notadd\Foundation\Setting\Handlers\SetHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @throws \Exception
      */
-    public function set()
+    public function set(SetHandler $handler)
     {
-        $handler = new SetHandler($this->container, $this->settings);
-        $response = $handler->toResponse($this->request);
+        $response = $handler->toResponse();
 
         return $response->generateHttpResponse();
     }

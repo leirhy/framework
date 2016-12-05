@@ -17,9 +17,9 @@ use Illuminate\Session\Console\SessionTableCommand as IlluminateSessionTableComm
 class SessionTableCommand extends IlluminateSessionTableCommand
 {
     /**
-     * @return void
      * TODO: Method fire Description
      *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function fire()
     {

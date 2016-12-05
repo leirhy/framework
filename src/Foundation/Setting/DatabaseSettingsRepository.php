@@ -32,9 +32,9 @@ class DatabaseSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * @return mixed
      * TODO: Method all Description
      *
+     * @return \Illuminate\Support\Collection
      */
     public function all()
     {

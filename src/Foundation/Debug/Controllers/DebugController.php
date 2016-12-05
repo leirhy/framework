@@ -18,15 +18,13 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 class DebugController extends Controller
 {
     /**
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      * TODO: Method handle Description
      *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handle(SettingsRepository $settings)
+    public function handle(SetHandler $handler)
     {
-        $handler = new SetHandler($this->container, $settings);
-        $response = $handler->toResponse($this->request);
+        $response = $handler->toResponse();
 
         return $response->generateHttpResponse();
     }

@@ -58,7 +58,6 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()
@@ -75,7 +74,6 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method setAppDirectoryNamespace Description
      */
     protected function setAppDirectoryNamespace()
@@ -87,10 +85,9 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @param string $path
      * TODO: Method replaceNamespace Description
      *
-     * @return void
+     * @param string $path
      */
     protected function replaceNamespace($path)
     {
@@ -106,7 +103,6 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method setBootstrapNamespaces Description
      */
     protected function setBootstrapNamespaces()
@@ -125,7 +121,6 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method setComposerNamespace Description
      */
     protected function setComposerNamespace()
@@ -135,7 +130,6 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method setConfigNamespaces Description
      */
     protected function setConfigNamespaces()
@@ -146,7 +140,6 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method setAppConfigNamespaces Description
      */
     protected function setAppConfigNamespaces()
@@ -163,7 +156,6 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method setAuthConfigNamespace Description
      */
     protected function setAuthConfigNamespace()
@@ -173,7 +165,6 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method setServicesConfigNamespace Description
      */
     protected function setServicesConfigNamespace()
@@ -183,7 +174,6 @@ class AppNameCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method setDatabaseFactoryNamespaces Description
      */
     protected function setDatabaseFactoryNamespaces()
@@ -199,7 +189,7 @@ class AppNameCommand extends Command
      * @param string|array $search
      * @param string|array $replace
      *
-     * @return void
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     protected function replaceIn($path, $search, $replace)
     {

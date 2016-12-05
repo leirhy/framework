@@ -19,6 +19,9 @@ use Notadd\Foundation\Event\Abstracts\EventSubscriber;
  */
 class RouteMatched extends EventSubscriber
 {
+    /**
+     * @var \Notadd\Foundation\Administration\Administration
+     */
     protected $administration;
 
     /**
@@ -45,7 +48,6 @@ class RouteMatched extends EventSubscriber
     }
 
     /**
-     * @throws \Exception
      * TODO: Method handle Description
      */
     public function handle()

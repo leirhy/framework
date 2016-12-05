@@ -16,7 +16,6 @@ use Illuminate\Support\ServiceProvider;
 class ModuleServiceProvider extends ServiceProvider
 {
     /**
-     * @return void
      * TODO: Method register Description
      */
     public function register()

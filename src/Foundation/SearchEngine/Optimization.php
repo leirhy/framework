@@ -67,7 +67,7 @@ class Optimization
      *
      * @param string $key
      *
-     * @return mixed
+     * @return \Illuminate\Support\Collection|mixed
      */
     public function getData($key = '')
     {

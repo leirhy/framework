@@ -20,9 +20,9 @@ trait RegistersUsers
     use RedirectsUsers;
 
     /**
-     * @return \Illuminate\Http\Response
      * TODO: Method showRegistrationForm Description
      *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showRegistrationForm()
     {
@@ -34,7 +34,6 @@ trait RegistersUsers
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function register(Request $request)

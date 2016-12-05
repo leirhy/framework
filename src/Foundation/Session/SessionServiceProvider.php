@@ -16,7 +16,6 @@ use Illuminate\Session\SessionServiceProvider as IlluminateSessionServiceProvide
 class SessionServiceProvider extends IlluminateSessionServiceProvider
 {
     /**
-     * @return void
      * TODO: Method register Description
      */
     public function register()

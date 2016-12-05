@@ -96,6 +96,7 @@ class RouteCacheCommand extends Command
      * @param \Illuminate\Routing\RouteCollection $routes
      *
      * @return string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     protected function buildRouteCacheFile(RouteCollection $routes)
     {

@@ -22,7 +22,6 @@ class ConfigServiceProvider extends ServiceProvider
     protected $defer = false;
 
     /**
-     * @return void
      * TODO: Method register Description
      */
     public function register()

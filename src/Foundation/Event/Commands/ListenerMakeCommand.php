@@ -55,7 +55,7 @@ class ListenerMakeCommand extends GeneratorCommand
      *
      * @param string $name
      *
-     * @return string
+     * @return mixed|string
      */
     protected function buildClass($name)
     {

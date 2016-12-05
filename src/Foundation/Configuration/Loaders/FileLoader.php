@@ -162,6 +162,7 @@ class FileLoader implements LoaderContract
      * @param  string $path
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     protected function getRequire($path)
     {
@@ -176,6 +177,7 @@ class FileLoader implements LoaderContract
      * @param string $namespace
      *
      * @return array
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function load($environment, $group, $namespace = null)
     {
@@ -203,6 +205,7 @@ class FileLoader implements LoaderContract
      * @param string $file
      *
      * @return array
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     protected function mergeEnvironment(array $items, $file)
     {

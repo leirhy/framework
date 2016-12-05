@@ -22,7 +22,6 @@ use Notadd\Foundation\Passport\Listeners\RouterRegistrar;
 class PassportServiceProvider extends LaravelPassportServiceProvider
 {
     /**
-     * @return void
      * TODO: Method boot Description
      */
     public function boot()
@@ -36,7 +35,6 @@ class PassportServiceProvider extends LaravelPassportServiceProvider
     }
 
     /**
-     * @return void
      * TODO: Method register Description
      */
     public function register()

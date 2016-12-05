@@ -50,7 +50,6 @@ class ConfigCacheCommand extends Command
     }
 
     /**
-     * @return void
      * TODO: Method fire Description
      */
     public function fire()
@@ -63,9 +62,9 @@ class ConfigCacheCommand extends Command
     }
 
     /**
-     * @return array
      * TODO: Method getFreshConfiguration Description
      *
+     * @return mixed
      */
     protected function getFreshConfiguration()
     {

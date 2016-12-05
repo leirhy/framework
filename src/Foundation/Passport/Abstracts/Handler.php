@@ -58,7 +58,7 @@ abstract class Handler
     }
 
     /**
-     * TODO: Method errors Description
+     * Errors for handler.
      *
      * @return array
      * @throws \Exception

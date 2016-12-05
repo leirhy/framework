@@ -53,7 +53,7 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
-     * TODO: Method errors Description
+     * Errors for handler.
      *
      * @return array
      */

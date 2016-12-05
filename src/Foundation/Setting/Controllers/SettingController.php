@@ -37,12 +37,13 @@ class SettingController extends Controller
     /**
      * TODO: Method  Description
      *
+     * @param \Notadd\Foundation\Setting\Handlers\AllHandler $handler
+     *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      * @throws \Exception
      */
-    public function all()
+    public function all(AllHandler $handler)
     {
-        $handler = new AllHandler($this->container, $this->settings);
         $response = $handler->toResponse();
 
         return $response->generateHttpResponse();

@@ -38,7 +38,7 @@ abstract class SetHandler extends DataHandler
     }
 
     /**
-     * TODO: Method toResponse Description
+     * Make execute result to response with errors or messages.
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      * @throws \Exception

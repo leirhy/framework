@@ -28,7 +28,7 @@ abstract class DataHandler extends Handler
     }
 
     /**
-     * TODO: Method toResponse Description
+     * Make data to response with errors or messages.
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      * @throws \Exception

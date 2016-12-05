@@ -27,13 +27,17 @@ class WatermarkSetHandler extends SetHandler
     /**
      * SetHandler constructor.
      *
-     * @param \Illuminate\Container\Container                         $container
-     * @param \Illuminate\Http\Request                                $request
+     * @param \Illuminate\Container\Container $container
+     * @param \Illuminate\Http\Request $request
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
-     * @param \Illuminate\Translation\Translator                      $translator
+     * @param \Illuminate\Translation\Translator $translator
      */
-    public function __construct(Container $container, Request $request, SettingsRepository $settings, Translator $translator)
-    {
+    public function __construct(
+        Container $container,
+        Request $request,
+        SettingsRepository $settings,
+        Translator $translator
+    ) {
         parent::__construct($container, $request, $translator);
         $this->settings = $settings;
     }

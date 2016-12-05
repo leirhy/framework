@@ -32,8 +32,12 @@ class CdnSetHandler extends SetHandler
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      * @param \Illuminate\Translation\Translator                      $translator
      */
-    public function __construct(Container $container, Request $request, SettingsRepository $settings, Translator $translator)
-    {
+    public function __construct(
+        Container $container,
+        Request $request,
+        SettingsRepository $settings,
+        Translator $translator
+    ) {
         parent::__construct($container, $request, $translator);
         $this->settings = $settings;
     }

@@ -22,6 +22,8 @@ class ApiResponse
     protected $params = [];
 
     /**
+     * TODO: Method generateHttpResponse Description
+     *
      * @param \Psr\Http\Message\ResponseInterface|null $response
      *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
@@ -38,6 +40,8 @@ class ApiResponse
     }
 
     /**
+     * TODO: Method withParams Description
+     *
      * @param array $params
      *
      * @return $this

@@ -41,6 +41,8 @@ class Meta
     }
 
     /**
+     * TODO: Method getData Description
+     *
      * @return \Illuminate\Support\Collection
      */
     public function getData()
@@ -54,6 +56,8 @@ class Meta
     }
 
     /**
+     * TODO: Method setTitle Description
+     *
      * @param $title
      */
     public function setTitle($title)
@@ -62,6 +66,8 @@ class Meta
     }
 
     /**
+     * TODO: Method setDescription Description
+     *
      * @param $description
      */
     public function setDescription($description)
@@ -70,6 +76,8 @@ class Meta
     }
 
     /**
+     * TODO: Method setKeywords Description
+     *
      * @param $keywords
      */
     public function setKeywords($keywords)

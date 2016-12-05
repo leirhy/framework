@@ -49,6 +49,8 @@ class FileLoader implements LoaderContract
     }
 
     /**
+     * TODO: Method addNamespace Description
+     *
      * @param string $namespace
      * @param string $hint
      *
@@ -60,6 +62,8 @@ class FileLoader implements LoaderContract
     }
 
     /**
+     * TODO: Method cascadePackage Description
+     *
      * @param string $environment
      * @param string $package
      * @param string $group
@@ -82,6 +86,8 @@ class FileLoader implements LoaderContract
     }
 
     /**
+     * TODO: Method exists Description
+     *
      * @param string $group
      * @param string $namespace
      *
@@ -104,6 +110,8 @@ class FileLoader implements LoaderContract
     }
 
     /**
+     * TODO: Method getNamespaces Description
+     *
      * @return array
      */
     public function getNamespaces()
@@ -112,6 +120,8 @@ class FileLoader implements LoaderContract
     }
 
     /**
+     * TODO: Method getPackagePath Description
+     *
      * @param string $env
      * @param string $package
      * @param string $group
@@ -131,6 +141,8 @@ class FileLoader implements LoaderContract
     }
 
     /**
+     * TODO: Method getPath Description
+     *
      * @param string $namespace
      *
      * @return string
@@ -145,6 +157,8 @@ class FileLoader implements LoaderContract
     }
 
     /**
+     * TODO: Method getRequire Description
+     *
      * @param  string $path
      *
      * @return mixed
@@ -155,6 +169,8 @@ class FileLoader implements LoaderContract
     }
 
     /**
+     * TODO: Method load Description
+     *
      * @param string $environment
      * @param string $group
      * @param string $namespace
@@ -181,6 +197,8 @@ class FileLoader implements LoaderContract
     }
 
     /**
+     * TODO: Method mergeEnvironment Description
+     *
      * @param array  $items
      * @param string $file
      *

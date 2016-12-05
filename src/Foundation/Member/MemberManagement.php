@@ -45,6 +45,8 @@ class MemberManagement
     }
 
     /**
+     * TODO: Method create Description
+     *
      * @param array $data
      * @param bool  $force
      *
@@ -56,6 +58,8 @@ class MemberManagement
     }
 
     /**
+     * TODO: Method delete Description
+     *
      * @param array $data
      * @param bool  $force
      *
@@ -67,6 +71,8 @@ class MemberManagement
     }
 
     /**
+     * TODO: Method edit Description
+     *
      * @param array $data
      * @param bool  $force
      *
@@ -78,6 +84,8 @@ class MemberManagement
     }
 
     /**
+     * TODO: Method find Description
+     *
      * @param $key
      *
      * @return \Notadd\Foundation\Member\Member
@@ -88,6 +96,8 @@ class MemberManagement
     }
 
     /**
+     * TODO: Method manager Description
+     *
      * @return \Notadd\Foundation\Member\Abstracts\Manager
      */
     public function manager()
@@ -96,6 +106,8 @@ class MemberManagement
     }
 
     /**
+     * TODO: Method registerManager Description
+     *
      * @param \Notadd\Foundation\Member\Abstracts\Manager $manager
      */
     public function registerManager(Manager $manager)
@@ -112,6 +124,8 @@ class MemberManagement
     }
 
     /**
+     * TODO: Method store Description
+     *
      * @param array $data
      * @param bool  $force
      *
@@ -123,6 +137,8 @@ class MemberManagement
     }
 
     /**
+     * TODO: Method update Description
+     *
      * @param array $data
      * @param bool  $force
      *

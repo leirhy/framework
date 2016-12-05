@@ -38,6 +38,8 @@ abstract class Manager
     }
 
     /**
+     * TODO: Method delete Description
+     *
      * @param int  $id
      * @param bool $force
      *
@@ -46,6 +48,8 @@ abstract class Manager
     abstract public function delete(int $id, $force = false);
 
     /**
+     * TODO: Method find Description
+     *
      * @param int $id
      *
      * @return mixed
@@ -54,12 +58,15 @@ abstract class Manager
 
     /**
      * @return void
+     * TODO: Method init Description
      */
     public function init()
     {
     }
 
     /**
+     * TODO: Method store Description
+     *
      * @param array $data
      *
      * @return mixed
@@ -67,6 +74,8 @@ abstract class Manager
     abstract public function store(array $data);
 
     /**
+     * TODO: Method update Description
+     *
      * @param int   $id
      * @param array $data
      * @param bool  $force

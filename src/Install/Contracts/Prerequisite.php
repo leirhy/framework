@@ -15,11 +15,15 @@ interface Prerequisite
 {
     /**
      * @return void
+     * TODO: Method check Description
+     *
      */
     public function check();
 
     /**
      * @return array
+     * TODO: Method getErrors Description
+     *
      */
     public function getErrors();
 }

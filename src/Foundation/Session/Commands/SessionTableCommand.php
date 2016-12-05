@@ -18,6 +18,8 @@ class SessionTableCommand extends IlluminateSessionTableCommand
 {
     /**
      * @return void
+     * TODO: Method fire Description
+     *
      */
     public function fire()
     {
@@ -30,6 +32,8 @@ class SessionTableCommand extends IlluminateSessionTableCommand
     }
 
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()

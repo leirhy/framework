@@ -33,6 +33,8 @@ class Composite implements Prerequisite
     }
 
     /**
+     * TODO: Method check Description
+     *
      * @return mixed
      */
     public function check()
@@ -44,6 +46,8 @@ class Composite implements Prerequisite
 
     /**
      * @return array
+     * TODO: Method getErrors Description
+     *
      */
     public function getErrors()
     {

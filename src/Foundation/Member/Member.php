@@ -36,6 +36,8 @@ class Member extends Authenticatable
     ];
 
     /**
+     * TODO: Method findForPassport Description
+     *
      * @param $name
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Notadd\Foundation\Member\Member

@@ -48,6 +48,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method ask Description
+     *
      * @param      $question
      * @param null $default
      *
@@ -61,6 +63,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method call Description
+     *
      * @param       $command
      * @param array $arguments
      *
@@ -75,6 +79,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method error Description
+     *
      * @param $string
      */
     public function error($string)
@@ -83,6 +89,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method execute Description
+     *
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
@@ -101,6 +109,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method getContainer Description
+     *
      * @return \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected function getContainer()
@@ -109,6 +119,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method getInput Description
+     *
      * @return \Symfony\Component\Console\Input\InputInterface
      */
     public function getInput()
@@ -117,6 +129,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method getOutput Description
+     *
      * @return \Symfony\Component\Console\Output\OutputInterface
      */
     public function getOutput()
@@ -125,6 +139,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method hasOption Description
+     *
      * @param $name
      *
      * @return bool
@@ -135,6 +151,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method info Description
+     *
      * @param $string
      */
     protected function info($string)
@@ -143,6 +161,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method secret Description
+     *
      * @param $question
      *
      * @return string
@@ -156,6 +176,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method setContainer Description
+     *
      * @param $container
      */
     protected function setContainer($container)
@@ -164,6 +186,8 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
+     * TODO: Method table Description
+     *
      * @param array  $headers
      * @param        $rows
      * @param string $style

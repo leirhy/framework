@@ -46,6 +46,8 @@ class VerifyCsrfToken
     }
 
     /**
+     * TODO: Method handle Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
      *
@@ -61,6 +63,8 @@ class VerifyCsrfToken
     }
 
     /**
+     * TODO: Method shouldPassThrough Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return bool
@@ -80,6 +84,8 @@ class VerifyCsrfToken
     }
 
     /**
+     * TODO: Method runningUnitTests Description
+     *
      * @return bool
      */
     protected function runningUnitTests()
@@ -88,6 +94,8 @@ class VerifyCsrfToken
     }
 
     /**
+     * TODO: Method tokensMatch Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return bool
@@ -107,6 +115,8 @@ class VerifyCsrfToken
     }
 
     /**
+     * TODO: Method addCookieToResponse Description
+     *
      * @param \Illuminate\Http\Request                   $request
      * @param \Symfony\Component\HttpFoundation\Response $response
      *
@@ -123,6 +133,8 @@ class VerifyCsrfToken
     }
 
     /**
+     * TODO: Method isReading Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return bool

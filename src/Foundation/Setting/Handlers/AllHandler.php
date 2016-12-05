@@ -35,6 +35,8 @@ class AllHandler extends DataHandler
     }
 
     /**
+     * TODO: Method code Description
+     *
      * @return int
      */
     public function code()
@@ -43,6 +45,8 @@ class AllHandler extends DataHandler
     }
 
     /**
+     * TODO: Method data Description
+     *
      * @return array
      */
     public function data()
@@ -51,6 +55,8 @@ class AllHandler extends DataHandler
     }
 
     /**
+     * TODO: Method errors Description
+     *
      * @return array
      */
     public function errors()
@@ -61,6 +67,8 @@ class AllHandler extends DataHandler
     }
 
     /**
+     * TODO: Method messages Description
+     *
      * @return array
      */
     public function messages()

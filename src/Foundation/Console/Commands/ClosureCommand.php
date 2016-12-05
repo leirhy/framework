@@ -38,6 +38,8 @@ class ClosureCommand extends Command
     }
 
     /**
+     * TODO: Method execute Description
+     *
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
@@ -57,6 +59,8 @@ class ClosureCommand extends Command
     }
 
     /**
+     * TODO: Method describe Description
+     *
      * @param string $description
      *
      * @return $this

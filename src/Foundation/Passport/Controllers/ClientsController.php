@@ -42,6 +42,8 @@ class ClientsController extends Controller
     }
 
     /**
+     * TODO: Method destroy Description
+     *
      * @param $clientId
      *
      * @return \Illuminate\Http\Response|null
@@ -55,6 +57,8 @@ class ClientsController extends Controller
     }
 
     /**
+     * TODO: Method index Description
+     *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
@@ -66,6 +70,8 @@ class ClientsController extends Controller
 
     /**
      * @return \Laravel\Passport\Client
+     * TODO: Method store Description
+     *
      */
     public function store()
     {
@@ -79,6 +85,8 @@ class ClientsController extends Controller
     }
 
     /**
+     * TODO: Method update Description
+     *
      * @param $clientId
      *
      * @return \Illuminate\Http\Response|\Laravel\Passport\Client

@@ -19,6 +19,7 @@ class DebugController extends Controller
 {
     /**
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * TODO: Method handle Description
      *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */

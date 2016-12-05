@@ -43,6 +43,8 @@ class AttachmentSetHandler extends SetHandler
     }
 
     /**
+     * TODO: Method data Description
+     *
      * @return array
      */
     public function data()
@@ -51,6 +53,8 @@ class AttachmentSetHandler extends SetHandler
     }
 
     /**
+     * TODO: Method errors Description
+     *
      * @return array
      */
     public function errors()
@@ -61,6 +65,8 @@ class AttachmentSetHandler extends SetHandler
     }
 
     /**
+     * TODO: Method execute Description
+     *
      * @return bool
      */
     public function execute()
@@ -81,6 +87,8 @@ class AttachmentSetHandler extends SetHandler
     }
 
     /**
+     * TODO: Method messages Description
+     *
      * @return array
      */
     public function messages()

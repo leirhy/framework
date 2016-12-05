@@ -42,6 +42,8 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
 
     /**
      * @return array|mixed
+     * TODO: Method all Description
+     *
      */
     public function all()
     {
@@ -54,6 +56,8 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
+     * TODO: Method delete Description
+     *
      * @param $key
      */
     public function delete($key)
@@ -63,6 +67,8 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
+     * TODO: Method get Description
+     *
      * @param      $key
      * @param null $default
      *
@@ -78,6 +84,8 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
+     * TODO: Method set Description
+     *
      * @param $key
      * @param $value
      */

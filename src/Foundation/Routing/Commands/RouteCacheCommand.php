@@ -52,6 +52,8 @@ class RouteCacheCommand extends Command
     }
 
     /**
+     * TODO: Method fire Description
+     *
      * @return bool
      */
     public function fire()
@@ -73,6 +75,8 @@ class RouteCacheCommand extends Command
     }
 
     /**
+     * TODO: Method getFreshApplicationRoutes Description
+     *
      * @return \Illuminate\Routing\RouteCollection
      */
     protected function getFreshApplicationRoutes()
@@ -87,6 +91,8 @@ class RouteCacheCommand extends Command
     }
 
     /**
+     * TODO: Method buildRouteCacheFile Description
+     *
      * @param \Illuminate\Routing\RouteCollection $routes
      *
      * @return string
@@ -100,6 +106,8 @@ class RouteCacheCommand extends Command
     }
 
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()

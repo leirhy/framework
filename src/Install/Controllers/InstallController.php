@@ -40,6 +40,8 @@ class InstallController extends Controller
     }
 
     /**
+     * TODO: Method index Description
+     *
      * @return \Illuminate\Contracts\View\View
      */
     public function index()
@@ -56,6 +58,8 @@ class InstallController extends Controller
     }
 
     /**
+     * TODO: Method store Description
+     *
      * @param \Notadd\Install\Requests\InstallRequest $request
      *
      * @return \Illuminate\Contracts\View\View

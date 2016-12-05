@@ -50,6 +50,8 @@ class AuthorizationController extends Controller
     }
 
     /**
+     * TODO: Method deny Description
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deny()
@@ -60,6 +62,8 @@ class AuthorizationController extends Controller
     }
 
     /**
+     * TODO: Method index Description
+     *
      * @param \Psr\Http\Message\ServerRequestInterface $psrRequest
      * @param \Laravel\Passport\ClientRepository       $clients
      *
@@ -82,6 +86,8 @@ class AuthorizationController extends Controller
     }
 
     /**
+     * TODO: Method parseScopes Description
+     *
      * @param \League\OAuth2\Server\RequestTypes\AuthorizationRequest $authRequest
      *
      * @return array
@@ -94,6 +100,8 @@ class AuthorizationController extends Controller
     }
 
     /**
+     * TODO: Method store Description
+     *
      * @return \Illuminate\Http\Response
      */
     public function store()

@@ -106,6 +106,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method handle Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
@@ -131,6 +133,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method sendRequestThroughRouter Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
@@ -145,6 +149,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method terminate Description
+     *
      * @param \Illuminate\Http\Request  $request
      * @param \Illuminate\Http\Response $response
      *
@@ -168,6 +174,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method gatherRouteMiddleware Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return array
@@ -182,6 +190,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method parseMiddleware Description
+     *
      * @param string $middleware
      *
      * @return array
@@ -200,6 +210,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method prependMiddleware Description
+     *
      * @param string $middleware
      *
      * @return $this
@@ -214,6 +226,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method pushMiddleware Description
+     *
      * @param string $middleware
      *
      * @return $this
@@ -229,6 +243,7 @@ class Kernel implements KernelContract
 
     /**
      * @return void
+     * TODO: Method bootstrap Description
      */
     public function bootstrap()
     {
@@ -238,6 +253,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method dispatchToRouter Description
+     *
      * @return \Closure
      */
     protected function dispatchToRouter()
@@ -251,6 +268,8 @@ class Kernel implements KernelContract
 
     /**
      * @param string $middleware
+     * TODO: Method hasMiddleware Description
+     *
      *
      * @return bool
      */
@@ -260,6 +279,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method bootstrappers Description
+     *
      * @return array
      */
     protected function bootstrappers()
@@ -269,6 +290,7 @@ class Kernel implements KernelContract
 
     /**
      * @param \Exception $e
+     * TODO: Method reportException Description
      *
      * @return void
      */
@@ -278,6 +300,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method renderException Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param \Exception               $e
      *

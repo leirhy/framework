@@ -22,6 +22,8 @@ use Symfony\Component\Finder\SplFileInfo;
 class LoadConfiguration
 {
     /**
+     * TODO: Method bootstrap Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      *
      * @return void
@@ -37,6 +39,8 @@ class LoadConfiguration
     }
 
     /**
+     * TODO: Method loadConfigurationFiles Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      * @param \Illuminate\Contracts\Config\Repository                                     $repository
      *
@@ -54,6 +58,8 @@ class LoadConfiguration
     }
 
     /**
+     * TODO: Method getConfigurationFiles Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      *
      * @return array
@@ -71,6 +77,8 @@ class LoadConfiguration
     }
 
     /**
+     * TODO: Method getConfigurationNesting Description
+     *
      * @param \Symfony\Component\Finder\SplFileInfo $file
      * @param string                                $configPath
      *

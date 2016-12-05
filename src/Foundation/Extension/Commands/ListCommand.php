@@ -29,6 +29,7 @@ class ListCommand extends Command
 
     /**
      * @return void
+     * TODO: Method configure Description
      */
     public function configure()
     {
@@ -37,6 +38,8 @@ class ListCommand extends Command
     }
 
     /**
+     * TODO: Method fire Description
+     *
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      */
     public function fire(ExtensionManager $manager)

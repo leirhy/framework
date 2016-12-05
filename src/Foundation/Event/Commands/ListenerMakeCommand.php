@@ -34,6 +34,8 @@ class ListenerMakeCommand extends GeneratorCommand
     protected $type = 'Listener';
 
     /**
+     * TODO: Method fire Description
+     *
      * @return bool
      */
     public function fire()
@@ -49,6 +51,8 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method buildClass Description
+     *
      * @param string $name
      *
      * @return string
@@ -68,6 +72,8 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()
@@ -80,6 +86,8 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method alreadyExists Description
+     *
      * @param string $rawName
      *
      * @return bool
@@ -90,6 +98,8 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getDefaultNamespace Description
+     *
      * @param string $rootNamespace
      *
      * @return string
@@ -100,6 +110,8 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getOptions Description
+     *
      * @return array
      */
     protected function getOptions()

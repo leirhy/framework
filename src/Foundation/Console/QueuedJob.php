@@ -31,6 +31,8 @@ class QueuedJob
     }
 
     /**
+     * TODO: Method fire Description
+     *
      * @param \Illuminate\Queue\Jobs\Job $job
      * @param array                      $data
      *

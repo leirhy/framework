@@ -16,6 +16,8 @@ use Illuminate\Contracts\Bus\Dispatcher;
 trait DispatchesJobs
 {
     /**
+     * TODO: Method dispatch Description
+     *
      * @param mixed $job
      *
      * @return mixed
@@ -26,6 +28,8 @@ trait DispatchesJobs
     }
 
     /**
+     * TODO: Method dispatchNow Description
+     *
      * @param mixed $job
      *
      * @return mixed

@@ -24,6 +24,7 @@ class ComposerServiceProvider extends ServiceProvider
 
     /**
      * @return void
+     * TODO: Method boot Description
      */
     public function boot()
     {
@@ -34,6 +35,7 @@ class ComposerServiceProvider extends ServiceProvider
 
     /**
      * @return void
+     * TODO: Method register Description
      */
     public function register()
     {
@@ -43,6 +45,8 @@ class ComposerServiceProvider extends ServiceProvider
     }
 
     /**
+     * TODO: Method provides Description
+     *
      * @return array
      */
     public function provides()

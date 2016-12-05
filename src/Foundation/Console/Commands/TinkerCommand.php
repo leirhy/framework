@@ -43,6 +43,7 @@ class TinkerCommand extends Command
 
     /**
      * @return void
+     * TODO: Method fire Description
      */
     public function fire()
     {
@@ -56,6 +57,8 @@ class TinkerCommand extends Command
     }
 
     /**
+     * TODO: Method getCommands Description
+     *
      * @return array
      */
     protected function getCommands()
@@ -71,6 +74,8 @@ class TinkerCommand extends Command
     }
 
     /**
+     * TODO: Method getCasters Description
+     *
      * @return array
      */
     protected function getCasters()
@@ -83,6 +88,8 @@ class TinkerCommand extends Command
     }
 
     /**
+     * TODO: Method getArguments Description
+     *
      * @return array
      */
     protected function getArguments()

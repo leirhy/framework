@@ -63,6 +63,8 @@ class Optimization
     }
 
     /**
+     * TODO: Method getData Description
+     *
      * @param string $key
      *
      * @return mixed
@@ -81,6 +83,8 @@ class Optimization
     }
 
     /**
+     * TODO: Method setCode Description
+     *
      * @param $key
      * @param $value
      */
@@ -90,6 +94,8 @@ class Optimization
     }
 
     /**
+     * TODO: Method setCustomMeta Description
+     *
      * @param $title
      * @param $description
      * @param $keywords
@@ -104,6 +110,8 @@ class Optimization
     }
 
     /**
+     * TODO: Method setTitleMeta Description
+     *
      * @param $title
      */
     public function setTitleMeta($title)
@@ -112,6 +120,8 @@ class Optimization
     }
 
     /**
+     * TODO: Method setDescriptionMeta Description
+     *
      * @param $description
      */
     public function setDescriptionMeta($description)
@@ -120,6 +130,8 @@ class Optimization
     }
 
     /**
+     * TODO: Method setKeywordsMeta Description
+     *
      * @param $keywords
      */
     public function setKeywordsMeta($keywords)

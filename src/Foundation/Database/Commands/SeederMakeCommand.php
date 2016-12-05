@@ -17,6 +17,8 @@ use Illuminate\Database\Console\Seeds\SeederMakeCommand as IlluminateSeederMakeC
 class SeederMakeCommand extends IlluminateSeederMakeCommand
 {
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()
@@ -25,6 +27,8 @@ class SeederMakeCommand extends IlluminateSeederMakeCommand
     }
 
     /**
+     * TODO: Method replaceClass Description
+     *
      * @param string $stub
      * @param string $name
      *

@@ -30,6 +30,8 @@ class MailMakeCommand extends GeneratorCommand
     protected $type = 'Mail';
 
     /**
+     * TODO: Method getDefaultNamespace Description
+     *
      * @param string $rootNamespace
      *
      * @return string
@@ -40,6 +42,7 @@ class MailMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getStub Description
      * @return string
      */
     protected function getStub()
@@ -48,6 +51,8 @@ class MailMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method replaceClass Description
+     *
      * @param string $stub
      * @param string $name
      *

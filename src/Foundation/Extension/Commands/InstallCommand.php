@@ -51,6 +51,8 @@ class InstallCommand extends Command
     }
 
     /**
+     * TODO: Method fire Description
+     *
      * @param \Notadd\Foundation\Extension\ExtensionManager           $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      *
@@ -94,6 +96,8 @@ class InstallCommand extends Command
     }
 
     /**
+     * TODO: Method postInstall Description
+     *
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
     public function postInstall(SettingsRepository $settings)
@@ -111,6 +115,7 @@ class InstallCommand extends Command
 
     /**
      * @return void
+     * TODO: Method preInstall Description
      */
     public function preInstall()
     {
@@ -149,6 +154,7 @@ class InstallCommand extends Command
 
     /**
      * @return void
+     * TODO: Method resetOpcache Description
      */
     public function resetOpcache()
     {

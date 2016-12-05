@@ -22,10 +22,14 @@ abstract class Prerequisite implements PrerequisiteContract
 
     /**
      * @return void
+     * TODO: Method check Description
+     *
      */
     abstract public function check();
 
     /**
+     * TODO: Method getErrors Description
+     *
      * @return array
      */
     public function getErrors()

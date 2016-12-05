@@ -20,6 +20,8 @@ use Illuminate\Support\Str;
 trait ThrottlesLogins
 {
     /**
+     * TODO: Method hasTooManyLoginAttempts Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return bool
@@ -30,6 +32,8 @@ trait ThrottlesLogins
     }
 
     /**
+     * TODO: Method incrementLoginAttempts Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return int
@@ -40,6 +44,8 @@ trait ThrottlesLogins
     }
 
     /**
+     * TODO: Method sendLockoutResponse Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -54,6 +60,8 @@ trait ThrottlesLogins
     }
 
     /**
+     * TODO: Method clearLoginAttempts Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return void
@@ -64,6 +72,8 @@ trait ThrottlesLogins
     }
 
     /**
+     * TODO: Method fireLockoutEvent Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return void
@@ -74,6 +84,8 @@ trait ThrottlesLogins
     }
 
     /**
+     * TODO: Method throttleKey Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return string
@@ -84,6 +96,8 @@ trait ThrottlesLogins
     }
 
     /**
+     * TODO: Method limiter Description
+     *
      * @return \Illuminate\Cache\RateLimiter
      */
     protected function limiter()

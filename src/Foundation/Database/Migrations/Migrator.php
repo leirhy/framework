@@ -44,6 +44,8 @@ class Migrator extends IlluminateMigrator
     }
 
     /**
+     * TODO: Method resolve Description
+     *
      * @param string $file
      *
      * @return mixed

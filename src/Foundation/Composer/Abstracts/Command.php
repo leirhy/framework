@@ -65,6 +65,8 @@ abstract class Command extends AbstractCommand
     }
 
     /**
+     * TODO: Method dumpAutoloads Description
+     *
      * @param bool $optimize
      * @param bool $reload
      */
@@ -83,6 +85,8 @@ abstract class Command extends AbstractCommand
     }
 
     /**
+     * TODO: Method execute Description
+     *
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
@@ -106,6 +110,8 @@ abstract class Command extends AbstractCommand
     }
 
     /**
+     * TODO: Method updateComposer Description
+     *
      * @param bool $reload
      *
      * @return int

@@ -32,6 +32,8 @@ class RequestMakeCommand extends GeneratorCommand
     protected $type = 'Request';
 
     /**
+     * TODO: Method getDefaultNamespace Description
+     *
      * @param string $rootNamespace
      *
      * @return string
@@ -42,6 +44,8 @@ class RequestMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()
@@ -50,6 +54,8 @@ class RequestMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method replaceClass Description
+     *
      * @param string $stub
      * @param string $name
      *

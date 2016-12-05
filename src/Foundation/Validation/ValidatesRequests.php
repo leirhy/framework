@@ -26,6 +26,8 @@ trait ValidatesRequests
     protected $validatesRequestErrorBag;
 
     /**
+     * TODO: Method validateWith Description
+     *
      * @param \Illuminate\Contracts\Validation\Validator|array $validator
      * @param \Illuminate\Http\Request|null                    $request
      *
@@ -43,6 +45,8 @@ trait ValidatesRequests
     }
 
     /**
+     * TODO: Method validate Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param array                    $rules
      * @param array                    $messages
@@ -59,6 +63,8 @@ trait ValidatesRequests
     }
 
     /**
+     * TODO: Method validateWithBag Description
+     *
      * @param string                   $errorBag
      * @param \Illuminate\Http\Request $request
      * @param array                    $rules
@@ -81,6 +87,8 @@ trait ValidatesRequests
     }
 
     /**
+     * TODO: Method throwValidationException Description
+     *
      * @param \Illuminate\Http\Request                   $request
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
@@ -94,6 +102,8 @@ trait ValidatesRequests
     }
 
     /**
+     * TODO: Method buildFailedValidationResponse Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param array                    $errors
      *
@@ -110,6 +120,8 @@ trait ValidatesRequests
     }
 
     /**
+     * TODO: Method formatValidationErrors Description
+     *
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
      * @return array
@@ -120,6 +132,8 @@ trait ValidatesRequests
     }
 
     /**
+     * TODO: Method getRedirectUrl Description
+     *
      * @return string
      */
     protected function getRedirectUrl()
@@ -128,6 +142,8 @@ trait ValidatesRequests
     }
 
     /**
+     * TODO: Method getValidationFactory Description
+     *
      * @return \Illuminate\Contracts\Validation\Factory
      */
     protected function getValidationFactory()
@@ -136,6 +152,8 @@ trait ValidatesRequests
     }
 
     /**
+     * TODO: Method withErrorBag Description
+     *
      * @param string   $errorBag
      * @param callable $callback
      *
@@ -149,6 +167,8 @@ trait ValidatesRequests
     }
 
     /**
+     * TODO: Method errorBag Description
+     *
      * @return string
      */
     protected function errorBag()

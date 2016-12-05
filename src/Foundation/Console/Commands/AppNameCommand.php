@@ -59,6 +59,7 @@ class AppNameCommand extends Command
 
     /**
      * @return void
+     * TODO: Method fire Description
      */
     public function fire()
     {
@@ -75,6 +76,7 @@ class AppNameCommand extends Command
 
     /**
      * @return void
+     * TODO: Method setAppDirectoryNamespace Description
      */
     protected function setAppDirectoryNamespace()
     {
@@ -86,6 +88,7 @@ class AppNameCommand extends Command
 
     /**
      * @param string $path
+     * TODO: Method replaceNamespace Description
      *
      * @return void
      */
@@ -104,6 +107,7 @@ class AppNameCommand extends Command
 
     /**
      * @return void
+     * TODO: Method setBootstrapNamespaces Description
      */
     protected function setBootstrapNamespaces()
     {
@@ -122,6 +126,7 @@ class AppNameCommand extends Command
 
     /**
      * @return void
+     * TODO: Method setComposerNamespace Description
      */
     protected function setComposerNamespace()
     {
@@ -131,6 +136,7 @@ class AppNameCommand extends Command
 
     /**
      * @return void
+     * TODO: Method setConfigNamespaces Description
      */
     protected function setConfigNamespaces()
     {
@@ -141,6 +147,7 @@ class AppNameCommand extends Command
 
     /**
      * @return void
+     * TODO: Method setAppConfigNamespaces Description
      */
     protected function setAppConfigNamespaces()
     {
@@ -157,6 +164,7 @@ class AppNameCommand extends Command
 
     /**
      * @return void
+     * TODO: Method setAuthConfigNamespace Description
      */
     protected function setAuthConfigNamespace()
     {
@@ -166,6 +174,7 @@ class AppNameCommand extends Command
 
     /**
      * @return void
+     * TODO: Method setServicesConfigNamespace Description
      */
     protected function setServicesConfigNamespace()
     {
@@ -175,6 +184,7 @@ class AppNameCommand extends Command
 
     /**
      * @return void
+     * TODO: Method setDatabaseFactoryNamespaces Description
      */
     protected function setDatabaseFactoryNamespaces()
     {
@@ -183,6 +193,8 @@ class AppNameCommand extends Command
     }
 
     /**
+     * TODO: Method replaceIn Description
+     *
      * @param string       $path
      * @param string|array $search
      * @param string|array $replace
@@ -195,6 +207,8 @@ class AppNameCommand extends Command
     }
 
     /**
+     * TODO: Method getBootstrapPath Description
+     *
      * @return string
      */
     protected function getBootstrapPath()
@@ -203,6 +217,8 @@ class AppNameCommand extends Command
     }
 
     /**
+     * TODO: Method getComposerPath Description
+     *
      * @return string
      */
     protected function getComposerPath()
@@ -211,6 +227,8 @@ class AppNameCommand extends Command
     }
 
     /**
+     * TODO: Method getConfigPath Description
+     *
      * @param string $name
      *
      * @return string
@@ -221,6 +239,8 @@ class AppNameCommand extends Command
     }
 
     /**
+     * TODO: Method getArguments Description
+     *
      * @return array
      */
     protected function getArguments()

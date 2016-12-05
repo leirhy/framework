@@ -14,6 +14,8 @@ namespace Notadd\Foundation\Auth;
 trait RedirectsUsers
 {
     /**
+     * TODO: Method redirectPath Description
+     *
      * @return string
      */
     public function redirectPath()

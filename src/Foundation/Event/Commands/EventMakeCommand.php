@@ -32,6 +32,8 @@ class EventMakeCommand extends GeneratorCommand
     protected $type = 'Event';
 
     /**
+     * TODO: Method alreadyExists Description
+     *
      * @param string $rawName
      *
      * @return bool
@@ -42,6 +44,8 @@ class EventMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getDefaultNamespace Description
+     *
      * @param string $rootNamespace
      *
      * @return string
@@ -52,6 +56,8 @@ class EventMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()
@@ -60,6 +66,8 @@ class EventMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method replaceClass Description
+     *
      * @param string $stub
      * @param string $name
      *

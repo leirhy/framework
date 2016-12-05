@@ -39,6 +39,8 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
+     * TODO: Method data Description
+     *
      * @return array
      */
     public function data()
@@ -47,6 +49,8 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
+     * TODO: Method errors Description
+     *
      * @return array
      */
     public function errors()
@@ -57,6 +61,8 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
+     * TODO: Method execute Description
+     *
      * @return bool
      */
     public function execute()
@@ -73,6 +79,8 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
+     * TODO: Method messages Description
+     *
      * @return array
      */
     public function messages()

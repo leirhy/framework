@@ -69,6 +69,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method getCommand Description
+     *
      * @param string $name
      *
      * @return \Symfony\Component\Console\Command\Command|\Notadd\Foundation\Console\Abstracts\Command
@@ -79,6 +81,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method getConfig Description
+     *
      * @return \Notadd\Foundation\Configuration\Repository
      */
     public function getConfig()
@@ -87,6 +91,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method getConsole Description
+     *
      * @return \Illuminate\Contracts\Console\Kernel|\Notadd\Foundation\Console\Application
      */
     public function getConsole()
@@ -98,6 +104,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method getContainer Description
+     *
      * @return \Illuminate\Container\Container
      */
     public function getContainer()
@@ -106,6 +114,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method getLogger Description
+     *
      * @return \Psr\Log\LoggerInterface
      */
     public function getLogger()
@@ -114,6 +124,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method getMailer Description
+     *
      * @return \Illuminate\Mail\Mailer
      */
     public function getMailer()
@@ -122,6 +134,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method getSession Description
+     *
      * @return \Illuminate\Session\Store
      */
     public function getSession()
@@ -130,6 +144,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method getSetting Description
+     *
      * @return \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
     public function getSetting()
@@ -138,6 +154,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method share Description
+     *
      * @param      $key
      * @param null $value
      */
@@ -147,6 +165,8 @@ abstract class Controller extends IlluminateController
     }
 
     /**
+     * TODO: Method view Description
+     *
      * @param       $template
      * @param array $data
      * @param array $mergeData

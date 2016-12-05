@@ -18,6 +18,8 @@ use Monolog\Logger as Monolog;
 class ConfigureLogging
 {
     /**
+     * TODO: Method bootstrap Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      *
      * @return void
@@ -33,6 +35,8 @@ class ConfigureLogging
     }
 
     /**
+     * TODO: Method registerLogger Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application $app
      *
      * @return \Illuminate\Log\Writer
@@ -45,6 +49,8 @@ class ConfigureLogging
     }
 
     /**
+     * TODO: Method configureHandlers Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application $app
      * @param \Illuminate\Log\Writer                       $log
      *
@@ -57,6 +63,8 @@ class ConfigureLogging
     }
 
     /**
+     * TODO: Method configureSingleHandler Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
      *
@@ -68,6 +76,8 @@ class ConfigureLogging
     }
 
     /**
+     * TODO: Method configureDailyHandler Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
      *
@@ -82,6 +92,8 @@ class ConfigureLogging
     }
 
     /**
+     * TODO: Method configureSyslogHandler Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
      *
@@ -93,6 +105,8 @@ class ConfigureLogging
     }
 
     /**
+     * TODO: Method configureErrorlogHandler Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
      *

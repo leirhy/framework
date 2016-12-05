@@ -53,6 +53,8 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * TODO: Method alias Description
+     *
      * @param string       $abstract
      * @param array|string $alias
      */
@@ -64,6 +66,8 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * TODO: Method compiles Description
+     *
      * @return array
      */
     public function compiles()
@@ -72,6 +76,8 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * TODO: Method environment Description
+     *
      * @return bool
      */
     public function environment()
@@ -80,6 +86,8 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * TODO: Method getContainer Description
+     *
      * @return \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected function getContainer()
@@ -88,6 +96,8 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * TODO: Method getExtension Description
+     *
      * @return \Notadd\Foundation\Extension\Extension
      */
     final public function getExtension()
@@ -99,21 +109,29 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * TODO: Method getExtensionInfo Description
+     *
      * @return array
      */
     abstract public function getExtensionInfo();
 
     /**
+     * TODO: Method getExtensionName Description
+     *
      * @return string
      */
     abstract public function getExtensionName();
 
     /**
+     * TODO: Method getExtensionPath Description
+     *
      * @return string
      */
     abstract public function getExtensionPath();
 
     /**
+     * TODO: Method install Description
+     *
      * @return bool
      */
     public function install()
@@ -122,6 +140,8 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * TODO: Method loadCommands Description
+     *
      * @return array
      */
     public function loadCommands()
@@ -131,6 +151,7 @@ abstract class ExtensionRegistrar
 
     /**
      * @example $namespace => $path
+     * TODO: Method loadLocalizationsFrom Description
      *
      * @return array
      */
@@ -140,6 +161,8 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * TODO: Method loadMigrationsFrom Description
+     *
      * @return array
      */
     public function loadMigrationsFrom()
@@ -149,6 +172,7 @@ abstract class ExtensionRegistrar
 
     /**
      * @example $namespace => $path
+     * TODO: Method loadPublishesFrom Description
      *
      * @return array
      */

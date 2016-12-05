@@ -19,6 +19,8 @@ trait KeyParser
     protected $keyParserCache = [];
 
     /**
+     * TODO: Method setParsedKey Description
+     *
      * @param string $key
      * @param array  $parsed
      *
@@ -30,6 +32,8 @@ trait KeyParser
     }
 
     /**
+     * TODO: Method parseKey Description
+     *
      * @param string $key
      *
      * @return array
@@ -49,6 +53,8 @@ trait KeyParser
     }
 
     /**
+     * TODO: Method keyParserParseBasicSegments Description
+     *
      * @param array $segments
      *
      * @return array
@@ -66,6 +72,8 @@ trait KeyParser
     }
 
     /**
+     * TODO: Method keyParserParseSegments Description
+     *
      * @param string $key
      *
      * @return array

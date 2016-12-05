@@ -41,10 +41,14 @@ abstract class Migration
 
     /**
      * @return void
+     * TODO: Method down Description
+     *
      */
     abstract public function down();
 
     /**
+     * TODO: Method getConnection Description
+     *
      * @return string
      */
     public function getConnection()
@@ -54,6 +58,8 @@ abstract class Migration
 
     /**
      * @return void
+     * TODO: Method up Description
+     *
      */
     abstract public function up();
 }

@@ -21,6 +21,8 @@ trait RegistersUsers
 
     /**
      * @return \Illuminate\Http\Response
+     * TODO: Method showRegistrationForm Description
+     *
      */
     public function showRegistrationForm()
     {
@@ -28,9 +30,12 @@ trait RegistersUsers
     }
 
     /**
+     * TODO: Method register Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function register(Request $request)
     {
@@ -42,6 +47,8 @@ trait RegistersUsers
     }
 
     /**
+     * TODO: Method guard Description
+     *
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
     protected function guard()

@@ -17,6 +17,7 @@ class EventServiceProvider extends IlluminateEventServiceProvider
 {
     /**
      * @return void
+     * TODO: Method register Description
      */
     public function register()
     {

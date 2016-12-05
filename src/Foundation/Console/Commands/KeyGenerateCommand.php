@@ -31,6 +31,8 @@ class KeyGenerateCommand extends Command
     protected $signature = 'key:generate {--show : Display the key instead of modifying files}';
 
     /**
+     * TODO: Method fire Description
+     *
      * @return bool
      */
     public function fire()
@@ -50,6 +52,7 @@ class KeyGenerateCommand extends Command
 
     /**
      * @param string $key
+     * TODO: Method setKeyInEnvironmentFile Description
      *
      * @return void
      */
@@ -66,6 +69,8 @@ class KeyGenerateCommand extends Command
     }
 
     /**
+     * TODO: Method generateRandomKey Description
+     *
      * @return string
      */
     protected function generateRandomKey()

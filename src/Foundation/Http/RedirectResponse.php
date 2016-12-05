@@ -17,6 +17,8 @@ use Illuminate\Support\ViewErrorBag;
 class RedirectResponse extends IlluminateRedirectResponse
 {
     /**
+     * TODO: Method withMessages Description
+     *
      * @param \Illuminate\Contracts\Support\MessageProvider|array|string $provider
      * @param string                                                     $key
      *

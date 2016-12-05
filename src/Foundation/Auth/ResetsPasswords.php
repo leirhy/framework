@@ -21,6 +21,8 @@ trait ResetsPasswords
     use RedirectsUsers;
 
     /**
+     * TODO: Method showResetForm Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param string|null              $token
      *
@@ -35,6 +37,8 @@ trait ResetsPasswords
     }
 
     /**
+     * TODO: Method reset Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
@@ -55,6 +59,8 @@ trait ResetsPasswords
     }
 
     /**
+     * TODO: Method credentials Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return array
@@ -65,6 +71,8 @@ trait ResetsPasswords
     }
 
     /**
+     * TODO: Method resetPassword Description
+     *
      * @param \Illuminate\Contracts\Auth\CanResetPassword $user
      * @param string                                      $password
      *
@@ -80,6 +88,8 @@ trait ResetsPasswords
     }
 
     /**
+     * TODO: Method sendResetResponse Description
+     *
      * @param string $response
      *
      * @return \Illuminate\Http\Response
@@ -90,6 +100,8 @@ trait ResetsPasswords
     }
 
     /**
+     * TODO: Method sendResetFailedResponse Description
+     *
      * @param \Illuminate\Http\Request
      * @param string $response
      *
@@ -101,6 +113,8 @@ trait ResetsPasswords
     }
 
     /**
+     * TODO: Method broker Description
+     *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
     public function broker()
@@ -109,6 +123,8 @@ trait ResetsPasswords
     }
 
     /**
+     * TODO: Method guard Description
+     *
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
     protected function guard()

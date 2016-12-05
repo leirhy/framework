@@ -17,6 +17,7 @@ class MemberServiceProvider extends ServiceProvider
 {
     /**
      * @return void
+     * TODO: Method register Description
      */
     public function register()
     {

@@ -73,6 +73,8 @@ class ExtensionManager
     }
 
     /**
+     * TODO: Method boot Description
+     *
      * @param \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar $registrar
      *
      * @throws \Exception
@@ -87,6 +89,8 @@ class ExtensionManager
     }
 
     /**
+     * TODO: Method getExtensionPath Description
+     *
      * @return string
      */
     public function getExtensionPath()
@@ -95,6 +99,8 @@ class ExtensionManager
     }
 
     /**
+     * TODO: Method getExtensionPaths Description
+     *
      * @return \Illuminate\Support\Collection
      */
     public function getExtensionPaths()
@@ -125,6 +131,8 @@ class ExtensionManager
     }
 
     /**
+     * TODO: Method getExtensions Description
+     *
      * @return \Illuminate\Support\Collection
      */
     public function getExtensions()
@@ -150,6 +158,8 @@ class ExtensionManager
     }
 
     /**
+     * TODO: Method getVendorPath Description
+     *
      * @return string
      */
     public function getVendorPath()

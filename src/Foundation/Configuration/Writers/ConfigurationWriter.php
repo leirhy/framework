@@ -16,6 +16,8 @@ use Exception;
 class ConfigurationWriter
 {
     /**
+     * TODO: Method toFile Description
+     *
      * @param      $filePath
      * @param      $newValues
      * @param bool $useValidation
@@ -32,6 +34,8 @@ class ConfigurationWriter
     }
 
     /**
+     * TODO: Method toContent Description
+     *
      * @param      $contents
      * @param      $newValues
      * @param bool $useValidation
@@ -65,6 +69,8 @@ class ConfigurationWriter
     }
 
     /**
+     * TODO: Method parseContent Description
+     *
      * @param $contents
      * @param $newValues
      *
@@ -92,6 +98,8 @@ class ConfigurationWriter
     }
 
     /**
+     * TODO: Method writeValueToPhp Description
+     *
      * @param $value
      *
      * @return array|mixed|string
@@ -117,6 +125,8 @@ class ConfigurationWriter
     }
 
     /**
+     * TODO: Method writeArrayToPhp Description
+     *
      * @param array $array
      *
      * @return string
@@ -133,6 +143,8 @@ class ConfigurationWriter
         return '[' . implode(', ', $result) . ']';
     }
 
+     * TODO: Method buildStringExpression Description
+     *
     protected function buildStringExpression($targetKey, $arrayItems = [], $quoteChar = "'")
     {
         $expression = [];
@@ -144,6 +156,8 @@ class ConfigurationWriter
     }
 
     /**
+     * TODO: Method buildConstantExpression Description
+     *
      * @param       $targetKey
      * @param array $arrayItems
      *
@@ -159,6 +173,8 @@ class ConfigurationWriter
     }
 
     /**
+     * TODO: Method buildArrayExpression Description
+     *
      * @param       $targetKey
      * @param array $arrayItems
      *
@@ -174,6 +190,8 @@ class ConfigurationWriter
     }
 
     /**
+     * TODO: Method buildArrayOpeningExpression Description
+     *
      * @param array $arrayItems
      *
      * @return string

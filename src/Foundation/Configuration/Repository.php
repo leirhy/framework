@@ -59,6 +59,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method offsetExists Description
+     *
      * @param mixed $offset
      *
      * @return bool
@@ -69,6 +71,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method offsetGet Description
+     *
      * @param mixed $offset
      *
      * @return mixed
@@ -79,6 +83,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method offsetSet Description
+     *
      * @param mixed $offset
      * @param mixed $value
      */
@@ -88,6 +94,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method offsetUnset Description
+     *
      * @param mixed $offset
      */
     public function offsetUnset($offset)
@@ -96,6 +104,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method has Description
+     *
      * @param string $key
      *
      * @return bool
@@ -108,6 +118,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method hasGroup Description
+     *
      * @param string $key
      *
      * @return bool
@@ -120,6 +132,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method get Description
+     *
      * @param string $key
      * @param mixed  $default
      *
@@ -135,6 +149,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method all Description
+     *
      * @return array
      */
     public function all()
@@ -143,6 +159,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method callAfterLoad Description
+     *
      * @param string $namespace
      * @param string $group
      * @param array  $items
@@ -157,6 +175,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method getCollection Description
+     *
      * @param string $group
      * @param string $namespace
      *
@@ -170,6 +190,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method set Description
+     *
      * @param array|string $key
      * @param mixed        $value
      *
@@ -194,6 +216,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method parseNamespacedSegments Description
+     *
      * @param string $key
      *
      * @return array
@@ -209,6 +233,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method parsePackageSegments Description
+     *
      * @param string $key
      * @param string $namespace
      * @param string $item
@@ -226,6 +252,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method load Description
+     *
      * @param string $group
      * @param string $namespace
      * @param string $collection
@@ -267,6 +295,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method prepend Description
+     *
      * @param string $key
      * @param mixed  $value
      *
@@ -280,6 +310,8 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
+     * TODO: Method push Description
+     *
      * @param string $key
      * @param mixed  $value
      *

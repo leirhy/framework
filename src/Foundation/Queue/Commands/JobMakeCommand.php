@@ -33,6 +33,8 @@ class JobMakeCommand extends GeneratorCommand
     protected $type = 'Job';
 
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()
@@ -45,6 +47,8 @@ class JobMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getDefaultNamespace Description
+     *
      * @param string $rootNamespace
      *
      * @return string
@@ -55,6 +59,8 @@ class JobMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getOptions Description
+     *
      * @return array
      */
     protected function getOptions()
@@ -70,6 +76,8 @@ class JobMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method replaceClass Description
+     *
      * @param string $stub
      * @param string $name
      *

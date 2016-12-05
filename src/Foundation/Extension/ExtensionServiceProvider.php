@@ -39,6 +39,8 @@ class ExtensionServiceProvider extends ServiceProvider
     }
 
     /**
+     * TODO: Method boot Description
+     *
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      */
     public function boot(ExtensionManager $manager)
@@ -76,6 +78,8 @@ class ExtensionServiceProvider extends ServiceProvider
     }
 
     /**
+     * TODO: Method compiles Description
+     *
      * @return array
      */
     public static function compiles()
@@ -85,6 +89,7 @@ class ExtensionServiceProvider extends ServiceProvider
 
     /**
      * @return void
+     * TODO: Method register Description
      */
     public function register()
     {

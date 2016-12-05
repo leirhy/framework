@@ -43,6 +43,8 @@ class WatermarkSetHandler extends SetHandler
     }
 
     /**
+     * TODO: Method data Description
+     *
      * @return array
      */
     public function data()
@@ -51,6 +53,8 @@ class WatermarkSetHandler extends SetHandler
     }
 
     /**
+     * TODO: Method errors Description
+     *
      * @return array
      */
     public function errors()
@@ -61,6 +65,8 @@ class WatermarkSetHandler extends SetHandler
     }
 
     /**
+     * TODO: Method execute Description
+     *
      * @return bool
      */
     public function execute()
@@ -69,6 +75,8 @@ class WatermarkSetHandler extends SetHandler
     }
 
     /**
+     * TODO: Method messages Description
+     *
      * @return array
      */
     public function messages()

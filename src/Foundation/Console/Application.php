@@ -44,10 +44,13 @@ class Application extends IlluminateApplication implements ApplicationContract
     }
 
     /**
+     * TODO: Method call Description
+     *
      * @param string $command
      * @param array  $parameters
      *
      * @return int
+     * @throws \Exception
      */
     public function call($command, array $parameters = [])
     {
@@ -61,6 +64,8 @@ class Application extends IlluminateApplication implements ApplicationContract
     }
 
     /**
+     * TODO: Method resolve Description
+     *
      * @param string $command
      *
      * @return \Symfony\Component\Console\Command\Command
@@ -75,6 +80,8 @@ class Application extends IlluminateApplication implements ApplicationContract
     }
 
     /**
+     * TODO: Method resolveCommands Description
+     *
      * @param array|mixed $commands
      *
      * @return $this
@@ -90,6 +97,8 @@ class Application extends IlluminateApplication implements ApplicationContract
     }
 
     /**
+     * TODO: Method getContainer Description
+     *
      * @return \Illuminate\Contracts\Foundation\Application
      */
     public function getContainer()

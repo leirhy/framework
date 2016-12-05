@@ -50,6 +50,8 @@ abstract class Administrator
     }
 
     /**
+     * TODO: Method getHandler Description
+     *
      * @return mixed
      */
     public function getHandler()
@@ -58,6 +60,8 @@ abstract class Administrator
     }
 
     /**
+     * TODO: Method getPath Description
+     *
      * @return string
      */
     public function getPath()
@@ -67,6 +71,8 @@ abstract class Administrator
 
     /**
      * @return void
+     * TODO: Method init Description
+     *
      * @throws \InvalidArgumentException
      */
     final public function init()
@@ -80,6 +86,8 @@ abstract class Administrator
     }
 
     /**
+     * TODO: Method registerHandler Description
+     *
      * @param $handler
      */
     public function registerHandler($handler)
@@ -88,6 +96,8 @@ abstract class Administrator
     }
 
     /**
+     * TODO: Method registerPath Description
+     *
      * @param string $path
      */
     public function registerPath($path)

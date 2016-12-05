@@ -66,6 +66,8 @@ class RouteListCommand extends Command
     }
 
     /**
+     * TODO: Method fire Description
+     *
      * @return bool
      */
     public function fire()
@@ -81,6 +83,8 @@ class RouteListCommand extends Command
     }
 
     /**
+     * TODO: Method getRoutes Description
+     *
      * @return array
      */
     protected function getRoutes()
@@ -102,6 +106,8 @@ class RouteListCommand extends Command
     }
 
     /**
+     * TODO: Method getRouteInformation Description
+     *
      * @param \Illuminate\Routing\Route $route
      *
      * @return array
@@ -120,6 +126,7 @@ class RouteListCommand extends Command
 
     /**
      * @param array $routes
+     * TODO: Method displayRoutes Description
      *
      * @return void
      */
@@ -130,6 +137,8 @@ class RouteListCommand extends Command
 
     /**
      * @param \Illuminate\Routing\Route $route
+     * TODO: Method getMiddleware Description
+     *
      *
      * @return string
      */
@@ -141,6 +150,8 @@ class RouteListCommand extends Command
     }
 
     /**
+     * TODO: Method filterRoute Description
+     *
      * @param array $route
      *
      * @return array|null
@@ -159,6 +170,8 @@ class RouteListCommand extends Command
     }
 
     /**
+     * TODO: Method getOptions Description
+     *
      * @return array
      */
     protected function getOptions()

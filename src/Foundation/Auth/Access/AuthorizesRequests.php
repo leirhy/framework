@@ -18,6 +18,8 @@ trait AuthorizesRequests
     /**
      * @param mixed       $ability
      * @param mixed|array $arguments
+     * TODO: Method authorize Description
+     *
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @return \Illuminate\Auth\Access\Response
@@ -30,6 +32,8 @@ trait AuthorizesRequests
     }
 
     /**
+     * TODO: Method authorizeForUser Description
+     *
      * @param \Illuminate\Contracts\Auth\Authenticatable|mixed $user
      * @param mixed                                            $ability
      * @param mixed|array                                      $arguments
@@ -45,6 +49,8 @@ trait AuthorizesRequests
     }
 
     /**
+     * TODO: Method parseAbilityAndArguments Description
+     *
      * @param mixed       $ability
      * @param mixed|array $arguments
      *
@@ -67,6 +73,8 @@ trait AuthorizesRequests
     }
 
     /**
+     * TODO: Method normalizeGuessedAbilityName Description
+     *
      * @param string $ability
      *
      * @return string
@@ -79,6 +87,8 @@ trait AuthorizesRequests
     }
 
     /**
+     * TODO: Method authorizeResource Description
+     *
      * @param string                        $model
      * @param string|null                   $parameter
      * @param array                         $options
@@ -104,6 +114,8 @@ trait AuthorizesRequests
     }
 
     /**
+     * TODO: Method resourceAbilityMap Description
+     *
      * @return array
      */
     protected function resourceAbilityMap()

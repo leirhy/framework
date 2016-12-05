@@ -16,6 +16,8 @@ use Notadd\Foundation\Http\FormRequest;
 class InstallRequest extends FormRequest
 {
     /**
+     * TODO: Method authorize Description
+     *
      * @return bool
      */
     public function authorize()
@@ -24,6 +26,8 @@ class InstallRequest extends FormRequest
     }
 
     /**
+     * TODO: Method messages Description
+     *
      * @return array
      */
     public function messages()

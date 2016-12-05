@@ -236,6 +236,7 @@ class OptimizeCommand extends Command
 
     /**
      * @return void
+     * TODO: Method fire Description
      */
     public function fire()
     {
@@ -256,6 +257,7 @@ class OptimizeCommand extends Command
 
     /**
      * @return void
+     * TODO: Method compileClasses Description
      */
     protected function compileClasses()
     {
@@ -271,6 +273,8 @@ class OptimizeCommand extends Command
     }
 
     /**
+     * TODO: Method getClassFiles Description
+     *
      * @return array
      */
     protected function getClassFiles()
@@ -290,6 +294,8 @@ class OptimizeCommand extends Command
     }
 
     /**
+     * TODO: Method getOptions Description
+     *
      * @return array
      */
     protected function getOptions()

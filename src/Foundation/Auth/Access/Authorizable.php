@@ -18,6 +18,8 @@ trait Authorizable
     /**
      * @param string      $ability
      * @param array|mixed $arguments
+     * TODO: Method can Description
+     *
      *
      * @return bool
      */
@@ -29,6 +31,8 @@ trait Authorizable
     /**
      * @param string      $ability
      * @param array|mixed $arguments
+     * TODO: Method cant Description
+     *
      *
      * @return bool
      */
@@ -40,6 +44,8 @@ trait Authorizable
     /**
      * @param string      $ability
      * @param array|mixed $arguments
+     * TODO: Method cannot Description
+     *
      *
      * @return bool
      */

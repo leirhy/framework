@@ -56,6 +56,8 @@ class AccessTokenController extends Controller
     }
 
     /**
+     * TODO: Method destroy Description
+     *
      * @param $tokenId
      *
      * @return \Illuminate\Http\Response
@@ -69,6 +71,8 @@ class AccessTokenController extends Controller
     }
 
     /**
+     * TODO: Method index Description
+     *
      * @return mixed
      */
     public function index()
@@ -79,6 +83,8 @@ class AccessTokenController extends Controller
     }
 
     /**
+     * TODO: Method issueToken Description
+     *
      * @param \Psr\Http\Message\ServerRequestInterface $request
      *
      * @return \Illuminate\Http\Response
@@ -100,6 +106,8 @@ class AccessTokenController extends Controller
     }
 
     /**
+     * TODO: Method revokeOtherAccessTokens Description
+     *
      * @param array $payload
      */
     protected function revokeOtherAccessTokens(array $payload)

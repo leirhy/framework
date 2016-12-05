@@ -17,10 +17,12 @@ class AliasLoader
      * @var array
      */
     protected $aliases;
+
     /**
      * @var bool
      */
     protected $registered = false;
+
     /**
      * @var \Notadd\Foundation\AliasLoader
      */
@@ -35,6 +37,8 @@ class AliasLoader
     }
 
     /**
+     * TODO: Method getInstance Description
+     *
      * @param array $aliases
      *
      * @return \Notadd\Foundation\AliasLoader
@@ -51,6 +55,8 @@ class AliasLoader
     }
 
     /**
+     * TODO: Method load Description
+     *
      * @param string $alias
      *
      * @return bool|null
@@ -63,6 +69,8 @@ class AliasLoader
     }
 
     /**
+     * TODO: Method alias Description
+     *
      * @param string $class
      * @param string $alias
      *
@@ -74,7 +82,7 @@ class AliasLoader
     }
 
     /**
-     * @return void
+     * TODO: Method register Description
      */
     public function register()
     {
@@ -85,7 +93,7 @@ class AliasLoader
     }
 
     /**
-     * @return void
+     * TODO: Method prependToLoaderStack Description
      */
     protected function prependToLoaderStack()
     {
@@ -96,6 +104,8 @@ class AliasLoader
     }
 
     /**
+     * TODO: Method getAliases Description
+     *
      * @return array
      */
     public function getAliases()
@@ -104,9 +114,9 @@ class AliasLoader
     }
 
     /**
-     * @param array $aliases
+     * TODO: Method setAliases Description
      *
-     * @return void
+     * @param array $aliases
      */
     public function setAliases(array $aliases)
     {
@@ -114,6 +124,8 @@ class AliasLoader
     }
 
     /**
+     * TODO: Method isRegistered Description
+     *
      * @return bool
      */
     public function isRegistered()
@@ -122,9 +134,9 @@ class AliasLoader
     }
 
     /**
-     * @param bool $value
+     * TODO: Method setRegistered Description
      *
-     * @return void
+     * @param $value
      */
     public function setRegistered($value)
     {
@@ -132,6 +144,8 @@ class AliasLoader
     }
 
     /**
+     * TODO: Method setInstance Description
+     *
      * @param \Notadd\Foundation\AliasLoader $loader
      */
     public static function setInstance(AliasLoader $loader)
@@ -140,7 +154,7 @@ class AliasLoader
     }
 
     /**
-     * @return void
+     * TODO: Method __clone Description
      */
     private function __clone()
     {

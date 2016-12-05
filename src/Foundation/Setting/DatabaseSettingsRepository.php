@@ -33,6 +33,8 @@ class DatabaseSettingsRepository implements SettingsRepositoryContract
 
     /**
      * @return mixed
+     * TODO: Method all Description
+     *
      */
     public function all()
     {
@@ -40,6 +42,8 @@ class DatabaseSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
+     * TODO: Method delete Description
+     *
      * @param $keyLike
      */
     public function delete($keyLike)
@@ -48,6 +52,8 @@ class DatabaseSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
+     * TODO: Method get Description
+     *
      * @param      $key
      * @param null $default
      *
@@ -63,6 +69,8 @@ class DatabaseSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
+     * TODO: Method set Description
+     *
      * @param $key
      * @param $value
      */

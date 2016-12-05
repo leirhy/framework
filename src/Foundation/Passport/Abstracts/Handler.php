@@ -47,6 +47,8 @@ abstract class Handler
         $this->translator = $translator;
     }
     /**
+     * TODO: Method code Description
+     *
      * @return int
      * @throws \Exception
      */
@@ -56,6 +58,8 @@ abstract class Handler
     }
 
     /**
+     * TODO: Method errors Description
+     *
      * @return array
      * @throws \Exception
      */
@@ -65,6 +69,8 @@ abstract class Handler
     }
 
     /**
+     * TODO: Method messages Description
+     *
      * @return array
      * @throws \Exception
      */

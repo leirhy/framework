@@ -208,6 +208,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method renderForConsole Description
+     *
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Exception                                        $exception
      *
@@ -219,6 +221,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method renderHttpException Description
+     *
      * @param \Symfony\Component\HttpKernel\Exception\HttpException $exception
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -235,6 +239,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method convertValidationExceptionToResponse Description
+     *
      * @param \Illuminate\Validation\ValidationException $exception
      * @param \Illuminate\Http\Request                   $request
      *
@@ -254,6 +260,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method convertExceptionToResponse Description
+     *
      * @param \Exception $exception
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -268,6 +276,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method isHttpException Description
+     *
      * @param \Exception $exception
      *
      * @return bool
@@ -278,6 +288,8 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
+     * TODO: Method unauthenticated Description
+     *
      * @param \Illuminate\Http\Request                 $request
      * @param \Illuminate\Auth\AuthenticationException $exception
      *

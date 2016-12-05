@@ -29,6 +29,7 @@ class DownCommand extends Command
 
     /**
      * @return void
+     * TODO: Method fire Description
      */
     public function fire()
     {
@@ -38,6 +39,8 @@ class DownCommand extends Command
     }
 
     /**
+     * TODO: Method getDownFilePayload Description
+     *
      * @return array
      */
     protected function getDownFilePayload()
@@ -50,6 +53,8 @@ class DownCommand extends Command
     }
 
     /**
+     * TODO: Method getRetryTime Description
+     *
      * @return int|null
      */
     protected function getRetryTime()

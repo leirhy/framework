@@ -19,6 +19,7 @@ class AuthServiceProvider extends IlluminateAuthServiceProvider
 {
     /**
      * @return void
+     * TODO: Method boot Description
      */
     public function boot()
     {

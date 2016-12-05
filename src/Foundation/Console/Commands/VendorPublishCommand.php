@@ -50,6 +50,7 @@ class VendorPublishCommand extends Command
 
     /**
      * @return void
+     * TODO: Method fire Description
      */
     public function fire()
     {
@@ -62,6 +63,7 @@ class VendorPublishCommand extends Command
 
     /**
      * @param string $tag
+     * TODO: Method publishTag Description
      *
      * @return mixed
      */
@@ -84,6 +86,8 @@ class VendorPublishCommand extends Command
     }
 
     /**
+     * TODO: Method publishFile Description
+     *
      * @param string $from
      * @param string $to
      *
@@ -102,6 +106,7 @@ class VendorPublishCommand extends Command
     /**
      * @param string $from
      * @param string $to
+     * TODO: Method publishDirectory Description
      *
      * @return void
      */
@@ -121,6 +126,7 @@ class VendorPublishCommand extends Command
 
     /**
      * @param string $directory
+     * TODO: Method createParentDirectory Description
      *
      * @return void
      */
@@ -135,6 +141,7 @@ class VendorPublishCommand extends Command
      * @param string $from
      * @param string $to
      * @param string $type
+     * TODO: Method status Description
      *
      * @return void
      */

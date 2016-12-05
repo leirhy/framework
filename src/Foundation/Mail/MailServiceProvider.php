@@ -24,6 +24,7 @@ class MailServiceProvider extends IlluminateMailServiceProvider
 
     /**
      * @return void
+     * TODO: Method boot Description
      */
     public function boot()
     {

@@ -18,6 +18,8 @@ class NotificationTableCommand extends IlluminateNotificationTableCommand
 {
     /**
      * @return void
+     * TODO: Method fire Description
+     *
      */
     public function fire()
     {
@@ -30,6 +32,8 @@ class NotificationTableCommand extends IlluminateNotificationTableCommand
     }
 
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()

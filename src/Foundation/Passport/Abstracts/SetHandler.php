@@ -17,6 +17,8 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class SetHandler extends DataHandler
 {
     /**
+     * TODO: Method data Description
+     *
      * @return array
      */
     public function data()
@@ -25,6 +27,8 @@ abstract class SetHandler extends DataHandler
     }
 
     /**
+     * TODO: Method execute Description
+     *
      * @return bool
      * @throws \Exception
      */
@@ -34,6 +38,8 @@ abstract class SetHandler extends DataHandler
     }
 
     /**
+     * TODO: Method toResponse Description
+     *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      */
     public function toResponse()

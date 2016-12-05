@@ -35,6 +35,8 @@ class EnvironmentDetector
     }
 
     /**
+     * TODO: Method detectWebEnvironment Description
+     *
      * @param \Closure $callback
      *
      * @return string
@@ -45,6 +47,8 @@ class EnvironmentDetector
     }
 
     /**
+     * TODO: Method detectConsoleEnvironment Description
+     *
      * @param \Closure $callback
      * @param array    $args
      *
@@ -60,6 +64,8 @@ class EnvironmentDetector
     }
 
     /**
+     * TODO: Method getEnvironmentArgument Description
+     *
      * @param array $args
      *
      * @return string|null

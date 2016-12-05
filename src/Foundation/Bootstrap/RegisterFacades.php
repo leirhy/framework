@@ -18,6 +18,8 @@ use Notadd\Foundation\AliasLoader;
 class RegisterFacades
 {
     /**
+     * TODO: Method bootstrap Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application $application
      *
      * @return void

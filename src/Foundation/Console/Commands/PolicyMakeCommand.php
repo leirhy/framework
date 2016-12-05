@@ -33,6 +33,8 @@ class PolicyMakeCommand extends GeneratorCommand
     protected $type = 'Policy';
 
     /**
+     * TODO: Method buildClass Description
+     *
      * @param string $name
      *
      * @return string
@@ -46,6 +48,8 @@ class PolicyMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method replaceModel Description
+     *
      * @param string $stub
      * @param string $model
      *
@@ -67,6 +71,8 @@ class PolicyMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()
@@ -79,6 +85,8 @@ class PolicyMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getDefaultNamespace Description
+     *
      * @param string $rootNamespace
      *
      * @return string
@@ -89,6 +97,8 @@ class PolicyMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getOptions Description
+     *
      * @return array
      */
     protected function getOptions()

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Password;
 trait SendsPasswordResetEmails
 {
     /**
+     * TODO: Method showLinkRequestForm Description
+     *
      * @return \Illuminate\Http\Response
      */
     public function showLinkRequestForm()
@@ -25,6 +27,8 @@ trait SendsPasswordResetEmails
     }
 
     /**
+     * TODO: Method sendResetLinkEmail Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -41,6 +45,8 @@ trait SendsPasswordResetEmails
     }
 
     /**
+     * TODO: Method broker Description
+     *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
     public function broker()

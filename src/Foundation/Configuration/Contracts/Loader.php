@@ -15,6 +15,8 @@ namespace Notadd\Foundation\Configuration\Contracts;
 interface Loader
 {
     /**
+     * TODO: Method load Description
+     *
      * @param string $environment
      * @param string $group
      * @param string $namespace
@@ -24,6 +26,8 @@ interface Loader
     public function load($environment, $group, $namespace = null);
 
     /**
+     * TODO: Method exists Description
+     *
      * @param string $group
      * @param string $namespace
      *
@@ -32,6 +36,8 @@ interface Loader
     public function exists($group, $namespace = null);
 
     /**
+     * TODO: Method addNamespace Description
+     *
      * @param string $namespace
      * @param string $hint
      *
@@ -40,11 +46,15 @@ interface Loader
     public function addNamespace($namespace, $hint);
 
     /**
+     * TODO: Method getNamespaces Description
+     *
      * @return array
      */
     public function getNamespaces();
 
     /**
+     * TODO: Method cascadePackage Description
+     *
      * @param string $environment
      * @param string $package
      * @param string $group

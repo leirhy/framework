@@ -21,6 +21,8 @@ trait AuthenticatesUsers
 
     /**
      * @return \Illuminate\Http\Response
+     * TODO: Method showLoginForm Description
+     *
      */
     public function showLoginForm()
     {
@@ -28,6 +30,8 @@ trait AuthenticatesUsers
     }
 
     /**
+     * TODO: Method login Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
@@ -51,6 +55,7 @@ trait AuthenticatesUsers
 
     /**
      * @param \Illuminate\Http\Request $request
+     * TODO: Method validateLogin Description
      *
      * @return void
      */
@@ -63,6 +68,8 @@ trait AuthenticatesUsers
     }
 
     /**
+     * TODO: Method credentials Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return array
@@ -73,6 +80,8 @@ trait AuthenticatesUsers
     }
 
     /**
+     * TODO: Method sendLoginResponse Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
@@ -86,6 +95,8 @@ trait AuthenticatesUsers
     }
 
     /**
+     * TODO: Method authenticated Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param mixed                    $user
      *
@@ -96,6 +107,8 @@ trait AuthenticatesUsers
     }
 
     /**
+     * TODO: Method sendFailedLoginResponse Description
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
@@ -108,6 +121,8 @@ trait AuthenticatesUsers
     }
 
     /**
+     * TODO: Method username Description
+     *
      * @return string
      */
     public function username()
@@ -117,6 +132,7 @@ trait AuthenticatesUsers
 
     /**
      * @param Request $request
+     * TODO: Method logout Description
      *
      * @return \Illuminate\Http\Response
      */
@@ -130,6 +146,8 @@ trait AuthenticatesUsers
     }
 
     /**
+     * TODO: Method guard Description
+     *
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
     protected function guard()

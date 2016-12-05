@@ -129,6 +129,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method version Description
+     *
      * @return string
      */
     public function version()
@@ -137,7 +139,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return void
+     * TODO: Method registerBaseBindings Description
      */
     protected function registerBaseBindings()
     {
@@ -147,7 +149,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return void
+     * TODO: Method registerBaseServiceProviders Description
      */
     protected function registerBaseServiceProviders()
     {
@@ -156,9 +158,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param array $bootstrappers
+     * TODO: Method bootstrapWith Description
      *
-     * @return void
+     * @param array $bootstrappers
      */
     public function bootstrapWith(array $bootstrappers)
     {
@@ -171,9 +173,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param \Closure $callback
+     * TODO: Method afterLoadingEnvironment Description
      *
-     * @return mixed
+     * @param \Closure $callback
      */
     public function afterLoadingEnvironment(Closure $callback)
     {
@@ -181,10 +183,10 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string  $bootstrapper
-     * @param Closure $callback
+     * TODO: Method beforeBootstrapping Description
      *
-     * @return void
+     * @param          $bootstrapper
+     * @param \Closure $callback
      */
     public function beforeBootstrapping($bootstrapper, Closure $callback)
     {
@@ -192,10 +194,10 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string  $bootstrapper
-     * @param Closure $callback
+     * TODO: Method afterBootstrapping Description
      *
-     * @return void
+     * @param          $bootstrapper
+     * @param \Closure $callback
      */
     public function afterBootstrapping($bootstrapper, Closure $callback)
     {
@@ -203,6 +205,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method hasBeenBootstrapped Description
+     *
      * @return bool
      */
     public function hasBeenBootstrapped()
@@ -211,7 +215,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string $basePath
+     * TODO: Method setBasePath Description
+     *
+     * @param $basePath
      *
      * @return $this
      */
@@ -224,7 +230,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return void
+     * TODO: Method bindPathsInContainer Description
      */
     protected function bindPathsInContainer()
     {
@@ -240,6 +246,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method path Description
+     *
      * @return string
      */
     public function path()
@@ -248,6 +256,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method basePath Description
+     *
      * @return string
      */
     public function basePath()
@@ -256,6 +266,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method bootstrapPath Description
+     *
      * @return string
      */
     public function bootstrapPath()
@@ -264,6 +276,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method configPath Description
+     *
      * @return string
      */
     public function configPath()
@@ -272,6 +286,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method databasePath Description
+     *
      * @return string
      */
     public function databasePath()
@@ -280,7 +296,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string $path
+     * TODO: Method useDatabasePath Description
+     *
+     * @param $path
      *
      * @return $this
      */
@@ -293,6 +311,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method langPath Description
+     *
      * @return string
      */
     public function langPath()
@@ -301,6 +321,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method publicPath Description
+     *
      * @return string
      */
     public function publicPath()
@@ -309,7 +331,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string $path
+     * TODO: Method usePublicPath Description
+     *
+     * @param $path
      *
      * @return $this
      */
@@ -322,6 +346,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method storagePath Description
+     *
      * @return string
      */
     public function storagePath()
@@ -330,7 +356,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string $path
+     * TODO: Method useStoragePath Description
+     *
+     * @param $path
      *
      * @return $this
      */
@@ -343,6 +371,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method resourcePath Description
+     *
      * @return string
      */
     public function resourcePath()
@@ -351,6 +381,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method environmentPath Description
+     *
      * @return string
      */
     public function environmentPath()
@@ -359,7 +391,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string $path
+     * TODO: Method useEnvironmentPath Description
+     *
+     * @param $path
      *
      * @return $this
      */
@@ -371,7 +405,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string $file
+     * TODO: Method loadEnvironmentFrom Description
+     *
+     * @param $file
      *
      * @return $this
      */
@@ -383,6 +419,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method environmentFile Description
+     *
      * @return string
      */
     public function environmentFile()
@@ -391,6 +429,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method environmentFilePath Description
+     *
      * @return string
      */
     public function environmentFilePath()
@@ -399,7 +439,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return string|bool
+     * TODO: Method environment Description
+     *
+     * @return bool|mixed
      */
     public function environment()
     {
@@ -418,6 +460,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method isLocal Description
+     *
      * @return bool
      */
     public function isLocal()
@@ -426,6 +470,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method detectEnvironment Description
+     *
      * @param \Closure $callback
      *
      * @return string
@@ -438,6 +484,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method runningInConsole Description
+     *
      * @return bool
      */
     public function runningInConsole()
@@ -446,6 +494,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method runningUnitTests Description
+     *
      * @return bool
      */
     public function runningUnitTests()
@@ -454,7 +504,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return void
+     * TODO: Method registerConfiguredProviders Description
      */
     public function registerConfiguredProviders()
     {
@@ -463,6 +513,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method register Description
+     *
      * @param \Illuminate\Support\ServiceProvider|string $provider
      * @param array                                      $options
      * @param bool                                       $force
@@ -492,6 +544,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method getProvider Description
+     *
      * @param \Illuminate\Support\ServiceProvider|string $provider
      *
      * @return \Illuminate\Support\ServiceProvider|null
@@ -506,6 +560,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method resolveProviderClass Description
+     *
      * @param string $provider
      *
      * @return \Illuminate\Support\ServiceProvider
@@ -516,6 +572,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method markAsRegistered Description
+     *
      * @param \Illuminate\Support\ServiceProvider $provider
      *
      * @return void
@@ -528,6 +586,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method loadDeferredProviders Description
+     *
      * @return void
      */
     public function loadDeferredProviders()
@@ -539,9 +599,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string $service
+     * TODO: Method loadDeferredProvider Description
      *
-     * @return void
+     * @param $service
      */
     public function loadDeferredProvider($service)
     {
@@ -555,10 +615,10 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @param string $provider
-     * @param string $service
+     * TODO: Method registerDeferredProvider Description
      *
-     * @return void
+     * @param string $provider
+     * @param null   $service
      */
     public function registerDeferredProvider($provider, $service = null)
     {
@@ -574,6 +634,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method make Description
+     *
      * @param string $abstract
      * @param array  $parameters
      *
@@ -590,6 +652,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method bound Description
+     *
      * @param string $abstract
      *
      * @return bool
@@ -600,6 +664,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method isBooted Description
+     *
      * @return bool
      */
     public function isBooted()
@@ -608,7 +674,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return void
+     * TODO: Method boot Description
      */
     public function boot()
     {
@@ -624,6 +690,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method bootProvider Description
+     *
      * @param \Illuminate\Support\ServiceProvider $provider
      *
      * @return mixed
@@ -639,6 +707,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method booting Description
+     *
      * @param mixed $callback
      */
     public function booting($callback)
@@ -647,6 +717,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method booted Description
+     *
      * @param mixed $callback
      */
     public function booted($callback)
@@ -658,6 +730,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method fireAppCallbacks Description
+     *
      * @param array $callbacks
      */
     protected function fireAppCallbacks(array $callbacks)
@@ -668,6 +742,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method handle Description
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int                                       $type
      * @param bool                                      $catch
@@ -680,6 +756,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method shouldSkipMiddleware Description
+     *
      * @return bool
      */
     public function shouldSkipMiddleware()
@@ -688,6 +766,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method configurationIsCached Description
+     *
      * @return bool
      */
     public function configurationIsCached()
@@ -696,6 +776,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method getCachedConfigPath Description
+     *
      * @return string
      */
     public function getCachedConfigPath()
@@ -704,7 +786,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return bool
+     * TODO: Method routesAreCached Description
+     *
+     * @return mixed
      */
     public function routesAreCached()
     {
@@ -712,6 +796,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method getCachedRoutesPath Description
+     *
      * @return string
      */
     public function getCachedRoutesPath()
@@ -720,6 +806,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method getCachedCompilePath Description
+     *
      * @return string
      */
     public function getCachedCompilePath()
@@ -728,6 +816,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method getCachedServicesPath Description
+     *
      * @return string
      */
     public function getCachedServicesPath()
@@ -736,6 +826,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method isDownForMaintenance Description
+     *
      * @return bool
      */
     public function isDownForMaintenance()
@@ -744,6 +836,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method abort Description
+     *
      * @param int    $code
      * @param string $message
      * @param array  $headers
@@ -760,6 +854,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method terminating Description
+     *
      * @param \Closure $callback
      *
      * @return $this
@@ -772,7 +868,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return void
+     * TODO: Method terminate Description
      */
     public function terminate()
     {
@@ -782,6 +878,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method getLoadedProviders Description
+     *
      * @return array
      */
     public function getLoadedProviders()
@@ -790,6 +888,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method getDeferredServices Description
+     *
      * @return array
      */
     public function getDeferredServices()
@@ -798,6 +898,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method setDeferredServices Description
+     *
      * @param array $services
      *
      * @return void
@@ -808,6 +910,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method addDeferredServices Description
+     *
      * @param array $services
      *
      * @return void
@@ -818,6 +922,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method isDeferredService Description
+     *
      * @param string $service
      *
      * @return bool
@@ -828,6 +934,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method configureMonologUsing Description
+     *
      * @param callable $callback
      *
      * @return $this
@@ -840,6 +948,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method hasMonologConfigurator Description
+     *
      * @return bool
      */
     public function hasMonologConfigurator()
@@ -848,6 +958,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method getMonologConfigurator Description
+     *
      * @return callable
      */
     public function getMonologConfigurator()
@@ -856,6 +968,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method getLocale Description
+     *
      * @return string
      */
     public function getLocale()
@@ -864,6 +978,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method setLocale Description
+     *
      * @param string $locale
      *
      * @return void
@@ -876,6 +992,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method isLocale Description
+     *
      * @param string $locale
      *
      * @return bool
@@ -886,7 +1004,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return void
+     * TODO: Method registerCoreContainerAliases Description
      */
     public function registerCoreContainerAliases()
     {
@@ -1017,7 +1135,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @return void
+     * TODO: Method flush Description
      */
     public function flush()
     {
@@ -1026,8 +1144,10 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * @throws \RuntimeException
+     * TODO: Method getNamespace Description
+     *
      * @return string
+     * @throws \RuntimeException
      */
     public function getNamespace()
     {
@@ -1046,6 +1166,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * TODO: Method isInstalled Description
+     *
      * @return bool
      */
     public function isInstalled()

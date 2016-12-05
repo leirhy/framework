@@ -22,6 +22,7 @@ class UninstallCommand extends Command
 {
     /**
      * @return void
+     * TODO: Method configure Description
      */
     public function configure()
     {
@@ -31,6 +32,8 @@ class UninstallCommand extends Command
     }
 
     /**
+     * TODO: Method fire Description
+     *
      * @param \Notadd\Foundation\Extension\ExtensionManager           $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      *

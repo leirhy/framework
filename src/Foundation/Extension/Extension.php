@@ -66,6 +66,7 @@ class Extension implements ExtensionContract
 
     /**
      * @return void
+     * TODO: Method assignId Description
      */
     protected function assignId()
     {
@@ -78,6 +79,8 @@ class Extension implements ExtensionContract
     }
 
     /**
+     * TODO: Method enable Description
+     *
      * @param bool $status
      */
     public function enable($status = true)
@@ -86,6 +89,8 @@ class Extension implements ExtensionContract
     }
 
     /**
+     * TODO: Method getId Description
+     *
      * @return string
      */
     public function getId()
@@ -94,6 +99,8 @@ class Extension implements ExtensionContract
     }
 
     /**
+     * TODO: Method getPath Description
+     *
      * @return string
      */
     public function getPath()
@@ -102,6 +109,8 @@ class Extension implements ExtensionContract
     }
 
     /**
+     * TODO: Method getRegistrar Description
+     *
      * @return \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar
      */
     public function getRegistrar()
@@ -110,6 +119,8 @@ class Extension implements ExtensionContract
     }
 
     /**
+     * TODO: Method hasAssets Description
+     *
      * @return bool
      */
     public function hasAssets()
@@ -118,6 +129,8 @@ class Extension implements ExtensionContract
     }
 
     /**
+     * TODO: Method hasMigrations Description
+     *
      * @return bool
      */
     public function hasMigrations()
@@ -126,6 +139,8 @@ class Extension implements ExtensionContract
     }
 
     /**
+     * TODO: Method toArray Description
+     *
      * @return array
      */
     public function toArray()
@@ -134,6 +149,8 @@ class Extension implements ExtensionContract
     }
 
     /**
+     * TODO: Method setRegistrar Description
+     *
      * @param \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar $registrar
      */
     public function setRegistrar(ExtensionRegistrar $registrar)

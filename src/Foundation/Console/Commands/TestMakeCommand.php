@@ -32,6 +32,8 @@ class TestMakeCommand extends GeneratorCommand
     protected $type = 'Test';
 
     /**
+     * TODO: Method getDefaultNamespace Description
+     *
      * @param string $rootNamespace
      *
      * @return string
@@ -42,6 +44,8 @@ class TestMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getPath Description
+     *
      * @param string $name
      *
      * @return string
@@ -54,6 +58,8 @@ class TestMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method getStub Description
+     *
      * @return string
      */
     protected function getStub()
@@ -62,6 +68,8 @@ class TestMakeCommand extends GeneratorCommand
     }
 
     /**
+     * TODO: Method replaceClass Description
+     *
      * @param string $stub
      * @param string $name
      *

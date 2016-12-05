@@ -33,6 +33,8 @@ class AuthController extends Controller
     }
 
     /**
+     * TODO: Method index Description
+     *
      * @return \Illuminate\Contracts\View\View
      */
     public function index()
@@ -41,6 +43,8 @@ class AuthController extends Controller
     }
 
     /**
+     * TODO: Method store Description
+     *
      * @return \Illuminate\Http\Response
      */
     public function store()
@@ -49,6 +53,8 @@ class AuthController extends Controller
     }
 
     /**
+     * TODO: Method username Description
+     *
      * @return string
      */
     public function username()

@@ -21,6 +21,7 @@ class HttpServiceProvider extends ServiceProvider
 {
     /**
      * @return void
+     * TODO: Method boot Description
      */
     public function boot()
     {
@@ -33,6 +34,7 @@ class HttpServiceProvider extends ServiceProvider
 
     /**
      * @return void
+     * TODO: Method configureFormRequests Description
      */
     protected function configureFormRequests()
     {
@@ -46,6 +48,8 @@ class HttpServiceProvider extends ServiceProvider
     }
 
     /**
+     * TODO: Method initializeRequest Description
+     *
      * @param \Notadd\Foundation\Http\FormRequest       $form
      * @param \Symfony\Component\HttpFoundation\Request $current
      */

@@ -33,6 +33,8 @@ class ShareMessagesFromSession
     }
 
     /**
+     * TODO: Method handle Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
      *

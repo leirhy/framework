@@ -35,6 +35,8 @@ class SeoController extends ApiController
 
     /**
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * TODO: Method handle Description
+     *
      */
     public function handle()
     {

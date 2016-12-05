@@ -35,6 +35,8 @@ class MigrationCreator extends IlluminateMigrationCreator
     }
 
     /**
+     * TODO: Method getStubPath Description
+     *
      * @return string
      */
     public function getStubPath()

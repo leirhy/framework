@@ -17,6 +17,7 @@ class NotificationServiceProvider extends IlluminateNotificationServiceProvider
 {
     /**
      * @return void
+     * TODO: Method register Description
      */
     public function register()
     {

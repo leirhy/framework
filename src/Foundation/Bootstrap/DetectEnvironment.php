@@ -19,6 +19,8 @@ use Symfony\Component\Console\Input\ArgvInput;
 class DetectEnvironment
 {
     /**
+     * TODO: Method bootstrap Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      *
      * @return void
@@ -38,6 +40,8 @@ class DetectEnvironment
     }
 
     /**
+     * TODO: Method checkForSpecificEnvironmentFile Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      *
      * @return void
@@ -61,6 +65,8 @@ class DetectEnvironment
     }
 
     /**
+     * TODO: Method loadEnvironmentFile Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param string                                                                      $file
      *

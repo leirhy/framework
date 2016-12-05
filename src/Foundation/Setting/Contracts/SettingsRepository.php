@@ -14,16 +14,22 @@ namespace Notadd\Foundation\Setting\Contracts;
 interface SettingsRepository
 {
     /**
+     * TODO: Method all Description
+     *
      * @return \Illuminate\Support\Collection
      */
     public function all();
 
     /**
+     * TODO: Method delete Description
+     *
      * @param $keyLike
      */
     public function delete($keyLike);
 
     /**
+     * TODO: Method get Description
+     *
      * @param      $key
      * @param null $default
      *
@@ -32,6 +38,8 @@ interface SettingsRepository
     public function get($key, $default = null);
 
     /**
+     * TODO: Method set Description
+     *
      * @param $key
      * @param $value
      */

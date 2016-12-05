@@ -91,6 +91,7 @@ class Kernel implements KernelContract
 
     /**
      * @return void
+     * TODO: Method defineConsoleSchedule Description
      */
     protected function defineConsoleSchedule()
     {
@@ -99,6 +100,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method handle Description
+     *
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
@@ -129,6 +132,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method terminate Description
+     *
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param int                                             $status
      *
@@ -140,6 +145,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method schedule Description
+     *
      * @param \Illuminate\Console\Scheduling\Schedule $schedule
      *
      * @return void
@@ -150,12 +157,15 @@ class Kernel implements KernelContract
 
     /**
      * @return void
+     * TODO: Method commands Description
      */
     protected function commands()
     {
     }
 
     /**
+     * TODO: Method command Description
+     *
      * @param string  $signature
      * @param Closure $callback
      *
@@ -172,6 +182,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method registerCommand Description
+     *
      * @param \Symfony\Component\Console\Command\Command $command
      *
      * @return void
@@ -182,6 +194,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method call Description
+     *
      * @param string $command
      * @param array  $parameters
      *
@@ -199,6 +213,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method queue Description
+     *
      * @param string $command
      * @param array  $parameters
      *
@@ -210,6 +226,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method all Description
+     *
      * @return array
      */
     public function all()
@@ -220,6 +238,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method output Description
+     *
      * @return string
      */
     public function output()
@@ -230,6 +250,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method bootstrap Description
+     *
      * @return void
      */
     public function bootstrap()
@@ -241,6 +263,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method getArtisan Description
+     *
      * @return \Notadd\Foundation\Console\Application
      */
     public function getArtisan()
@@ -254,6 +278,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method setArtisan Description
+     *
      * @param \Notadd\Foundation\Console\Application $artisan
      *
      * @return void
@@ -264,6 +290,7 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method bootstrappers Description
      * @return array
      */
     protected function bootstrappers()
@@ -272,6 +299,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method reportException Description
+     *
      * @param \Exception $e
      *
      * @return void
@@ -282,6 +311,8 @@ class Kernel implements KernelContract
     }
 
     /**
+     * TODO: Method renderException Description
+     *
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Exception                                        $e
      *

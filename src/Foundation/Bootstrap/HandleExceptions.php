@@ -26,6 +26,8 @@ class HandleExceptions
     protected $app;
 
     /**
+     * TODO: Method bootstrap Description
+     *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      *
      * @return void
@@ -55,6 +57,8 @@ class HandleExceptions
     }
 
     /**
+     * TODO: Method handleError Description
+     *
      * @param int    $level
      * @param string $message
      * @param string $file
@@ -72,6 +76,8 @@ class HandleExceptions
     }
 
     /**
+     * TODO: Method handleException Description
+     *
      * @param \Throwable $e
      *
      * @return void
@@ -90,6 +96,8 @@ class HandleExceptions
     }
 
     /**
+     * TODO: Method renderForConsole Description
+     *
      * @param \Exception $e
      *
      * @return void
@@ -100,6 +108,8 @@ class HandleExceptions
     }
 
     /**
+     * TODO: Method renderHttpResponse Description
+     *
      * @param \Exception $e
      *
      * @return void
@@ -111,6 +121,7 @@ class HandleExceptions
 
     /**
      * @return void
+     * TODO: Method handleShutdown Description
      */
     public function handleShutdown()
     {
@@ -120,6 +131,8 @@ class HandleExceptions
     }
 
     /**
+     * TODO: Method fatalExceptionFromError Description
+     *
      * @param array    $error
      * @param int|null $traceOffset
      *
@@ -132,6 +145,8 @@ class HandleExceptions
     }
 
     /**
+     * TODO: Method isFatal Description
+     *
      * @param int $type
      *
      * @return bool
@@ -147,6 +162,8 @@ class HandleExceptions
     }
 
     /**
+     * TODO: Method getExceptionHandler Description
+     *
      * @return \Illuminate\Contracts\Debug\ExceptionHandler
      */
     protected function getExceptionHandler()

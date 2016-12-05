@@ -66,6 +66,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     ];
 
     /**
+     * TODO: Method getValidatorInstance Description
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function getValidatorInstance()
@@ -90,6 +92,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method validationData Description
+     *
      * @return array
      */
     protected function validationData()
@@ -98,6 +102,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method failedValidation Description
+     *
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -109,6 +115,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method passesAuthorization Description
+     *
      * @return bool
      */
     protected function passesAuthorization()
@@ -124,6 +132,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method failedAuthorization Description
+     *
      * @throws \Illuminate\Http\Exception\HttpResponseException
      * @return void
      */
@@ -133,6 +143,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method response Description
+     *
      * @param array $errors
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -148,6 +160,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method forbiddenResponse Description
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function forbiddenResponse()
@@ -156,6 +170,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method formatErrors Description
+     *
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
      * @return array
@@ -166,6 +182,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method getRedirectUrl Description
+     *
      * @return string
      */
     protected function getRedirectUrl()
@@ -183,6 +201,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method setRedirector Description
+     *
      * @param \Illuminate\Routing\Redirector $redirector
      *
      * @return $this
@@ -195,6 +215,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method setContainer Description
+     *
      * @param \Illuminate\Container\Container $container
      *
      * @return $this
@@ -207,6 +229,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method messages Description
+     *
      * @return array
      */
     public function messages()
@@ -215,6 +239,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
+     * TODO: Method attributes Description
+     *
      * @return array
      */
     public function attributes()

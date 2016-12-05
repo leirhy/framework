@@ -17,6 +17,7 @@ class UpdateCommand extends Command
 {
     /**
      * @return void
+     * TODO: Method configure Description
      */
     public function configure()
     {
@@ -26,6 +27,8 @@ class UpdateCommand extends Command
 
     /**
      * @return void
+     * TODO: Method fire Description
+     *
      */
     public function fire()
     {

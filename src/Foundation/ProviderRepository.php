@@ -44,6 +44,8 @@ class ProviderRepository
     }
 
     /**
+     * TODO: Method load Description
+     *
      * @param array $providers
      *
      * @return void
@@ -64,6 +66,8 @@ class ProviderRepository
     }
 
     /**
+     * TODO: Method registerLoadEvents Description
+     *
      * @param string $provider
      * @param array  $events
      *
@@ -81,6 +85,8 @@ class ProviderRepository
     }
 
     /**
+     * TODO: Method compileManifest Description
+     *
      * @param array $providers
      *
      * @return array
@@ -104,6 +110,8 @@ class ProviderRepository
     }
 
     /**
+     * TODO: Method createProvider Description
+     *
      * @param string $provider
      *
      * @return \Illuminate\Support\ServiceProvider
@@ -114,6 +122,8 @@ class ProviderRepository
     }
 
     /**
+     * TODO: Method shouldRecompile Description
+     *
      * @param array $manifest
      * @param array $providers
      *
@@ -126,6 +136,8 @@ class ProviderRepository
 
     /**
      * @return array|null
+     * TODO: Method loadManifest Description
+     *
      */
     public function loadManifest()
     {
@@ -139,6 +151,8 @@ class ProviderRepository
 
     /**
      * @param array $manifest
+     * TODO: Method writeManifest Description
+     *
      *
      * @return array
      */
@@ -150,6 +164,8 @@ class ProviderRepository
     }
 
     /**
+     * TODO: Method freshManifest Description
+     *
      * @param array $providers
      *
      * @return array

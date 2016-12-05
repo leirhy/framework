@@ -17,6 +17,7 @@ class RoutingServiceProvider extends IlluminateRoutingServiceProvider
 {
     /**
      * @return void
+     * TODO: Method registerRedirector Description
      */
     protected function registerRedirector()
     {

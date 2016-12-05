@@ -31,6 +31,7 @@ class ServeCommand extends Command
     /**
      * @throws \Exception
      * @return void
+     * TODO: Method fire Description
      */
     public function fire()
     {
@@ -44,6 +45,8 @@ class ServeCommand extends Command
     }
 
     /**
+     * TODO: Method getOptions Description
+     *
      * @return array
      */
     protected function getOptions()

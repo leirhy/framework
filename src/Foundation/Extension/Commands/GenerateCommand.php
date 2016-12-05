@@ -18,6 +18,7 @@ class GenerateCommand extends Command
 {
     /**
      * @return void
+     * TODO: Method configure Description
      */
     public function configure()
     {
@@ -28,6 +29,8 @@ class GenerateCommand extends Command
 
     /**
      * @return true
+     * TODO: Method fire Description
+     *
      */
     public function fire()
     {

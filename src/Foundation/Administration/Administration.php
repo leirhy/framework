@@ -45,6 +45,8 @@ class Administration
     }
 
     /**
+     * TODO: Method getAdministrator Description
+     *
      * @return \Notadd\Foundation\Administration\Abstracts\Administrator
      */
     public function getAdministrator()
@@ -53,6 +55,8 @@ class Administration
     }
 
     /**
+     * TODO: Method hasAdministrator Description
+     *
      * @return bool
      */
     public function hasAdministrator()
@@ -61,6 +65,8 @@ class Administration
     }
 
     /**
+     * TODO: Method setAdministrator Description
+     *
      * @param \Notadd\Foundation\Administration\Abstracts\Administrator $administrator
      */
     public function setAdministrator(Administrator $administrator)

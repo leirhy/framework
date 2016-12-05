@@ -17,6 +17,8 @@ use Illuminate\Http\Exception\PostTooLargeException;
 class VerifyPostSize
 {
     /**
+     * TODO: Method handle Description
+     *
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
      *
@@ -33,6 +35,7 @@ class VerifyPostSize
     }
 
     /**
+     * TODO: Method getPostMaxSize Description
      * @return int
      */
     protected function getPostMaxSize()

@@ -40,6 +40,8 @@ abstract class EventSubscriber
     }
 
     /**
+     * TODO: Method getEvent Description
+     *
      * @throws \Exception
      * @return string|object
      */
@@ -50,6 +52,8 @@ abstract class EventSubscriber
 
     /**
      * @return void
+     * TODO: Method subscribe Description
+     *
      */
     public function subscribe()
     {

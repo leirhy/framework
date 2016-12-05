@@ -20,6 +20,7 @@ class MigrationServiceProvider extends IlluminateMigrationServiceProvider
 {
     /**
      * @return void
+     * TODO: Method registerCreator Description
      */
     protected function registerCreator()
     {
@@ -30,6 +31,7 @@ class MigrationServiceProvider extends IlluminateMigrationServiceProvider
 
     /**
      * @return void
+     * TODO: Method registerMigrateCommand Description
      */
     protected function registerMigrateCommand()
     {
@@ -40,6 +42,7 @@ class MigrationServiceProvider extends IlluminateMigrationServiceProvider
 
     /**
      * @return void
+     * TODO: Method registerMigrator Description
      */
     protected function registerMigrator()
     {

@@ -36,6 +36,8 @@ class SettingController extends Controller
 
     /**
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * TODO: Method  Description
+     *
      */
     public function all()
     {

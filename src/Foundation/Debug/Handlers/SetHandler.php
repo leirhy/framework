@@ -77,7 +77,7 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
-     * TODO: Method messages Description
+     * Messages for handler.
      *
      * @return array
      */

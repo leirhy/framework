@@ -87,7 +87,7 @@ class AttachmentSetHandler extends SetHandler
     }
 
     /**
-     * TODO: Method messages Description
+     * Messages for handler.
      *
      * @return array
      */

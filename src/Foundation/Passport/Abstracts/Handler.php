@@ -69,7 +69,7 @@ abstract class Handler
     }
 
     /**
-     * TODO: Method messages Description
+     * Messages for handler.
      *
      * @return array
      * @throws \Exception

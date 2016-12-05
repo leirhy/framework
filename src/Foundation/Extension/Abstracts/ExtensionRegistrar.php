@@ -140,7 +140,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method loadCommands Description
+     * Commands define by extension.
      *
      * @return array
      */

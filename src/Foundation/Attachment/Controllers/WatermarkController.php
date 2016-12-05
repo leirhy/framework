@@ -35,7 +35,8 @@ class WatermarkController extends Controller
      *
      * @param \Notadd\Foundation\Attachment\Handlers\WatermarkSetHandler $handler
      *
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @throws \Exception
      */
     public function handle(WatermarkSetHandler $handler)
     {

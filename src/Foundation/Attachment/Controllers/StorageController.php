@@ -35,7 +35,8 @@ class StorageController extends Controller
      *
      * @param \Notadd\Foundation\Attachment\Handlers\StorageSetHandler $handler
      *
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @throws \Exception
      */
     public function handle(StorageSetHandler $handler)
     {

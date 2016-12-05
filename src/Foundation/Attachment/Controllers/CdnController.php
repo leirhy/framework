@@ -38,7 +38,8 @@ class CdnController extends Controller
      *
      * @param \Notadd\Foundation\Attachment\Handlers\CdnSetHandler $handler
      *
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @throws \Exception
      */
     public function handle(CdnSetHandler $handler)
     {

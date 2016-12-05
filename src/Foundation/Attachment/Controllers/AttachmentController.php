@@ -38,7 +38,8 @@ class AttachmentController extends Controller
      *
      * @param \Notadd\Foundation\Attachment\Handlers\AttachmentSetHandler $handler
      *
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @throws \Exception
      */
     public function handle(AttachmentSetHandler $handler)
     {

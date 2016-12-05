@@ -65,7 +65,7 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
-     * TODO: Method execute Description
+     * Execute Handler.
      *
      * @return bool
      */

@@ -109,7 +109,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method getExtensionInfo Description
+     * Info for extension.
      *
      * @return array
      */

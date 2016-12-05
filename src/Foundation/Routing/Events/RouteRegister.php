@@ -20,6 +20,7 @@ class RouteRegister
      * @var \Illuminate\Container\Container
      */
     protected $container;
+
     /**
      * @var \Illuminate\Routing\Router
      */

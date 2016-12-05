@@ -20,18 +20,22 @@ abstract class ExtensionRegistrar
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
+
     /**
      * @var \Illuminate\Events\Dispatcher
      */
     protected $events;
+
     /**
      * @var \Illuminate\Routing\Router
      */
     protected $router;
+
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
     protected $setting;
+
     /**
      * @var \Illuminate\Support\ServiceProvider
      */

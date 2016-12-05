@@ -30,10 +30,12 @@ class TinkerCommand extends Command
         'optimize',
         'up',
     ];
+
     /**
      * @var string
      */
     protected $name = 'tinker';
+
     /**
      * @var string
      */

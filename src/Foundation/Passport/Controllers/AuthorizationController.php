@@ -25,10 +25,12 @@ use Zend\Diactoros\Response as Psr7Response;
 class AuthorizationController extends Controller
 {
     use HandlesOAuthErrors, RetrievesAuthRequestFromSession;
+
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
     protected $response;
+
     /**
      * @var \League\OAuth2\Server\AuthorizationServer
      */

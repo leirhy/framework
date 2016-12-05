@@ -20,10 +20,12 @@ class EventMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:event';
+
     /**
      * @var string
      */
     protected $description = 'Create a new event class';
+
     /**
      * @var string
      */

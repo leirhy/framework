@@ -20,10 +20,12 @@ class TestMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:test';
+
     /**
      * @var string
      */
     protected $description = 'Create a new test class';
+
     /**
      * @var string
      */

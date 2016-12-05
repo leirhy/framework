@@ -20,10 +20,12 @@ class RouteClearCommand extends Command
      * @var string
      */
     protected $name = 'route:clear';
+
     /**
      * @var string
      */
     protected $description = 'Remove the route cache file';
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */

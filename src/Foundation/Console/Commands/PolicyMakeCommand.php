@@ -21,10 +21,12 @@ class PolicyMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:policy';
+
     /**
      * @var string
      */
     protected $description = 'Create a new policy class';
+
     /**
      * @var string
      */

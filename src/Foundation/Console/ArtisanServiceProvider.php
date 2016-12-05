@@ -51,6 +51,7 @@ class ArtisanServiceProvider extends ServiceProvider
      * @var bool
      */
     protected $defer = true;
+
     /**
      * @var array
      */

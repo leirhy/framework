@@ -17,6 +17,7 @@ use Notadd\Foundation\Auth\User as Authenticatable;
 class Member extends Authenticatable
 {
     use HasApiTokens;
+
     /**
      * @var array
      */
@@ -25,6 +26,7 @@ class Member extends Authenticatable
         'email',
         'password',
     ];
+
     /**
      * @var array
      */

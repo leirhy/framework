@@ -22,6 +22,7 @@ class HasLink extends PageConstraint
      * @var string
      */
     protected $text;
+
     /**
      * The URL expected to be linked in the <a> tag.
      *

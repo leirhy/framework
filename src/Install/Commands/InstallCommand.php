@@ -25,14 +25,17 @@ class InstallCommand extends Command
      * @var \Illuminate\Contracts\Config\Repository
      */
     protected $config;
+
     /**
      * @var \Illuminate\Support\Collection
      */
     protected $data;
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $filesystem;
+
     /**
      * @var bool
      */

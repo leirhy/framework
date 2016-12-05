@@ -22,18 +22,22 @@ class Optimization
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     private $container;
+
     /**
      * @var \Illuminate\Support\Collection
      */
     private $code;
+
     /**
      * @var \Notadd\Foundation\SearchEngine\Meta
      */
     private $meta;
+
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
     private $settings;
+
     /**
      * @var \Illuminate\View\Factory
      */

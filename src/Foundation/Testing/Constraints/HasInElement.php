@@ -21,6 +21,7 @@ class HasInElement extends PageConstraint
      * @var string
      */
     protected $element;
+
     /**
      * The text expected to be found.
      *

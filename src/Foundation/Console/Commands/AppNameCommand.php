@@ -23,18 +23,22 @@ class AppNameCommand extends Command
      * @var string
      */
     protected $name = 'app:name';
+
     /**
      * @var string
      */
     protected $description = 'Set the application namespace';
+
     /**
      * @var \Illuminate\Support\Composer
      */
     protected $composer;
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
+
     /**
      * @var string
      */

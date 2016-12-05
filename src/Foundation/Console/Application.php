@@ -24,6 +24,7 @@ class Application extends IlluminateApplication implements ApplicationContract
      * @var \Illuminate\Contracts\Container\Container|\Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
     protected $container;
+
     /**
      * @var \Symfony\Component\Console\Output\BufferedOutput
      */

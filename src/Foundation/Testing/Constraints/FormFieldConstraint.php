@@ -21,6 +21,7 @@ abstract class FormFieldConstraint extends PageConstraint
      * @var string
      */
     protected $selector;
+
     /**
      * The expected value.
      *

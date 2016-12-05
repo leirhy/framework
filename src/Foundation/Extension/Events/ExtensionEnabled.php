@@ -21,10 +21,12 @@ class ExtensionEnabled
      * @var \Illuminate\Container\Container|\Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
     protected $container;
+
     /**
      * @var \Notadd\Foundation\Extension\Extension
      */
     protected $extension;
+
     /**
      * @var \Notadd\Foundation\Extension\ExtensionManager
      */

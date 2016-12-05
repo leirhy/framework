@@ -21,10 +21,12 @@ class MaintenanceModeException extends ServiceUnavailableHttpException
      * @var int
      */
     public $wentDownAt;
+
     /**
      * @var \Carbon\Carbon
      */
     public $retryAfter;
+
     /**
      * @var \Carbon\Carbon
      */

@@ -22,6 +22,7 @@ class ServeCommand extends Command
      * @var string
      */
     protected $name = 'serve';
+
     /**
      * @var string
      */

@@ -22,10 +22,12 @@ class ListenerMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:listener';
+
     /**
      * @var string
      */
     protected $description = 'Create a new event listener class';
+
     /**
      * @var string
      */

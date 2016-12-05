@@ -20,10 +20,12 @@ class ConfigClearCommand extends Command
      * @var string
      */
     protected $name = 'config:clear';
+
     /**
      * @var string
      */
     protected $description = 'Remove the configuration cache file';
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */

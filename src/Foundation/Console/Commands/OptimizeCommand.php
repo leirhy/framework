@@ -207,14 +207,17 @@ class OptimizeCommand extends Command
         '/vendor/vlucas/phpdotenv/src/Dotenv.php',
         '/vendor/nesbot/carbon/src/Carbon/Carbon.php',
     ];
+
     /**
      * @var string
      */
     protected $name = 'optimize';
+
     /**
      * @var string
      */
     protected $description = 'Optimize the framework for better performance';
+
     /**
      * @var \Illuminate\Support\Composer
      */

@@ -24,18 +24,21 @@ trait MocksApplicationServices
      * @var array
      */
     protected $firedEvents = [];
+
     /**
      * All of the fired model events.
      *
      * @var array
      */
     protected $firedModelEvents = [];
+
     /**
      * All of the dispatched jobs.
      *
      * @var array
      */
     protected $dispatchedJobs = [];
+
     /**
      * All of the dispatched notifications.
      *

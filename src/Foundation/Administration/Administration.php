@@ -21,10 +21,12 @@ class Administration
      * @var \Notadd\Foundation\Administration\Abstracts\Administrator
      */
     protected $administrator;
+
     /**
      * @var \Illuminate\Container\Container
      */
     protected $container;
+
     /**
      * @var \Illuminate\Events\Dispatcher
      */

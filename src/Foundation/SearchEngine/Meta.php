@@ -19,10 +19,12 @@ class Meta
      * @var string
      */
     private $title;
+
     /**
      * @var string
      */
     private $description;
+
     /**
      * @var string
      */

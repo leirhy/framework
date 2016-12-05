@@ -22,6 +22,7 @@ class EventGenerateCommand extends Command
      * @var string
      */
     protected $name = 'event:generate';
+
     /**
      * The console command description.
      *

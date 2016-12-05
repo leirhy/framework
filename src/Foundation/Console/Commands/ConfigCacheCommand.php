@@ -27,10 +27,12 @@ class ConfigCacheCommand extends Command
      * @var string
      */
     protected $name = 'config:cache';
+
     /**
      * @var string
      */
     protected $description = 'Create a cache file for faster configuration loading';
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */

@@ -19,6 +19,7 @@ class EnvironmentCommand extends Command
      * @var string
      */
     protected $name = 'env';
+
     /**
      * @var string
      */

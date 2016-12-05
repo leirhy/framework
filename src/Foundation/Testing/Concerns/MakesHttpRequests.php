@@ -24,18 +24,21 @@ use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 trait MakesHttpRequests
 {
     use InteractsWithPages;
+
     /**
      * The last response returned by the application.
      *
      * @var \Illuminate\Http\Response
      */
     protected $response;
+
     /**
      * The current URL being viewed.
      *
      * @var string
      */
     protected $currentUri;
+
     /**
      * Additional server variables for the request.
      *

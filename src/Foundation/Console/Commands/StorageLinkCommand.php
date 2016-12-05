@@ -19,6 +19,7 @@ class StorageLinkCommand extends Command
      * @var string
      */
     protected $signature = 'storage:link';
+
     /**
      * @var string
      */

@@ -19,6 +19,7 @@ class ClearCompiledCommand extends Command
      * @var string
      */
     protected $name = 'clear-compiled';
+
     /**
      * @var string
      */

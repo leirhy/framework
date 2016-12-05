@@ -21,6 +21,7 @@ abstract class EventSubscriber
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
+
     /**
      * @var \Illuminate\Events\Dispatcher
      */

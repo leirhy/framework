@@ -20,26 +20,32 @@ class Extension implements ExtensionContract
      * @var bool
      */
     protected $enabled = false;
+
     /**
      * @var string
      */
     protected $id;
+
     /**
      * @var bool
      */
     protected $installed = false;
+
     /**
      * @var string
      */
     protected $name;
+
     /**
      * @var string
      */
     protected $path;
+
     /**
      * @var \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar
      */
     protected $registrar;
+
     /**
      * @var string
      */

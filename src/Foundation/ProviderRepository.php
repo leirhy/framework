@@ -20,10 +20,12 @@ class ProviderRepository
      * @var \Illuminate\Contracts\Foundation\Application
      */
     protected $app;
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
+
     /**
      * @var string
      */

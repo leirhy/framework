@@ -22,10 +22,12 @@ class ModelMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:model';
+
     /**
      * @var string
      */
     protected $description = 'Create a new Eloquent model class';
+
     /**
      * @var string
      */

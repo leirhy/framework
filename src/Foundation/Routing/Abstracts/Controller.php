@@ -20,30 +20,37 @@ use Notadd\Foundation\Validation\ValidatesRequests;
 abstract class Controller extends IlluminateController
 {
     use ValidatesRequests;
+
     /**
      * @var \Illuminate\Container\Container
      */
     protected $container;
+
     /**
      * @var \Illuminate\Events\Dispatcher
      */
     protected $events;
+
     /**
      * @var array
      */
     protected $middleware = [];
+
     /**
      * @var \Illuminate\Routing\Redirector
      */
     protected $redirector;
+
     /**
      * @var \Illuminate\Http\Request
      */
     protected $request;
+
     /**
      * @var \Illuminate\Session\Store
      */
     protected $session;
+
     /**
      * @var \Illuminate\Contracts\View\Factory
      */

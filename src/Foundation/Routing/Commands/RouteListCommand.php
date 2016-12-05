@@ -25,18 +25,22 @@ class RouteListCommand extends Command
      * @var string
      */
     protected $name = 'route:list';
+
     /**
      * @var string
      */
     protected $description = 'List all registered routes';
+
     /**
      * @var \Illuminate\Routing\Router
      */
     protected $router;
+
     /**
      * @var \Illuminate\Routing\RouteCollection
      */
     protected $routes;
+
     /**
      * @var array
      */

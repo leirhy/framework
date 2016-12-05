@@ -21,10 +21,12 @@ class JobMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:job';
+
     /**
      * @var string
      */
     protected $description = 'Create a new job class';
+
     /**
      * @var string
      */

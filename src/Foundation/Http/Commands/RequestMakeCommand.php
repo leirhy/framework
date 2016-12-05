@@ -20,10 +20,12 @@ class RequestMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:request';
+
     /**
      * @var string
      */
     protected $description = 'Create a new form request class';
+
     /**
      * @var string
      */

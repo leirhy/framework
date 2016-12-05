@@ -21,6 +21,7 @@ class MemberCreated
      * @var \Illuminate\Container\Container
      */
     protected $container;
+
     /**
      * @var \Notadd\Foundation\Member\Member
      */

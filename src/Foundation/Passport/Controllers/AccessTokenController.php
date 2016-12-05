@@ -24,14 +24,17 @@ use Zend\Diactoros\Response as Psr7Response;
 class AccessTokenController extends Controller
 {
     use HandlesOAuthErrors;
+
     /**
      * @var \Lcobucci\JWT\Parser
      */
     protected $jwt;
+
     /**
      * @var \League\OAuth2\Server\AuthorizationServer
      */
     protected $server;
+
     /**
      * @var \Laravel\Passport\TokenRepository
      */

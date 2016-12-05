@@ -20,10 +20,12 @@ class NotificationMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:notification';
+
     /**
      * @var string
      */
     protected $description = 'Create a new notification class';
+
     /**
      * @var string
      */

@@ -27,10 +27,12 @@ abstract class Command extends SymfonyCommand
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
+
     /**
      * @var \Symfony\Component\Console\Input\InputInterface
      */
     protected $input;
+
     /**
      * @var \Symfony\Component\Console\Output\OutputInterface
      */

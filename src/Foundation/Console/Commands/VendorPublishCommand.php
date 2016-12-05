@@ -24,12 +24,14 @@ class VendorPublishCommand extends Command
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
+
     /**
      * @var string
      */
     protected $signature = 'vendor:publish {--force : Overwrite any existing files.}
             {--provider= : The service provider that has assets you want to publish.}
             {--tag=* : One or many tags that have assets you want to publish.}';
+
     /**
      * @var string
      */

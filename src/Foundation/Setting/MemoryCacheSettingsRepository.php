@@ -19,10 +19,12 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
     protected $inner;
+
     /**
      * @var bool
      */
     protected $isCached;
+
     /**
      * @var array
      */

@@ -21,6 +21,7 @@ class HasElement extends PageConstraint
      * @var string
      */
     protected $selector;
+
     /**
      * The attributes the element should have.
      *

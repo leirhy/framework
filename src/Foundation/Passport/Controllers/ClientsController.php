@@ -22,6 +22,7 @@ class ClientsController extends Controller
      * @var \Laravel\Passport\ClientRepository
      */
     protected $clients;
+
     /**
      * @var \Illuminate\Contracts\Validation\Factory
      */

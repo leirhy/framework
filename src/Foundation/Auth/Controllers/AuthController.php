@@ -17,6 +17,7 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class AuthController extends Controller
 {
     use AuthenticatesUsers;
+
     /**
      * @var string
      */

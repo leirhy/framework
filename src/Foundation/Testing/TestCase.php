@@ -27,24 +27,28 @@ use PHPUnit_Framework_TestCase;
 abstract class TestCase extends PHPUnit_Framework_TestCase
 {
     use InteractsWithContainer, MakesHttpRequests, ImpersonatesUsers, InteractsWithAuthentication, InteractsWithConsole, InteractsWithDatabase, InteractsWithSession, MocksApplicationServices;
+
     /**
      * The Illuminate application instance.
      *
      * @var \Notadd\Foundation\Application
      */
     protected $app;
+
     /**
      * The callbacks that should be run after the application is created.
      *
      * @var array
      */
     protected $afterApplicationCreatedCallbacks = [];
+
     /**
      * The callbacks that should be run before the application is destroyed.
      *
      * @var array
      */
     protected $beforeApplicationDestroyedCallbacks = [];
+
     /**
      * Indicates if we have made it through the base setUp function.
      *

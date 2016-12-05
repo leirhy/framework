@@ -37,18 +37,21 @@ trait InteractsWithPages
      * @var \Symfony\Component\DomCrawler\Crawler
      */
     protected $crawler;
+
     /**
      * Nested crawler instances used by the "within" method.
      *
      * @var array
      */
     protected $subCrawlers = [];
+
     /**
      * All of the stored inputs for the current page.
      *
      * @var array
      */
     protected $inputs = [];
+
     /**
      * All of the stored uploads for the current page.
      *

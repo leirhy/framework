@@ -41,22 +41,27 @@ class Handler implements ExceptionHandlerContract
      * @var \Notadd\Foundation\Configuration\Repository
      */
     protected $configuration;
+
     /**
      * @var \Illuminate\Contracts\Container\Container
      */
     protected $container;
+
     /**
      * @var array
      */
     protected $dontReport = [];
+
     /**
      * @var \Illuminate\Routing\Redirector
      */
     protected $redirector;
+
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
     protected $response;
+
     /**
      * @var \Illuminate\Contracts\View\Factory
      */

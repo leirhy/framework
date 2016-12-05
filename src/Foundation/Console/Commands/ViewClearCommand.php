@@ -21,10 +21,12 @@ class ViewClearCommand extends Command
      * @var string
      */
     protected $name = 'view:clear';
+
     /**
      * @var string
      */
     protected $description = 'Clear all compiled view files';
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */

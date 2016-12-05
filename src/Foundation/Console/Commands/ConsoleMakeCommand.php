@@ -22,10 +22,12 @@ class ConsoleMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:command';
+
     /**
      * @var string
      */
     protected $description = 'Create a new Artisan command';
+
     /**
      * @var string
      */

@@ -19,10 +19,12 @@ class KeyGenerateCommand extends Command
      * @var string
      */
     protected $description = 'Set the application key';
+
     /**
      * @var \Notadd\Foundation\Application
      */
     protected $laravel;
+
     /**
      * @var string
      */

@@ -29,10 +29,12 @@ class RouteCacheCommand extends Command
      * @var string
      */
     protected $name = 'route:cache';
+
     /**
      * @var string
      */
     protected $description = 'Create a route cache file for faster route registration';
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */

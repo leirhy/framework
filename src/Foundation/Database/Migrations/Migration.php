@@ -19,6 +19,7 @@ abstract class Migration
      * @var \Illuminate\Database\ConnectionInterface
      */
     protected $connection;
+
     /**
      * @var \Illuminate\Database\Schema\Builder
      */

@@ -97,7 +97,7 @@ class Application extends IlluminateApplication implements ApplicationContract
     }
 
     /**
-     * TODO: Method getContainer Description
+     * Get IoC Container.
      *
      * @return \Illuminate\Contracts\Foundation\Application
      */

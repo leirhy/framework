@@ -66,7 +66,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method compiles Description
+     * Compiles define by extension.
      *
      * @return array
      */
@@ -86,7 +86,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method getContainer Description
+     * Get IoC Container.
      *
      * @return \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
@@ -150,7 +150,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method loadLocalizationsFrom Description
+     * Localizations define by extension.
      *
      * @example $namespace => $path
      * @return array
@@ -161,7 +161,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method loadMigrationsFrom Description
+     * Migrations define by extension.
      *
      * @return array
      */
@@ -171,7 +171,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method loadPublishesFrom Description
+     * Publishes define by extension.
      *
      * @example $namespace => $path
      * @return array

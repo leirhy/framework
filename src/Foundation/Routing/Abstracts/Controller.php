@@ -104,7 +104,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method getContainer Description
+     * Get IoC Container.
      *
      * @return \Illuminate\Container\Container
      */

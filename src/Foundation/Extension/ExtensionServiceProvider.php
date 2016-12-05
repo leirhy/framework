@@ -80,7 +80,7 @@ class ExtensionServiceProvider extends ServiceProvider
     }
 
     /**
-     * TODO: Method compiles Description
+     * Compiles define by extension.
      *
      * @return array
      */

@@ -109,7 +109,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method getContainer Description
+     * Get IoC Container.
      *
      * @return \Illuminate\Container\Container|\Notadd\Foundation\Application
      */

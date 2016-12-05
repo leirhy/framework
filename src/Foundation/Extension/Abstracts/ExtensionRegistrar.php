@@ -96,7 +96,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method getExtension Description
+     * Description for extension.
      *
      * @return \Notadd\Foundation\Extension\Extension
      */

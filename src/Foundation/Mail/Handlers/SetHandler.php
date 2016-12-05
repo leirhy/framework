@@ -43,7 +43,7 @@ class SetHandler extends AbstractSetHandler
     }
 
     /**
-     * TODO: Method data Description
+     * Data for handler.
      *
      * @return array
      */

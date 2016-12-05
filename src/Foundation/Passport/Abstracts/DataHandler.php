@@ -17,7 +17,7 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class DataHandler extends Handler
 {
     /**
-     * TODO: Method data Description
+     * Data for handler.
      *
      * @return array
      * @throws \Exception

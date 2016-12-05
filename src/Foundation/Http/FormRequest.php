@@ -26,30 +26,37 @@ use Illuminate\Validation\ValidationException;
 class FormRequest extends Request implements ValidatesWhenResolved
 {
     use ValidatesWhenResolvedTrait;
+
     /**
      * @var \Illuminate\Container\Container
      */
     protected $container;
+
     /**
      * @var \Illuminate\Routing\Redirector
      */
     protected $redirector;
+
     /**
      * @var string
      */
     protected $redirect;
+
     /**
      * @var string
      */
     protected $redirectRoute;
+
     /**
      * @var string
      */
     protected $redirectAction;
+
     /**
      * @var string
      */
     protected $errorBag = 'default';
+
     /**
      * @var array
      */

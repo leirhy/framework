@@ -39,7 +39,7 @@ class Kernel implements KernelContract
     /**
      * @var \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
-    protected $app;
+    protected $application;
 
     /**
      * @var \Illuminate\Routing\Router
@@ -94,7 +94,7 @@ class Kernel implements KernelContract
      */
     public function __construct(Application $app, Router $router)
     {
-        $this->app = $app;
+        $this->application = $app;
         $this->router = $router;
         $router->middlewarePriority = $this->middlewarePriority;
         foreach ($this->middlewareGroups as $key => $middleware) {
@@ -122,7 +122,7 @@ class Kernel implements KernelContract
             $this->reportException($e = new FatalThrowableError($e));
             $response = $this->renderException($request, $e);
         }
-        $this->app['events']->fire('kernel.handled', [
+        $this->application['events']->fire('kernel.handled', [
             $request,
             $response,
         ]);
@@ -137,11 +137,11 @@ class Kernel implements KernelContract
      */
     protected function sendRequestThroughRouter($request)
     {
-        $this->app->instance('request', $request);
+        $this->application->instance('request', $request);
         Facade::clearResolvedInstance('request');
         $this->bootstrap();
 
-        return (new Pipeline($this->app))->send($request)->through($this->app->shouldSkipMiddleware() ? [] : $this->middleware)->then($this->dispatchToRouter());
+        return (new Pipeline($this->application))->send($request)->through($this->application->shouldSkipMiddleware() ? [] : $this->middleware)->then($this->dispatchToRouter());
     }
 
     /**
@@ -152,19 +152,19 @@ class Kernel implements KernelContract
      */
     public function terminate($request, $response)
     {
-        $middlewares = $this->app->shouldSkipMiddleware() ? [] : array_merge($this->gatherRouteMiddleware($request),
+        $middlewares = $this->application->shouldSkipMiddleware() ? [] : array_merge($this->gatherRouteMiddleware($request),
             $this->middleware);
         foreach ($middlewares as $middleware) {
             if (!is_string($middleware)) {
                 continue;
             }
             list($name, $parameters) = $this->parseMiddleware($middleware);
-            $instance = $this->app->make($name);
+            $instance = $this->application->make($name);
             if (method_exists($instance, 'terminate')) {
                 $instance->terminate($request, $response);
             }
         }
-        $this->app->terminate();
+        $this->application->terminate();
     }
 
     /**
@@ -232,8 +232,8 @@ class Kernel implements KernelContract
      */
     public function bootstrap()
     {
-        if (!$this->app->hasBeenBootstrapped()) {
-            $this->app->bootstrapWith($this->bootstrappers());
+        if (!$this->application->hasBeenBootstrapped()) {
+            $this->application->bootstrapWith($this->bootstrappers());
         }
     }
 
@@ -243,7 +243,7 @@ class Kernel implements KernelContract
     protected function dispatchToRouter()
     {
         return function ($request) {
-            $this->app->instance('request', $request);
+            $this->application->instance('request', $request);
 
             return $this->router->dispatch($request);
         };
@@ -274,7 +274,7 @@ class Kernel implements KernelContract
      */
     protected function reportException(Exception $e)
     {
-        $this->app[ExceptionHandler::class]->report($e);
+        $this->application[ExceptionHandler::class]->report($e);
     }
 
     /**
@@ -285,7 +285,7 @@ class Kernel implements KernelContract
      */
     protected function renderException($request, Exception $e)
     {
-        return $this->app[ExceptionHandler::class]->render($request, $e);
+        return $this->application[ExceptionHandler::class]->render($request, $e);
     }
 
     /**
@@ -293,6 +293,6 @@ class Kernel implements KernelContract
      */
     public function getApplication()
     {
-        return $this->app;
+        return $this->application;
     }
 }

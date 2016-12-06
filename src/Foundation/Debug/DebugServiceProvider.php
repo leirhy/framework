@@ -17,7 +17,7 @@ use Notadd\Foundation\Debug\Listeners\RouteRegistrar;
 class DebugServiceProvider extends ServiceProvider
 {
     /**
-     * TODO: Method boot Description
+     * Boot service provider.
      */
     public function boot()
     {

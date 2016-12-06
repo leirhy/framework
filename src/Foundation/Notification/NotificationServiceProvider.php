@@ -16,7 +16,7 @@ use Illuminate\Notifications\NotificationServiceProvider as IlluminateNotificati
 class NotificationServiceProvider extends IlluminateNotificationServiceProvider
 {
     /**
-     * TODO: Method register Description
+     * Register for service provider.
      */
     public function register()
     {

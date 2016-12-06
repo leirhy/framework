@@ -16,7 +16,7 @@ use Illuminate\Support\ServiceProvider;
 class MemberServiceProvider extends ServiceProvider
 {
     /**
-     * TODO: Method register Description
+     * Register for service provider.
      */
     public function register()
     {

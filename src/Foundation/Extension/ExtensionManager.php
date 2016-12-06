@@ -89,7 +89,7 @@ class ExtensionManager
     }
 
     /**
-     * TODO: Method getExtensionPath Description
+     * Path for extension.
      *
      * @return string
      */
@@ -99,7 +99,7 @@ class ExtensionManager
     }
 
     /**
-     * TODO: Method getExtensionPaths Description
+     * Paths for extensions.
      *
      * @return \Illuminate\Support\Collection
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -132,7 +132,7 @@ class ExtensionManager
     }
 
     /**
-     * TODO: Method getExtensions Description
+     * Extension list.
      *
      * @return \Illuminate\Support\Collection
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -160,7 +160,7 @@ class ExtensionManager
     }
 
     /**
-     * TODO: Method getVendorPath Description
+     * Vendor Path.
      *
      * @return string
      */

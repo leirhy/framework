@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Event\Abstracts;
 
+use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Str;
@@ -40,18 +41,18 @@ abstract class EventSubscriber
     }
 
     /**
-     * TODO: Method getEvent Description
+     * Name of event.
      *
      * @throws \Exception
      * @return string|object
      */
     protected function getEvent()
     {
-        throw new \Exception('Event not found!', 404);
+        throw new Exception('Event not found!', 404);
     }
 
     /**
-     * TODO: Method subscribe Description
+     * Event subscribe handler.
      *
      * @throws \Exception
      */

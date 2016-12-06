@@ -16,7 +16,7 @@ use Illuminate\Session\SessionServiceProvider as IlluminateSessionServiceProvide
 class SessionServiceProvider extends IlluminateSessionServiceProvider
 {
     /**
-     * TODO: Method register Description
+     * Register for service provider.
      */
     public function register()
     {

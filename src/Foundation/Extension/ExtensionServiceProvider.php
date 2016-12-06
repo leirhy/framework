@@ -39,7 +39,7 @@ class ExtensionServiceProvider extends ServiceProvider
     }
 
     /**
-     * TODO: Method boot Description
+     * Boot service provider.
      *
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      *
@@ -90,7 +90,7 @@ class ExtensionServiceProvider extends ServiceProvider
     }
 
     /**
-     * TODO: Method register Description
+     * Register for service provider.
      */
     public function register()
     {

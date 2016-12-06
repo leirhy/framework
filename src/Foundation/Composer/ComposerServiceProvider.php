@@ -22,7 +22,7 @@ class ComposerServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
-     * TODO: Method register Description
+     * Register for service provider.
      */
     public function register()
     {

@@ -116,14 +116,14 @@ abstract class ExtensionRegistrar
     abstract public function getExtensionInfo();
 
     /**
-     * TODO: Method getExtensionName Description
+     * Name for extension.
      *
      * @return string
      */
     abstract public function getExtensionName();
 
     /**
-     * TODO: Method getExtensionPath Description
+     * Path for extension.
      *
      * @return string
      */
@@ -182,6 +182,8 @@ abstract class ExtensionRegistrar
     }
 
     /**
+     * Views define by extension.
+     *
      * @example $namespace => $path
      * @return array
      */

@@ -22,7 +22,7 @@ use Notadd\Install\Prerequisite\WritablePath;
 class InstallServiceProvider extends ServiceProvider
 {
     /**
-     * TODO: Method boot Description
+     * Boot service provider.
      */
     public function boot()
     {
@@ -36,7 +36,7 @@ class InstallServiceProvider extends ServiceProvider
     }
 
     /**
-     * TODO: Method register Description
+     * Register for service provider.
      */
     public function register()
     {

@@ -18,7 +18,7 @@ use Notadd\Foundation\Setting\Listeners\RouteRegistrar;
 class SettingServiceProvider extends ServiceProvider
 {
     /**
-     * TODO: Method boot Description
+     * Boot service provider.
      */
     public function boot()
     {
@@ -26,7 +26,7 @@ class SettingServiceProvider extends ServiceProvider
     }
 
     /**
-     * TODO: Method register Description
+     * Register for service provider.
      */
     public function register()
     {

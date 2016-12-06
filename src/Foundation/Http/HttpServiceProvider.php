@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class HttpServiceProvider extends ServiceProvider
 {
     /**
-     * TODO: Method boot Description
+     * Boot service provider.
      */
     public function boot()
     {

@@ -18,7 +18,7 @@ use Notadd\Foundation\Attachment\Listeners\RouteRegistrar;
 class AttachmentServiceProvider extends ServiceProvider
 {
     /**
-     * TODO: Method boot Description
+     * Boot service provider.
      */
     public function boot()
     {

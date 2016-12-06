@@ -23,16 +23,6 @@ class ComposerServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
-     * TODO: Method boot Description
-     */
-    public function boot()
-    {
-        $this->commands([
-            UpdateCommand::class,
-        ]);
-    }
-
-    /**
      * TODO: Method register Description
      */
     public function register()

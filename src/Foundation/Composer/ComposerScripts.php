@@ -17,7 +17,7 @@ use Notadd\Foundation\Application;
 class ComposerScripts
 {
     /**
-     * TODO: Method postInstall Description
+     * Post Install Handler for composer install.
      *
      * @param \Composer\Script\Event $event
      *
@@ -30,7 +30,7 @@ class ComposerScripts
     }
 
     /**
-     * TODO: Method postUpdate Description
+     * Post Update Handler for composer update.
      *
      * @param \Composer\Script\Event $event
      *
@@ -43,7 +43,7 @@ class ComposerScripts
     }
 
     /**
-     * TODO: Method clearCompiled Description
+     * Clear compiled files for Notadd.
      */
     protected static function clearCompiled()
     {

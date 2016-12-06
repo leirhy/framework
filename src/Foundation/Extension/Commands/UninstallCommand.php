@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Extension\Commands;
 
-use Composer\Json\JsonFile;
+use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
 use Notadd\Foundation\Console\Abstracts\Command;
 use Notadd\Foundation\Extension\ExtensionManager;
@@ -21,6 +21,22 @@ use Symfony\Component\Console\Input\InputArgument;
 class UninstallCommand extends Command
 {
     /**
+     * @var \Illuminate\Support\Composer
+     */
+    protected $composer;
+
+    /**
+     * UninstallCommand constructor.
+     *
+     * @param \Illuminate\Support\Composer $composer
+     */
+    public function __construct(Composer $composer)
+    {
+        parent::__construct();
+        $this->composer = $composer;
+    }
+
+    /**
      * Configure Command.
      */
     public function configure()
@@ -31,7 +47,7 @@ class UninstallCommand extends Command
     }
 
     /**
-     * TODO: Method fire Description
+     * Command Handler.
      *
      * @param \Notadd\Foundation\Extension\ExtensionManager           $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
@@ -59,46 +75,8 @@ class UninstallCommand extends Command
 
             return false;
         }
-        $extensionFile = new JsonFile($path . DIRECTORY_SEPARATOR . 'composer.json');
-        $autoload = collect(json_decode($settings->get('extension.' . $name . '.autoload'), true));
-        if (!$autoload->isEmpty()) {
-            $autoload->has('classmap') && collect($autoload->get('classmap'))->each(function ($value) use ($path) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                if ($key = array_search($path, $this->backup['autoload']['classmap'], true)) {
-                    unset($this->backup['autoload']['classmap'][$key]);
-                }
-            });
-            $autoload->has('files') && collect($autoload->get('files'))->each(function ($value) use ($path) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                    realpath($path . DIRECTORY_SEPARATOR . $value));
-                if ($key = array_search($path, $this->backup['autoload']['files'], true)) {
-                    unset($this->backup['autoload']['files'][$key]);
-                }
-            });
-            $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function ($value, $key) use ($path) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                unset($this->backup['autoload']['psr-0'][$key]);
-            });
-            $autoload->has('psr-4') && collect($autoload->get('psr-4'))->each(function ($value, $key) use ($path) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                unset($this->backup['autoload']['psr-4'][$key]);
-            });
-            $this->json->addProperty('autoload', $this->backup['autoload']);
-            $settings->set('extension.' . $name . '.autoload', json_encode([]));
-        }
-        $require = collect(json_decode($settings->get('extension.' . $name . '.require'), true));
-        if (!$require->isEmpty()) {
-            $require->each(function ($version, $name) {
-                unset($this->backup['require'][$name]);
-            });
-            $this->json->addProperty('require', $this->backup['require']);
-            $settings->set('extension.' . $name . '.require', json_encode([]));
-        }
+        $this->composer->dumpAutoloads();
         $settings->set('extension.' . $name . '.installed', false);
-        $this->updateComposer(true);
         $this->info("Extension {$name} is uninstalled!");
 
         return true;

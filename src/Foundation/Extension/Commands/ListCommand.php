@@ -28,7 +28,7 @@ class ListCommand extends Command
     ];
 
     /**
-     * TODO: Method configure Description
+     * Configure Command.
      */
     public function configure()
     {
@@ -37,9 +37,11 @@ class ListCommand extends Command
     }
 
     /**
-     * TODO: Method fire Description
+     * Command Handler.
      *
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function fire(ExtensionManager $manager)
     {

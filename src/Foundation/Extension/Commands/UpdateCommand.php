@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Extension\Commands;
 
-use Composer\Json\JsonFile;
+use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
 use Notadd\Foundation\Console\Abstracts\Command;
 use Notadd\Foundation\Extension\ExtensionManager;
@@ -20,6 +20,22 @@ use Symfony\Component\Console\Input\InputArgument;
  */
 class UpdateCommand extends Command
 {
+    /**
+     * @var \Illuminate\Support\Composer
+     */
+    protected $composer;
+
+    /**
+     * UpdateCommand constructor.
+     *
+     * @param \Illuminate\Support\Composer $composer
+     */
+    public function __construct(Composer $composer)
+    {
+        parent::__construct();
+        $this->composer = $composer;
+    }
+
     /**
      * Configure Command.
      */
@@ -60,46 +76,6 @@ class UpdateCommand extends Command
 
             return false;
         }
-        $extensionFile = new JsonFile($path . DIRECTORY_SEPARATOR . 'composer.json');
-        $extension = collect($extensionFile->read());
-        if ($extension->has('autoload')) {
-            $autoload = collect($extension->get('autoload'));
-            $autoload->has('classmap') && collect($autoload->get('classmap'))->each(function ($value) use ($path) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                if (!in_array($path, $this->backup['autoload']['classmap'])) {
-                    $this->backup['autoload']['classmap'][] = $path;
-                }
-            });
-            $autoload->has('files') && collect($autoload->get('files'))->each(function ($value) use ($path) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                    realpath($path . DIRECTORY_SEPARATOR . $value));
-                if (!in_array($path, $this->backup['autoload']['files'])) {
-                    $this->backup['autoload']['files'][] = $path;
-                }
-            });
-            $autoload->has('psr-0') && collect($autoload->get('psr-0'))->each(function ($value, $key) use ($path) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                $this->backup['autoload']['psr-0'][$key] = $path;
-            });
-            $autoload->has('psr-4') && collect($autoload->get('psr-4'))->each(function ($value, $key) use ($path) {
-                $path = str_replace($this->container->basePath() . '/', '',
-                        realpath($path . DIRECTORY_SEPARATOR . $value)) . '/';
-                $this->backup['autoload']['psr-4'][$key] = $path;
-            });
-            $this->json->addProperty('autoload', $this->backup['autoload']);
-            $settings->set('extension.' . $name . '.autoload', json_encode($autoload->toArray()));
-        }
-        if ($extension->has('require')) {
-            $require = collect($extension->get('require'));
-            $require->each(function ($version, $name) {
-                $this->backup['require'][$name] = $version;
-            });
-            $this->json->addProperty('require', $this->backup['require']);
-            $settings->set('extension.' . $name . '.require', json_encode($require->toArray()));
-        }
-        $this->updateComposer(true);
         $this->info("Extension {$name} is updated!");
 
         return true;

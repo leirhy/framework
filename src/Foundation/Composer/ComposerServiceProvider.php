@@ -10,7 +10,6 @@ namespace Notadd\Foundation\Composer;
 
 use Illuminate\Support\Composer;
 use Illuminate\Support\ServiceProvider;
-use Notadd\Foundation\Composer\Commands\UpdateCommand;
 
 /**
  * Class ComposerServiceProvider.

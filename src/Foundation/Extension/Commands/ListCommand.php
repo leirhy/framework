@@ -9,7 +9,7 @@
 namespace Notadd\Foundation\Extension\Commands;
 
 use Illuminate\Support\Collection;
-use Notadd\Foundation\Composer\Abstracts\Command;
+use Notadd\Foundation\Console\Abstracts\Command;
 use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 

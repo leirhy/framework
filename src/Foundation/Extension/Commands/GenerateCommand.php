@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Extension\Commands;
 
-use Notadd\Foundation\Composer\Abstracts\Command;
+use Notadd\Foundation\Console\Abstracts\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\InputArgument;
 class GenerateCommand extends Command
 {
     /**
-     * TODO: Method configure Description
+     * Configure Command.
      */
     public function configure()
     {
@@ -27,7 +27,7 @@ class GenerateCommand extends Command
     }
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      *
      * @return bool
      */

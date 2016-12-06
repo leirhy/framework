@@ -10,7 +10,7 @@ namespace Notadd\Foundation\Extension\Commands;
 
 use Composer\Json\JsonFile;
 use Illuminate\Support\Str;
-use Notadd\Foundation\Composer\Abstracts\Command;
+use Notadd\Foundation\Console\Abstracts\Command;
 use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\Console\Input\InputArgument;
@@ -153,7 +153,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * TODO: Method resetOpcache Description
+     * Zend OPCache reset.
      */
     public function resetOpcache()
     {

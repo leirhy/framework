@@ -34,7 +34,7 @@ class SeoController extends ApiController
     }
 
     /**
-     * TODO: Method handle Description
+     * Api handler.
      *
      * @param \Notadd\Foundation\SearchEngine\Handlers\SetHandler $handler
      *

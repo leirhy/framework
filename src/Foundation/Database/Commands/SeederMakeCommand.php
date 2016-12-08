@@ -17,7 +17,7 @@ use Illuminate\Database\Console\Seeds\SeederMakeCommand as IlluminateSeederMakeC
 class SeederMakeCommand extends IlluminateSeederMakeCommand
 {
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */
@@ -27,7 +27,7 @@ class SeederMakeCommand extends IlluminateSeederMakeCommand
     }
 
     /**
-     * TODO: Method replaceClass Description
+     * Replace the class name for the given stub.
      *
      * @param string $stub
      * @param string $name

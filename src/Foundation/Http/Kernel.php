@@ -106,7 +106,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method handle Description
+     * Handle an incoming HTTP request.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -133,7 +133,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method sendRequestThroughRouter Description
+     * Send the given request through the middleware / router.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -149,7 +149,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method terminate Description
+     * Call the terminate method on any terminable middleware.
      *
      * @param \Illuminate\Http\Request  $request
      * @param \Illuminate\Http\Response $response
@@ -174,7 +174,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method gatherRouteMiddleware Description
+     * Gather the route middleware for the given request.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -190,7 +190,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method parseMiddleware Description
+     * Parse a middleware string to get the name and parameters.
      *
      * @param string $middleware
      *
@@ -210,7 +210,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method prependMiddleware Description
+     * Add a new middleware to beginning of the stack if it does not already exist.
      *
      * @param string $middleware
      *
@@ -226,7 +226,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method pushMiddleware Description
+     * Add a new middleware to end of the stack if it does not already exist.
      *
      * @param string $middleware
      *
@@ -242,7 +242,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the application for HTTP requests.
      */
     public function bootstrap()
     {
@@ -252,7 +252,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method dispatchToRouter Description
+     * Get the route dispatcher callback.
      *
      * @return \Closure
      */
@@ -266,7 +266,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method hasMiddleware Description
+     * Determine if the kernel has a given middleware.
      *
      * @param $middleware
      *
@@ -278,7 +278,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method bootstrappers Description
+     * Get the bootstrap classes for the application.
      *
      * @return array
      */
@@ -288,7 +288,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method reportException Description
+     * Report the exception to the exception handler.
      *
      * @param \Exception $e
      */
@@ -298,7 +298,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method renderException Description
+     * Render the exception to a response.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Exception               $e

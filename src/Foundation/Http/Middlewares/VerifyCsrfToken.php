@@ -46,7 +46,7 @@ class VerifyCsrfToken
     }
 
     /**
-     * TODO: Method handle Description
+     * Middleware handler.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
@@ -63,7 +63,7 @@ class VerifyCsrfToken
     }
 
     /**
-     * TODO: Method shouldPassThrough Description
+     * Determine if the request has a URI that should pass through CSRF verification.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -84,7 +84,7 @@ class VerifyCsrfToken
     }
 
     /**
-     * TODO: Method runningUnitTests Description
+     * Determine if the application is running unit tests.
      *
      * @return bool
      */
@@ -94,7 +94,7 @@ class VerifyCsrfToken
     }
 
     /**
-     * TODO: Method tokensMatch Description
+     * Determine if the session and input CSRF tokens match.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -115,7 +115,7 @@ class VerifyCsrfToken
     }
 
     /**
-     * TODO: Method addCookieToResponse Description
+     * Add the CSRF token to the response cookies.
      *
      * @param \Illuminate\Http\Request                   $request
      * @param \Symfony\Component\HttpFoundation\Response $response
@@ -133,7 +133,7 @@ class VerifyCsrfToken
     }
 
     /**
-     * TODO: Method isReading Description
+     * Determine if the HTTP request uses a ‘read’ verb.
      *
      * @param \Illuminate\Http\Request $request
      *

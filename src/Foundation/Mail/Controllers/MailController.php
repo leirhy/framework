@@ -31,11 +31,11 @@ class MailController extends Controller
     }
 
     /**
-     * TODO: Method handle Description
+     * Api handler.
      *
      * @param \Notadd\Foundation\Mail\Handlers\SetHandler $handler
      *
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse * @throws \Exception
      * @throws \Exception
      */
     public function handle(SetHandler $handler)

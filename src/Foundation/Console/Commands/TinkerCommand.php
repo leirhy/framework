@@ -42,7 +42,7 @@ class TinkerCommand extends Command
     protected $description = 'Interact with your application';
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      */
     public function fire()
     {

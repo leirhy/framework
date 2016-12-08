@@ -17,7 +17,7 @@ use Illuminate\Session\Console\SessionTableCommand as IlluminateSessionTableComm
 class SessionTableCommand extends IlluminateSessionTableCommand
 {
     /**
-     * TODO: Method fire Description
+     * Command handler.
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
@@ -32,7 +32,7 @@ class SessionTableCommand extends IlluminateSessionTableCommand
     }
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 class RedirectIfAuthenticated
 {
     /**
-     * TODO: Method handle Description
+     * Middleware handler.
      *
      * @param          $request
      * @param \Closure $next

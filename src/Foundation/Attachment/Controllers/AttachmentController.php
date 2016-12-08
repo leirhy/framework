@@ -34,7 +34,7 @@ class AttachmentController extends Controller
     }
 
     /**
-     * TODO: Method handle Description
+     * Api handler.
      *
      * @param \Notadd\Foundation\Attachment\Handlers\AttachmentSetHandler $handler
      *

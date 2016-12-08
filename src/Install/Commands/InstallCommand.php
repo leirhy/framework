@@ -56,7 +56,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * TODO: Method configure Description
+     * Configure command.
      */
     protected function configure()
     {
@@ -65,7 +65,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * TODO: Method createAdministrationUser Description
+     * Create administration user.
      */
     protected function createAdministrationUser()
     {
@@ -80,7 +80,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      */
     public function fire()
     {
@@ -153,7 +153,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * TODO: Method setDataFromConsoling Description
+     * Get data from console.
      */
     public function setDataFromConsoling()
     {
@@ -196,7 +196,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * TODO: Method setDataFromController Description
+     * Get data from controller.
      *
      * @param array $data
      */
@@ -218,7 +218,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * TODO: Method writingConfiguration Description
+     * Write configuration to file.
      */
     protected function writingConfiguration()
     {

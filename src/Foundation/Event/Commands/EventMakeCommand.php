@@ -32,7 +32,7 @@ class EventMakeCommand extends GeneratorCommand
     protected $type = 'Event';
 
     /**
-     * TODO: Method alreadyExists Description
+     * Determine if the class already exists.
      *
      * @param string $rawName
      *
@@ -44,7 +44,7 @@ class EventMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getDefaultNamespace Description
+     * Get the default namespace for the class.
      *
      * @param string $rootNamespace
      *
@@ -56,7 +56,7 @@ class EventMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */
@@ -66,7 +66,7 @@ class EventMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method replaceClass Description
+     * Replace the class name for the given stub.
      *
      * @param string $stub
      * @param string $name

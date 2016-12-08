@@ -33,7 +33,7 @@ class PolicyMakeCommand extends GeneratorCommand
     protected $type = 'Policy';
 
     /**
-     * TODO: Method buildClass Description
+     * Build the class with the given name.
      *
      * @param string $name
      *
@@ -48,7 +48,7 @@ class PolicyMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method replaceModel Description
+     * Replace the model for the given stub.
      *
      * @param string $stub
      * @param string $model
@@ -71,7 +71,7 @@ class PolicyMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */
@@ -85,7 +85,7 @@ class PolicyMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getDefaultNamespace Description
+     * Get the default namespace for the class.
      *
      * @param string $rootNamespace
      *
@@ -97,7 +97,7 @@ class PolicyMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getOptions Description
+     * Get the console command options.
      *
      * @return array
      */

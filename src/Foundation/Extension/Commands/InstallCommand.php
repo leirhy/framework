@@ -67,7 +67,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      *
      * @param \Notadd\Foundation\Extension\ExtensionManager           $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings

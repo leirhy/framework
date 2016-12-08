@@ -18,7 +18,7 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 class DebugController extends Controller
 {
     /**
-     * TODO: Method handle Description
+     * Api handler.
      *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */

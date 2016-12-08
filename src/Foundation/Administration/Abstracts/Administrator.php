@@ -50,7 +50,7 @@ abstract class Administrator
     }
 
     /**
-     * TODO: Method getHandler Description
+     * Get administration handler.
      *
      * @return mixed
      */
@@ -60,7 +60,7 @@ abstract class Administrator
     }
 
     /**
-     * TODO: Method getPath Description
+     * Administration route path.
      *
      * @return string
      */
@@ -70,7 +70,7 @@ abstract class Administrator
     }
 
     /**
-     * TODO: Method init Description
+     * Init administrator.
      *
      * @throws \InvalidArgumentException
      */
@@ -85,7 +85,7 @@ abstract class Administrator
     }
 
     /**
-     * TODO: Method registerHandler Description
+     * Register administration handler.
      *
      * @param $handler
      */
@@ -95,7 +95,7 @@ abstract class Administrator
     }
 
     /**
-     * TODO: Method registerPath Description
+     * Register administration route path.
      *
      * @param string $path
      */

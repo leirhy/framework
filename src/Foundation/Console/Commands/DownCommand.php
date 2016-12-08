@@ -28,7 +28,7 @@ class DownCommand extends Command
     protected $description = 'Put the application into maintenance mode';
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      */
     public function fire()
     {

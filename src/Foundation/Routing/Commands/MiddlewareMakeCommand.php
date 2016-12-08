@@ -17,7 +17,7 @@ use Illuminate\Routing\Console\MiddlewareMakeCommand as IlluminateMiddlewareMake
 class MiddlewareMakeCommand extends IlluminateMiddlewareMakeCommand
 {
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */
@@ -27,7 +27,7 @@ class MiddlewareMakeCommand extends IlluminateMiddlewareMakeCommand
     }
 
     /**
-     * TODO: Method replaceClass Description
+     * Replace class name by holder.
      *
      * @param string $stub
      * @param string $name

@@ -31,7 +31,7 @@ class KeyGenerateCommand extends Command
     protected $signature = 'key:generate {--show : Display the key instead of modifying files}';
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      *
      * @return bool
      */

@@ -30,7 +30,7 @@ class MailMakeCommand extends GeneratorCommand
     protected $type = 'Mail';
 
     /**
-     * TODO: Method getDefaultNamespace Description
+     * Get the default namespace for the class.
      *
      * @param string $rootNamespace
      *
@@ -42,7 +42,8 @@ class MailMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
+     *
      * @return string
      */
     protected function getStub()
@@ -51,7 +52,7 @@ class MailMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method replaceClass Description
+     * Replace the class name for the given stub.
      *
      * @param string $stub
      * @param string $name

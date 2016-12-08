@@ -48,7 +48,7 @@ class RouteMatched extends EventSubscriber
     }
 
     /**
-     * TODO: Method handle Description
+     * Event handler.
      */
     public function handle()
     {

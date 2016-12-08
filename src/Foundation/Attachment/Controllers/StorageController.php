@@ -31,7 +31,7 @@ class StorageController extends Controller
     }
 
     /**
-     * TODO: Method handle Description
+     * Api handler.
      *
      * @param \Notadd\Foundation\Attachment\Handlers\StorageSetHandler $handler
      *

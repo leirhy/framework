@@ -33,7 +33,7 @@ class JobMakeCommand extends GeneratorCommand
     protected $type = 'Job';
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */
@@ -47,7 +47,7 @@ class JobMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getDefaultNamespace Description
+     * Get the default namespace for the class.
      *
      * @param string $rootNamespace
      *
@@ -59,7 +59,7 @@ class JobMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getOptions Description
+     * Get the console command options.
      *
      * @return array
      */
@@ -76,7 +76,7 @@ class JobMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method replaceClass Description
+     * Replace the class name for the given stub.
      *
      * @param string $stub
      * @param string $name

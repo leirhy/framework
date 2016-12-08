@@ -90,7 +90,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method defineConsoleSchedule Description
+     * Define the application's command schedule.
      */
     protected function defineConsoleSchedule()
     {
@@ -99,7 +99,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method handle Description
+     * Run the console application.
      *
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
@@ -131,7 +131,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method terminate Description
+     * Terminate the application.
      *
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param int                                             $status
@@ -144,7 +144,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method schedule Description
+     * Define the application's command schedule.
      *
      * @param \Illuminate\Console\Scheduling\Schedule $schedule
      *
@@ -155,14 +155,14 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method commands Description
+     * Register the Closure based commands for the application.
      */
     protected function commands()
     {
     }
 
     /**
-     * TODO: Method command Description
+     * Register a Closure based command with the application.
      *
      * @param string  $signature
      * @param Closure $callback
@@ -180,7 +180,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method registerCommand Description
+     * Register the given command with the console application.
      *
      * @param \Symfony\Component\Console\Command\Command $command
      *
@@ -192,7 +192,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method call Description
+     * Run an Artisan console command by name.
      *
      * @param string $command
      * @param array  $parameters
@@ -212,7 +212,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method queue Description
+     * Queue the given console command.
      *
      * @param string $command
      * @param array  $parameters
@@ -225,7 +225,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method all Description
+     * Get all of the commands registered with the console.
      *
      * @return array
      */
@@ -237,7 +237,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method output Description
+     * Get the output for the last run command.
      *
      * @return string
      */
@@ -249,7 +249,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the application for artisan commands.
      *
      * @return void
      */
@@ -262,7 +262,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method getArtisan Description
+     * Get the Artisan application instance.
      *
      * @return \Notadd\Foundation\Console\Application
      */
@@ -277,7 +277,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method setArtisan Description
+     * Set the Artisan application instance.
      *
      * @param \Notadd\Foundation\Console\Application $artisan
      *
@@ -289,7 +289,8 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method bootstrappers Description
+     * Get the bootstrap classes for the application.
+     *
      * @return array
      */
     protected function bootstrappers()
@@ -298,7 +299,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method reportException Description
+     * Report the exception to the exception handler.
      *
      * @param \Exception $e
      *
@@ -310,7 +311,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * TODO: Method renderException Description
+     * Report the exception to the exception handler.
      *
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Exception                                        $e

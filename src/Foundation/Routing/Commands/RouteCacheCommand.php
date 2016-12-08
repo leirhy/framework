@@ -52,9 +52,10 @@ class RouteCacheCommand extends Command
     }
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      *
      * @return bool
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function fire()
     {
@@ -75,7 +76,7 @@ class RouteCacheCommand extends Command
     }
 
     /**
-     * TODO: Method getFreshApplicationRoutes Description
+     * Fresh application routes.
      *
      * @return \Illuminate\Routing\RouteCollection
      */
@@ -91,7 +92,7 @@ class RouteCacheCommand extends Command
     }
 
     /**
-     * TODO: Method buildRouteCacheFile Description
+     * Build route cache file.
      *
      * @param \Illuminate\Routing\RouteCollection $routes
      *
@@ -107,7 +108,7 @@ class RouteCacheCommand extends Command
     }
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */

@@ -17,7 +17,7 @@ use Illuminate\Notifications\Console\NotificationTableCommand as IlluminateNotif
 class NotificationTableCommand extends IlluminateNotificationTableCommand
 {
     /**
-     * TODO: Method fire Description
+     * Command handler.
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
@@ -32,7 +32,7 @@ class NotificationTableCommand extends IlluminateNotificationTableCommand
     }
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */

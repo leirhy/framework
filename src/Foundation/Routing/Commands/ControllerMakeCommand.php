@@ -17,7 +17,7 @@ use Illuminate\Routing\Console\ControllerMakeCommand as IlluminateControllerMake
 class ControllerMakeCommand extends IlluminateControllerMakeCommand
 {
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */
@@ -31,7 +31,7 @@ class ControllerMakeCommand extends IlluminateControllerMakeCommand
     }
 
     /**
-     * TODO: Method replaceClass Description
+     * Replace the class name for the given stub.
      *
      * @param string $stub
      * @param string $name

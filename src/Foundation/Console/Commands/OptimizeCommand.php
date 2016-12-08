@@ -235,7 +235,7 @@ class OptimizeCommand extends Command
     }
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      */
     public function fire()
     {
@@ -292,7 +292,7 @@ class OptimizeCommand extends Command
     }
 
     /**
-     * TODO: Method getOptions Description
+     * Get the console command options.
      *
      * @return array
      */

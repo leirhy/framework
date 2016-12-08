@@ -34,7 +34,7 @@ class ConsoleMakeCommand extends GeneratorCommand
     protected $type = 'Console command';
 
     /**
-     * TODO: Method replaceClass Description
+     * Replace the class name for the given stub.
      *
      * @param string $stub
      * @param string $name
@@ -50,7 +50,7 @@ class ConsoleMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */
@@ -60,7 +60,7 @@ class ConsoleMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getDefaultNamespace Description
+     * Get the default namespace for the class.
      *
      * @param string $rootNamespace
      *
@@ -72,7 +72,7 @@ class ConsoleMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getArguments Description
+     * Get the console command arguments.
      *
      * @return array
      */
@@ -88,7 +88,7 @@ class ConsoleMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getOptions Description
+     * Get the console command options.
      *
      * @return array
      */

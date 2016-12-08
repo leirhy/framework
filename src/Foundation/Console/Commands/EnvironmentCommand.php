@@ -26,7 +26,7 @@ class EnvironmentCommand extends Command
     protected $description = 'Display the current framework environment';
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      */
     public function fire()
     {

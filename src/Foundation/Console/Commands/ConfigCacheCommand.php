@@ -50,7 +50,7 @@ class ConfigCacheCommand extends Command
     }
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      */
     public function fire()
     {

@@ -34,7 +34,7 @@ class ListenerMakeCommand extends GeneratorCommand
     protected $type = 'Listener';
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      *
      * @return bool
      */
@@ -51,7 +51,7 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method buildClass Description
+     * Build the class with the given name.
      *
      * @param string $name
      *
@@ -72,7 +72,7 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */
@@ -86,7 +86,7 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method alreadyExists Description
+     * Determine if the class already exists.
      *
      * @param string $rawName
      *
@@ -98,7 +98,7 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getDefaultNamespace Description
+     * Get the default namespace for the class.
      *
      * @param string $rootNamespace
      *
@@ -110,7 +110,7 @@ class ListenerMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getOptions Description
+     * Get the console command options.
      *
      * @return array
      */

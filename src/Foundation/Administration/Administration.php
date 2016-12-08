@@ -46,7 +46,7 @@ class Administration
     }
 
     /**
-     * TODO: Method getAdministrator Description
+     * Get administrator.
      *
      * @return \Notadd\Foundation\Administration\Abstracts\Administrator
      */
@@ -66,7 +66,7 @@ class Administration
     }
 
     /**
-     * TODO: Method setAdministrator Description
+     * Set administrator instance.
      *
      * @param \Notadd\Foundation\Administration\Abstracts\Administrator $administrator
      *

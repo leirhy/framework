@@ -29,7 +29,7 @@ class ServeCommand extends Command
     protected $description = 'Serve the application on the PHP development server';
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      */
     public function fire()
     {
@@ -43,7 +43,7 @@ class ServeCommand extends Command
     }
 
     /**
-     * TODO: Method getOptions Description
+     * Get the console command options.
      *
      * @return array
      */

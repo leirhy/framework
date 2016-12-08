@@ -66,7 +66,7 @@ class RouteListCommand extends Command
     }
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      *
      * @return bool
      */
@@ -135,7 +135,7 @@ class RouteListCommand extends Command
     }
 
     /**
-     * TODO: Method getMiddleware Description
+     * Get middleware of a route.
      *
      * @param $route
      *
@@ -169,7 +169,7 @@ class RouteListCommand extends Command
     }
 
     /**
-     * TODO: Method getOptions Description
+     * Get the console command options.
      *
      * @return array
      */

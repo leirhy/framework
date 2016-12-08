@@ -34,7 +34,7 @@ class ModelMakeCommand extends GeneratorCommand
     protected $type = 'Model';
 
     /**
-     * TODO: Method fire Description
+     * Command handler.
      */
     public function fire()
     {
@@ -57,7 +57,7 @@ class ModelMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getDefaultNamespace Description
+     * Get the default namespace for the class.
      *
      * @param string $rootNamespace
      *
@@ -69,7 +69,7 @@ class ModelMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getOptions Description
+     * Get the console command options.
      *
      * @return array
      */
@@ -92,7 +92,7 @@ class ModelMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getStub Description
+     * Get stub file.
      *
      * @return string
      */
@@ -102,7 +102,7 @@ class ModelMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method replaceClass Description
+     * Replace the class name for the given stub.
      *
      * @param string $stub
      * @param string $name

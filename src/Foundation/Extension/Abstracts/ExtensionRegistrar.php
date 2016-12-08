@@ -113,7 +113,9 @@ abstract class ExtensionRegistrar
      *
      * @return array
      */
-    abstract public function getExtensionInfo();
+    public function getExtensionInfo() {
+        return [];
+    }
 
     /**
      * Name for extension.

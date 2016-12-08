@@ -129,7 +129,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method version Description
+     * Get the version number of the application.
      *
      * @return string
      */
@@ -139,7 +139,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method registerBaseBindings Description
+     * Register the basic bindings into the container.
      */
     protected function registerBaseBindings()
     {
@@ -149,7 +149,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method registerBaseServiceProviders Description
+     * Register all of the base service providers.
      */
     protected function registerBaseServiceProviders()
     {
@@ -158,7 +158,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method bootstrapWith Description
+     * Run the given array of bootstrap classes.
      *
      * @param array $bootstrappers
      */
@@ -173,7 +173,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method afterLoadingEnvironment Description
+     * Register a callback to run after loading the environment.
      *
      * @param \Closure $callback
      */
@@ -183,7 +183,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method beforeBootstrapping Description
+     * Register a callback to run before a bootstrapper.
      *
      * @param          $bootstrapper
      * @param \Closure $callback
@@ -194,7 +194,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method afterBootstrapping Description
+     * Register a callback to run after a bootstrapper.
      *
      * @param          $bootstrapper
      * @param \Closure $callback
@@ -205,7 +205,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method hasBeenBootstrapped Description
+     * Determine if the application has been bootstrapped before.
      *
      * @return bool
      */
@@ -215,7 +215,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method setBasePath Description
+     * Set the base path for the application.
      *
      * @param $basePath
      *
@@ -230,7 +230,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method bindPathsInContainer Description
+     * Bind all of the application paths in the container.
      */
     protected function bindPathsInContainer()
     {
@@ -246,7 +246,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method path Description
+     * Get the path to the application "app" directory.
      *
      * @return string
      */
@@ -256,7 +256,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method basePath Description
+     * Get the base path of the Laravel installation.
      *
      * @return string
      */
@@ -266,7 +266,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method bootstrapPath Description
+     * Get the path to the bootstrap directory.
      *
      * @return string
      */
@@ -276,7 +276,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method configPath Description
+     * Get the path to the application configuration files.
      *
      * @return string
      */
@@ -286,7 +286,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method databasePath Description
+     * Get the path to the database directory.
      *
      * @return string
      */
@@ -296,7 +296,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method useDatabasePath Description
+     * Set the database directory.
      *
      * @param $path
      *
@@ -311,7 +311,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method langPath Description
+     * Get the path to the language files.
      *
      * @return string
      */
@@ -321,7 +321,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method publicPath Description
+     * Get the path to the public / web directory.
      *
      * @return string
      */
@@ -331,7 +331,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method usePublicPath Description
+     * Set the path to the public / web directory.
      *
      * @param $path
      *
@@ -346,7 +346,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method storagePath Description
+     * Get the path to the storage directory.
      *
      * @return string
      */
@@ -356,7 +356,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method useStoragePath Description
+     * Set the storage directory.
      *
      * @param $path
      *
@@ -371,7 +371,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method resourcePath Description
+     * Get the path to the resources directory.
      *
      * @return string
      */
@@ -381,7 +381,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method environmentPath Description
+     * Get the path to the environment file directory.
      *
      * @return string
      */
@@ -391,7 +391,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method useEnvironmentPath Description
+     * Set the directory for the environment file.
      *
      * @param $path
      *
@@ -405,7 +405,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method loadEnvironmentFrom Description
+     * Set the environment file to be loaded during bootstrapping.
      *
      * @param $file
      *
@@ -419,7 +419,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method environmentFile Description
+     * Get the environment file the application is using.
      *
      * @return string
      */
@@ -429,7 +429,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method environmentFilePath Description
+     * Get the fully qualified path to the environment file.
      *
      * @return string
      */
@@ -439,7 +439,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method environment Description
+     * Get or check the current application environment.
      *
      * @return bool|mixed
      */
@@ -460,7 +460,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method isLocal Description
+     * Determine if application is in local environment.
      *
      * @return bool
      */
@@ -470,7 +470,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method detectEnvironment Description
+     * Detect the application's current environment.
      *
      * @param \Closure $callback
      *
@@ -484,7 +484,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method runningInConsole Description
+     * Determine if we are running in the console.
      *
      * @return bool
      */
@@ -494,7 +494,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method runningUnitTests Description
+     * Determine if we are running unit tests.
      *
      * @return bool
      */
@@ -504,7 +504,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method registerConfiguredProviders Description
+     * Register all of the configured providers.
      */
     public function registerConfiguredProviders()
     {
@@ -513,7 +513,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method register Description
+     * Register a service provider with the application.
      *
      * @param \Illuminate\Support\ServiceProvider|string $provider
      * @param array                                      $options
@@ -544,7 +544,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getProvider Description
+     * Get the registered service provider instance if it exists.
      *
      * @param \Illuminate\Support\ServiceProvider|string $provider
      *
@@ -560,7 +560,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method resolveProviderClass Description
+     * Resolve a service provider instance from the class name.
      *
      * @param string $provider
      *
@@ -572,7 +572,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method markAsRegistered Description
+     * Mark the given provider as registered.
      *
      * @param \Illuminate\Support\ServiceProvider $provider
      *
@@ -586,7 +586,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method loadDeferredProviders Description
+     * Load and boot all of the remaining deferred providers.
      *
      * @return void
      */
@@ -599,7 +599,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method loadDeferredProvider Description
+     * Load the provider for a deferred service.
      *
      * @param $service
      */
@@ -615,7 +615,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method registerDeferredProvider Description
+     * Register a deferred provider and service.
      *
      * @param string $provider
      * @param null   $service
@@ -634,7 +634,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method make Description
+     * Resolve the given type from the container.
      *
      * @param string $abstract
      * @param array  $parameters
@@ -652,7 +652,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method bound Description
+     * Check a instance is bound or not.
      *
      * @param string $abstract
      *
@@ -664,7 +664,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method isBooted Description
+     * Is Application Booted.
      *
      * @return bool
      */
@@ -674,7 +674,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method boot Description
+     * Boot Application.
      */
     public function boot()
     {
@@ -690,7 +690,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method bootProvider Description
+     * Boot a provider.
      *
      * @param \Illuminate\Support\ServiceProvider $provider
      *
@@ -707,7 +707,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method booting Description
+     * Register a new boot listener.
      *
      * @param mixed $callback
      */
@@ -717,7 +717,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method booted Description
+     * Register a new "booted" listener.
      *
      * @param mixed $callback
      */
@@ -730,7 +730,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method fireAppCallbacks Description
+     * Call the booting callbacks for the application.
      *
      * @param array $callbacks
      */
@@ -742,7 +742,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method handle Description
+     * Handle a request.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int                                       $type
@@ -756,7 +756,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method shouldSkipMiddleware Description
+     * Determine if middleware has been disabled for the application.
      *
      * @return bool
      */
@@ -766,7 +766,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method configurationIsCached Description
+     * Determine if the application configuration is cached.
      *
      * @return bool
      */
@@ -776,7 +776,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getCachedConfigPath Description
+     * Get the path to the configuration cache file.
      *
      * @return string
      */
@@ -786,7 +786,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method routesAreCached Description
+     * Determine if the application routes are cached.
      *
      * @return mixed
      */
@@ -796,7 +796,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getCachedRoutesPath Description
+     * Get the path to the routes cache file.
      *
      * @return string
      */
@@ -806,7 +806,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getCachedCompilePath Description
+     * Get the path to the cached "compiled.php" file.
      *
      * @return string
      */
@@ -816,7 +816,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getCachedServicesPath Description
+     * Get the path to the cached services.php file.
      *
      * @return string
      */
@@ -826,7 +826,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method isDownForMaintenance Description
+     * Determine if the application is currently down for maintenance.
      *
      * @return bool
      */
@@ -836,7 +836,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method abort Description
+     * Throw an HttpException with the given data.
      *
      * @param int    $code
      * @param string $message
@@ -854,7 +854,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method terminating Description
+     * Register a terminating callback with the application.
      *
      * @param \Closure $callback
      *
@@ -868,7 +868,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method terminate Description
+     * Terminate the application.
      */
     public function terminate()
     {
@@ -878,7 +878,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getLoadedProviders Description
+     * Get the service providers that have been loaded.
      *
      * @return array
      */
@@ -888,7 +888,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getDeferredServices Description
+     * Get the application's deferred services.
      *
      * @return array
      */
@@ -898,7 +898,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method setDeferredServices Description
+     * Set the application's deferred services.
      *
      * @param array $services
      *
@@ -910,7 +910,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method addDeferredServices Description
+     * Add an array of services to the application's deferred services.
      *
      * @param array $services
      *
@@ -922,7 +922,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method isDeferredService Description
+     * Determine if the given service is a deferred service.
      *
      * @param string $service
      *
@@ -934,7 +934,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method configureMonologUsing Description
+     * Define a callback to be used to configure Monolog.
      *
      * @param callable $callback
      *
@@ -948,7 +948,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method hasMonologConfigurator Description
+     * Determine if the application has a custom Monolog configurator.
      *
      * @return bool
      */
@@ -958,7 +958,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getMonologConfigurator Description
+     * Get the custom Monolog configurator for the application.
      *
      * @return callable
      */
@@ -968,7 +968,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getLocale Description
+     * Get the current application locale.
      *
      * @return string
      */
@@ -978,7 +978,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method setLocale Description
+     * Set the current application locale.
      *
      * @param string $locale
      *
@@ -992,7 +992,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method isLocale Description
+     * Determine if application locale is the given locale.
      *
      * @param string $locale
      *
@@ -1004,7 +1004,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method registerCoreContainerAliases Description
+     * Register the core class aliases in the container.
      */
     public function registerCoreContainerAliases()
     {
@@ -1135,7 +1135,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method flush Description
+     * Flush the container of all bindings and resolved instances.
      */
     public function flush()
     {
@@ -1144,7 +1144,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method getNamespace Description
+     * Get the application namespace.
      *
      * @return string
      * @throws \RuntimeException
@@ -1166,7 +1166,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * TODO: Method isInstalled Description
+     * Get application installation status.
      *
      * @return bool
      */

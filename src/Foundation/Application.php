@@ -98,6 +98,11 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     /**
      * @var string
      */
+    protected $resourcePath;
+
+    /**
+     * @var string
+     */
     protected $storagePath;
 
     /**
@@ -377,7 +382,22 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function resourcePath()
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'resources';
+        return $this->resourcePath ?: $this->basePath . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'foundation' . DIRECTORY_SEPARATOR . 'resources';
+    }
+
+    /**
+     * Set the resource directory.
+     *
+     * @param $path
+     *
+     * @return $this
+     */
+    public function useResourcePath($path)
+    {
+        $this->resourcePath = $path;
+        $this->instance('path.resources', $path);
+
+        return $this;
     }
 
     /**

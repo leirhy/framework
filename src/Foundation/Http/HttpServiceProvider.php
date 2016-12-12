@@ -24,15 +24,11 @@ class HttpServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->make('events')->subscribe(RouteRegistrar::class);
         $this->configureFormRequests();
-        $this->loadViewsFrom(resource_path('errors'), 'error');
-        $this->loadViewsFrom(resource_path('views/admin'), 'admin');
-        $this->loadViewsFrom(resource_path('views/theme'), 'theme');
     }
 
     /**
-     * TODO: Method configureFormRequests Description
+     * Configure the form request related services.
      */
     protected function configureFormRequests()
     {
@@ -46,7 +42,7 @@ class HttpServiceProvider extends ServiceProvider
     }
 
     /**
-     * TODO: Method initializeRequest Description
+     * Initialize the form request with data from the given request.
      *
      * @param \Notadd\Foundation\Http\FormRequest       $form
      * @param \Symfony\Component\HttpFoundation\Request $current

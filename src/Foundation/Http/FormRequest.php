@@ -66,7 +66,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     ];
 
     /**
-     * TODO: Method getValidatorInstance Description
+     * Get the validator instance for the request.
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -92,7 +92,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method validationData Description
+     * Get data to be validated from the request.
      *
      * @return array
      */
@@ -102,7 +102,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method failedValidation Description
+     * Handle a failed validation attempt.
      *
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
@@ -115,7 +115,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method passesAuthorization Description
+     * Determine if the request passes the authorization check.
      *
      * @return bool
      */
@@ -132,7 +132,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method failedAuthorization Description
+     * Handle a failed authorization attempt.
      *
      * @throws \Illuminate\Http\Exception\HttpResponseException
      * @return void
@@ -143,7 +143,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method response Description
+     * Get the proper failed validation response for the request.
      *
      * @param array $errors
      *
@@ -160,7 +160,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method forbiddenResponse Description
+     * Get the response for a forbidden operation.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -170,7 +170,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method formatErrors Description
+     * Format the errors from the given Validator instance.
      *
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
@@ -182,7 +182,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method getRedirectUrl Description
+     * Get the URL to redirect to on a validation error.
      *
      * @return string
      */
@@ -201,7 +201,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method setRedirector Description
+     * Set the Redirector instance.
      *
      * @param \Illuminate\Routing\Redirector $redirector
      *
@@ -215,7 +215,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method setContainer Description
+     * Set the container implementation.
      *
      * @param \Illuminate\Container\Container $container
      *
@@ -229,7 +229,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method messages Description
+     * Get custom messages for validator errors.
      *
      * @return array
      */
@@ -239,7 +239,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     }
 
     /**
-     * TODO: Method attributes Description
+     * Get custom attributes for validator errors.
      *
      * @return array
      */

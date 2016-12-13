@@ -36,7 +36,7 @@ class Member extends Authenticatable
     ];
 
     /**
-     * TODO: Method findForPassport Description
+     * Get member instance for passport.
      *
      * @param $name
      *

@@ -16,9 +16,19 @@ use Illuminate\Support\ServiceProvider;
 class ModuleServiceProvider extends ServiceProvider
 {
     /**
+     * Boot service provider.
+     */
+    public function boot()
+    {
+    }
+
+    /**
      * Register for service provider.
      */
     public function register()
     {
+        $this->app->singleton('module', function ($app) {
+            return new ModuleManager($app, $app['events']);
+        });
     }
 }

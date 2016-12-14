@@ -132,7 +132,7 @@ class InstallCommand extends Command
         }
         $this->call('migrate', [
             '--force' => true,
-            '--path'  => str_replace(base_path() . DIRECTORY_SEPARATOR, '', database_path('migrations')),
+            '--path'  => str_replace(base_path() . DIRECTORY_SEPARATOR, '', base_path('modules/foundation/databases/migrations')),
         ]);
         $this->call('passport:keys');
         $this->call('passport:client', [

@@ -12,10 +12,10 @@
     ],
     "autoload": {
         "files": [
-            "src/Foundation/helpers.php"
+            "src/helpers.php"
         ],
         "psr-4": {
-            "Notadd\\Foundation\\": "src/Foundation/"
+            "Notadd\\Foundation\\": "src/"
         }
     },
     "autoload-dev": {

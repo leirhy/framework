@@ -36,6 +36,6 @@ class CacheTableCommand extends IlluminateCacheTableCommand
      */
     public function getStubPath()
     {
-        return __DIR__ . '/../../../../stubs/caches/database.stub';
+        return __DIR__ . '/../../../stubs/caches/database.stub';
     }
 }

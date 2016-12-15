@@ -50,7 +50,7 @@ class NotificationMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../stubs/notifications/class.stub';
+        return __DIR__ . '/../../../stubs/notifications/class.stub';
     }
 
     /**

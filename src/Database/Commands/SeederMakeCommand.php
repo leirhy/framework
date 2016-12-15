@@ -23,7 +23,7 @@ class SeederMakeCommand extends IlluminateSeederMakeCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../stubs/seeders/seeder.stub';
+        return __DIR__ . '/../../../stubs/seeders/seeder.stub';
     }
 
     /**

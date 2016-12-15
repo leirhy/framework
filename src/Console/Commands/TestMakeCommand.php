@@ -64,7 +64,7 @@ class TestMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../stubs/tests/test.stub';
+        return __DIR__ . '/../../../stubs/tests/test.stub';
     }
 
     /**

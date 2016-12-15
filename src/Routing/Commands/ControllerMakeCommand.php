@@ -24,10 +24,10 @@ class ControllerMakeCommand extends IlluminateControllerMakeCommand
     protected function getStub()
     {
         if ($this->option('resource')) {
-            return __DIR__ . '/../../../../stubs/routes/controller.stub';
+            return __DIR__ . '/../../../stubs/routes/controller.stub';
         }
 
-        return __DIR__ . '/../../../../stubs/routes/controller.plain.stub';
+        return __DIR__ . '/../../../stubs/routes/controller.plain.stub';
     }
 
     /**

@@ -114,6 +114,6 @@ class RouteCacheCommand extends Command
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../stubs/routes/caches.stub';
+        return __DIR__ . '/../../../stubs/routes/caches.stub';
     }
 }

@@ -38,6 +38,6 @@ class SessionTableCommand extends IlluminateSessionTableCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../stubs/sessions/database.stub';
+        return __DIR__ . '/../../../stubs/sessions/database.stub';
     }
 }

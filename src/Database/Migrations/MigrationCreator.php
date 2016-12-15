@@ -41,6 +41,6 @@ class MigrationCreator extends IlluminateMigrationCreator
      */
     public function getStubPath()
     {
-        return __DIR__ . '/../../../../stubs/migrations';
+        return __DIR__ . '/../../../stubs/migrations';
     }
 }

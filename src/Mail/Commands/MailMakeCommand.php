@@ -48,7 +48,7 @@ class MailMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../stubs/mails/mail.stub';
+        return __DIR__ . '/../../../stubs/mails/mail.stub';
     }
 
     /**

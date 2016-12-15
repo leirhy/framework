@@ -38,6 +38,6 @@ class NotificationTableCommand extends IlluminateNotificationTableCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../stubs/notifications/database.stub';
+        return __DIR__ . '/../../../stubs/notifications/database.stub';
     }
 }

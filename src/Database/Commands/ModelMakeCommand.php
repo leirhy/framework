@@ -98,7 +98,7 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../stubs/models/model.stub';
+        return __DIR__ . '/../../../stubs/models/model.stub';
     }
 
     /**

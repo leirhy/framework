@@ -23,7 +23,7 @@ class MiddlewareMakeCommand extends IlluminateMiddlewareMakeCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../stubs/routes/middleware.stub';
+        return __DIR__ . '/../../../stubs/routes/middleware.stub';
     }
 
     /**

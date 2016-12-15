@@ -19,7 +19,7 @@ trait KeyParser
     protected $keyParserCache = [];
 
     /**
-     * TODO: Method setParsedKey Description
+     * Set the parsed value of a key.
      *
      * @param string $key
      * @param array  $parsed
@@ -32,7 +32,7 @@ trait KeyParser
     }
 
     /**
-     * TODO: Method parseKey Description
+     * Parse a key into namespace, group, and item.
      *
      * @param string $key
      *
@@ -53,7 +53,7 @@ trait KeyParser
     }
 
     /**
-     * TODO: Method keyParserParseBasicSegments Description
+     * Parse an array of basic segments.
      *
      * @param array $segments
      *
@@ -72,7 +72,7 @@ trait KeyParser
     }
 
     /**
-     * TODO: Method keyParserParseSegments Description
+     * Parse an array of namespaced segments.
      *
      * @param string $key
      *

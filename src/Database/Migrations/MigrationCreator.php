@@ -35,7 +35,7 @@ class MigrationCreator extends IlluminateMigrationCreator
     }
 
     /**
-     * TODO: Method getStubPath Description
+     * Get the path to the stubs.
      *
      * @return string
      */

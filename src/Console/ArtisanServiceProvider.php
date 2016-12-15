@@ -509,7 +509,7 @@ class ArtisanServiceProvider extends ServiceProvider
     }
 
     /**
-     * TODO: Method provides Description
+     * Get the services provided by the provider.
      *
      * @return array
      */

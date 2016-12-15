@@ -15,7 +15,7 @@ namespace Notadd\Foundation\Configuration\Contracts;
 interface Loader
 {
     /**
-     * TODO: Method load Description
+     * Load the given configuration group.
      *
      * @param string $environment
      * @param string $group
@@ -26,7 +26,7 @@ interface Loader
     public function load($environment, $group, $namespace = null);
 
     /**
-     * TODO: Method exists Description
+     * Determine if the given configuration group exists.
      *
      * @param string $group
      * @param string $namespace
@@ -36,7 +36,7 @@ interface Loader
     public function exists($group, $namespace = null);
 
     /**
-     * TODO: Method addNamespace Description
+     * Add a new namespace to the loader.
      *
      * @param string $namespace
      * @param string $hint
@@ -46,14 +46,14 @@ interface Loader
     public function addNamespace($namespace, $hint);
 
     /**
-     * TODO: Method getNamespaces Description
+     * Returns all registered namespaces with the config loader.
      *
      * @return array
      */
     public function getNamespaces();
 
     /**
-     * TODO: Method cascadePackage Description
+     * Apply any cascades to an array of package options.
      *
      * @param string $environment
      * @param string $package

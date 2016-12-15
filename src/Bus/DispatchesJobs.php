@@ -16,7 +16,7 @@ use Illuminate\Contracts\Bus\Dispatcher;
 trait DispatchesJobs
 {
     /**
-     * TODO: Method dispatch Description
+     * Dispatch a job to its appropriate handler.
      *
      * @param mixed $job
      *
@@ -28,7 +28,7 @@ trait DispatchesJobs
     }
 
     /**
-     * TODO: Method dispatchNow Description
+     * Dispatch a command to its appropriate handler in the current process.
      *
      * @param mixed $job
      *

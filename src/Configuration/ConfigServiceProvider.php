@@ -42,7 +42,7 @@ class ConfigServiceProvider extends ServiceProvider
     }
 
     /**
-     * TODO: Method getConfigLoader Description
+     * Get config loader.
      *
      * @return \Notadd\Foundation\Configuration\Loaders\FileLoader
      */

@@ -49,7 +49,7 @@ class FileLoader implements LoaderContract
     }
 
     /**
-     * TODO: Method addNamespace Description
+     * Add a new namespace to the loader.
      *
      * @param string $namespace
      * @param string $hint
@@ -62,7 +62,7 @@ class FileLoader implements LoaderContract
     }
 
     /**
-     * TODO: Method cascadePackage Description
+     * Apply any cascades to an array of package options.
      *
      * @param string $environment
      * @param string $package
@@ -86,7 +86,7 @@ class FileLoader implements LoaderContract
     }
 
     /**
-     * TODO: Method exists Description
+     * Determine if the given group exists.
      *
      * @param string $group
      * @param string $namespace
@@ -110,7 +110,7 @@ class FileLoader implements LoaderContract
     }
 
     /**
-     * TODO: Method getNamespaces Description
+     * Returns all registered namespaces with the config loader.
      *
      * @return array
      */
@@ -120,7 +120,7 @@ class FileLoader implements LoaderContract
     }
 
     /**
-     * TODO: Method getPackagePath Description
+     * Get the package path for an environment and group.
      *
      * @param string $env
      * @param string $package
@@ -141,7 +141,7 @@ class FileLoader implements LoaderContract
     }
 
     /**
-     * TODO: Method getPath Description
+     * Get the configuration path for a namespace.
      *
      * @param string $namespace
      *
@@ -157,7 +157,7 @@ class FileLoader implements LoaderContract
     }
 
     /**
-     * TODO: Method getRequire Description
+     * Get a file's contents by requiring it.
      *
      * @param  string $path
      *
@@ -170,7 +170,7 @@ class FileLoader implements LoaderContract
     }
 
     /**
-     * TODO: Method load Description
+     * Load the given configuration group.
      *
      * @param string $environment
      * @param string $group
@@ -199,7 +199,7 @@ class FileLoader implements LoaderContract
     }
 
     /**
-     * TODO: Method mergeEnvironment Description
+     * Merge the items in the given file into the items.
      *
      * @param array  $items
      * @param string $file

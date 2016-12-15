@@ -32,6 +32,8 @@ class CacheTableCommand extends IlluminateCacheTableCommand
     }
 
     /**
+     * Get the path to the stubs.
+     *
      * @return string
      */
     public function getStubPath()

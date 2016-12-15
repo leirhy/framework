@@ -56,7 +56,7 @@ class Administration
     }
 
     /**
-     * TODO: Method hasAdministrator Description
+     * Status of administrator's instance.
      *
      * @return bool
      */

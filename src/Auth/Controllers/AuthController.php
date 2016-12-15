@@ -33,7 +33,7 @@ class AuthController extends Controller
     }
 
     /**
-     * TODO: Method index Description
+     * Index handler.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -43,7 +43,7 @@ class AuthController extends Controller
     }
 
     /**
-     * TODO: Method store Description
+     * Store handler.
      *
      * @return \Illuminate\Http\Response
      */
@@ -53,7 +53,7 @@ class AuthController extends Controller
     }
 
     /**
-     * TODO: Method username Description
+     * Get the login username to be used by the controller.
      *
      * @return string
      */

@@ -16,7 +16,7 @@ use Illuminate\Contracts\Auth\Access\Gate;
 trait Authorizable
 {
     /**
-     * TODO: Method can Description
+     * Determine if the entity has a given ability.
      *
      * @param       $ability
      * @param array $arguments
@@ -29,7 +29,7 @@ trait Authorizable
     }
 
     /**
-     * TODO: Method cant Description
+     * Determine if the entity does not have a given ability.
      *
      * @param       $ability
      * @param array $arguments
@@ -42,7 +42,7 @@ trait Authorizable
     }
 
     /**
-     * TODO: Method cannot Description
+     * Determine if the entity does not have a given ability.
      *
      * @param       $ability
      * @param array $arguments

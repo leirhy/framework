@@ -16,7 +16,7 @@ use Illuminate\Contracts\Auth\Access\Gate;
 trait AuthorizesRequests
 {
     /**
-     * TODO: Method authorize Description
+     * Authorize a given action for the current user.
      *
      * @param       $ability
      * @param array $arguments
@@ -32,7 +32,7 @@ trait AuthorizesRequests
     }
 
     /**
-     * TODO: Method authorizeForUser Description
+     * Authorize a given action for a user.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable|mixed $user
      * @param mixed                                            $ability
@@ -48,7 +48,7 @@ trait AuthorizesRequests
     }
 
     /**
-     * TODO: Method parseAbilityAndArguments Description
+     * Guesses the ability's name if it wasn't provided.
      *
      * @param mixed       $ability
      * @param mixed|array $arguments
@@ -72,7 +72,7 @@ trait AuthorizesRequests
     }
 
     /**
-     * TODO: Method normalizeGuessedAbilityName Description
+     * Normalize the ability name that has been guessed from the method name.
      *
      * @param string $ability
      *
@@ -86,7 +86,7 @@ trait AuthorizesRequests
     }
 
     /**
-     * TODO: Method authorizeResource Description
+     * Authorize a resource action based on the incoming request.
      *
      * @param string                        $model
      * @param string|null                   $parameter
@@ -113,7 +113,7 @@ trait AuthorizesRequests
     }
 
     /**
-     * TODO: Method resourceAbilityMap Description
+     * Get the map of resource methods to ability names.
      *
      * @return array
      */

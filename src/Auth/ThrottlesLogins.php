@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
 trait ThrottlesLogins
 {
     /**
-     * TODO: Method hasTooManyLoginAttempts Description
+     * Determine if the user has too many failed login attempts.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -32,7 +32,7 @@ trait ThrottlesLogins
     }
 
     /**
-     * TODO: Method incrementLoginAttempts Description
+     * Increment the login attempts for the user.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -44,7 +44,7 @@ trait ThrottlesLogins
     }
 
     /**
-     * TODO: Method sendLockoutResponse Description
+     * Redirect the user after determining they are locked out.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -60,7 +60,7 @@ trait ThrottlesLogins
     }
 
     /**
-     * TODO: Method clearLoginAttempts Description
+     * Clear the login locks for the given user credentials.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -72,7 +72,7 @@ trait ThrottlesLogins
     }
 
     /**
-     * TODO: Method fireLockoutEvent Description
+     * Fire an event when a lockout occurs.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -84,7 +84,7 @@ trait ThrottlesLogins
     }
 
     /**
-     * TODO: Method throttleKey Description
+     * Get the throttle key for the given request.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -96,7 +96,7 @@ trait ThrottlesLogins
     }
 
     /**
-     * TODO: Method limiter Description
+     * Get the rate limiter instance.
      *
      * @return \Illuminate\Cache\RateLimiter
      */

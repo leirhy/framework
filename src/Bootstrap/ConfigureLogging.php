@@ -18,7 +18,7 @@ use Monolog\Logger as Monolog;
 class ConfigureLogging
 {
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the given application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      *
@@ -35,7 +35,7 @@ class ConfigureLogging
     }
 
     /**
-     * TODO: Method registerLogger Description
+     * Register the logger instance in the container.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      *
@@ -49,7 +49,7 @@ class ConfigureLogging
     }
 
     /**
-     * TODO: Method configureHandlers Description
+     * Configure the Monolog handlers for the application.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      * @param \Illuminate\Log\Writer                       $log
@@ -63,7 +63,7 @@ class ConfigureLogging
     }
 
     /**
-     * TODO: Method configureSingleHandler Description
+     * Configure the Monolog handlers for the application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
@@ -76,7 +76,7 @@ class ConfigureLogging
     }
 
     /**
-     * TODO: Method configureDailyHandler Description
+     * Configure the Monolog handlers for the application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
@@ -92,7 +92,7 @@ class ConfigureLogging
     }
 
     /**
-     * TODO: Method configureSyslogHandler Description
+     * Configure the Monolog handlers for the application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
@@ -105,7 +105,7 @@ class ConfigureLogging
     }
 
     /**
-     * TODO: Method configureErrorlogHandler Description
+     * Configure the Monolog handlers for the application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log

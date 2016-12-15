@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 class SetRequestForConsole
 {
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the given application.
      *
      * @param \Illuminate\Contracts\Foundation\Application $application
      *

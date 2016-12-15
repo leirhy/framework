@@ -18,7 +18,7 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 class LoadSetting
 {
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the given application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      *

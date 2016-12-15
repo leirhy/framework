@@ -22,7 +22,7 @@ use Symfony\Component\Finder\SplFileInfo;
 class LoadConfiguration
 {
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the given application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      *
@@ -39,7 +39,7 @@ class LoadConfiguration
     }
 
     /**
-     * TODO: Method loadConfigurationFiles Description
+     * Load the configuration items from all of the files.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      * @param \Illuminate\Contracts\Config\Repository                                     $repository
@@ -58,7 +58,7 @@ class LoadConfiguration
     }
 
     /**
-     * TODO: Method getConfigurationFiles Description
+     * Get all of the configuration files for the application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      *
@@ -77,7 +77,7 @@ class LoadConfiguration
     }
 
     /**
-     * TODO: Method getConfigurationNesting Description
+     * Get the configuration file nesting path.
      *
      * @param \Symfony\Component\Finder\SplFileInfo $file
      * @param string                                $configPath

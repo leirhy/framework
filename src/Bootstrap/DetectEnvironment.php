@@ -19,7 +19,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 class DetectEnvironment
 {
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the given application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      *
@@ -40,7 +40,7 @@ class DetectEnvironment
     }
 
     /**
-     * TODO: Method checkForSpecificEnvironmentFile Description
+     * Detect if a custom environment file matching the APP_ENV exists.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      *
@@ -65,7 +65,7 @@ class DetectEnvironment
     }
 
     /**
-     * TODO: Method loadEnvironmentFile Description
+     * Load a custom environment file.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param string                                                                      $file

@@ -18,7 +18,7 @@ use Notadd\Foundation\AliasLoader;
 class RegisterFacades
 {
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the given application.
      *
      * @param \Illuminate\Contracts\Foundation\Application $application
      *

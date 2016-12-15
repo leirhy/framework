@@ -16,7 +16,7 @@ use Illuminate\Contracts\Foundation\Application;
 class LoadProviders
 {
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the given application.
      *
      * @param \Illuminate\Contracts\Foundation\Application $application
      *

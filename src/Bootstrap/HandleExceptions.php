@@ -26,7 +26,7 @@ class HandleExceptions
     protected $app;
 
     /**
-     * TODO: Method bootstrap Description
+     * Bootstrap the given application.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      *
@@ -57,7 +57,7 @@ class HandleExceptions
     }
 
     /**
-     * TODO: Method handleError Description
+     * Convert a PHP error to an ErrorException.
      *
      * @param int    $level
      * @param string $message
@@ -76,7 +76,7 @@ class HandleExceptions
     }
 
     /**
-     * TODO: Method handleException Description
+     * Handle an uncaught exception from the application.
      *
      * @param \Throwable $e
      *
@@ -96,7 +96,7 @@ class HandleExceptions
     }
 
     /**
-     * TODO: Method renderForConsole Description
+     * Render an exception to the console.
      *
      * @param \Exception $e
      *
@@ -108,7 +108,7 @@ class HandleExceptions
     }
 
     /**
-     * TODO: Method renderHttpResponse Description
+     * Render an exception as an HTTP response and send it.
      *
      * @param \Exception $e
      *
@@ -120,7 +120,7 @@ class HandleExceptions
     }
 
     /**
-     * TODO: Method handleShutdown Description
+     * Handle the PHP shutdown event.
      */
     public function handleShutdown()
     {
@@ -130,7 +130,7 @@ class HandleExceptions
     }
 
     /**
-     * TODO: Method fatalExceptionFromError Description
+     * Create a new fatal exception instance from an error array.
      *
      * @param array    $error
      * @param int|null $traceOffset
@@ -144,7 +144,7 @@ class HandleExceptions
     }
 
     /**
-     * TODO: Method isFatal Description
+     * Determine if the error type is fatal.
      *
      * @param int $type
      *
@@ -161,7 +161,7 @@ class HandleExceptions
     }
 
     /**
-     * TODO: Method getExceptionHandler Description
+     * Get an instance of the exception handler.
      *
      * @return \Illuminate\Contracts\Debug\ExceptionHandler
      */

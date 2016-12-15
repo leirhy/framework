@@ -6,17 +6,20 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-12-15 17:51
  */
-
 namespace Notadd\Foundation\Theme;
-
 
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 
+/**
+ * Class ThemeManager.
+ */
 class ThemeManager
 {
     /**
+     * Container instance.
+     *
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;

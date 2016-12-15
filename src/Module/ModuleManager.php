@@ -20,6 +20,8 @@ use Illuminate\Support\Collection;
 class ModuleManager
 {
     /**
+     * Container instance.
+     *
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
@@ -55,6 +57,8 @@ class ModuleManager
     }
 
     /**
+     * Modules of installed or not installed.
+     *
      * @param bool $installed
      *
      * @return \Illuminate\Support\Collection

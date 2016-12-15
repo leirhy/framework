@@ -48,6 +48,8 @@ class Module
     }
 
     /**
+     * Author of module.
+     *
      * @return string|array
      */
     public function getAuthor()
@@ -56,6 +58,8 @@ class Module
     }
 
     /**
+     * Description of module.
+     *
      * @return string
      */
     public function getDescription()
@@ -64,6 +68,8 @@ class Module
     }
 
     /**
+     * Name of module.
+     *
      * @return string
      */
     public function getName()
@@ -72,6 +78,8 @@ class Module
     }
 
     /**
+     * Module install status.
+     *
      * @return bool
      */
     public function isInstalled() {
@@ -79,6 +87,8 @@ class Module
     }
 
     /**
+     * Set module's author.
+     *
      * @param string|array $author
      */
     public function setAuthor($author)
@@ -87,6 +97,8 @@ class Module
     }
 
     /**
+     * Set module's description.
+     *
      * @param mixed $description
      */
     public function setDescription($description)
@@ -95,6 +107,8 @@ class Module
     }
 
     /**
+     * Set module's install status.
+     *
      * @param bool $installed
      */
     public function setInstalled(bool $installed)
@@ -103,6 +117,8 @@ class Module
     }
 
     /**
+     * Set module's name.
+     *
      * @param string $name
      */
     public function setName($name)

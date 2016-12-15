@@ -48,6 +48,8 @@ class Theme
     }
 
     /**
+     * Author of theme.
+     *
      * @return string|array
      */
     public function getAuthor()
@@ -56,6 +58,8 @@ class Theme
     }
 
     /**
+     * Description of theme.
+     *
      * @return string
      */
     public function getDescription()
@@ -64,6 +68,8 @@ class Theme
     }
 
     /**
+     * Theme install status.
+     *
      * @return bool
      */
     public function getInstalled()
@@ -72,6 +78,8 @@ class Theme
     }
 
     /**
+     * Name of theme.
+     *
      * @return string
      */
     public function getName()
@@ -80,6 +88,8 @@ class Theme
     }
 
     /**
+     * Set theme's author.
+     *
      * @param string|array $author
      */
     public function setAuthor($author)
@@ -88,6 +98,8 @@ class Theme
     }
 
     /**
+     * Set theme's description.
+     *
      * @param string $description
      */
     public function setDescription($description)
@@ -96,6 +108,8 @@ class Theme
     }
 
     /**
+     * Set theme's install status.
+     *
      * @param bool $installed
      */
     public function setInstalled($installed)
@@ -104,6 +118,8 @@ class Theme
     }
 
     /**
+     * Set theme's name.
+     *
      * @param string $name
      */
     public function setName($name)

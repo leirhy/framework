@@ -71,8 +71,9 @@ class ModuleManager
                     if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = new Collection(json_decode($this->files->get($file), true));
                         if (Arr::get($package, 'type') == 'notadd-extension' && $name = Arr::get($package, 'name')) {
-                            $module = new Module($name, Arr::get($package, 'authors'), Arr::get($package, 'description'));
-                            if($installed) {
+                            $module = new Module($name, Arr::get($package, 'authors'),
+                                Arr::get($package, 'description'));
+                            if ($installed) {
                                 $module->setInstalled($installed);
                             }
                             $this->modules->put($directory, $module);

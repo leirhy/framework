@@ -1104,6 +1104,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Contracts\Mail\MailQueue',
             ],
             'member'                    => ['Notadd\Foundation\Member\MemberManagement'],
+            'module'                    => ['Notadd\Foundation\Module\ModuleManager'],
             'queue'                     => [
                 'Illuminate\Queue\QueueManager',
                 'Illuminate\Contracts\Queue\Factory',
@@ -1134,6 +1135,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Symfony\Component\HttpFoundation\Session\SessionInterface',
             ],
             'setting'                   => ['Notadd\Foundation\Setting\Contracts\SettingsRepository'],
+            'theme'                     => ['Notadd\Foundation\Theme\ThemeManager'],
             'url'                       => [
                 'Illuminate\Routing\UrlGenerator',
                 'Illuminate\Contracts\Routing\UrlGenerator',

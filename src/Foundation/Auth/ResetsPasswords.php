@@ -21,7 +21,7 @@ trait ResetsPasswords
     use RedirectsUsers;
 
     /**
-     * TODO: Method showResetForm Description
+     * Display the password reset view for the given token.
      *
      * @param \Illuminate\Http\Request $request
      * @param string|null              $token
@@ -37,7 +37,7 @@ trait ResetsPasswords
     }
 
     /**
-     * TODO: Method reset Description
+     * Reset the given user's password.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -45,11 +45,7 @@ trait ResetsPasswords
      */
     public function reset(Request $request)
     {
-        $this->validate($request, [
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed|min:6',
-        ]);
+        $this->validate($request, $this->rules(), $this->validationErrorMessages());
         $response = $this->broker()->reset($this->credentials($request), function ($user, $password) {
             $this->resetPassword($user, $password);
         });
@@ -59,7 +55,31 @@ trait ResetsPasswords
     }
 
     /**
-     * TODO: Method credentials Description
+     * Get the password reset validation rules.
+     *
+     * @return array
+     */
+    protected function rules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6',
+        ];
+    }
+
+    /**
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [];
+    }
+
+    /**
+     * Get the password reset credentials from the request.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -71,7 +91,7 @@ trait ResetsPasswords
     }
 
     /**
-     * TODO: Method resetPassword Description
+     * Reset the given user's password.
      *
      * @param \Illuminate\Contracts\Auth\CanResetPassword $user
      * @param string                                      $password
@@ -88,7 +108,7 @@ trait ResetsPasswords
     }
 
     /**
-     * TODO: Method sendResetResponse Description
+     * Get the response for a successful password reset.
      *
      * @param string $response
      *
@@ -100,7 +120,7 @@ trait ResetsPasswords
     }
 
     /**
-     * TODO: Method sendResetFailedResponse Description
+     * Get the response for a failed password reset.
      *
      * @param \Illuminate\Http\Request
      * @param string $response
@@ -113,7 +133,7 @@ trait ResetsPasswords
     }
 
     /**
-     * TODO: Method broker Description
+     * Get the broker to be used during password reset.
      *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
@@ -123,7 +143,7 @@ trait ResetsPasswords
     }
 
     /**
-     * TODO: Method guard Description
+     * Get the guard to be used during password reset.
      *
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */

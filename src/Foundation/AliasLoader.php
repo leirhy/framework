@@ -37,7 +37,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method getInstance Description
+     * Get or create the singleton alias loader instance.
      *
      * @param array $aliases
      *
@@ -55,7 +55,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method load Description
+     * Load a class alias if it is registered.
      *
      * @param string $alias
      *
@@ -69,7 +69,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method alias Description
+     * Add an alias to the loader.
      *
      * @param string $class
      * @param string $alias
@@ -82,7 +82,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method register Description
+     * Register the loader on the auto-loader stack.
      */
     public function register()
     {
@@ -93,7 +93,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method prependToLoaderStack Description
+     * Prepend the load method to the auto-loader stack.
      */
     protected function prependToLoaderStack()
     {
@@ -104,7 +104,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method getAliases Description
+     * Get the registered aliases.
      *
      * @return array
      */
@@ -114,7 +114,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method setAliases Description
+     * Set the registered aliases.
      *
      * @param array $aliases
      */
@@ -124,7 +124,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method isRegistered Description
+     * Indicates if the loader has been registered.
      *
      * @return bool
      */
@@ -134,7 +134,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method setRegistered Description
+     * Set the "registered" state of the loader.
      *
      * @param $value
      */
@@ -144,7 +144,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method setInstance Description
+     * Set the value of the singleton alias loader.
      *
      * @param \Notadd\Foundation\AliasLoader $loader
      */
@@ -154,7 +154,7 @@ class AliasLoader
     }
 
     /**
-     * TODO: Method __clone Description
+     * Clone method.
      */
     private function __clone()
     {

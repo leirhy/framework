@@ -20,7 +20,7 @@ trait AuthenticatesUsers
     use RedirectsUsers, ThrottlesLogins;
 
     /**
-     * TODO: Method showLoginForm Description
+     * Show the application's login form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -30,7 +30,7 @@ trait AuthenticatesUsers
     }
 
     /**
-     * TODO: Method login Description
+     * Handle a login request to the application.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -54,7 +54,7 @@ trait AuthenticatesUsers
     }
 
     /**
-     * TODO: Method validateLogin Description
+     * Validate the user login request.
      *
      * @param \Illuminate\Http\Request $request
      */
@@ -67,7 +67,7 @@ trait AuthenticatesUsers
     }
 
     /**
-     * TODO: Method credentials Description
+     * Get the needed authorization credentials from the request.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -79,7 +79,7 @@ trait AuthenticatesUsers
     }
 
     /**
-     * TODO: Method sendLoginResponse Description
+     * Send the response after the user was authenticated.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -94,7 +94,7 @@ trait AuthenticatesUsers
     }
 
     /**
-     * TODO: Method authenticated Description
+     * The user has been authenticated.
      *
      * @param \Illuminate\Http\Request $request
      * @param                          $user
@@ -106,7 +106,7 @@ trait AuthenticatesUsers
     }
 
     /**
-     * TODO: Method sendFailedLoginResponse Description
+     * Get the failed login response instance.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -120,7 +120,7 @@ trait AuthenticatesUsers
     }
 
     /**
-     * TODO: Method username Description
+     * Get the login username to be used by the controller.
      *
      * @return string
      */
@@ -130,7 +130,7 @@ trait AuthenticatesUsers
     }
 
     /**
-     * TODO: Method logout Description
+     * Log the user out of the application.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -146,7 +146,7 @@ trait AuthenticatesUsers
     }
 
     /**
-     * TODO: Method guard Description
+     * Get the guard to be used during authentication.
      *
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */

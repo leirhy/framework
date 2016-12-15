@@ -14,7 +14,7 @@ namespace Notadd\Foundation\Auth;
 trait RedirectsUsers
 {
     /**
-     * TODO: Method redirectPath Description
+     * Get the post register / login redirect path.
      *
      * @return string
      */

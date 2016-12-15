@@ -20,7 +20,7 @@ trait RegistersUsers
     use RedirectsUsers;
 
     /**
-     * TODO: Method showRegistrationForm Description
+     * Show the application registration form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -30,7 +30,7 @@ trait RegistersUsers
     }
 
     /**
-     * TODO: Method register Description
+     * Handle a registration request for the application.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -46,12 +46,24 @@ trait RegistersUsers
     }
 
     /**
-     * TODO: Method guard Description
+     * Get the guard to be used during registration.
      *
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
     protected function guard()
     {
         return Auth::guard();
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param mixed                    $user
+     *
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
     }
 }

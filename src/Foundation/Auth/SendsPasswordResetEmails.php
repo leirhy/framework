@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Password;
 trait SendsPasswordResetEmails
 {
     /**
-     * TODO: Method showLinkRequestForm Description
+     * Display the form to request a password reset link.
      *
      * @return \Illuminate\Http\Response
      */
@@ -27,7 +27,7 @@ trait SendsPasswordResetEmails
     }
 
     /**
-     * TODO: Method sendResetLinkEmail Description
+     * Send a reset link to the given user.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -45,7 +45,7 @@ trait SendsPasswordResetEmails
     }
 
     /**
-     * TODO: Method broker Description
+     * Get the broker to be used during password reset.
      *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */

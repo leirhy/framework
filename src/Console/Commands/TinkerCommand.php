@@ -56,7 +56,7 @@ class TinkerCommand extends Command
     }
 
     /**
-     * TODO: Method getCommands Description
+     * Get artisan commands to pass through to PsySH.
      *
      * @return array
      */
@@ -73,7 +73,7 @@ class TinkerCommand extends Command
     }
 
     /**
-     * TODO: Method getCasters Description
+     * Get an array of Laravel tailored casters.
      *
      * @return array
      */
@@ -87,7 +87,7 @@ class TinkerCommand extends Command
     }
 
     /**
-     * TODO: Method getArguments Description
+     * Get the console command arguments.
      *
      * @return array
      */

@@ -48,7 +48,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method ask Description
+     * Prompt the user for input.
      *
      * @param      $question
      * @param null $default
@@ -63,7 +63,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method call Description
+     * Call another console command.
      *
      * @param       $command
      * @param array $arguments
@@ -79,7 +79,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method error Description
+     * Write a string as error output.
      *
      * @param $string
      */
@@ -89,7 +89,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method execute Description
+     * Execute the console command.
      *
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
@@ -119,7 +119,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method getInput Description
+     * Get command's input instance.
      *
      * @return \Symfony\Component\Console\Input\InputInterface
      */
@@ -129,7 +129,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method getOutput Description
+     * Get command's output instance.
      *
      * @return \Symfony\Component\Console\Output\OutputInterface
      */
@@ -139,7 +139,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method hasOption Description
+     * Determine if the given option is present.
      *
      * @param $name
      *
@@ -151,7 +151,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method info Description
+     * Write a string as information output.
      *
      * @param $string
      */
@@ -161,7 +161,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method secret Description
+     * Prompt the user for input but hide the answer from the console.
      *
      * @param $question
      *
@@ -176,7 +176,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method setContainer Description
+     * Set container's instance.
      *
      * @param $container
      */
@@ -186,7 +186,7 @@ abstract class Command extends SymfonyCommand
     }
 
     /**
-     * TODO: Method table Description
+     * Format input to textual table.
      *
      * @param array  $headers
      * @param        $rows

@@ -38,7 +38,7 @@ class DownCommand extends Command
     }
 
     /**
-     * TODO: Method getDownFilePayload Description
+     * Get the payload to be placed in the "down" file.
      *
      * @return array
      */
@@ -52,7 +52,7 @@ class DownCommand extends Command
     }
 
     /**
-     * TODO: Method getRetryTime Description
+     * Get the number of seconds the client should wait before retrying their request.
      *
      * @return int|null
      */

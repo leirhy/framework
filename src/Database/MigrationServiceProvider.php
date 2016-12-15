@@ -19,7 +19,7 @@ use Notadd\Foundation\Database\Migrations\Migrator;
 class MigrationServiceProvider extends IlluminateMigrationServiceProvider
 {
     /**
-     * TODO: Method registerCreator Description
+     * Register the migration creator.
      */
     protected function registerCreator()
     {
@@ -29,7 +29,7 @@ class MigrationServiceProvider extends IlluminateMigrationServiceProvider
     }
 
     /**
-     * TODO: Method registerMigrateCommand Description
+     * Register the "migrate" migration command.
      */
     protected function registerMigrateCommand()
     {
@@ -39,7 +39,7 @@ class MigrationServiceProvider extends IlluminateMigrationServiceProvider
     }
 
     /**
-     * TODO: Method registerMigrator Description
+     * Register the migrator service.
      */
     protected function registerMigrator()
     {

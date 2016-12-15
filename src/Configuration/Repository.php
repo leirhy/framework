@@ -58,7 +58,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method offsetExists Description
+     * Determine if the given configuration option exists.
      *
      * @param mixed $offset
      *
@@ -70,7 +70,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method offsetGet Description
+     * Get a configuration option.
      *
      * @param mixed $offset
      *
@@ -82,7 +82,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method offsetSet Description
+     * Set a configuration option.
      *
      * @param mixed $offset
      * @param mixed $value
@@ -93,7 +93,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method offsetUnset Description
+     * Unset a configuration option.
      *
      * @param mixed $offset
      */
@@ -103,7 +103,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method has Description
+     * Determine if the given configuration value exists.
      *
      * @param string $key
      *
@@ -117,7 +117,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method hasGroup Description
+     * Determine if a configuration group exists.
      *
      * @param string $key
      *
@@ -131,7 +131,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method get Description
+     * Get the specified configuration value.
      *
      * @param string $key
      * @param mixed  $default
@@ -148,7 +148,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method all Description
+     * Get all of the configuration items for the application.
      *
      * @return array
      */
@@ -158,7 +158,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method callAfterLoad Description
+     * Call the after load callback for a namespace.
      *
      * @param string $namespace
      * @param string $group
@@ -174,7 +174,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method getCollection Description
+     * Get the collection identifier.
      *
      * @param string $group
      * @param string $namespace
@@ -189,7 +189,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method set Description
+     * Set the loader implementation.
      *
      * @param array|string $key
      * @param mixed        $value
@@ -215,7 +215,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method parseNamespacedSegments Description
+     * Parse an array of namespaced segments.
      *
      * @param string $key
      *
@@ -232,7 +232,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method parsePackageSegments Description
+     * Parse the segments of a package namespace.
      *
      * @param string $key
      * @param string $namespace
@@ -251,7 +251,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method load Description
+     * Load the configuration group for the key.
      *
      * @param string $group
      * @param string $namespace
@@ -294,7 +294,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method prepend Description
+     * Prepend a value onto an array configuration value.
      *
      * @param string $key
      * @param mixed  $value
@@ -309,7 +309,7 @@ class Repository implements ArrayAccess, ConfigContract
     }
 
     /**
-     * TODO: Method push Description
+     * Push a value onto an array configuration value.
      *
      * @param string $key
      * @param mixed  $value

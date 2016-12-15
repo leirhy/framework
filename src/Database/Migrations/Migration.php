@@ -40,14 +40,14 @@ abstract class Migration
     }
 
     /**
-     * TODO: Method down Description
+     * Migration's down handler.
      *
      * @return mixed
      */
     abstract public function down();
 
     /**
-     * TODO: Method getConnection Description
+     * Get connection instance.
      *
      * @return string
      */
@@ -57,7 +57,7 @@ abstract class Migration
     }
 
     /**
-     * TODO: Method up Description
+     * Migration's up handler.
      *
      * @return mixed
      */

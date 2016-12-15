@@ -44,7 +44,7 @@ class Migrator extends IlluminateMigrator
     }
 
     /**
-     * TODO: Method resolve Description
+     * Resolve migration file.
      *
      * @param string $file
      *

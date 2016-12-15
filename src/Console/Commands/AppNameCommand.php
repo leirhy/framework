@@ -74,7 +74,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method setAppDirectoryNamespace Description
+     * Set the namespace on the files in the app directory.
      */
     protected function setAppDirectoryNamespace()
     {
@@ -85,7 +85,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method replaceNamespace Description
+     * Replace the App namespace at the given path.
      *
      * @param string $path
      */
@@ -103,7 +103,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method setBootstrapNamespaces Description
+     * Set the bootstrap namespaces.
      */
     protected function setBootstrapNamespaces()
     {
@@ -121,7 +121,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method setComposerNamespace Description
+     * Set the PSR-4 namespace in the Composer file.
      */
     protected function setComposerNamespace()
     {
@@ -130,7 +130,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method setConfigNamespaces Description
+     * Set the namespace in the appropriate configuration files.
      */
     protected function setConfigNamespaces()
     {
@@ -140,7 +140,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method setAppConfigNamespaces Description
+     * Set the application provider namespaces.
      */
     protected function setAppConfigNamespaces()
     {
@@ -156,7 +156,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method setAuthConfigNamespace Description
+     * Set the authentication User namespace.
      */
     protected function setAuthConfigNamespace()
     {
@@ -165,7 +165,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method setServicesConfigNamespace Description
+     * Set the services User namespace.
      */
     protected function setServicesConfigNamespace()
     {
@@ -174,7 +174,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method setDatabaseFactoryNamespaces Description
+     * Set the namespace in database factory files.
      */
     protected function setDatabaseFactoryNamespaces()
     {
@@ -183,7 +183,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method replaceIn Description
+     * Replace the given string in the given file.
      *
      * @param string       $path
      * @param string|array $search
@@ -197,7 +197,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method getBootstrapPath Description
+     * Get the path to the bootstrap/app.php file.
      *
      * @return string
      */
@@ -207,7 +207,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method getComposerPath Description
+     * Get the path to the Composer.json file.
      *
      * @return string
      */
@@ -217,7 +217,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method getConfigPath Description
+     * Get the path to the given configuration file.
      *
      * @param string $name
      *
@@ -229,7 +229,7 @@ class AppNameCommand extends Command
     }
 
     /**
-     * TODO: Method getArguments Description
+     * Get the console command arguments.
      *
      * @return array
      */

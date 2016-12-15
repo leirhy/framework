@@ -61,7 +61,7 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * TODO: Method publishTag Description
+     * Publishes the assets for a tag.
      *
      * @param string $tag
      */
@@ -84,7 +84,7 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * TODO: Method publishFile Description
+     * Publish the file to the given path.
      *
      * @param string $from
      * @param string $to
@@ -100,7 +100,7 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * TODO: Method publishDirectory Description
+     * Publish the directory to the given directory.
      *
      * @param $from
      * @param $to
@@ -120,7 +120,7 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * TODO: Method createParentDirectory Description
+     * Create the directory to house the published files if needed.
      *
      * @param $directory
      */
@@ -132,7 +132,7 @@ class VendorPublishCommand extends Command
     }
 
     /**
-     * TODO: Method status Description
+     * Write a status message to the console.
      *
      * @param $from
      * @param $to

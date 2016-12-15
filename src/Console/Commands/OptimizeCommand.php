@@ -255,7 +255,7 @@ class OptimizeCommand extends Command
     }
 
     /**
-     * TODO: Method compileClasses Description
+     * Generate the compiled class file.
      */
     protected function compileClasses()
     {
@@ -271,7 +271,7 @@ class OptimizeCommand extends Command
     }
 
     /**
-     * TODO: Method getClassFiles Description
+     * Get the classes that should be combined and compiled.
      *
      * @return array
      */

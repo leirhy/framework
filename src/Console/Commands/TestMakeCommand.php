@@ -44,7 +44,7 @@ class TestMakeCommand extends GeneratorCommand
     }
 
     /**
-     * TODO: Method getPath Description
+     * Get the destination class path.
      *
      * @param string $name
      *

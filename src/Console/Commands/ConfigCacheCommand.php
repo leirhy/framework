@@ -62,7 +62,7 @@ class ConfigCacheCommand extends Command
     }
 
     /**
-     * TODO: Method getFreshConfiguration Description
+     * Boot a fresh copy of the application configuration.
      *
      * @return mixed
      */

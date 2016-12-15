@@ -44,7 +44,7 @@ class Application extends IlluminateApplication implements ApplicationContract
     }
 
     /**
-     * TODO: Method call Description
+     * Run an Artisan console command by name.
      *
      * @param string $command
      * @param array  $parameters
@@ -64,7 +64,7 @@ class Application extends IlluminateApplication implements ApplicationContract
     }
 
     /**
-     * TODO: Method resolve Description
+     * Add a command, resolving through the application.
      *
      * @param string $command
      *
@@ -80,7 +80,7 @@ class Application extends IlluminateApplication implements ApplicationContract
     }
 
     /**
-     * TODO: Method resolveCommands Description
+     * Resolve an array of commands through the application.
      *
      * @param array|mixed $commands
      *

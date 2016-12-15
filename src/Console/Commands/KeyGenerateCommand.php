@@ -51,7 +51,7 @@ class KeyGenerateCommand extends Command
     }
 
     /**
-     * TODO: Method setKeyInEnvironmentFile Description
+     * Set the application key in the environment file.
      *
      * @param string $key
      */
@@ -68,7 +68,7 @@ class KeyGenerateCommand extends Command
     }
 
     /**
-     * TODO: Method generateRandomKey Description
+     * Generate a random key for the application.
      *
      * @return string
      */

@@ -70,9 +70,10 @@ class ModuleManager
                 (new Collection($directories))->each(function ($directory) use ($installed) {
                     if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = new Collection(json_decode($this->files->get($file), true));
-                        if (Arr::get($package, 'type') == 'notadd-extension' && $name = Arr::get($package, 'name')) {
-                            $module = new Module($name, Arr::get($package, 'authors'),
-                                Arr::get($package, 'description'));
+                        if (Arr::get($package, 'type') == 'notadd-module' && $name = Arr::get($package, 'name')) {
+                            $module = new Module($name);
+                            $module->setAuthor(Arr::get($package, 'authors'));
+                            $module->setDescription(Arr::get($package, 'description'));
                             if ($installed) {
                                 $module->setInstalled($installed);
                             }

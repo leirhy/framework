@@ -26,7 +26,7 @@ class Theme
     /**
      * @var bool
      */
-    protected $installed;
+    protected $installed = false;
 
     /**
      * @var string
@@ -94,7 +94,13 @@ class Theme
      */
     public function setAuthor($author)
     {
-        $this->author = $author;
+        $author = collect($author)->transform(function($value) {
+            if(is_array($value))
+                return implode(' <', $value) . '>';
+            return $value;
+        });
+
+        $this->author = $author->toArray();
     }
 
     /**

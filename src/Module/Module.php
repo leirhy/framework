@@ -26,7 +26,7 @@ class Module
     /**
      * @var bool
      */
-    protected $installed;
+    protected $installed = false;
 
     /**
      * @var string
@@ -37,13 +37,9 @@ class Module
      * Module constructor.
      *
      * @param string $name
-     * @param string|array $author
-     * @param string $description
      */
-    public function __construct($name = null, $author = null, $description = null)
+    public function __construct($name = null)
     {
-        $this->author = $author;
-        $this->description = $description;
         $this->name = $name;
     }
 
@@ -93,7 +89,13 @@ class Module
      */
     public function setAuthor($author)
     {
-        $this->author = $author;
+        $author = collect($author)->transform(function($value) {
+            if(is_array($value))
+                return implode(' <', $value) . '>';
+            return $value;
+        });
+
+        $this->author = $author->toArray();
     }
 
     /**

@@ -1,13 +1,16 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @datetime DummyDatetime
  */
 namespace DummyNamespace;
+
 use Notadd\Foundation\Routing\Abstracts\Controller;
+
 /**
- * Class DummyClass
- * @package DummyNamespace
+ * Class DummyClass.
  */
-class DummyClass extends Controller {
+class DummyClass extends Controller
+{
 }

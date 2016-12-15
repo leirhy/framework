@@ -1,21 +1,26 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @datetime DummyDatetime
  */
+
 use Notadd\Foundation\Testing\WithoutMiddleware;
 use Notadd\Foundation\Testing\DatabaseMigrations;
 use Notadd\Foundation\Testing\DatabaseTransactions;
+
 /**
- * Class DummyClass
- * @package DummyNamespace
+ * Class DummyClass.
  */
-class DummyClass extends TestCase {
+class DummyClass extends TestCase
+{
     /**
      * A basic test example.
+     *
      * @return void
      */
-    public function testExample() {
+    public function testExample()
+    {
         $this->assertTrue(true);
     }
 }

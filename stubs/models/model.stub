@@ -1,13 +1,16 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @datetime DummyDatetime
  */
 namespace DummyNamespace;
+
 use Illuminate\Database\Eloquent\Model;
+
 /**
- * Class DummyClass
- * @package DummyNamespace
+ * Class DummyClass.
  */
-class DummyClass extends Model {
+class DummyClass extends Model
+{
 }

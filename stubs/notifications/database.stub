@@ -1,19 +1,25 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @datetime DummyDatetime
  */
+
 use Illuminate\Database\Schema\Blueprint;
 use Notadd\Foundation\Database\Migrations\Migration;
+
 /**
- * Class CreateNotificationsTable
+ * Class CreateNotificationsTable.
  */
-class CreateNotificationsTable extends Migration {
+class CreateNotificationsTable extends Migration
+{
     /**
      * Run the migrations.
+     *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         $this->schema->create('notifications', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('type');
@@ -23,11 +29,14 @@ class CreateNotificationsTable extends Migration {
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
+     *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         $this->schema->dropIfExists('notifications');
     }
 }

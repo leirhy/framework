@@ -1,8 +1,10 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @datetime DummyDatetime
  */
+
 app('router')->setRoutes(
     unserialize(base64_decode('{{routes}}'))
 );

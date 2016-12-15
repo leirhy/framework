@@ -1,27 +1,35 @@
 <?php
 /**
  * This file is part of Notadd.
+ *
  * @datetime DummyDatetime
  */
 namespace DummyNamespace;
+
 use Illuminate\Foundation\Http\FormRequest;
+
 /**
- * Class DummyClass
- * @package DummyNamespace
+ * Class DummyClass.
  */
-class DummyClass extends FormRequest {
+class DummyClass extends FormRequest
+{
     /**
      * Determine if the user is authorized to make this request.
+     *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return false;
     }
+
     /**
      * Get the validation rules that apply to the request.
+     *
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         return [
         ];
     }

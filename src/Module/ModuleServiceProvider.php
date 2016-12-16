@@ -20,7 +20,11 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        dd($this->app->make('module')->getModules());
+        collect($this->app->make('module')->getModules())->each(function (Module $module, $path) {
+            if($this->app->make('files')->isDirectory($path)) {
+                $this->app->register($module->getEntry());
+            }
+        });
     }
 
     /**

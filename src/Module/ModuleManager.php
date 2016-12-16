@@ -82,7 +82,6 @@ class ModuleManager
                                     $module->setEntry($namespace . 'ModuleServiceProvider');
                                 }
                             }
-                            dd($module);
                             $this->modules->put($directory, $module);
                         }
                     }

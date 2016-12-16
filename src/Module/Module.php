@@ -24,6 +24,11 @@ class Module
     protected $description;
 
     /**
+     * @var string
+     */
+    protected $entry;
+
+    /**
      * @var bool
      */
     protected $installed = false;
@@ -61,6 +66,16 @@ class Module
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Entry of module.
+     *
+     * @return string
+     */
+    public function getEntry(): string
+    {
+        return $this->entry;
     }
 
     /**
@@ -106,6 +121,16 @@ class Module
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * Set module's entry.
+     *
+     * @param string $entry
+     */
+    public function setEntry(string $entry)
+    {
+        $this->entry = $entry;
     }
 
     /**

@@ -77,6 +77,12 @@ class ModuleManager
                             if ($installed) {
                                 $module->setInstalled($installed);
                             }
+                            if ($entries = data_get($package, 'autoload.psr-4')) {
+                                foreach ($entries as $namespace => $entry) {
+                                    $module->setEntry($namespace . 'ModuleServiceProvider');
+                                }
+                            }
+                            dd($module);
                             $this->modules->put($directory, $module);
                         }
                     }

@@ -20,6 +20,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        dd($this->app->make('module')->getModules());
     }
 
     /**

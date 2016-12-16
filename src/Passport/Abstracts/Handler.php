@@ -47,7 +47,7 @@ abstract class Handler
         $this->translator = $translator;
     }
     /**
-     * TODO: Method code Description
+     * Http code.
      *
      * @return int
      * @throws \Exception

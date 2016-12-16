@@ -56,7 +56,7 @@ class AccessTokenController extends Controller
     }
 
     /**
-     * TODO: Method destroy Description
+     * Destroy handler.
      *
      * @param $tokenId
      *
@@ -71,7 +71,7 @@ class AccessTokenController extends Controller
     }
 
     /**
-     * TODO: Method index Description
+     * Index handler.
      *
      * @return mixed
      */
@@ -83,7 +83,7 @@ class AccessTokenController extends Controller
     }
 
     /**
-     * TODO: Method issueToken Description
+     * Issue token handler.
      *
      * @param \Psr\Http\Message\ServerRequestInterface $request
      *
@@ -106,7 +106,7 @@ class AccessTokenController extends Controller
     }
 
     /**
-     * TODO: Method revokeOtherAccessTokens Description
+     * Revoke other access tokens handler.
      *
      * @param array $payload
      */

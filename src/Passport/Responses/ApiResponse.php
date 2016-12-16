@@ -22,7 +22,7 @@ class ApiResponse
     protected $params = [];
 
     /**
-     * TODO: Method generateHttpResponse Description
+     * Generate a api response to http response.
      *
      * @param \Psr\Http\Message\ResponseInterface|null $response
      * @param array                                    $params
@@ -41,7 +41,7 @@ class ApiResponse
     }
 
     /**
-     * TODO: Method withParams Description
+     * Add params to api response.
      *
      * @param array $params
      *

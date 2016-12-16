@@ -26,7 +26,7 @@ trait ValidatesRequests
     protected $validatesRequestErrorBag;
 
     /**
-     * TODO: Method validateWith Description
+     * Run the validation routine against the given validator.
      *
      * @param \Illuminate\Contracts\Validation\Validator|array $validator
      * @param \Illuminate\Http\Request|null                    $request
@@ -45,7 +45,7 @@ trait ValidatesRequests
     }
 
     /**
-     * TODO: Method validate Description
+     * Validate the given request with the given rules.
      *
      * @param \Illuminate\Http\Request $request
      * @param array                    $rules
@@ -63,7 +63,7 @@ trait ValidatesRequests
     }
 
     /**
-     * TODO: Method validateWithBag Description
+     * Validate the given request with the given rules.
      *
      * @param string                   $errorBag
      * @param \Illuminate\Http\Request $request
@@ -87,7 +87,7 @@ trait ValidatesRequests
     }
 
     /**
-     * TODO: Method throwValidationException Description
+     * Throw the failed validation exception.
      *
      * @param \Illuminate\Http\Request                   $request
      * @param \Illuminate\Contracts\Validation\Validator $validator
@@ -102,7 +102,7 @@ trait ValidatesRequests
     }
 
     /**
-     * TODO: Method buildFailedValidationResponse Description
+     * Create the response for when a request fails validation.
      *
      * @param \Illuminate\Http\Request $request
      * @param array                    $errors
@@ -120,7 +120,7 @@ trait ValidatesRequests
     }
 
     /**
-     * TODO: Method formatValidationErrors Description
+     * Format the validation errors to be returned.
      *
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
@@ -132,7 +132,7 @@ trait ValidatesRequests
     }
 
     /**
-     * TODO: Method getRedirectUrl Description
+     * Get the URL we should redirect to.
      *
      * @return string
      */
@@ -142,7 +142,7 @@ trait ValidatesRequests
     }
 
     /**
-     * TODO: Method getValidationFactory Description
+     * Get a validation factory instance.
      *
      * @return \Illuminate\Contracts\Validation\Factory
      */
@@ -152,7 +152,7 @@ trait ValidatesRequests
     }
 
     /**
-     * TODO: Method withErrorBag Description
+     * Execute a Closure within with a given error bag set as the default bag.
      *
      * @param string   $errorBag
      * @param callable $callback
@@ -167,7 +167,7 @@ trait ValidatesRequests
     }
 
     /**
-     * TODO: Method errorBag Description
+     * Get the key to be used for the view error bag.
      *
      * @return string
      */

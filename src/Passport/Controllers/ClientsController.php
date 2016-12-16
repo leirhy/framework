@@ -42,7 +42,7 @@ class ClientsController extends Controller
     }
 
     /**
-     * TODO: Method destroy Description
+     * Destroy handler.
      *
      * @param $clientId
      *
@@ -57,7 +57,7 @@ class ClientsController extends Controller
     }
 
     /**
-     * TODO: Method index Description
+     * Index handler.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -69,7 +69,7 @@ class ClientsController extends Controller
     }
 
     /**
-     * TODO: Method store Description
+     * Store handler.
      *
      * @return \Laravel\Passport\Client * @throws \Illuminate\Validation\ValidationException
      */
@@ -81,11 +81,11 @@ class ClientsController extends Controller
         ])->validate();
 
         return $this->clients->create($this->request->user()->getKey(), $this->request->name,
-            $request->redirect)->makeVisible('secret');
+            $this->request->redirect)->makeVisible('secret');
     }
 
     /**
-     * TODO: Method update Description
+     * Update handler.
      *
      * @param $clientId
      *
@@ -94,14 +94,14 @@ class ClientsController extends Controller
      */
     public function update($clientId)
     {
-        if (!$request->user()->clients->find($clientId)) {
+        if (!$this->request->user()->clients->find($clientId)) {
             return new Response('', 404);
         }
-        $this->validation->make($request->all(), [
+        $this->validation->make($this->request->all(), [
             'name'     => 'required|max:255',
             'redirect' => 'required|url',
         ])->validate();
 
-        return $this->clients->update($request->user()->clients->find($clientId), $request->name, $request->redirect);
+        return $this->clients->update($this->request->user()->clients->find($clientId), $this->request->name, $this->request->redirect);
     }
 }

@@ -53,7 +53,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method alias Description
+     * Register a alias in container.
      *
      * @param string       $abstract
      * @param array|string $alias
@@ -76,7 +76,7 @@ abstract class ExtensionRegistrar
     }
 
     /**
-     * TODO: Method environment Description
+     * Get or check the current application environment.
      *
      * @return bool
      */
@@ -132,7 +132,7 @@ abstract class ExtensionRegistrar
     abstract public function getExtensionPath();
 
     /**
-     * TODO: Method install Description
+     * Install handler.
      *
      * @return bool
      */

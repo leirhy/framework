@@ -16,7 +16,7 @@ use Illuminate\Routing\RoutingServiceProvider as IlluminateRoutingServiceProvide
 class RoutingServiceProvider extends IlluminateRoutingServiceProvider
 {
     /**
-     * TODO: Method registerRedirector Description
+     * Register the Redirector service.
      */
     protected function registerRedirector()
     {

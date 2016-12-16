@@ -35,7 +35,7 @@ class EnvironmentDetector
     }
 
     /**
-     * TODO: Method detectWebEnvironment Description
+     * Set the application environment for a web request.
      *
      * @param \Closure $callback
      *
@@ -47,7 +47,7 @@ class EnvironmentDetector
     }
 
     /**
-     * TODO: Method detectConsoleEnvironment Description
+     * Set the application environment from command-line arguments.
      *
      * @param \Closure $callback
      * @param array    $args
@@ -64,7 +64,7 @@ class EnvironmentDetector
     }
 
     /**
-     * TODO: Method getEnvironmentArgument Description
+     * Get the environment argument from the console.
      *
      * @param array $args
      *

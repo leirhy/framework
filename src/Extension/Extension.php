@@ -65,7 +65,7 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * TODO: Method assignId Description
+     * Get assign id.
      */
     protected function assignId()
     {
@@ -78,7 +78,7 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * TODO: Method enable Description
+     * Set extension enable status.
      *
      * @param bool $status
      */
@@ -88,7 +88,7 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * TODO: Method getId Description
+     * Get extension's id.
      *
      * @return string
      */
@@ -98,7 +98,7 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * TODO: Method getPath Description
+     * Get extension's path.
      *
      * @return string
      */
@@ -108,7 +108,7 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * TODO: Method getRegistrar Description
+     * Get extension's registrar.
      *
      * @return \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar
      */
@@ -118,7 +118,7 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * TODO: Method hasAssets Description
+     *
      *
      * @return bool
      */
@@ -128,7 +128,7 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * TODO: Method hasMigrations Description
+     * Get extension migrations status.
      *
      * @return bool
      */
@@ -138,7 +138,7 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * TODO: Method toArray Description
+     * Return extension's info in a array.
      *
      * @return array
      */
@@ -148,7 +148,7 @@ class Extension implements ExtensionContract
     }
 
     /**
-     * TODO: Method setRegistrar Description
+     * Set extension's registrar.
      *
      * @param \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar $registrar
      */

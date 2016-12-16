@@ -89,7 +89,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method report Description
+     * Report or log an exception. This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
      * @param \Exception $exception
      *
@@ -110,7 +110,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method shouldReport Description
+     * Determine if the exception should be reported.
      *
      * @param \Exception $exception
      *
@@ -122,7 +122,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method shouldntReport Description
+     * Determine if the exception is in the "do not report" list.
      *
      * @param \Exception $exception
      *
@@ -141,7 +141,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method prepareException Description
+     * Prepare exception for rendering.
      *
      * @param \Exception $exception
      *
@@ -159,7 +159,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method render Description
+     * Render an exception into a response.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Exception               $exception
@@ -185,7 +185,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method prepareResponse Description
+     * Prepare response containing exception render.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Exception               $exception
@@ -202,7 +202,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method toIlluminateResponse Description
+     * Map exception into an illuminate response.
      *
      * @param \Symfony\Component\HttpFoundation\Response $response
      * @param \Exception                                 $exception
@@ -222,7 +222,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method renderForConsole Description
+     * Render an exception to the console.
      *
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Exception                                        $exception
@@ -235,7 +235,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method renderHttpException Description
+     * Render the given HttpException.
      *
      * @param \Symfony\Component\HttpKernel\Exception\HttpException $exception
      *
@@ -253,7 +253,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method convertValidationExceptionToResponse Description
+     * Create a response object from the given validation exception.
      *
      * @param \Illuminate\Validation\ValidationException $exception
      * @param \Illuminate\Http\Request                   $request
@@ -274,7 +274,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method convertExceptionToResponse Description
+     * Create a Symfony response for the given exception.
      *
      * @param \Exception $exception
      *
@@ -290,7 +290,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method isHttpException Description
+     * Determine if the given exception is an HTTP exception.
      *
      * @param \Exception $exception
      *
@@ -302,7 +302,7 @@ class Handler implements ExceptionHandlerContract
     }
 
     /**
-     * TODO: Method unauthenticated Description
+     * Convert an authentication exception into an unauthenticated response.
      *
      * @param \Illuminate\Http\Request                 $request
      * @param \Illuminate\Auth\AuthenticationException $exception

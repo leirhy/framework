@@ -69,7 +69,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method getCommand Description
+     * Get a command from console instance.
      *
      * @param string $name
      *
@@ -81,7 +81,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method getConfig Description
+     * Get configuration instance.
      *
      * @return \Notadd\Foundation\Configuration\Repository
      */
@@ -91,7 +91,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method getConsole Description
+     * Get console instance.
      *
      * @return \Illuminate\Contracts\Console\Kernel|\Notadd\Foundation\Console\Application
      */
@@ -114,7 +114,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method getLogger Description
+     * Get logger instance.
      *
      * @return \Psr\Log\LoggerInterface
      */
@@ -124,7 +124,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method getMailer Description
+     * Get mailer instance.
      *
      * @return \Illuminate\Mail\Mailer
      */
@@ -134,7 +134,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method getSession Description
+     * Get session instance.
      *
      * @return \Illuminate\Session\Store
      */
@@ -144,7 +144,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method getSetting Description
+     * Get setting instance.
      *
      * @return \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
@@ -154,7 +154,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method share Description
+     * Share variable with view.
      *
      * @param      $key
      * @param null $value
@@ -165,7 +165,7 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * TODO: Method view Description
+     * Share variable with view.
      *
      * @param       $template
      * @param array $data

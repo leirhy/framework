@@ -83,7 +83,7 @@ class RouteListCommand extends Command
     }
 
     /**
-     * TODO: Method getRoutes Description
+     * Compile the routes into a displayable format.
      *
      * @return array
      */
@@ -106,7 +106,7 @@ class RouteListCommand extends Command
     }
 
     /**
-     * TODO: Method getRouteInformation Description
+     * Compile the routes into a displayable format.
      *
      * @param \Illuminate\Routing\Route $route
      *
@@ -125,7 +125,7 @@ class RouteListCommand extends Command
     }
 
     /**
-     * TODO: Method displayRoutes Description
+     * Display the route information on the console.
      *
      * @param array $routes
      */
@@ -149,7 +149,7 @@ class RouteListCommand extends Command
     }
 
     /**
-     * TODO: Method filterRoute Description
+     * Filter the route by URI and / or name.
      *
      * @param array $route
      *

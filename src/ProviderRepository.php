@@ -44,7 +44,7 @@ class ProviderRepository
     }
 
     /**
-     * TODO: Method load Description
+     * Register the application service providers.
      *
      * @param array $providers
      *
@@ -66,7 +66,7 @@ class ProviderRepository
     }
 
     /**
-     * TODO: Method registerLoadEvents Description
+     * Register the load events for the given provider.
      *
      * @param string $provider
      * @param array  $events
@@ -85,7 +85,7 @@ class ProviderRepository
     }
 
     /**
-     * TODO: Method compileManifest Description
+     * Compile the application manifest file.
      *
      * @param array $providers
      *
@@ -110,7 +110,7 @@ class ProviderRepository
     }
 
     /**
-     * TODO: Method createProvider Description
+     * Create a new provider instance.
      *
      * @param string $provider
      *
@@ -122,7 +122,7 @@ class ProviderRepository
     }
 
     /**
-     * TODO: Method shouldRecompile Description
+     * Determine if the manifest should be compiled.
      *
      * @param array $manifest
      * @param array $providers
@@ -135,7 +135,7 @@ class ProviderRepository
     }
 
     /**
-     * TODO: Method loadManifest Description
+     * Load the service provider manifest JSON file.
      *
      * @return array
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -151,7 +151,7 @@ class ProviderRepository
     }
 
     /**
-     * TODO: Method writeManifest Description
+     * Write the service manifest file to disk.
      *
      * @param $manifest
      *
@@ -165,7 +165,7 @@ class ProviderRepository
     }
 
     /**
-     * TODO: Method freshManifest Description
+     * Create a fresh service manifest data structure.
      *
      * @param array $providers
      *

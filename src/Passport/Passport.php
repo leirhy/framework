@@ -39,7 +39,7 @@ class Passport
     }
 
     /**
-     * TODO: Method call Description
+     * Call something.
      *
      * @return bool
      */

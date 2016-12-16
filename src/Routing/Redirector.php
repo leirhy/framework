@@ -17,7 +17,7 @@ use Notadd\Foundation\Http\RedirectResponse;
 class Redirector extends IlluminateRedirector
 {
     /**
-     * TODO: Method createRedirect Description
+     * Create a new redirect response.
      *
      * @param string $path
      * @param int    $status

@@ -24,7 +24,7 @@ abstract class ApiController extends Controller
     }
 
     /**
-     * TODO: Method send Description
+     * Send something for handler.
      *
      * @param $handler
      */

@@ -8,14 +8,21 @@
  */
 namespace Notadd\Foundation\Extension;
 
-use Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar;
-use Notadd\Foundation\Extension\Contracts\Extension as ExtensionContract;
-
 /**
  * Class Extension.
  */
-class Extension implements ExtensionContract
+class Extension
 {
+    /**
+     * @var string|array
+     */
+    protected $author;
+
+    /**
+     * @var string
+     */
+    protected $description;
+
     /**
      * @var bool
      */
@@ -24,7 +31,7 @@ class Extension implements ExtensionContract
     /**
      * @var string
      */
-    protected $id;
+    protected $entry;
 
     /**
      * @var bool
@@ -42,11 +49,6 @@ class Extension implements ExtensionContract
     protected $path;
 
     /**
-     * @var \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar
-     */
-    protected $registrar;
-
-    /**
      * @var string
      */
     protected $version;
@@ -55,105 +57,137 @@ class Extension implements ExtensionContract
      * Extension constructor.
      *
      * @param string $name
-     * @param string $path
      */
-    public function __construct($name, $path)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->path = $path;
-        $this->assignId();
     }
 
     /**
-     * Get assign id.
+     * @return array|string
      */
-    protected function assignId()
+    public function getAuthor()
     {
-        list($vendor, $package) = explode('/', $this->name);
-        $package = str_replace([
-            'notadd-ext-',
-            'notadd-',
-        ], '', $package);
-        $this->id = "$vendor-$package";
+        return $this->author;
     }
 
     /**
-     * Set extension enable status.
-     *
-     * @param bool $status
-     */
-    public function enable($status = true)
-    {
-        $this->enabled = $status;
-    }
-
-    /**
-     * Get extension's id.
-     *
      * @return string
      */
-    public function getId()
+    public function getDescription(): string
     {
-        return $this->id;
+        return $this->description;
     }
 
     /**
-     * Get extension's path.
-     *
      * @return string
      */
-    public function getPath()
+    public function getEntry(): string
+    {
+        return $this->entry;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
     {
         return $this->path;
     }
 
     /**
-     * Get extension's registrar.
-     *
-     * @return \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar
+     * @return string
      */
-    public function getRegistrar()
+    public function getVersion(): string
     {
-        return $this->registrar;
+        return $this->version;
     }
 
     /**
-     *
-     *
      * @return bool
      */
-    public function hasAssets()
+    public function isEnabled(): bool
     {
-        return realpath($this->path . '/assets/') !== false;
+        return $this->enabled;
     }
 
     /**
-     * Get extension migrations status.
-     *
      * @return bool
      */
-    public function hasMigrations()
+    public function isInstalled(): bool
     {
-        return realpath($this->path . '/migrations/') !== false;
+        return $this->installed;
     }
 
     /**
-     * Return extension's info in a array.
-     *
-     * @return array
+     * @param array|string $author
      */
-    public function toArray()
+    public function setAuthor($author)
     {
-        return [];
+        $this->author = $author;
     }
 
     /**
-     * Set extension's registrar.
-     *
-     * @param \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar $registrar
+     * @param string $description
      */
-    public function setRegistrar(ExtensionRegistrar $registrar)
+    public function setDescription(string $description)
     {
-        $this->registrar = $registrar;
+        $this->description = $description;
+    }
+
+    /**
+     * @param string $entry
+     */
+    public function setEntry(string $entry)
+    {
+        $this->entry = $entry;
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @param bool $installed
+     */
+    public function setInstalled(bool $installed)
+    {
+        $this->installed = $installed;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath(string $path)
+    {
+        $this->path = $path;
+    }
+
+    /**
+     * @param string $version
+     */
+    public function setVersion(string $version)
+    {
+        $this->version = $version;
     }
 }

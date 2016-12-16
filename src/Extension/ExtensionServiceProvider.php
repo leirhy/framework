@@ -41,34 +41,15 @@ class ExtensionServiceProvider extends ServiceProvider
     /**
      * Boot service provider.
      *
-     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
-     *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function boot(ExtensionManager $manager)
+    public function boot()
     {
         if ($this->app->isInstalled()) {
-            $manager->getExtensions()->each(function (Extension $extension) use ($manager) {
-                $registrar = $extension->getRegistrar();
-                static::$complies = static::$complies->merge($registrar->compiles());
-                $this->commands($registrar->loadCommands());
-                (new Collection($registrar->loadLocalizationsFrom()))->each(function ($path, $namespace) {
-                    $this->loadTranslationsFrom($path, $namespace);
-                });
-                (new Collection($registrar->loadMigrationsFrom()))->each(function ($paths) {
-                    $this->loadMigrationsFrom($paths);
-                });
-                (new Collection($registrar->loadPublishesFrom()))->each(function ($to, $from) {
-                    $this->publishes([
-                        $from => $to,
-                    ], 'public');
-                });
-                (new Collection($registrar->loadViewsFrom()))->each(function ($path, $namespace) {
-                    $this->loadViewsFrom($path, $namespace);
-                });
-                $extension->enable();
-                $this->app->make(Dispatcher::class)->fire(new ExtensionEnabled($this->app, $manager, $extension));
-                $manager->boot($registrar);
+            $this->app->make('extension')->getExtensions()->each(function (Extension $extension, $path) {
+                if ($this->app->make('files')->isDirectory($path) && is_string($extension->getEntry())) {
+                    $this->app->register($extension->getEntry());
+                }
             });
         }
         $this->commands([
@@ -94,7 +75,7 @@ class ExtensionServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('extensions', function ($app) {
+        $this->app->singleton('extension', function ($app) {
             return new ExtensionManager($app, $app['events'], $app['files']);
         });
     }

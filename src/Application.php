@@ -1076,7 +1076,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 'Illuminate\Database\Connection',
                 'Illuminate\Database\ConnectionInterface',
             ],
-            'extensions'                => ['Notadd\Foundation\Extension\ExtensionManager'],
+            'extension'                => ['Notadd\Foundation\Extension\ExtensionManager'],
             'events'                    => [
                 'Illuminate\Events\Dispatcher',
                 'Illuminate\Contracts\Events\Dispatcher',

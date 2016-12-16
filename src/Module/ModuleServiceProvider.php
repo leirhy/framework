@@ -21,7 +21,7 @@ class ModuleServiceProvider extends ServiceProvider
     public function boot()
     {
         collect($this->app->make('module')->getModules())->each(function (Module $module, $path) {
-            if($this->app->make('files')->isDirectory($path)) {
+            if ($this->app->make('files')->isDirectory($path) && is_string($module->getEntry())) {
                 $this->app->register($module->getEntry());
             }
         });

@@ -21,16 +21,6 @@ use Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar;
 class ExtensionManager
 {
     /**
-     * @var array
-     */
-    protected $booted = [];
-
-    /**
-     * @var array
-     */
-    protected $bootedExtensions = [];
-
-    /**
      * @var \Illuminate\Container\Container
      */
     protected $container;
@@ -43,32 +33,26 @@ class ExtensionManager
     /**
      * @var \Illuminate\Support\Collection
      */
-    protected $extensionPaths;
-
-    /**
-     * @var \Illuminate\Support\Collection
-     */
     protected $extensions;
 
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
-    protected $filesystem;
+    protected $files;
 
     /**
      * ExtensionManager constructor.
      *
      * @param \Illuminate\Container\Container|\Notadd\Foundation\Application $container
      * @param \Illuminate\Events\Dispatcher                                  $events
-     * @param \Illuminate\Filesystem\Filesystem                              $filesystem
+     * @param \Illuminate\Filesystem\Filesystem                              $files
      */
-    public function __construct(Container $container, Dispatcher $events, Filesystem $filesystem)
+    public function __construct(Container $container, Dispatcher $events, Filesystem $files)
     {
         $this->container = $container;
         $this->events = $events;
-        $this->extensionPaths = new Collection();
         $this->extensions = new Collection();
-        $this->filesystem = $filesystem;
+        $this->files = $files;
     }
 
     /**
@@ -81,10 +65,11 @@ class ExtensionManager
     public function boot(ExtensionRegistrar $registrar)
     {
         if (method_exists($registrar, 'register')) {
-            $this->container->call([$registrar, 'register']);
+            $this->container->call([
+                $registrar,
+                'register',
+            ]);
         }
-        $this->bootedExtensions[$registrar->getExtensionName()] = true;
-        $this->booted[get_class($registrar)] = $registrar;
     }
 
     /**
@@ -98,45 +83,6 @@ class ExtensionManager
     }
 
     /**
-     * Paths for extensions.
-     *
-     * @return \Illuminate\Support\Collection
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     */
-    public function getExtensionPaths()
-    {
-        if ($this->extensionPaths->isEmpty()) {
-            if ($this->filesystem->exists($file = $this->getVendorPath() . DIRECTORY_SEPARATOR . 'composer' . DIRECTORY_SEPARATOR . 'installed.json')) {
-                $packages = new Collection(json_decode($this->filesystem->get($file), true));
-                $packages->each(function (array $package) {
-                    $name = Arr::get($package, 'name');
-                    if (Arr::get($package, 'type') == 'notadd-extension' && $name) {
-                        $this->extensionPaths->put($name, $this->getVendorPath() . DIRECTORY_SEPARATOR . $name);
-                    }
-                });
-            }
-            if ($this->filesystem->isDirectory($this->getExtensionPath()) && !empty($directories = $this->filesystem->directories($this->getExtensionPath()))) {
-                (new Collection($directories))->each(function ($vendor) {
-                    if ($this->filesystem->isDirectory($vendor) && !empty($extensionDirectories = $this->filesystem->directories($vendor))) {
-                        (new Collection($extensionDirectories))->each(function ($directory) {
-                            if ($this->filesystem->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                                $package = new Collection(json_decode($this->filesystem->get($file), true));
-                                if (Arr::get($package, 'type') == 'notadd-extension' && $name = Arr::get($package,
-                                        'name')
-                                ) {
-                                    $this->extensionPaths->put($name, $directory);
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-        }
-
-        return $this->extensionPaths;
-    }
-
-    /**
      * Extension list.
      *
      * @return \Illuminate\Support\Collection
@@ -145,18 +91,30 @@ class ExtensionManager
     public function getExtensions()
     {
         if ($this->extensions->isEmpty()) {
-            $this->getExtensionPaths()->each(function ($directory, $key) {
-                if ($this->filesystem->exists($bootstrap = $directory . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
-                    $extension = $this->filesystem->getRequire($bootstrap);
-                    if (is_string($extension) && in_array(ExtensionRegistrar::class, class_parents($extension))) {
-                        $registrar = $this->container->make($extension);
-                        $extension = $registrar->getExtension();
+            if ($this->files->isDirectory($this->getExtensionPath()) && !empty($vendors = $this->files->directories($this->getExtensionPath()))) {
+                collect($vendors)->each(function ($vendor) {
+                    if ($this->files->isDirectory($vendor) && !empty($directories = $this->files->directories($vendor))) {
+                        collect($directories)->each(function ($directory) {
+                            if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                                $package = new Collection(json_decode($this->files->get($file), true));
+                                if (Arr::get($package, 'type') == 'notadd-extension' && $name = Arr::get($package,
+                                        'name')
+                                ) {
+                                    $extension = new Extension($name);
+                                    $extension->setAuthor(Arr::get($package, 'authors'));
+                                    $extension->setDescription(Arr::get($package, 'description'));
+                                    if ($entries = data_get($package, 'autoload.psr-4')) {
+                                        foreach ($entries as $namespace => $entry) {
+                                            $extension->setEntry($namespace . 'Extension');
+                                        }
+                                    }
+                                    $this->extensions->put($directory, $extension);
+                                }
+                            }
+                        });
                     }
-                    if ($extension instanceof Extension) {
-                        $this->extensions->put($extension->getId(), $extension);
-                    }
-                }
-            });
+                });
+            }
         }
 
         return $this->extensions;

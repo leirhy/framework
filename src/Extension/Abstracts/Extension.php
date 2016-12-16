@@ -32,14 +32,12 @@ class Extension extends ServiceProvider
      * Extension constructor.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     * @param \Illuminate\Events\Dispatcher                $events
-     * @param \Illuminate\Routing\Router                   $router
      */
-    public function __construct(Application $app, Dispatcher $events, Router $router)
+    public function __construct(Application $app)
     {
         parent::__construct($app);
-        $this->events = $events;
-        $this->router = $router;
+        $this->events = $app['events'];
+        $this->router = $app['router'];
     }
 
     /**

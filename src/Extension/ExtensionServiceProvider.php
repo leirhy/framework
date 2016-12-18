@@ -45,13 +45,11 @@ class ExtensionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->isInstalled()) {
-            $this->app->make('extension')->getExtensions()->each(function (Extension $extension, $path) {
-                if ($this->app->make('files')->isDirectory($path) && is_string($extension->getEntry())) {
-                    $this->app->register($extension->getEntry());
-                }
-            });
-        }
+        $this->app->make('extension')->getExtensions()->each(function (Extension $extension, $path) {
+            if ($this->app->make('files')->isDirectory($path) && is_string($extension->getEntry())) {
+                $this->app->register($extension->getEntry());
+            }
+        });
         $this->commands([
             InstallCommand::class,
             ListCommand::class,

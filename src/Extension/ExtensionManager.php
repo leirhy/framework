@@ -21,7 +21,7 @@ use Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar;
 class ExtensionManager
 {
     /**
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
 
@@ -43,9 +43,9 @@ class ExtensionManager
     /**
      * ExtensionManager constructor.
      *
-     * @param \Illuminate\Container\Container|\Notadd\Foundation\Application $container
-     * @param \Illuminate\Events\Dispatcher                                  $events
-     * @param \Illuminate\Filesystem\Filesystem                              $files
+     * @param \Illuminate\Container\Container   $container
+     * @param \Illuminate\Events\Dispatcher     $events
+     * @param \Illuminate\Filesystem\Filesystem $files
      */
     public function __construct(Container $container, Dispatcher $events, Filesystem $files)
     {
@@ -53,23 +53,6 @@ class ExtensionManager
         $this->events = $events;
         $this->extensions = new Collection();
         $this->files = $files;
-    }
-
-    /**
-     * Boot service provider.
-     *
-     * @param \Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar $registrar
-     *
-     * @throws \Exception
-     */
-    public function boot(ExtensionRegistrar $registrar)
-    {
-        if (method_exists($registrar, 'register')) {
-            $this->container->call([
-                $registrar,
-                'register',
-            ]);
-        }
     }
 
     /**
@@ -90,29 +73,27 @@ class ExtensionManager
      */
     public function getExtensions()
     {
-        if ($this->extensions->isEmpty()) {
-            if ($this->files->isDirectory($this->getExtensionPath()) && !empty($vendors = $this->files->directories($this->getExtensionPath()))) {
-                collect($vendors)->each(function ($vendor) {
-                    if ($this->files->isDirectory($vendor) && !empty($directories = $this->files->directories($vendor))) {
-                        collect($directories)->each(function ($directory) {
-                            if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                                $package = new Collection(json_decode($this->files->get($file), true));
-                                if (Arr::get($package, 'type') == 'notadd-extension' && $name = Arr::get($package,
-                                        'name')
-                                ) {
-                                    $extension = new Extension($name);
-                                    $extension->setAuthor(Arr::get($package, 'authors'));
-                                    $extension->setDescription(Arr::get($package, 'description'));
-                                    if ($entries = data_get($package, 'autoload.psr-4')) {
-                                        foreach ($entries as $namespace => $entry) {
-                                            $extension->setEntry($namespace . 'Extension');
-                                        }
+        if ($this->extensions->isEmpty() && $this->container->isInstalled()) {
+            if ($this->files->isDirectory($this->getExtensionPath())) {
+                collect($this->files->directories($this->getExtensionPath()))->each(function ($vendor) {
+                    collect($this->files->directories($vendor))->each(function ($directory) {
+                        if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                            $package = new Collection(json_decode($this->files->get($file), true));
+                            $name = Arr::get($package, 'name');
+                            $type = Arr::get($package, 'type');
+                            if ($type == 'notadd-extension' && $name) {
+                                $extension = new Extension($name);
+                                $extension->setAuthor(Arr::get($package, 'authors'));
+                                $extension->setDescription(Arr::get($package, 'description'));
+                                if ($entries = data_get($package, 'autoload.psr-4')) {
+                                    foreach ($entries as $namespace => $entry) {
+                                        $extension->setEntry($namespace . 'Extension');
                                     }
-                                    $this->extensions->put($directory, $extension);
                                 }
+                                $this->extensions->put($directory, $extension);
                             }
-                        });
-                    }
+                        }
+                    });
                 });
             }
         }

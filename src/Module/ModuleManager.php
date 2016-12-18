@@ -66,11 +66,13 @@ class ModuleManager
     public function getModules($installed = false)
     {
         if ($this->modules->isEmpty()) {
-            if ($this->files->isDirectory($this->getModulePath()) && !empty($directories = $this->files->directories($this->getModulePath()))) {
-                (new Collection($directories))->each(function ($directory) use ($installed) {
+            if ($this->files->isDirectory($this->getModulePath())) {
+                collect($this->files->directories($this->getModulePath()))->each(function ($directory) use ($installed) {
                     if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = new Collection(json_decode($this->files->get($file), true));
-                        if (Arr::get($package, 'type') == 'notadd-module' && $name = Arr::get($package, 'name')) {
+                        $name = Arr::get($package, 'name');
+                        $type = Arr::get($package, 'type');
+                        if ($type == 'notadd-module' && $name) {
                             $module = new Module($name);
                             $module->setAuthor(Arr::get($package, 'authors'));
                             $module->setDescription(Arr::get($package, 'description'));

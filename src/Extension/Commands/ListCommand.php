@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Extension\Commands;
 
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Console\Abstracts\Command;
+use Notadd\Foundation\Extension\Extension;
 use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -23,8 +24,9 @@ class ListCommand extends Command
      */
     protected $headers = [
         'Extension Name',
+        'Author',
         'Extension Path',
-        'Installed',
+        'Status',
     ];
 
     /**
@@ -45,15 +47,18 @@ class ListCommand extends Command
      */
     public function fire(ExtensionManager $manager)
     {
-        $paths = $manager->getExtensionPaths();
+        $extensions = $manager->getExtensions();
         $list = new Collection();
-        $settings = $this->container->make(SettingsRepository::class);
         $this->info('Extensions list:');
-        $paths->each(function ($path, $key) use ($list, $settings) {
+        $extensions->each(function (Extension $extension, $path) use ($list) {
+            $data = collect(collect($extension->getAuthor())->first());
+            $author = $data->get('name');
+            $data->has('email') ? $author .= ' <' . $data->get('email') . '>' : null;
             $list->push([
-                $key,
+                $extension->getName(),
+                $author,
                 $path,
-                $settings->get('extension.' . $key . '.installed') ? 'Yes' : 'No',
+                'Normal'
             ]);
         });
         $this->table($this->headers, $list->toArray());

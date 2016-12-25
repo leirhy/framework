@@ -11,7 +11,6 @@ namespace Notadd\Foundation\Extension;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Extension\Commands\ListCommand;
-use Notadd\Foundation\Extension\Commands\UpdateCommand;
 
 /**
  * Class ExtensionServiceProvider.
@@ -48,7 +47,6 @@ class ExtensionServiceProvider extends ServiceProvider
         });
         $this->commands([
             ListCommand::class,
-            UpdateCommand::class,
         ]);
     }
 

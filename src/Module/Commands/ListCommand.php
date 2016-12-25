@@ -8,7 +8,9 @@
  */
 namespace Notadd\Foundation\Module\Commands;
 
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Console\Abstracts\Command;
+use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
 
 /**
@@ -21,8 +23,11 @@ class ListCommand extends Command
      */
     protected $headers = [
         'Module Name',
+        'Author',
+        'Description',
         'Module Path',
-        'Enabled',
+        'Entry',
+        'Status',
     ];
 
     /**
@@ -41,6 +46,19 @@ class ListCommand extends Command
      */
     public function fire(ModuleManager $manager)
     {
-
+        $modules = $manager->getModules();
+        $list = new Collection();
+        $this->info('Extensions list:');
+        $modules->each(function (Module $module, $path) use ($list) {
+            $list->push([
+                $module->getName(),
+                collect($module->getAuthor())->first(),
+                $module->getDescription(),
+                $path,
+                $module->getEntry(),
+                'Normal'
+            ]);
+        });
+        $this->table($this->headers, $list->toArray());
     }
 }

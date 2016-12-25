@@ -25,7 +25,9 @@ class ListCommand extends Command
     protected $headers = [
         'Extension Name',
         'Author',
+        'Description',
         'Extension Path',
+        'Entry',
         'Status',
     ];
 
@@ -57,7 +59,9 @@ class ListCommand extends Command
             $list->push([
                 $extension->getName(),
                 $author,
+                $extension->getDescription(),
                 $path,
+                $extension->getEntry(),
                 'Normal'
             ]);
         });

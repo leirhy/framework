@@ -24,14 +24,17 @@ class VerifyCsrfToken
      * @var \Notadd\Foundation\Application
      */
     protected $app;
+
     /**
      * @var \Illuminate\Contracts\Encryption\Encrypter
      */
     protected $encrypter;
+
     /**
      * @var array
      */
     protected $except = [
+        'admin*',
         'api*',
     ];
 

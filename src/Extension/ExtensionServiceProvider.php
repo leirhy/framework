@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Extension;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Extension\Commands\ListCommand;
 
@@ -17,22 +16,6 @@ use Notadd\Foundation\Extension\Commands\ListCommand;
  */
 class ExtensionServiceProvider extends ServiceProvider
 {
-    /**
-     * @var \Illuminate\Support\Collection
-     */
-    protected static $complies;
-
-    /**
-     * ExtensionServiceProvider constructor.
-     *
-     * @param \Notadd\Foundation\Application $application
-     */
-    public function __construct($application)
-    {
-        parent::__construct($application);
-        static::$complies = new Collection();
-    }
-
     /**
      * Boot service provider.
      *
@@ -48,16 +31,6 @@ class ExtensionServiceProvider extends ServiceProvider
         $this->commands([
             ListCommand::class,
         ]);
-    }
-
-    /**
-     * Compiles define by extension.
-     *
-     * @return array
-     */
-    public static function compiles()
-    {
-        return static::$complies->toArray();
     }
 
     /**

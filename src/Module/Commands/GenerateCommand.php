@@ -4,9 +4,9 @@
  *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-10-31 19:18
+ * @datetime 2016-12-28 11:13
  */
-namespace Notadd\Foundation\Extension\Commands;
+namespace Notadd\Foundation\Module\Commands;
 
 use Notadd\Foundation\Console\Abstracts\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -17,13 +17,13 @@ use Symfony\Component\Console\Input\InputArgument;
 class GenerateCommand extends Command
 {
     /**
-     * Configure Command.
+     * Configure command.
      */
     public function configure()
     {
-        $this->addArgument('name', InputArgument::REQUIRED, 'The name of a extension.');
-        $this->setDescription('To generate a extension from template.');
-        $this->setName('extension:generate');
+        $this->addArgument('name', InputArgument::REQUIRED, 'The name of module.');
+        $this->setDescription('To generate a module from template.');
+        $this->setName('module:generate');
     }
 
     /**

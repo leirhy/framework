@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Module;
 
 use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Module\Commands\GenerateCommand;
 use Notadd\Foundation\Module\Commands\ListCommand;
 
 /**
@@ -26,7 +27,10 @@ class ModuleServiceProvider extends ServiceProvider
                 $this->app->register($module->getEntry());
             }
         });
-        $this->commands(ListCommand::class);
+        $this->commands([
+            GenerateCommand::class,
+            ListCommand::class
+        ]);
     }
 
     /**

@@ -16,7 +16,7 @@ use Exception;
 class ConfigurationWriter
 {
     /**
-     * TODO: Method toFile Description
+     * Save a configuration value change to file.
      *
      * @param      $filePath
      * @param      $newValues
@@ -35,7 +35,7 @@ class ConfigurationWriter
     }
 
     /**
-     * TODO: Method toContent Description
+     * Save a configuration value change to contents.
      *
      * @param      $contents
      * @param      $newValues
@@ -70,7 +70,7 @@ class ConfigurationWriter
     }
 
     /**
-     * TODO: Method parseContent Description
+     * Parsing new values from contents.
      *
      * @param $contents
      * @param $newValues
@@ -99,7 +99,7 @@ class ConfigurationWriter
     }
 
     /**
-     * TODO: Method writeValueToPhp Description
+     * Save a configuration value change to php code.
      *
      * @param $value
      *
@@ -126,7 +126,7 @@ class ConfigurationWriter
     }
 
     /**
-     * TODO: Method writeArrayToPhp Description
+     * Save a array format configuration value change to php code.
      *
      * @param array $array
      *
@@ -145,7 +145,7 @@ class ConfigurationWriter
     }
 
     /**
-     * TODO: Method buildStringExpression Description
+     * Build a string expression from key-value.
      *
      * @param        $targetKey
      * @param array  $arrayItems
@@ -165,7 +165,7 @@ class ConfigurationWriter
     }
 
     /**
-     * TODO: Method buildConstantExpression Description
+     * Build a constant expression from key-value.
      *
      * @param       $targetKey
      * @param array $arrayItems
@@ -183,7 +183,7 @@ class ConfigurationWriter
     }
 
     /**
-     * TODO: Method buildArrayExpression Description
+     * Build a array expression from key-value.
      *
      * @param       $targetKey
      * @param array $arrayItems
@@ -201,7 +201,7 @@ class ConfigurationWriter
     }
 
     /**
-     * TODO: Method buildArrayOpeningExpression Description
+     * Build a array opening expression from key-value.
      *
      * @param array $arrayItems
      *

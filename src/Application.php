@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\ViewServiceProvider;
 use Notadd\Foundation\Bootstrap\DetectEnvironment;
 use Notadd\Foundation\Event\EventServiceProvider;
 use Notadd\Foundation\Routing\RoutingServiceProvider;
@@ -160,6 +161,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this->register(new EventServiceProvider($this));
         $this->register(new RoutingServiceProvider($this));
+        $this->register(new ViewServiceProvider($this));
     }
 
     /**
@@ -287,7 +289,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function configPath()
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'configurations';
+        return __DIR__ . '/../configurations';
     }
 
     /**

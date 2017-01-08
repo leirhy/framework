@@ -63,7 +63,7 @@ class Module
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -83,7 +83,7 @@ class Module
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -93,7 +93,8 @@ class Module
      *
      * @return bool
      */
-    public function isInstalled() {
+    public function isInstalled(): bool
+    {
         return $this->installed;
     }
 

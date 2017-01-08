@@ -43,8 +43,10 @@ class ListCommand extends Command
      * Command Handler.
      *
      * @param \Notadd\Foundation\Module\ModuleManager $manager
+     *
+     * @return bool
      */
-    public function fire(ModuleManager $manager)
+    public function fire(ModuleManager $manager): bool
     {
         $modules = $manager->getModules();
         $list = new Collection();

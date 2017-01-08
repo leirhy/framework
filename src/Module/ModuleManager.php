@@ -63,7 +63,7 @@ class ModuleManager
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getModules($installed = false)
+    public function getModules($installed = false): Collection
     {
         if ($this->modules->isEmpty()) {
             if ($this->files->isDirectory($this->getModulePath())) {
@@ -99,7 +99,7 @@ class ModuleManager
      *
      * @return string
      */
-    public function getModulePath()
+    public function getModulePath(): string
     {
         return $this->container->basePath() . DIRECTORY_SEPARATOR . 'modules';
     }

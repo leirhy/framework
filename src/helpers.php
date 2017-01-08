@@ -24,6 +24,8 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 if (!function_exists('abort')) {
     /**
+     * Throw an HttpException with the given data.
+     *
      * @param int    $code
      * @param string $message
      * @param array  $headers
@@ -40,14 +42,16 @@ if (!function_exists('abort')) {
 
 if (!function_exists('abort_if')) {
     /**
+     * Throw an HttpException with the given data if the given condition is true.
+     *
      * @param bool   $boolean
      * @param int    $code
      * @param string $message
      * @param array  $headers
      *
+     * @return void
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return void
      */
     function abort_if($boolean, $code, $message = '', array $headers = [])
     {
@@ -59,14 +63,16 @@ if (!function_exists('abort_if')) {
 
 if (!function_exists('abort_unless')) {
     /**
+     * Throw an HttpException with the given data unless the given condition is true.
+     *
      * @param bool   $boolean
      * @param int    $code
      * @param string $message
      * @param array  $headers
      *
+     * @return void
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return void
      */
     function abort_unless($boolean, $code, $message = '', array $headers = [])
     {
@@ -78,6 +84,8 @@ if (!function_exists('abort_unless')) {
 
 if (!function_exists('action')) {
     /**
+     * Generate the URL to a controller action.
+     *
      * @param string $name
      * @param array  $parameters
      * @param bool   $absolute
@@ -111,6 +119,8 @@ if (!function_exists('app')) {
 
 if (!function_exists('app_path')) {
     /**
+     * Get the path to the application folder.
+     *
      * @param string $path
      *
      * @return string
@@ -123,6 +133,8 @@ if (!function_exists('app_path')) {
 
 if (!function_exists('asset')) {
     /**
+     * Generate an asset path for the application.
+     *
      * @param string $path
      * @param bool   $secure
      *
@@ -136,6 +148,8 @@ if (!function_exists('asset')) {
 
 if (!function_exists('auth')) {
     /**
+     * Get the available auth instance.
+     *
      * @param string|null $guard
      *
      * @return \Illuminate\Contracts\Auth\Factory|\Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
@@ -152,6 +166,8 @@ if (!function_exists('auth')) {
 
 if (!function_exists('back')) {
     /**
+     * Create a new redirect response to the previous location.
+     *
      * @param int   $status
      * @param array $headers
      *
@@ -165,6 +181,8 @@ if (!function_exists('back')) {
 
 if (!function_exists('base_path')) {
     /**
+     * Get the path to the base of the install.
+     *
      * @param string $path
      *
      * @return string
@@ -177,6 +195,8 @@ if (!function_exists('base_path')) {
 
 if (!function_exists('bcrypt')) {
     /**
+     * Hash the given value.
+     *
      * @param string $value
      * @param array  $options
      *
@@ -190,6 +210,8 @@ if (!function_exists('bcrypt')) {
 
 if (!function_exists('broadcast')) {
     /**
+     * Begin broadcasting an event.
+     *
      * @param mixed|null $event
      *
      * @return \Illuminate\Broadcasting\PendingBroadcast|void
@@ -202,6 +224,10 @@ if (!function_exists('broadcast')) {
 
 if (!function_exists('cache')) {
     /**
+     * Get / set the specified cache value.
+     *
+     * If an array is passed, we'll assume you want to put to the cache.
+     *
      * @param dynamic key|key,default|data,expiration|null
      *
      * @throws \Exception
@@ -228,6 +254,10 @@ if (!function_exists('cache')) {
 
 if (!function_exists('config')) {
     /**
+     * Get / set the specified configuration value.
+     *
+     * If an array is passed as the key, we will assume you want to set an array of values.
+     *
      * @param array|string $key
      * @param mixed        $default
      *
@@ -248,6 +278,8 @@ if (!function_exists('config')) {
 
 if (!function_exists('config_path')) {
     /**
+     * Get the configuration path.
+     *
      * @param string $path
      *
      * @return string
@@ -260,6 +292,8 @@ if (!function_exists('config_path')) {
 
 if (!function_exists('cookie')) {
     /**
+     * Create a new cookie instance.
+     *
      * @param string $name
      * @param string $value
      * @param int    $minutes
@@ -290,6 +324,8 @@ if (!function_exists('cookie')) {
 
 if (!function_exists('csrf_field')) {
     /**
+     * Generate a CSRF token form field.
+     *
      * @return \Illuminate\Support\HtmlString
      */
     function csrf_field()
@@ -300,8 +336,10 @@ if (!function_exists('csrf_field')) {
 
 if (!function_exists('csrf_token')) {
     /**
-     * @throws \RuntimeException
+     * Get the CSRF token value.
+     *
      * @return string
+     * @throws \RuntimeException
      */
     function csrf_token()
     {
@@ -315,6 +353,8 @@ if (!function_exists('csrf_token')) {
 
 if (!function_exists('database_path')) {
     /**
+     * Get the database path.
+     *
      * @param string $path
      *
      * @return string
@@ -327,6 +367,8 @@ if (!function_exists('database_path')) {
 
 if (!function_exists('decrypt')) {
     /**
+     * Decrypt the given value.
+     *
      * @param string $value
      *
      * @return string
@@ -339,6 +381,8 @@ if (!function_exists('decrypt')) {
 
 if (!function_exists('dispatch')) {
     /**
+     * Dispatch a job to its appropriate handler.
+     *
      * @param mixed $job
      *
      * @return mixed
@@ -351,11 +395,13 @@ if (!function_exists('dispatch')) {
 
 if (!function_exists('elixir')) {
     /**
+     * Get the path to a versioned Elixir file.
+     *
      * @param string $file
      * @param string $buildDirectory
      *
-     * @throws \InvalidArgumentException
      * @return string
+     * @throws \InvalidArgumentException
      */
     function elixir($file, $buildDirectory = 'build')
     {
@@ -381,6 +427,8 @@ if (!function_exists('elixir')) {
 
 if (!function_exists('encrypt')) {
     /**
+     * Encrypt the given value.
+     *
      * @param string $value
      *
      * @return string
@@ -393,6 +441,8 @@ if (!function_exists('encrypt')) {
 
 if (!function_exists('env')) {
     /**
+     * Gets the value of an environment variable. Supports boolean, empty and null.
+     *
      * @param string $key
      * @param mixed  $default
      *
@@ -428,6 +478,8 @@ if (!function_exists('env')) {
 
 if (!function_exists('event')) {
     /**
+     * Fire an event and call the listeners.
+     *
      * @param array ...$args
      *
      * @return mixed
@@ -440,6 +492,8 @@ if (!function_exists('event')) {
 
 if (!function_exists('factory')) {
     /**
+     * Create a model factory builder for a given class, name, and amount.
+     *
      * @param dynamic class|class,name|class,amount|class,name,amount
      *
      * @return \Illuminate\Database\Eloquent\FactoryBuilder
@@ -460,6 +514,8 @@ if (!function_exists('factory')) {
 
 if (!function_exists('info')) {
     /**
+     * Write some information to the log.
+     *
      * @param string $message
      * @param array  $context
      *
@@ -473,6 +529,8 @@ if (!function_exists('info')) {
 
 if (!function_exists('logger')) {
     /**
+     * Log a debug message to the logs.
+     *
      * @param string $message
      * @param array  $context
      *
@@ -490,6 +548,8 @@ if (!function_exists('logger')) {
 
 if (!function_exists('method_field')) {
     /**
+     * Generate a form field to spoof the HTTP verb used by forms.
+     *
      * @param string $method
      *
      * @return \Illuminate\Support\HtmlString
@@ -502,6 +562,8 @@ if (!function_exists('method_field')) {
 
 if (!function_exists('old')) {
     /**
+     * Retrieve an old input item.
+     *
      * @param string $key
      * @param mixed  $default
      *
@@ -515,6 +577,8 @@ if (!function_exists('old')) {
 
 if (!function_exists('policy')) {
     /**
+     * Get a policy instance for a given class.
+     *
      * @param object|string $class
      *
      * @throws \InvalidArgumentException
@@ -528,6 +592,8 @@ if (!function_exists('policy')) {
 
 if (!function_exists('public_path')) {
     /**
+     * Get the path to the public folder.
+     *
      * @param string $path
      *
      * @return string
@@ -540,6 +606,8 @@ if (!function_exists('public_path')) {
 
 if (!function_exists('redirect')) {
     /**
+     * Get an instance of the redirector.
+     *
      * @param string|null $to
      * @param int         $status
      * @param array       $headers
@@ -559,6 +627,8 @@ if (!function_exists('redirect')) {
 
 if (!function_exists('request')) {
     /**
+     * Get an instance of the current request or an input item from the request.
+     *
      * @param array|string $key
      * @param mixed        $default
      *
@@ -579,6 +649,8 @@ if (!function_exists('request')) {
 
 if (!function_exists('resolve')) {
     /**
+     * Resolve a service from the container.
+     *
      * @param string $name
      * @param array  $parameters
      *
@@ -592,6 +664,8 @@ if (!function_exists('resolve')) {
 
 if (!function_exists('resource_path')) {
     /**
+     * Get the path to the resources folder.
+     *
      * @param string $path
      *
      * @return string
@@ -604,6 +678,8 @@ if (!function_exists('resource_path')) {
 
 if (!function_exists('response')) {
     /**
+     * Return a new response from the application.
+     *
      * @param string $content
      * @param int    $status
      * @param array  $headers
@@ -623,6 +699,8 @@ if (!function_exists('response')) {
 
 if (!function_exists('route')) {
     /**
+     * Generate the URL to a named route.
+     *
      * @param string $name
      * @param array  $parameters
      * @param bool   $absolute
@@ -637,6 +715,8 @@ if (!function_exists('route')) {
 
 if (!function_exists('secure_asset')) {
     /**
+     * Generate an asset path for the application.
+     *
      * @param string $path
      *
      * @return string
@@ -649,6 +729,8 @@ if (!function_exists('secure_asset')) {
 
 if (!function_exists('secure_url')) {
     /**
+     * Generate a HTTPS url for the application.
+     *
      * @param string $path
      * @param mixed  $parameters
      *
@@ -674,6 +756,10 @@ if (!function_exists('seo')) {
 
 if (!function_exists('session')) {
     /**
+     * Get / set the specified session value.
+     *
+     * If an array is passed as the key, we will assume you want to set an array of values.
+     *
      * @param array|string $key
      * @param mixed        $default
      *
@@ -707,6 +793,8 @@ if (!function_exists('setting')) {
 
 if (!function_exists('storage_path')) {
     /**
+     * Get the path to the storage folder.
+     *
      * @param string $path
      *
      * @return string
@@ -719,6 +807,8 @@ if (!function_exists('storage_path')) {
 
 if (!function_exists('trans')) {
     /**
+     * Translate the given message.
+     *
      * @param string $id
      * @param array  $parameters
      * @param string $domain
@@ -738,6 +828,8 @@ if (!function_exists('trans')) {
 
 if (!function_exists('trans_choice')) {
     /**
+     * Translates the given message based on a count.
+     *
      * @param string               $id
      * @param int|array|\Countable $number
      * @param array                $parameters
@@ -754,6 +846,8 @@ if (!function_exists('trans_choice')) {
 
 if (!function_exists('url')) {
     /**
+     * Generate a url for the application.
+     *
      * @param string $path
      * @param mixed  $parameters
      * @param bool   $secure
@@ -772,6 +866,8 @@ if (!function_exists('url')) {
 
 if (!function_exists('validator')) {
     /**
+     * Create a new Validator instance.
+     *
      * @param array $data
      * @param array $rules
      * @param array $messages
@@ -792,6 +888,8 @@ if (!function_exists('validator')) {
 
 if (!function_exists('view')) {
     /**
+     * Get the evaluated view contents for the given view.
+     *
      * @param string $view
      * @param array  $data
      * @param array  $mergeData

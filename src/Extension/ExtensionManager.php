@@ -13,7 +13,6 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Notadd\Foundation\Extension\Abstracts\ExtensionRegistrar;
 
 /**
  * Class ExtensionManager.

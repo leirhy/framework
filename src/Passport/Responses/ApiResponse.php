@@ -27,14 +27,16 @@ class ApiResponse
      * @param \Psr\Http\Message\ResponseInterface|null $response
      * @param array                                    $params
      *
-     * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response|static
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function generateHttpResponse(ResponseInterface $response = null, $params = [])
     {
         is_null($response) && $response = new Response();
         $params && $this->params = array_merge($this->params, $params);
-        $response = $response->withStatus(200)->withHeader('pragma', 'no-cache')->withHeader('cache-control',
-            'no-store')->withHeader('content-type', 'application/json; charset=UTF-8');
+        $response = $response->withStatus(200)
+            ->withHeader('pragma', 'no-cache')
+            ->withHeader('cache-control', 'no-store')
+            ->withHeader('content-type', 'application/json; charset=UTF-8');
         $response->getBody()->write(json_encode($this->params));
 
         return $response;

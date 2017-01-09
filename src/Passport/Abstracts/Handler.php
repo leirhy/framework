@@ -46,6 +46,7 @@ abstract class Handler
         $this->request = $request;
         $this->translator = $translator;
     }
+
     /**
      * Http code.
      *

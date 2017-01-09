@@ -17,6 +17,17 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class SetHandler extends DataHandler
 {
     /**
+     * Http code.
+     *
+     * @return int
+     * @throws \Exception
+     */
+    public function code()
+    {
+        return 200;
+    }
+
+    /**
      * Data for handler.
      *
      * @return array

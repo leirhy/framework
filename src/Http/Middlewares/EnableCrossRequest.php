@@ -29,13 +29,13 @@ class EnableCrossRequest
         $response = $next($request);
         if($response instanceof Response) {
             $response->headers->set('Access-Control-Allow-Origin', '*', true);
-            $response->headers->set('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept', true);
-            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS', true);
+            $response->headers->set('Access-Control-Allow-Headers', 'Origin,Content-Type,Cookie,Accept', true);
+            $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PATCH,PUT,OPTIONS', true);
             $response->headers->set('Access-Control-Allow-Credentials', 'true', true);
         } else {
             $response->header('Access-Control-Allow-Origin', '*');
-            $response->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept');
-            $response->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS');
+            $response->header('Access-Control-Allow-Headers', 'Origin,Content-Type,Cookie,Accept');
+            $response->header('Access-Control-Allow-Methods', 'GET,POST,PATCH,PUT,OPTIONS');
             $response->header('Access-Control-Allow-Credentials', 'true');
         }
         return $response;

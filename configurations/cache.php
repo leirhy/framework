@@ -1,43 +1,51 @@
 <?php
+/**
+ * This file is part of Notadd.
+ *
+ * @author TwilRoad <269044570@qq.com>
+ * @copyright (c) 2017, iBenchu.org
+ * @datetime 2017-01-13 12:17
+ */
+
 return [
     'default' => env('CACHE_DRIVER', 'file'),
-    'stores' => [
-        'apc' => [
+    'stores'  => [
+        'apc'       => [
             'driver' => 'apc',
         ],
-        'array' => [
+        'array'     => [
             'driver' => 'array',
         ],
-        'database' => [
-            'driver' => 'database',
-            'table' => 'caches',
+        'database'  => [
+            'driver'     => 'database',
+            'table'      => 'caches',
             'connection' => null,
         ],
-        'file' => [
+        'file'      => [
             'driver' => 'file',
-            'path' => storage_path('framework/cache'),
+            'path'   => storage_path('framework/cache'),
         ],
         'memcached' => [
-            'driver' => 'memcached',
+            'driver'        => 'memcached',
             'persistent_id' => env('MEMCACHED_PERSISTENT_ID'),
-            'sasl' => [
+            'sasl'          => [
                 env('MEMCACHED_USERNAME'),
                 env('MEMCACHED_PASSWORD'),
             ],
-            'options' => [
+            'options'       => [
             ],
-            'servers' => [
+            'servers'       => [
                 [
-                    'host' => env('MEMCACHED_HOST', '127.0.0.1'),
-                    'port' => env('MEMCACHED_PORT', 11211),
+                    'host'   => env('MEMCACHED_HOST', '127.0.0.1'),
+                    'port'   => env('MEMCACHED_PORT', 11211),
                     'weight' => 100,
                 ],
             ],
         ],
-        'redis' => [
-            'driver' => 'redis',
+        'redis'     => [
+            'driver'     => 'redis',
             'connection' => 'default',
         ],
     ],
-    'prefix' => 'laravel',
+    'prefix'  => 'laravel',
 ];

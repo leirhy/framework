@@ -1,30 +1,38 @@
 <?php
+/**
+ * This file is part of Notadd.
+ *
+ * @author TwilRoad <269044570@qq.com>
+ * @copyright (c) 2017, iBenchu.org
+ * @datetime 2017-01-13 12:17
+ */
+
 return [
-    'defaults' => [
-        'guard' => 'web',
+    'defaults'  => [
+        'guard'     => 'web',
         'passwords' => 'users',
     ],
-    'guards' => [
+    'guards'    => [
         'api' => [
-            'driver' => 'passport',
+            'driver'   => 'passport',
             'provider' => 'users',
         ],
         'web' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'users',
         ],
     ],
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => \Notadd\Foundation\Member\Member::class
+            'model'  => \Notadd\Foundation\Member\Member::class,
         ],
     ],
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
+            'table'    => 'password_resets',
+            'expire'   => 60,
         ],
     ],
 ];

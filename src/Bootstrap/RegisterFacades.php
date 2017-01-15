@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Bootstrap;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Facade;
 use Notadd\Foundation\AliasLoader;
+use Notadd\Foundation\Facades\FacadeRegister;
 
 /**
  * Class RegisterFacades.
@@ -28,6 +29,8 @@ class RegisterFacades
     {
         Facade::clearResolvedInstances();
         Facade::setFacadeApplication($application);
-        AliasLoader::getInstance($application->make('config')->get('app.aliases', []))->register();
+        $aliasLoader = AliasLoader::getInstance($application->make('config')->get('app.aliases', []));
+        $application->make('events')->fire(new FacadeRegister($application, $aliasLoader));
+        $aliasLoader->register();
     }
 }

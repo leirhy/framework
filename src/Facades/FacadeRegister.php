@@ -29,8 +29,8 @@ class FacadeRegister
     /**
      * FacadeRegister constructor.
      *
-     * @param \Illuminate\Container\Container $container
-     * @param \Notadd\Foundation\AliasLoader  $aliasLoader
+     * @param \Illuminate\Contracts\Foundation\Application|\Illuminate\Container\Container $container
+     * @param \Notadd\Foundation\AliasLoader                                               $aliasLoader
      */
     public function __construct(Container $container, AliasLoader $aliasLoader)
     {

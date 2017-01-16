@@ -17,6 +17,11 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class DataHandler extends Handler
 {
     /**
+     * @var bool
+     */
+    protected $hasFilter = false;
+
+    /**
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model;
@@ -43,7 +48,12 @@ abstract class DataHandler extends Handler
         empty($operator) && $operator = null;
         empty($value) && $value = null;
         empty($boolean) && $boolean = null;
-        $this->model = $this->model->newQuery()->where($column, $operator, $value, $boolean);
+        if($this->hasFilter) {
+            $this->model = $this->model->where($column, $operator, $value, $boolean);
+        } else {
+            $this->model = $this->model->newQuery()->where($column, $operator, $value, $boolean);
+            $this->hasFilter = true;
+        }
 
         return $this;
     }

@@ -384,7 +384,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function resourcePath()
     {
-        return $this->resourcePath ?: $this->basePath . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'foundation' . DIRECTORY_SEPARATOR . 'resources';
+        return $this->resourcePath ?: __DIR__ . '/../resources';
     }
 
     /**

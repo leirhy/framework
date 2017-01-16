@@ -24,7 +24,7 @@ class HttpServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureFormRequests();
-        $this->loadViewsFrom(__DIR__ . '/../../resources/errors', 'error');
+        $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/errors'), 'error');
     }
 
     /**

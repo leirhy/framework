@@ -289,7 +289,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function configPath()
     {
-        return __DIR__ . '/../configurations';
+        return realpath(__DIR__ . '/../configurations');
     }
 
     /**
@@ -384,7 +384,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function resourcePath()
     {
-        return $this->resourcePath ?: __DIR__ . '/../resources';
+        return $this->resourcePath ?: realpath(__DIR__ . '/../resources');
     }
 
     /**

@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Http;
 
-use Application\Http\Listeners\RouteRegistrar;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +24,7 @@ class HttpServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureFormRequests();
+        $this->loadViewsFrom(__DIR__ . '/../../resources/errors', 'error');
     }
 
     /**

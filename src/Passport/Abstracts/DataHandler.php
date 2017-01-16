@@ -17,6 +17,11 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class DataHandler extends Handler
 {
     /**
+     * @var array
+     */
+    protected $filters = [];
+
+    /**
      * Data for handler.
      *
      * @return array
@@ -25,6 +30,18 @@ abstract class DataHandler extends Handler
     public function data()
     {
         throw new Exception('Data is not setted!');
+    }
+
+    /**
+     * Add filter to filters.
+     *
+     * @return $this
+     */
+    public function filter()
+    {
+        $this->filters[] = func_get_args();
+
+        return $this;
     }
 
     /**

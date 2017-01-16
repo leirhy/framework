@@ -22,6 +22,11 @@ abstract class DataHandler extends Handler
     protected $filters = [];
 
     /**
+     * @var \Illuminate\Database\Eloquent\Model
+     */
+    protected $model;
+
+    /**
      * Data for handler.
      *
      * @return array

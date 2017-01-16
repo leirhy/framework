@@ -168,6 +168,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * Run the given array of bootstrap classes.
      *
      * @param array $bootstrappers
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function bootstrapWith(array $bootstrappers)
     {

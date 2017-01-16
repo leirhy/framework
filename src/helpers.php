@@ -30,9 +30,7 @@ if (!function_exists('abort')) {
      * @param string $message
      * @param array  $headers
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function abort($code, $message = '', array $headers = [])
     {
@@ -50,8 +48,7 @@ if (!function_exists('abort_if')) {
      * @param array  $headers
      *
      * @return void
-     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function abort_if($boolean, $code, $message = '', array $headers = [])
     {
@@ -71,8 +68,7 @@ if (!function_exists('abort_unless')) {
      * @param array  $headers
      *
      * @return void
-     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function abort_unless($boolean, $code, $message = '', array $headers = [])
     {
@@ -91,6 +87,7 @@ if (!function_exists('action')) {
      * @param bool   $absolute
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function action($name, $parameters = [], $absolute = true)
     {
@@ -106,6 +103,7 @@ if (!function_exists('app')) {
      * @param array  $parameters
      *
      * @return mixed|\Notadd\Foundation\Application
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function app($make = null, $parameters = [])
     {
@@ -124,6 +122,7 @@ if (!function_exists('app_path')) {
      * @param string $path
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function app_path($path = '')
     {
@@ -139,6 +138,7 @@ if (!function_exists('asset')) {
      * @param bool   $secure
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function asset($path, $secure = null)
     {
@@ -153,6 +153,7 @@ if (!function_exists('auth')) {
      * @param string|null $guard
      *
      * @return \Illuminate\Contracts\Auth\Factory|\Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function auth($guard = null)
     {
@@ -172,6 +173,7 @@ if (!function_exists('back')) {
      * @param array $headers
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function back($status = 302, $headers = [])
     {
@@ -186,6 +188,7 @@ if (!function_exists('base_path')) {
      * @param string $path
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function base_path($path = '')
     {
@@ -201,6 +204,7 @@ if (!function_exists('bcrypt')) {
      * @param array  $options
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function bcrypt($value, $options = [])
     {
@@ -215,6 +219,7 @@ if (!function_exists('broadcast')) {
      * @param mixed|null $event
      *
      * @return \Illuminate\Broadcasting\PendingBroadcast|void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function broadcast($event = null)
     {
@@ -262,6 +267,7 @@ if (!function_exists('config')) {
      * @param mixed        $default
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function config($key = null, $default = null)
     {
@@ -283,6 +289,7 @@ if (!function_exists('config_path')) {
      * @param string $path
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function config_path($path = '')
     {
@@ -303,6 +310,7 @@ if (!function_exists('cookie')) {
      * @param bool   $httpOnly
      *
      * @return \Symfony\Component\HttpFoundation\Cookie
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function cookie(
         $name = null,
@@ -339,7 +347,7 @@ if (!function_exists('csrf_token')) {
      * Get the CSRF token value.
      *
      * @return string
-     * @throws \RuntimeException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function csrf_token()
     {
@@ -358,6 +366,7 @@ if (!function_exists('database_path')) {
      * @param string $path
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function database_path($path = '')
     {
@@ -372,6 +381,7 @@ if (!function_exists('decrypt')) {
      * @param string $value
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function decrypt($value)
     {
@@ -386,6 +396,7 @@ if (!function_exists('dispatch')) {
      * @param mixed $job
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function dispatch($job)
     {
@@ -401,7 +412,7 @@ if (!function_exists('elixir')) {
      * @param string $buildDirectory
      *
      * @return string
-     * @throws \InvalidArgumentException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function elixir($file, $buildDirectory = 'build')
     {
@@ -432,6 +443,7 @@ if (!function_exists('encrypt')) {
      * @param string $value
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function encrypt($value)
     {
@@ -483,6 +495,7 @@ if (!function_exists('event')) {
      * @param array ...$args
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function event(...$args)
     {
@@ -494,9 +507,8 @@ if (!function_exists('factory')) {
     /**
      * Create a model factory builder for a given class, name, and amount.
      *
-     * @param dynamic class|class,name|class,amount|class,name,amount
-     *
      * @return \Illuminate\Database\Eloquent\FactoryBuilder
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function factory()
     {
@@ -520,6 +532,7 @@ if (!function_exists('info')) {
      * @param array  $context
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function info($message, $context = [])
     {
@@ -535,6 +548,7 @@ if (!function_exists('logger')) {
      * @param array  $context
      *
      * @return \Illuminate\Contracts\Logging\Log|null
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function logger($message = null, array $context = [])
     {
@@ -568,6 +582,7 @@ if (!function_exists('old')) {
      * @param mixed  $default
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function old($key = null, $default = null)
     {
@@ -581,8 +596,8 @@ if (!function_exists('policy')) {
      *
      * @param object|string $class
      *
-     * @throws \InvalidArgumentException
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function policy($class)
     {
@@ -597,6 +612,7 @@ if (!function_exists('public_path')) {
      * @param string $path
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function public_path($path = '')
     {
@@ -613,7 +629,8 @@ if (!function_exists('redirect')) {
      * @param array       $headers
      * @param bool        $secure
      *
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function redirect($to = null, $status = 302, $headers = [], $secure = null)
     {
@@ -632,7 +649,8 @@ if (!function_exists('request')) {
      * @param array|string $key
      * @param mixed        $default
      *
-     * @return \Illuminate\Http\Request|string|array
+     * @return array|\Illuminate\Http\Request|string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function request($key = null, $default = null)
     {
@@ -655,6 +673,7 @@ if (!function_exists('resolve')) {
      * @param array  $parameters
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function resolve($name, $parameters = [])
     {
@@ -669,6 +688,7 @@ if (!function_exists('resource_path')) {
      * @param string $path
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function resource_path($path = '')
     {
@@ -684,7 +704,8 @@ if (!function_exists('response')) {
      * @param int    $status
      * @param array  $headers
      *
-     * @return \Symfony\Component\HttpFoundation\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function response($content = '', $status = 200, array $headers = [])
     {
@@ -706,6 +727,7 @@ if (!function_exists('route')) {
      * @param bool   $absolute
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function route($name, $parameters = [], $absolute = true)
     {
@@ -720,6 +742,7 @@ if (!function_exists('secure_asset')) {
      * @param string $path
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function secure_asset($path)
     {
@@ -735,6 +758,7 @@ if (!function_exists('secure_url')) {
      * @param mixed  $parameters
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function secure_url($path, $parameters = [])
     {
@@ -747,6 +771,7 @@ if (!function_exists('seo')) {
      * @param string $meta
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function seo($meta)
     {
@@ -764,6 +789,7 @@ if (!function_exists('session')) {
      * @param mixed        $default
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function session($key = null, $default = null)
     {
@@ -784,6 +810,7 @@ if (!function_exists('setting')) {
      * @param string $default
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function setting($key, $default = '')
     {
@@ -798,6 +825,7 @@ if (!function_exists('storage_path')) {
      * @param string $path
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function storage_path($path = '')
     {
@@ -814,7 +842,8 @@ if (!function_exists('trans')) {
      * @param string $domain
      * @param string $locale
      *
-     * @return \Symfony\Component\Translation\TranslatorInterface|string
+     * @return string|\Symfony\Component\Translation\TranslatorInterface
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function trans($id = null, $parameters = [], $domain = 'messages', $locale = null)
     {
@@ -837,6 +866,7 @@ if (!function_exists('trans_choice')) {
      * @param string               $locale
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function trans_choice($id, $number, array $parameters = [], $domain = 'messages', $locale = null)
     {
@@ -853,6 +883,7 @@ if (!function_exists('url')) {
      * @param bool   $secure
      *
      * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function url($path = null, $parameters = [], $secure = null)
     {
@@ -874,6 +905,7 @@ if (!function_exists('validator')) {
      * @param array $customAttributes
      *
      * @return \Illuminate\Contracts\Validation\Validator
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function validator(array $data = [], array $rules = [], array $messages = [], array $customAttributes = [])
     {
@@ -894,7 +926,8 @@ if (!function_exists('view')) {
      * @param array  $data
      * @param array  $mergeData
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function view($view = null, $data = [], $mergeData = [])
     {

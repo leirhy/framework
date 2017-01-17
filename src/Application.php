@@ -301,7 +301,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function databasePath()
     {
-        return $this->databasePath ?: $this->basePath . DIRECTORY_SEPARATOR . 'databases';
+        return $this->databasePath ?: $this->basePath . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'databases';
     }
 
     /**

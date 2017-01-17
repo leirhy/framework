@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Database\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
+use RuntimeException;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
@@ -57,18 +58,6 @@ class ModelMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Get the default namespace for the class.
-     *
-     * @param string $rootNamespace
-     *
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace;
-    }
-
-    /**
      * Get the console command options.
      *
      * @return array
@@ -92,6 +81,42 @@ class ModelMakeCommand extends GeneratorCommand
     }
 
     /**
+     * Get the destination class path.
+     *
+     * @param string $name
+     *
+     * @return string
+     * @throws \RuntimeException
+     */
+    protected function getPath($name)
+    {
+        $namespaces = collect(explode('\\', $name));
+        $base = $name;
+        $installed = require $this->laravel['path.base'] . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'composer' . DIRECTORY_SEPARATOR . 'autoload_psr4.php';
+        for ($i = 0; $i < $namespaces->count(); $i++) {
+            $base = str_replace($namespaces->pop(), '', trim($base, '\\'));
+            foreach ($installed as $namespace => $paths) {
+                if ($base == $namespace) {
+                    foreach ($paths as $path) {
+                        $base = [
+                            $namespace,
+                            $path,
+                        ];
+                        break;
+                    }
+                }
+            }
+        }
+        if (is_array($base)) {
+            list($root, $path) = $base;
+
+            return $path . '/' . str_replace('\\', '/', str_replace($root, '', $name)) . '.php';
+        }
+
+        throw new RuntimeException('Unable to detect model\'s path.');
+    }
+
+    /**
      * Get stub file.
      *
      * @return string
@@ -99,6 +124,38 @@ class ModelMakeCommand extends GeneratorCommand
     protected function getStub()
     {
         return __DIR__ . '/../../../stubs/models/model.stub';
+    }
+
+    /**
+     * Parse the name and format according to the root namespace.
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    protected function parseName($name)
+    {
+        if (Str::contains($name, '/')) {
+            $name = str_replace('/', '\\', $name);
+        }
+
+        return trim($name, '\\');
+    }
+
+    /**
+     * Replace the namespace for the given stub.
+     *
+     * @param string  $stub
+     * @param string  $name
+     * @return $this
+     */
+    protected function replaceNamespace(&$stub, $name)
+    {
+        $stub = str_replace(
+            'DummyNamespace', $this->getNamespace($name), $stub
+        );
+
+        return $this;
     }
 
     /**

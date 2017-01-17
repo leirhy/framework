@@ -5,7 +5,6 @@
  * @datetime DummyDatetime
  */
 
-use Illuminate\Database\Schema\Blueprint;
 use Notadd\Foundation\Database\Migrations\Migration;
 
 /**

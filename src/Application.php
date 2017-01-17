@@ -664,6 +664,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @param array  $parameters
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function make($abstract, array $parameters = [])
     {
@@ -783,6 +784,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * Determine if middleware has been disabled for the application.
      *
      * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function shouldSkipMiddleware()
     {
@@ -1173,7 +1175,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * Get the application namespace.
      *
      * @return string
-     * @throws \RuntimeException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getNamespace()
     {

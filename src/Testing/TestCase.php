@@ -120,6 +120,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      * Clean up the testing environment before the next test.
      *
      * @return void
+     * @throws \Exception
      */
     protected function tearDown()
     {

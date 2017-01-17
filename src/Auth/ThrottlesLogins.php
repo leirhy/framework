@@ -25,6 +25,7 @@ trait ThrottlesLogins
      * @param \Illuminate\Http\Request $request
      *
      * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function hasTooManyLoginAttempts(Request $request)
     {
@@ -37,6 +38,7 @@ trait ThrottlesLogins
      * @param \Illuminate\Http\Request $request
      *
      * @return int
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function incrementLoginAttempts(Request $request)
     {
@@ -49,6 +51,7 @@ trait ThrottlesLogins
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function sendLockoutResponse(Request $request)
     {
@@ -65,6 +68,7 @@ trait ThrottlesLogins
      * @param \Illuminate\Http\Request $request
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function clearLoginAttempts(Request $request)
     {
@@ -77,6 +81,7 @@ trait ThrottlesLogins
      * @param \Illuminate\Http\Request $request
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function fireLockoutEvent(Request $request)
     {
@@ -99,6 +104,7 @@ trait ThrottlesLogins
      * Get the rate limiter instance.
      *
      * @return \Illuminate\Cache\RateLimiter
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function limiter()
     {

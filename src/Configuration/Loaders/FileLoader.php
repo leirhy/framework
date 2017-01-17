@@ -70,6 +70,7 @@ class FileLoader implements LoaderContract
      * @param array  $items
      *
      * @return array
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function cascadePackage($environment, $package, $group, $items)
     {

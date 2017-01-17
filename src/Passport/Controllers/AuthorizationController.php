@@ -41,6 +41,8 @@ class AuthorizationController extends Controller
      *
      * @param \League\OAuth2\Server\AuthorizationServer     $server
      * @param \Illuminate\Contracts\Routing\ResponseFactory $response
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct(AuthorizationServer $server, ResponseFactory $response)
     {

@@ -23,6 +23,7 @@ trait RegistersUsers
      * Show the application registration form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function showRegistrationForm()
     {
@@ -35,6 +36,7 @@ trait RegistersUsers
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function register(Request $request)
     {

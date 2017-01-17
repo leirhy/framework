@@ -138,6 +138,7 @@ class Kernel implements KernelContract
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function sendRequestThroughRouter($request)
     {

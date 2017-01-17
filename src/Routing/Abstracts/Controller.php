@@ -73,7 +73,8 @@ abstract class Controller extends IlluminateController
      *
      * @param string $name
      *
-     * @return \Symfony\Component\Console\Command\Command|\Notadd\Foundation\Console\Abstracts\Command
+     * @return \Notadd\Foundation\Console\Abstracts\Command|\Symfony\Component\Console\Command\Command
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getCommand($name)
     {
@@ -84,6 +85,7 @@ abstract class Controller extends IlluminateController
      * Get configuration instance.
      *
      * @return \Notadd\Foundation\Configuration\Repository
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getConfig()
     {
@@ -94,6 +96,7 @@ abstract class Controller extends IlluminateController
      * Get console instance.
      *
      * @return \Illuminate\Contracts\Console\Kernel|\Notadd\Foundation\Console\Application
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getConsole()
     {
@@ -117,6 +120,7 @@ abstract class Controller extends IlluminateController
      * Get logger instance.
      *
      * @return \Psr\Log\LoggerInterface
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getLogger()
     {
@@ -127,6 +131,7 @@ abstract class Controller extends IlluminateController
      * Get mailer instance.
      *
      * @return \Illuminate\Mail\Mailer
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getMailer()
     {
@@ -137,6 +142,7 @@ abstract class Controller extends IlluminateController
      * Get session instance.
      *
      * @return \Illuminate\Session\Store
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getSession()
     {
@@ -147,6 +153,7 @@ abstract class Controller extends IlluminateController
      * Get setting instance.
      *
      * @return \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getSetting()
     {

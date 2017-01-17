@@ -69,6 +69,7 @@ abstract class Command extends SymfonyCommand
      * @param array $arguments
      *
      * @return int
+     * @throws \Exception
      */
     public function call($command, array $arguments = [])
     {

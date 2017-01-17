@@ -20,10 +20,12 @@ class MailMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $name = 'make:mail';
+
     /**
      * @var string
      */
     protected $description = 'Create a new email class';
+
     /**
      * @var string
      */

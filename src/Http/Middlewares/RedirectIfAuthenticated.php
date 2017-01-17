@@ -24,6 +24,7 @@ class RedirectIfAuthenticated
      * @param null     $guard
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function handle($request, Closure $next, $guard = null)
     {

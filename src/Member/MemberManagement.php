@@ -21,14 +21,17 @@ class MemberManagement
      * @var \Illuminate\Container\Container
      */
     protected $container;
+
     /**
      * @var array
      */
     protected $drivers = [];
+
     /**
      * @var string
      */
     protected $default;
+
     /**
      * @var \Notadd\Foundation\Member\Abstracts\Manager
      */

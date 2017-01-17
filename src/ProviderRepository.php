@@ -49,6 +49,7 @@ class ProviderRepository
      * @param array $providers
      *
      * @return void
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function load(array $providers)
     {

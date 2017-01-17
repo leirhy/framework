@@ -64,6 +64,8 @@ class VendorPublishCommand extends Command
      * Publishes the assets for a tag.
      *
      * @param string $tag
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function publishTag($tag)
     {
@@ -88,6 +90,8 @@ class VendorPublishCommand extends Command
      *
      * @param string $from
      * @param string $to
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function publishFile($from, $to)
     {
@@ -104,6 +108,8 @@ class VendorPublishCommand extends Command
      *
      * @param $from
      * @param $to
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function publishDirectory($from, $to)
     {
@@ -137,6 +143,8 @@ class VendorPublishCommand extends Command
      * @param $from
      * @param $to
      * @param $type
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function status($from, $to, $type)
     {

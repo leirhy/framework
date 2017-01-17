@@ -69,6 +69,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
      * Get the validator instance for the request.
      *
      * @return \Illuminate\Contracts\Validation\Validator
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function getValidatorInstance()
     {

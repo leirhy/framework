@@ -49,6 +49,7 @@ class Migrator extends IlluminateMigrator
      * @param string $file
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function resolve($file)
     {

@@ -20,6 +20,7 @@ trait SendsPasswordResetEmails
      * Display the form to request a password reset link.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function showLinkRequestForm()
     {
@@ -32,6 +33,7 @@ trait SendsPasswordResetEmails
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function sendResetLinkEmail(Request $request)
     {

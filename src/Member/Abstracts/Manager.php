@@ -20,6 +20,7 @@ abstract class Manager
      * @var \Illuminate\Events\Dispatcher
      */
     protected $events;
+
     /**
      * @var \Illuminate\Routing\Router
      */

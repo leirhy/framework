@@ -23,6 +23,7 @@ trait AuthenticatesUsers
      * Show the application's login form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function showLoginForm()
     {
@@ -35,6 +36,8 @@ trait AuthenticatesUsers
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function login(Request $request)
     {
@@ -57,6 +60,8 @@ trait AuthenticatesUsers
      * Validate the user login request.
      *
      * @param \Illuminate\Http\Request $request
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     protected function validateLogin(Request $request)
     {
@@ -84,6 +89,7 @@ trait AuthenticatesUsers
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -111,6 +117,7 @@ trait AuthenticatesUsers
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function sendFailedLoginResponse(Request $request)
     {
@@ -135,6 +142,7 @@ trait AuthenticatesUsers
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function logout(Request $request)
     {

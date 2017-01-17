@@ -37,6 +37,7 @@ class ListenerMakeCommand extends GeneratorCommand
      * Command handler.
      *
      * @return bool
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function fire()
     {
@@ -56,6 +57,7 @@ class ListenerMakeCommand extends GeneratorCommand
      * @param string $name
      *
      * @return mixed|string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     protected function buildClass($name)
     {

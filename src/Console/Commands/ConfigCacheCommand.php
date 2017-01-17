@@ -65,6 +65,7 @@ class ConfigCacheCommand extends Command
      * Boot a fresh copy of the application configuration.
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function getFreshConfiguration()
     {

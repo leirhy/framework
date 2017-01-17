@@ -20,7 +20,10 @@ class DebugController extends Controller
     /**
      * Api handler.
      *
+     * @param \Notadd\Foundation\Debug\Handlers\SetHandler $handler
+     *
      * @return \Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
      */
     public function handle(SetHandler $handler)
     {

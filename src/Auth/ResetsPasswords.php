@@ -27,6 +27,7 @@ trait ResetsPasswords
      * @param string|null              $token
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function showResetForm(Request $request, $token = null)
     {
@@ -42,6 +43,7 @@ trait ResetsPasswords
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function reset(Request $request)
     {
@@ -97,6 +99,7 @@ trait ResetsPasswords
      * @param string                                      $password
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function resetPassword($user, $password)
     {
@@ -113,6 +116,7 @@ trait ResetsPasswords
      * @param string $response
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function sendResetResponse($response)
     {
@@ -122,10 +126,11 @@ trait ResetsPasswords
     /**
      * Get the response for a failed password reset.
      *
-     * @param \Illuminate\Http\Request
-     * @param string $response
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $response
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function sendResetFailedResponse(Request $request, $response)
     {

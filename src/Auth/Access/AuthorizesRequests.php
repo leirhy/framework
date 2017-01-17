@@ -21,8 +21,8 @@ trait AuthorizesRequests
      * @param       $ability
      * @param array $arguments
      *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function authorize($ability, $arguments = [])
     {
@@ -39,6 +39,7 @@ trait AuthorizesRequests
      * @param mixed|array                                      $arguments
      *
      * @return \Illuminate\Auth\Access\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function authorizeForUser($user, $ability, $arguments = [])
     {

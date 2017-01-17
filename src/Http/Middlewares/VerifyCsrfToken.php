@@ -54,8 +54,9 @@ class VerifyCsrfToken
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
      *
-     * @throws \Illuminate\Session\TokenMismatchException
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Illuminate\Session\TokenMismatchException
      */
     public function handle($request, Closure $next)
     {
@@ -124,6 +125,7 @@ class VerifyCsrfToken
      * @param \Symfony\Component\HttpFoundation\Response $response
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function addCookieToResponse($request, $response)
     {

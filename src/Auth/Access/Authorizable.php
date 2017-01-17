@@ -22,6 +22,7 @@ trait Authorizable
      * @param array $arguments
      *
      * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function can($ability, $arguments = [])
     {
@@ -35,6 +36,7 @@ trait Authorizable
      * @param array $arguments
      *
      * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function cant($ability, $arguments = [])
     {
@@ -48,6 +50,7 @@ trait Authorizable
      * @param array $arguments
      *
      * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function cannot($ability, $arguments = [])
     {

@@ -26,6 +26,8 @@ class AttachmentController extends Controller
      * WatermarkController constructor.
      *
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct(SettingsRepository $settings)
     {

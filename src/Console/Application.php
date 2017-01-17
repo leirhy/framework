@@ -69,6 +69,7 @@ class Application extends IlluminateApplication implements ApplicationContract
      * @param string $command
      *
      * @return \Symfony\Component\Console\Command\Command
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function resolve($command)
     {
@@ -85,6 +86,7 @@ class Application extends IlluminateApplication implements ApplicationContract
      * @param array|mixed $commands
      *
      * @return $this
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function resolveCommands($commands)
     {

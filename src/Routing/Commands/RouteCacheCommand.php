@@ -55,6 +55,7 @@ class RouteCacheCommand extends Command
      * Command handler.
      *
      * @return bool
+     * @throws \Exception
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function fire()
@@ -79,6 +80,7 @@ class RouteCacheCommand extends Command
      * Fresh application routes.
      *
      * @return \Illuminate\Routing\RouteCollection
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function getFreshApplicationRoutes()
     {

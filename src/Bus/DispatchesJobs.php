@@ -21,6 +21,7 @@ trait DispatchesJobs
      * @param mixed $job
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function dispatch($job)
     {
@@ -33,6 +34,7 @@ trait DispatchesJobs
      * @param mixed $job
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function dispatchNow($job)
     {

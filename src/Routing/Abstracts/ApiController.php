@@ -13,8 +13,6 @@ namespace Notadd\Foundation\Routing\Abstracts;
  */
 abstract class ApiController extends Controller
 {
-    protected $client;
-
     /**
      * ApiController constructor.
      */

@@ -33,6 +33,8 @@ class ClientsController extends Controller
      *
      * @param \Laravel\Passport\ClientRepository $clients
      * @param \Illuminate\Validation\Factory     $validation
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct(ClientRepository $clients, ValidationFactory $validation)
     {
@@ -72,6 +74,7 @@ class ClientsController extends Controller
      * Store handler.
      *
      * @return \Laravel\Passport\Client * @throws \Illuminate\Validation\ValidationException
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store()
     {

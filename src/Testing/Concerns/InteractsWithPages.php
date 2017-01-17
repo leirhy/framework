@@ -78,6 +78,7 @@ trait InteractsWithPages
      * @param array  $parameters
      *
      * @return $this
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function visitRoute($route, $parameters = [])
     {
@@ -196,6 +197,7 @@ trait InteractsWithPages
      * @param array  $parameters
      *
      * @return $this
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function seeRouteIs($route, $parameters = [])
     {

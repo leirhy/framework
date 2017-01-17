@@ -46,6 +46,8 @@ class AccessTokenController extends Controller
      * @param \League\OAuth2\Server\AuthorizationServer $server
      * @param \Laravel\Passport\TokenRepository         $tokens
      * @param \Lcobucci\JWT\Parser                      $jwt
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct(AuthorizationServer $server, TokenRepository $tokens, JwtParser $jwt)
     {

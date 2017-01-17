@@ -38,22 +38,27 @@ class Kernel implements KernelContract
      * @var \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
     protected $app;
+
     /**
      * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $events;
+
     /**
      * @var \Notadd\Foundation\Console\Application
      */
     protected $artisan;
+
     /**
      * @var array
      */
     protected $commands = [];
+
     /**
      * @var bool
      */
     protected $commandsLoaded = false;
+
     /**
      * The bootstrap classes for the application.
      *
@@ -185,6 +190,7 @@ class Kernel implements KernelContract
      * @param \Symfony\Component\Console\Command\Command $command
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function registerCommand($command)
     {
@@ -228,6 +234,7 @@ class Kernel implements KernelContract
      * Get all of the commands registered with the console.
      *
      * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function all()
     {
@@ -240,6 +247,7 @@ class Kernel implements KernelContract
      * Get the output for the last run command.
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function output()
     {
@@ -252,6 +260,7 @@ class Kernel implements KernelContract
      * Bootstrap the application for artisan commands.
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function bootstrap()
     {
@@ -265,6 +274,7 @@ class Kernel implements KernelContract
      * Get the Artisan application instance.
      *
      * @return \Notadd\Foundation\Console\Application
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getArtisan()
     {

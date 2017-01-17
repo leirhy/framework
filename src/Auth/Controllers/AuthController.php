@@ -46,6 +46,8 @@ class AuthController extends Controller
      * Store handler.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store()
     {

@@ -31,6 +31,7 @@ trait ValidatesRequests
      * @param \Illuminate\Contracts\Validation\Validator|array $validator
      * @param \Illuminate\Http\Request|null                    $request
      *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Illuminate\Validation\ValidationException
      */
     public function validateWith($validator, Request $request = null)
@@ -52,6 +53,7 @@ trait ValidatesRequests
      * @param array                    $messages
      * @param array                    $customAttributes
      *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Illuminate\Validation\ValidationException
      */
     public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
@@ -92,8 +94,8 @@ trait ValidatesRequests
      * @param \Illuminate\Http\Request                   $request
      * @param \Illuminate\Contracts\Validation\Validator $validator
      *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Illuminate\Validation\ValidationException
-     * @return void
      */
     protected function throwValidationException(Request $request, $validator)
     {
@@ -108,6 +110,7 @@ trait ValidatesRequests
      * @param array                    $errors
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function buildFailedValidationResponse(Request $request, array $errors)
     {
@@ -135,6 +138,7 @@ trait ValidatesRequests
      * Get the URL we should redirect to.
      *
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function getRedirectUrl()
     {
@@ -145,6 +149,7 @@ trait ValidatesRequests
      * Get a validation factory instance.
      *
      * @return \Illuminate\Contracts\Validation\Factory
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function getValidationFactory()
     {

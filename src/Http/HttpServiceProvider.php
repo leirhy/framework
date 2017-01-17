@@ -25,6 +25,7 @@ class HttpServiceProvider extends ServiceProvider
     {
         $this->configureFormRequests();
         $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/errors'), 'error');
+        $this->loadMigrationsFrom(realpath(__DIR__ . '/../../databases/migrations'));
     }
 
     /**

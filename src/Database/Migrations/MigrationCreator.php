@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Database\Migrations;
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\MigrationCreator as IlluminateMigrationCreator;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Application;
@@ -42,5 +43,20 @@ class MigrationCreator extends IlluminateMigrationCreator
     public function getStubPath()
     {
         return __DIR__ . '/../../../stubs/migrations';
+    }
+
+    /**
+     * Populate the place-holders in the migration stub.
+     *
+     * @param string $stub
+     * @param string $name
+     *
+     * @return mixed
+     */
+    protected function populateStub($name, $stub, $table)
+    {
+        $stub = parent::populateStub($name, $stub, $table);
+
+        return str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
     }
 }

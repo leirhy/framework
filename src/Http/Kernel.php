@@ -54,8 +54,8 @@ class Kernel implements KernelContract
         LoadConfiguration::class,
         ConfigureLogging::class,
         HandleExceptions::class,
-        RegisterFacades::class,
         LoadProviders::class,
+        RegisterFacades::class,
         LoadSetting::class,
         RegisterRouter::class,
     ];

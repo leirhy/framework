@@ -31,6 +31,7 @@ class RegisterFacades
         Facade::setFacadeApplication($application);
         $aliasLoader = AliasLoader::getInstance($application->make('config')->get('app.aliases', []));
         $application->make('events')->fire(new FacadeRegister($application, $aliasLoader));
+        dd($aliasLoader);
         $aliasLoader->register();
     }
 }

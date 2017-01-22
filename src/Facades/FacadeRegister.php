@@ -37,4 +37,12 @@ class FacadeRegister
         $this->aliasLoader = $aliasLoader;
         $this->container = $container;
     }
+
+    /**
+     * @param $key
+     * @param $path
+     */
+    public function register($key, $path) {
+        $this->aliasLoader->alias($path, $key);
+    }
 }

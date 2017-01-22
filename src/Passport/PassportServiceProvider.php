@@ -47,4 +47,18 @@ class PassportServiceProvider extends LaravelPassportServiceProvider
             return new Passport($app, $app['events']);
         });
     }
+
+    /**
+     * Register the token guard.
+     *
+     * @return void
+     */
+    protected function registerGuard()
+    {
+        $this->app['auth']->extend('passport', function ($app, $name, array $config) {
+            return tap($this->makeGuard($config), function ($guard) {
+                $this->app->refresh('request', $guard, 'setRequest');
+            });
+        });
+    }
 }

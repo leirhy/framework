@@ -11,8 +11,10 @@ namespace Notadd\Foundation\Http\Middlewares;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Session\TokenMismatchException;
 use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Events\CsrfTokenRegister;
 use Symfony\Component\HttpFoundation\Cookie;
 
 /**
@@ -24,6 +26,11 @@ class VerifyCsrfToken
      * @var \Notadd\Foundation\Application
      */
     protected $app;
+
+    /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    protected $events;
 
     /**
      * @var \Illuminate\Contracts\Encryption\Encrypter
@@ -40,11 +47,13 @@ class VerifyCsrfToken
 
     /**
      * @param \Notadd\Foundation\Application             $app
+     * @param \Illuminate\Events\Dispatcher              $events
      * @param \Illuminate\Contracts\Encryption\Encrypter $encrypter
      */
-    public function __construct(Application $app, Encrypter $encrypter)
+    public function __construct(Application $app, Dispatcher $events, Encrypter $encrypter)
     {
         $this->app = $app;
+        $this->events = $events;
         $this->encrypter = $encrypter;
     }
 
@@ -60,6 +69,7 @@ class VerifyCsrfToken
      */
     public function handle($request, Closure $next)
     {
+        $this->events->fire(new CsrfTokenRegister($this->app, $this));
         if ($this->isReading($request) || $this->runningUnitTests() || $this->shouldPassThrough($request) || $this->tokensMatch($request)) {
             return $this->addCookieToResponse($request, $next($request));
         }
@@ -151,5 +161,15 @@ class VerifyCsrfToken
             'GET',
             'OPTIONS',
         ]);
+    }
+
+    /**
+     * Register except to this.
+     *
+     * @param $excepts
+     */
+    public function registerExcept($excepts)
+    {
+        $this->except = array_merge($this->except, (array)$excepts);
     }
 }

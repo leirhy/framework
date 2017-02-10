@@ -35,7 +35,7 @@ class ImageServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app['image'] = $this->app->share(function () {
-            return new ImageManager($this->config->get('image'));
+            return new ImageManager($this->app['config']->get('image'));
         });
         $this->app->alias('image', 'Notadd\Foundation\Image\ImageManager');
     }

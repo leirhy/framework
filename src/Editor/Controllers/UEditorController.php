@@ -26,9 +26,14 @@ class UEditorController extends Controller
     protected $config = [];
 
     /**
-     * @var \Notadd\Image\ImageManager
+     * @var \Notadd\Foundation\Image\ImageManager
      */
     protected $image;
+
+    /**
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $setting;
 
     /**
      * UEditorController constructor.
@@ -36,9 +41,9 @@ class UEditorController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->config();
-        $this->image = Container::getInstance()->make('image');
+        $this->image = $this->container->make('image');
         $this->setting = $this->getSetting();
+        $this->config();
     }
 
     protected function config()

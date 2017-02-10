@@ -8,8 +8,8 @@
  */
 namespace Notadd\Foundation\Editor\Listeners;
 
+use Notadd\Foundation\Editor\Controllers\UEditorController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
-use Notadd\Foundation\Setting\Controllers\SettingController;
 
 /**
  * Class RouteRegistrar.
@@ -22,7 +22,7 @@ class RouteRegistrar extends AbstractRouteRegistrar
     public function handle()
     {
         $this->router->group(['middleware' => ['web']], function () {
-            $this->router->any('editor', SettingController::class . '@handle');
+            $this->router->any('editor', UEditorController::class . '@handle');
         });
     }
 }

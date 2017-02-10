@@ -41,8 +41,6 @@ class VerifyCsrfToken
      * @var array
      */
     protected $except = [
-        'admin*',
-        'api*',
     ];
 
     /**

@@ -10,6 +10,7 @@ namespace Notadd\Foundation\SearchEngine;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\SearchEngine\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\SearchEngine\Listeners\RouterRegistrar;
 
 /**
@@ -22,6 +23,7 @@ class SearchEngineServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouterRegistrar::class);
     }
 

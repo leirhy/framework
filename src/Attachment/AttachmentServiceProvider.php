@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Attachment;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Attachment\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Attachment\Listeners\RouteRegistrar;
 
 /**
@@ -22,6 +23,7 @@ class AttachmentServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegistrar::class);
     }
 }

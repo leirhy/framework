@@ -107,6 +107,7 @@ class UEditorController extends Controller
     }
 
     /**
+     * Handler.
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse

@@ -14,16 +14,22 @@ namespace Notadd\Foundation\Image;
 class Point
 {
     /**
+     * X coordinate
+     *
      * @var int
      */
     public $x;
 
     /**
+     * Y coordinate
+     *
      * @var int
      */
     public $y;
 
     /**
+     * Point constructor.
+     *
      * @param int $x
      * @param int $y
      */
@@ -34,6 +40,8 @@ class Point
     }
 
     /**
+     * Sets X coordinate
+     *
      * @param int $x
      */
     public function setX($x)
@@ -42,6 +50,8 @@ class Point
     }
 
     /**
+     * Sets Y coordinate
+     *
      * @param int $y
      */
     public function setY($y)
@@ -50,6 +60,8 @@ class Point
     }
 
     /**
+     * Sets both X and Y coordinate
+     *
      * @param int $x
      * @param int $y
      */

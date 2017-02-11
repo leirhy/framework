@@ -14,16 +14,22 @@ namespace Notadd\Foundation\Image\Commands;
 abstract class AbstractCommand
 {
     /**
+     * Arguments of command
+     *
      * @var array
      */
     public $arguments;
 
     /**
+     * Output of command
+     *
      * @var mixed
      */
     protected $output;
 
     /**
+     * Executes current command on given image
+     *
      * @param \Notadd\Foundation\Image\Image $image
      *
      * @return mixed
@@ -31,6 +37,8 @@ abstract class AbstractCommand
     abstract public function execute($image);
 
     /**
+     * AbstractCommand constructor.
+     *
      * @param array $arguments
      */
     public function __construct($arguments)
@@ -39,6 +47,8 @@ abstract class AbstractCommand
     }
 
     /**
+     * Creates new argument instance from given argument key
+     *
      * @param int $key
      *
      * @return \Notadd\Foundation\Image\Commands\Argument
@@ -49,6 +59,8 @@ abstract class AbstractCommand
     }
 
     /**
+     * Returns output data of current command
+     *
      * @return mixed
      */
     public function getOutput()
@@ -57,6 +69,8 @@ abstract class AbstractCommand
     }
 
     /**
+     * Determines if current instance has output data
+     *
      * @return bool
      */
     public function hasOutput()
@@ -65,6 +79,8 @@ abstract class AbstractCommand
     }
 
     /**
+     * Sets output data of current command
+     *
      * @param mixed $value
      */
     public function setOutput($value)

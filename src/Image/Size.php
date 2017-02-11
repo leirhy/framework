@@ -17,24 +17,32 @@ use Notadd\Foundation\Image\Exceptions\InvalidArgumentException;
 class Size
 {
     /**
+     * Width
+     *
      * @var int
      */
     public $width;
 
     /**
+     * Height
+     *
      * @var int
      */
     public $height;
 
     /**
+     * Pivot point
+     *
      * @var Point
      */
     public $pivot;
 
     /**
-     * @param int   $width
-     * @param int   $height
-     * @param Point $pivot
+     * Size constructor.
+     *
+     * @param int                                 $width
+     * @param int                                 $height
+     * @param \Notadd\Foundation\Image\Point|null $pivot
      */
     public function __construct($width = null, $height = null, Point $pivot = null)
     {
@@ -44,6 +52,8 @@ class Size
     }
 
     /**
+     * Set the width and height absolutely
+     *
      * @param int $width
      * @param int $height
      */
@@ -54,6 +64,8 @@ class Size
     }
 
     /**
+     * Set current pivot point
+     *
      * @param Point $point
      */
     public function setPivot(Point $point)
@@ -62,6 +74,8 @@ class Size
     }
 
     /**
+     * Get the current width
+     *
      * @return int
      */
     public function getWidth()
@@ -70,6 +84,8 @@ class Size
     }
 
     /**
+     * Get the current height
+     *
      * @return int
      */
     public function getHeight()
@@ -78,6 +94,8 @@ class Size
     }
 
     /**
+     * Calculate the current aspect ratio
+     *
      * @return float
      */
     public function getRatio()
@@ -86,12 +104,13 @@ class Size
     }
 
     /**
+     * Resize to desired width and/or height
+     *
      * @param int     $width
      * @param int     $height
      * @param Closure $callback
      *
      * @return \Notadd\Foundation\Image\Size
-     *
      * @throws InvalidArgumentException
      */
     public function resize($width, $height, Closure $callback = null)
@@ -115,10 +134,10 @@ class Size
     }
 
     /**
-     * @param int     $width
-     * @param Closure $callback
+     * Scale size according to given constraints
      *
-     * @return Size
+     * @param int           $width
+     * @param \Closure|null $callback
      */
     private function resizeWidth($width, Closure $callback = null)
     {
@@ -145,6 +164,8 @@ class Size
     }
 
     /**
+     * Scale size according to given constraints
+     *
      * @param int     $height
      * @param Closure $callback
      *
@@ -175,6 +196,8 @@ class Size
     }
 
     /**
+     * Calculate the relative position to another Size based on the pivot point settings of both sizes.
+     *
      * @param Size $size
      *
      * @return \Notadd\Foundation\Image\Point
@@ -188,11 +211,12 @@ class Size
     }
 
     /**
+     * Resize given Size to best fitting size of current size.
+     *
      * @param Size   $size
      * @param string $position
      *
      * @return \Notadd\Foundation\Image\Size
-     *
      * @throws InvalidArgumentException
      */
     public function fit(Size $size, $position = 'center')
@@ -218,6 +242,8 @@ class Size
     }
 
     /**
+     * Checks if given size fits into current size
+     *
      * @param Size $size
      *
      * @return bool
@@ -228,6 +254,8 @@ class Size
     }
 
     /**
+     * Aligns current size's pivot point to given position and moves point automatically by offset.
+     *
      * @param string $position
      * @param int    $offset_x
      * @param int    $offset_y
@@ -304,6 +332,8 @@ class Size
     }
 
     /**
+     * Runs constraints on current size
+     *
      * @param Closure $callback
      *
      * @return \Notadd\Foundation\Image\Constraint

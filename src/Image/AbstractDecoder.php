@@ -17,6 +17,8 @@ use Notadd\Foundation\Image\Exceptions\NotReadableException;
 abstract class AbstractDecoder
 {
     /**
+     * Initiates new image from path in filesystem
+     *
      * @param string $path
      *
      * @return \Notadd\Foundation\Image\Image
@@ -24,6 +26,8 @@ abstract class AbstractDecoder
     abstract public function initFromPath($path);
 
     /**
+     * Initiates new image from binary data
+     *
      * @param string $data
      *
      * @return \Notadd\Foundation\Image\Image
@@ -31,6 +35,8 @@ abstract class AbstractDecoder
     abstract public function initFromBinary($data);
 
     /**
+     * Initiates new image from GD resource
+     *
      * @param resource $resource
      *
      * @return \Notadd\Foundation\Image\Image
@@ -38,18 +44,24 @@ abstract class AbstractDecoder
     abstract public function initFromGdResource($resource);
 
     /**
-     * @param Imagick $object
+     * Initiates new image from Imagick object
+     *
+     * @param \Imagick $object
      *
      * @return \Notadd\Foundation\Image\Image
      */
     abstract public function initFromImagick(Imagick $object);
 
     /**
+     * Buffer of input data
+     *
      * @var mixed
      */
     private $data;
 
     /**
+     * AbstractDecoder constructor.
+     *
      * @param mixed $data
      */
     public function __construct($data = null)
@@ -58,10 +70,11 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Init from fiven URL
+     *
      * @param string $url
      *
      * @return \Notadd\Foundation\Image\Image
-     *
      * @throws \Notadd\Foundation\Image\Exceptions\NotReadableException
      */
     public function initFromUrl($url)
@@ -73,10 +86,11 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Init from given stream
+     *
      * @param $stream
      *
      * @return \Notadd\Foundation\Image\Image
-     *
      * @throws \Notadd\Foundation\Image\Exceptions\NotReadableException
      */
     public function initFromStream($stream)
@@ -92,6 +106,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current source data is GD resource
+     *
      * @return bool
      */
     public function isGdResource()
@@ -104,6 +120,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current source data is Imagick object
+     *
      * @return bool
      */
     public function isImagick()
@@ -112,6 +130,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current source data is Notadd\Foundation\Image\Image object
+     *
      * @return bool
      */
     public function isNotaddImage()
@@ -120,6 +140,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current data is SplFileInfo object
+     *
      * @return bool
      */
     public function isSplFileInfo()
@@ -128,6 +150,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current data is Symfony UploadedFile component
+     *
      * @return bool
      */
     public function isSymfonyUpload()
@@ -136,6 +160,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current source data is file path
+     *
      * @return bool
      */
     public function isFilePath()
@@ -148,6 +174,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current source data is url
+     *
      * @return bool
      */
     public function isUrl()
@@ -156,6 +184,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current source data is a stream resource
+     *
      * @return bool
      */
     public function isStream()
@@ -171,6 +201,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current source data is binary data
+     *
      * @return bool
      */
     public function isBinary()
@@ -185,6 +217,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current source data is data-url
+     *
      * @return bool
      */
     public function isDataUrl()
@@ -195,6 +229,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Determines if current source data is base64 encoded
+     *
      * @return bool
      */
     public function isBase64()
@@ -207,8 +243,9 @@ abstract class AbstractDecoder
     }
 
     /**
-     * @param Image $object
+     * Initiates new Image from Intervention\Image\Image
      *
+     * @param Image $object
      * @return \Notadd\Foundation\Image\Image
      */
     public function initFromNotaddImage($object)
@@ -217,6 +254,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Parses and decodes binary image data from data-url
+     *
      * @param string $data_url
      *
      * @return string
@@ -236,10 +275,11 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Initiates new image from mixed data
+     *
      * @param mixed $data
      *
      * @return \Notadd\Foundation\Image\Image
-     *
      * @throws \Notadd\Foundation\Image\Exceptions\NotReadableException
      */
     public function init($data)
@@ -272,6 +312,8 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Decoder object transforms to string source data
+     *
      * @return string
      */
     public function __toString()

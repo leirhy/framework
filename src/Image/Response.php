@@ -14,16 +14,22 @@ namespace Notadd\Foundation\Image;
 class Response
 {
     /**
+     * Image that should be displayed by response
+     *
      * @var \Notadd\Foundation\Image\Image
      */
     public $image;
 
     /**
+     * Format of displayed image
+     *
      * @var string
      */
     public $format;
 
     /**
+     * Quality of displayed image
+     *
      * @var int
      */
     public $quality;
@@ -43,6 +49,8 @@ class Response
     }
 
     /**
+     * Builds response according to settings
+     *
      * @return mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */

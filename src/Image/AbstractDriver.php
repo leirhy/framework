@@ -17,16 +17,22 @@ use ReflectionClass;
 abstract class AbstractDriver
 {
     /**
+     * Decoder instance to init images from
+     *
      * @var \Notadd\Foundation\Image\AbstractDecoder
      */
     public $decoder;
 
     /**
+     * Image encoder instance
+     *
      * @var \Notadd\Foundation\Image\AbstractEncoder
      */
     public $encoder;
 
     /**
+     * Creates new image instance
+     *
      * @param int    $width
      * @param int    $height
      * @param string $background
@@ -36,6 +42,8 @@ abstract class AbstractDriver
     abstract public function newImage($width, $height, $background);
 
     /**
+     * Reads given string into color object
+     *
      * @param string $value
      *
      * @return AbstractColor
@@ -43,11 +51,15 @@ abstract class AbstractDriver
     abstract public function parseColor($value);
 
     /**
+     * Checks if core module installation is available
+     *
      * @return bool
      */
     abstract protected function coreAvailable();
 
     /**
+     * Returns clone of given core
+     *
      * @return mixed
      */
     public function cloneCore($core)
@@ -56,6 +68,8 @@ abstract class AbstractDriver
     }
 
     /**
+     * Initiates new image from given input
+     *
      * @param mixed $data
      *
      * @return \Notadd\Foundation\Image\Image
@@ -66,6 +80,8 @@ abstract class AbstractDriver
     }
 
     /**
+     * Encodes given image
+     *
      * @param Image  $image
      * @param string $format
      * @param int    $quality
@@ -78,6 +94,8 @@ abstract class AbstractDriver
     }
 
     /**
+     * Executes named command on given image
+     *
      * @param Image  $image
      * @param string $name
      * @param array  $arguments
@@ -94,10 +112,11 @@ abstract class AbstractDriver
     }
 
     /**
+     * Returns classname of given command name
+     *
      * @param string $name
      *
      * @return string
-     *
      * @throws \Notadd\Foundation\Image\Exceptions\NotSupportedException
      */
     private function getCommandClassName($name)
@@ -114,6 +133,8 @@ abstract class AbstractDriver
     }
 
     /**
+     * Returns name of current driver instance
+     *
      * @return string
      */
     public function getDriverName()

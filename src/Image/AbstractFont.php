@@ -14,41 +14,57 @@ namespace Notadd\Foundation\Image;
 abstract class AbstractFont
 {
     /**
+     * Text to be written
+     *
      * @var string
      */
     public $text;
 
     /**
+     * Text size in pixels
+     *
      * @var int
      */
     public $size = 12;
 
     /**
+     * Color of the text
+     *
      * @var mixed
      */
     public $color = '000000';
 
     /**
+     * Rotation angle of the text
+     *
      * @var int
      */
     public $angle = 0;
 
     /**
+     * Horizontal alignment of the text
+     *
      * @var string
      */
     public $align;
 
     /**
+     * Vertical alignment of the text
+     *
      * @var string
      */
     public $valign;
 
     /**
+     * Path to TTF or GD library internal font file of the text
+     *
      * @var mixed
      */
     public $file;
 
     /**
+     * Draws font to given image on given position
+     *
      * @param Image $image
      * @param int   $posx
      * @param int   $posy
@@ -68,6 +84,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Set text to be written
+     *
      * @param string $text
      */
     public function text($text)
@@ -76,6 +94,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Get text to be written
+     *
      * @return string
      */
     public function getText()
@@ -84,6 +104,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Set font size in pixels
+     *
      * @param int $size
      */
     public function size($size)
@@ -92,6 +114,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Get font size in pixels
+     *
      * @return int
      */
     public function getSize()
@@ -100,6 +124,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Set color of text to be written
+     *
      * @param mixed $color
      */
     public function color($color)
@@ -108,6 +134,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Get color of text
+     *
      * @return mixed
      */
     public function getColor()
@@ -116,6 +144,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Set rotation angle of text
+     *
      * @param int $angle
      */
     public function angle($angle)
@@ -124,6 +154,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Get rotation angle of text
+     *
      * @return int
      */
     public function getAngle()
@@ -132,6 +164,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Set horizontal text alignment
+     *
      * @param string $align
      */
     public function align($align)
@@ -140,6 +174,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Get horizontal text alignment
+     *
      * @return string
      */
     public function getAlign()
@@ -148,6 +184,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Set vertical text alignment
+     *
      * @param string $valign
      */
     public function valign($valign)
@@ -156,6 +194,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Get vertical text alignment
+     *
      * @return string
      */
     public function getValign()
@@ -164,6 +204,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Set path to font file
+     *
      * @param string $file
      */
     public function file($file)
@@ -172,6 +214,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Get path to font file
+     *
      * @return string
      */
     public function getFile()
@@ -180,6 +224,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Checks if current font has access to an applicable font file
+     *
      * @return bool
      */
     protected function hasApplicableFontFile()
@@ -192,6 +238,8 @@ abstract class AbstractFont
     }
 
     /**
+     * Counts lines of text to be written
+     *
      * @return int
      */
     public function countLines()

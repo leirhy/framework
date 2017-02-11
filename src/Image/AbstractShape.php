@@ -14,21 +14,29 @@ namespace Notadd\Foundation\Image;
 abstract class AbstractShape
 {
     /**
+     * Background color of shape
+     *
      * @var string
      */
     public $background;
 
     /**
+     * Border color of current shape
+     *
      * @var string
      */
     public $border_color;
 
     /**
+     * Border width of shape
+     *
      * @var int
      */
     public $border_width = 0;
 
     /**
+     * Draws shape to given image on given position
+     *
      * @param Image $image
      * @param int   $posx
      * @param int   $posy
@@ -38,6 +46,8 @@ abstract class AbstractShape
     abstract public function applyToImage(Image $image, $posx = 0, $posy = 0);
 
     /**
+     * Set text to be written
+     *
      * @param $color
      */
     public function background($color)
@@ -46,6 +56,8 @@ abstract class AbstractShape
     }
 
     /**
+     * Set border width and color of current shape
+     *
      * @param int    $width
      * @param string $color
      */
@@ -56,6 +68,8 @@ abstract class AbstractShape
     }
 
     /**
+     * Determines if current shape has border
+     *
      * @return bool
      */
     public function hasBorder()

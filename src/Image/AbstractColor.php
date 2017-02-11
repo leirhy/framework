@@ -17,6 +17,8 @@ use Notadd\Foundation\Image\Exceptions\NotSupportedException;
 abstract class AbstractColor
 {
     /**
+     * Initiates color object from integer
+     *
      * @param int $value
      *
      * @return \Notadd\Foundation\Image\AbstractColor
@@ -24,6 +26,8 @@ abstract class AbstractColor
     abstract public function initFromInteger($value);
 
     /**
+     * Initiates color object from given array
+     *
      * @param array $value
      *
      * @return \Notadd\Foundation\Image\AbstractColor
@@ -31,6 +35,8 @@ abstract class AbstractColor
     abstract public function initFromArray($value);
 
     /**
+     * Initiates color object from given string
+     *
      * @param string $value
      *
      * @return \Notadd\Foundation\Image\AbstractColor
@@ -38,6 +44,8 @@ abstract class AbstractColor
     abstract public function initFromString($value);
 
     /**
+     * Initiates color object from given ImagickPixel object
+     *
      * @param \ImagickPixel $value
      *
      * @return \Notadd\Foundation\Image\AbstractColor
@@ -45,6 +53,8 @@ abstract class AbstractColor
     abstract public function initFromObject($value);
 
     /**
+     * Initiates color object from given R, G and B values
+     *
      * @param int $r
      * @param int $g
      * @param int $b
@@ -54,6 +64,8 @@ abstract class AbstractColor
     abstract public function initFromRgb($r, $g, $b);
 
     /**
+     * Initiates color object from given R, G, B and A values
+     *
      * @param int   $r
      * @param int   $g
      * @param int   $b
@@ -64,11 +76,15 @@ abstract class AbstractColor
     abstract public function initFromRgba($r, $g, $b, $a);
 
     /**
+     * Calculates integer value of current color instance
+     *
      * @return int
      */
     abstract public function getInt();
 
     /**
+     * Calculates hexadecimal value of current color instance
+     *
      * @param string $prefix
      *
      * @return string
@@ -76,16 +92,22 @@ abstract class AbstractColor
     abstract public function getHex($prefix);
 
     /**
+     * Calculates RGB(A) in array format of current color instance
+     *
      * @return array
      */
     abstract public function getArray();
 
     /**
+     * Calculates RGBA in string format of current color instance
+     *
      * @return string
      */
     abstract public function getRgba();
 
     /**
+     * Determines if current color is different from given color
+     *
      * @param AbstractColor $color
      * @param int           $tolerance
      *
@@ -104,10 +126,11 @@ abstract class AbstractColor
     }
 
     /**
+     * Parses given value as color
+     *
      * @param mixed $value
      *
      * @return \Notadd\Foundation\Image\AbstractColor
-     *
      * @throws \Notadd\Foundation\Image\Exceptions\NotReadableException
      */
     public function parse($value)
@@ -141,6 +164,8 @@ abstract class AbstractColor
     }
 
     /**
+     * Formats current color instance into given format
+     *
      * @param string $type
      *
      * @return mixed
@@ -168,6 +193,8 @@ abstract class AbstractColor
     }
 
     /**
+     * Reads RGBA values from string into array
+     *
      * @param string $value
      *
      * @return array

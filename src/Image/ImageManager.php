@@ -19,6 +19,8 @@ use Notadd\Foundation\Image\Exceptions\NotSupportedException;
 class ImageManager
 {
     /**
+     * Config
+     *
      * @var array
      */
     public $config = [
@@ -29,6 +31,8 @@ class ImageManager
      * ImageManager constructor.
      *
      * @param array $config
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct(array $config = [])
     {
@@ -37,9 +41,12 @@ class ImageManager
     }
 
     /**
+     * Overrides configuration settings
+     *
      * @param array $config
      *
      * @return $this
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function configure(array $config = [])
     {
@@ -50,6 +57,8 @@ class ImageManager
     }
 
     /**
+     * Initiates an Image instance from different input types
+     *
      * @param mixed $data
      *
      * @return \Notadd\Foundation\Image\Image
@@ -60,6 +69,8 @@ class ImageManager
     }
 
     /**
+     * Creates an empty image canvas
+     *
      * @param int   $width
      * @param int   $height
      * @param mixed $background
@@ -72,6 +83,8 @@ class ImageManager
     }
 
     /**
+     * Create new cached image and run callback
+     *
      * @param \Closure $callback
      * @param int      $lifetime
      * @param bool     $returnObj
@@ -94,6 +107,8 @@ class ImageManager
     }
 
     /**
+     * Creates a driver instance according to config settings
+     *
      * @return \Notadd\Foundation\Image\AbstractDriver
      *
      * @throws NotSupportedException
@@ -109,6 +124,8 @@ class ImageManager
     }
 
     /**
+     * Check if all requirements are available
+     *
      * @throws \Notadd\Foundation\Image\Exceptions\MissingDependencyException
      */
     private function checkRequirements()

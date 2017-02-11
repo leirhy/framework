@@ -16,6 +16,8 @@ use Closure;
 class ImageManagerStatic
 {
     /**
+     * Instance of Notadd\Foundation\Image\ImageManager
+     *
      * @var ImageManager
      */
     public static $manager;
@@ -31,6 +33,8 @@ class ImageManagerStatic
     }
 
     /**
+     * Get or create new ImageManager instance
+     *
      * @return ImageManager
      */
     public static function getManager()
@@ -39,9 +43,12 @@ class ImageManagerStatic
     }
 
     /**
+     * Statically create new custom configured image manager
+     *
      * @param array $config
      *
-     * @return ImageManager
+     * @return \Notadd\Foundation\Image\ImageManager
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public static function configure(array $config = [])
     {
@@ -49,6 +56,8 @@ class ImageManagerStatic
     }
 
     /**
+     * Statically initiates an Image instance from different input types
+     *
      * @param mixed $data
      *
      * @return \Notadd\Foundation\Image\Image
@@ -59,6 +68,8 @@ class ImageManagerStatic
     }
 
     /**
+     * Statically creates an empty image canvas
+     *
      * @param int   $width
      * @param int   $height
      * @param mixed $background
@@ -71,6 +82,8 @@ class ImageManagerStatic
     }
 
     /**
+     * Create new cached image and run callback statically
+     *
      * @param Closure $callback
      * @param int     $lifetime
      * @param bool    $returnObj

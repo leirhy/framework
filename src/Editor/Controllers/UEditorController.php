@@ -51,8 +51,8 @@ class UEditorController extends Controller
         $this->config = [
             'imageActionName'         => 'uploadimage',
             'imageFieldName'          => 'upfile',
-            'imageMaxSize'            => $this->setting->get('attachment.size.image.limit') * 1000,
-            'imageAllowFiles'         => explode(',', $this->setting->get('attachment.format.allow.image')),
+            'imageMaxSize'            => $this->setting->get('attachment.limit.image', 2048) * 1000,
+            'imageAllowFiles'         => explode(',', $this->setting->get('attachment.format.image', '.png,.jpg,.jpeg,.gif,.bmp')),
             'imageCompressEnable'     => true,
             'imageCompressBorder'     => 1600,
             'imageInsertAlign'        => 'none',
@@ -61,7 +61,7 @@ class UEditorController extends Controller
             'scrawlActionName'        => 'uploadscrawl',
             'scrawlFieldName'         => 'upfile',
             'scrawlPathFormat'        => '/uploads/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
-            'scrawlMaxSize'           => $this->setting->get('attachment.size.limit') * 1000,
+            'scrawlMaxSize'           => $this->setting->get('attachment.limit.image', 2048) * 1000,
             'scrawlUrlPrefix'         => '',
             'scrawlInsertAlign'       => 'none',
             'snapscreenActionName'    => 'uploadimage',
@@ -77,32 +77,32 @@ class UEditorController extends Controller
             'catcherFieldName'        => 'source',
             'catcherPathFormat'       => '/uploads/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
             'catcherUrlPrefix'        => '',
-            'catcherMaxSize'          => $this->setting->get('attachment.size.image.limit') * 1000,
-            'catcherAllowFiles'       => explode(',', $this->setting->get('attachment.format.allow.catcher')),
+            'catcherMaxSize'          => $this->setting->get('attachment.limit.image', 2048) * 1000,
+            'catcherAllowFiles'       => explode(',', $this->setting->get('attachment.format.catcher', '.png,.jpg,.jpeg,.gif,.bmp')),
             'videoActionName'         => 'uploadvideo',
             'videoFieldName'          => 'upfile',
             'videoPathFormat'         => '/uploads/ueditor/php/upload/video/{yyyy}{mm}{dd}/{time}{rand:6}',
             'videoUrlPrefix'          => '',
-            'videoMaxSize'            => $this->setting->get('attachment.size.video.limit') * 1000,
-            'videoAllowFiles'         => $this->setting->get('attachment.format.allow.video'),
+            'videoMaxSize'            => $this->setting->get('attachment.limit.video', 2048) * 1000,
+            'videoAllowFiles'         => $this->setting->get('attachment.format.video', '.flv,.swf,.mkv,.avi,.rm,.rmvb,.mpeg,.mpg,.ogg,.ogv,.mov,.wmv,.mp4,.webm,.mp3,.wav,.mid'),
             'fileActionName'          => 'uploadfile',
             'fileFieldName'           => 'upfile',
             'filePathFormat'          => '/uploads/ueditor/php/upload/file/{yyyy}{mm}{dd}/{time}{rand:6}',
             'fileUrlPrefix'           => '',
-            'fileMaxSize'             => $this->setting->get('attachment.size.file.limit') * 1000,
-            'fileAllowFiles'          => explode(',', $this->setting->get('attachment.format.allow.file')),
+            'fileMaxSize'             => $this->setting->get('attachment.limit.file', 2048) * 1000,
+            'fileAllowFiles'          => explode(',', $this->setting->get('attachment.format.file', '.png,.jpg,.jpeg,.gif,.bmp,.flv,.swf,.mkv,.avi,.rm,.rmvb,.mpeg,.mpg,.ogg,.ogv,.mov,.wmv,.mp4,.webm,.mp3,.wav,.mid,.rar,.zip,.tar,.gz,.7z,.bz2,.cab,.iso,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.md,.xml')),
             'imageManagerActionName'  => 'listimage',
             'imageManagerListPath'    => '/uploads/ueditor/php/upload/image/',
             'imageManagerListSize'    => 20,
             'imageManagerUrlPrefix'   => '',
             'imageManagerInsertAlign' => 'none',
-            'imageManagerAllowFiles'  => explode(',', $this->setting->get('attachment.format.allow.manager.image')),
+            'imageManagerAllowFiles'  => explode(',', $this->setting->get('attachment.manager.image', ".png,.jpg,.jpeg,.gif,.bmp")),
             'fileManagerActionName'   => 'listfile',
             'fileManagerListPath'     => '/uploads/ueditor/php/upload/file/',
             'fileManagerUrlPrefix'    => '',
             'fileManagerListSize'     => 20,
-            'fileManagerAllowFiles'   => $this->setting->get('attachment.format.allow.manager.file'),
-            'watermark'               => public_path($this->setting->get('attachment.watermark.file')),
+            'fileManagerAllowFiles'   => $this->setting->get('attachment.manager.image'),
+            'watermark'               => public_path($this->setting->get('attachment.watermark.file', '.png,.jpg,.jpeg,.gif,.bmp,.flv,.swf,.mkv,.avi,.rm,.rmvb,.mpeg,.mpg,.ogg,.ogv,.mov,.wmv,.mp4,.webm,.mp3,.wav,.mid,.rar,.zip,.tar,.gz,.7z,.bz2,.cab,.iso,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.md,.xml')),
         ];
     }
 
@@ -115,6 +115,7 @@ class UEditorController extends Controller
     public function handle(Request $request)
     {
         $action = $request->get('action');
+        $result = [];
         switch ($action) {
             case 'config':
                 $result = $this->config;

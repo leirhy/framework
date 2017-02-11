@@ -14,31 +14,43 @@ namespace Notadd\Foundation\Image;
 class File
 {
     /**
+     * Mime type
+     *
      * @var string
      */
     public $mime;
 
     /**
+     * Name of directory path
+     *
      * @var string
      */
     public $dirname;
 
     /**
+     * Basename of current file
+     *
      * @var string
      */
     public $basename;
 
     /**
+     * File extension of current file
+     *
      * @var string
      */
     public $extension;
 
     /**
+     * File name of current file
+     *
      * @var string
      */
     public $filename;
 
     /**
+     * Sets all instance properties from given path
+     *
      * @param string $path
      *
      * @return $this
@@ -58,6 +70,8 @@ class File
     }
 
     /**
+     * Get file size
+     *
      * @return mixed
      */
     public function filesize()
@@ -71,6 +85,8 @@ class File
     }
 
     /**
+     * Get fully qualified path
+     *
      * @return string
      */
     public function basePath()

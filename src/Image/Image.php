@@ -18,28 +18,38 @@ use Notadd\Foundation\Image\Filters\FilterInterface;
 class Image extends File
 {
     /**
+     * Instance of current image driver
+     *
      * @var AbstractDriver
      */
     protected $driver;
 
     /**
+     * Image resource/object of current image processor
+     *
      * @var mixed
      */
     protected $core;
 
     /**
+     * Array of Image resource backups of current image processor
+     *
      * @var array
      */
     protected $backups = [];
 
     /**
+     * Last image encoding result
+     *
      * @var string
      */
     public $encoded = '';
 
     /**
-     * @param AbstractDriver $driver
-     * @param mixed          $core
+     * Image constructor.
+     *
+     * @param \Notadd\Foundation\Image\AbstractDriver|null $driver
+     * @param mixed                                         $core
      */
     public function __construct(AbstractDriver $driver = null, $core = null)
     {
@@ -48,6 +58,8 @@ class Image extends File
     }
 
     /**
+     * Magic method to catch all image calls usually any AbstractCommand
+     *
      * @param $name
      * @param $arguments
      *
@@ -61,6 +73,8 @@ class Image extends File
     }
 
     /**
+     * Starts encoding of current image
+     *
      * @param string $format
      * @param int    $quality
      *
@@ -72,11 +86,12 @@ class Image extends File
     }
 
     /**
+     * Saves encoded image in filesystem
+     *
      * @param string $path
      * @param int    $quality
      *
      * @return \Notadd\Foundation\Image\Image
-     *
      * @throws \Notadd\Foundation\Image\Exceptions\NotWritableException
      */
     public function save($path = null, $quality = null)
@@ -96,6 +111,8 @@ class Image extends File
     }
 
     /**
+     * Runs a given filter on current image
+     *
      * @param \Notadd\Foundation\Image\Filters\FilterInterface $filter
      *
      * @return \Notadd\Foundation\Image\Image
@@ -106,6 +123,8 @@ class Image extends File
     }
 
     /**
+     * Returns current image driver
+     *
      * @return \Notadd\Foundation\Image\AbstractDriver
      */
     public function getDriver()
@@ -114,6 +133,8 @@ class Image extends File
     }
 
     /**
+     * Sets current image driver
+     *
      * @param \Notadd\Foundation\Image\AbstractDriver $driver
      *
      * @return $this
@@ -126,6 +147,8 @@ class Image extends File
     }
 
     /**
+     * Returns current image resource/obj
+     *
      * @return mixed
      */
     public function getCore()
@@ -134,6 +157,8 @@ class Image extends File
     }
 
     /**
+     * Sets current image resource
+     *
      * @param $core
      *
      * @return $this
@@ -146,10 +171,11 @@ class Image extends File
     }
 
     /**
+     * Returns current image backup
+     *
      * @param null $name
      *
      * @return mixed
-     *
      * @throws RuntimeException
      */
     public function getBackup($name = null)
@@ -163,6 +189,8 @@ class Image extends File
     }
 
     /**
+     * Returns all backups attached to image
+     *
      * @return array
      */
     public function getBackups()
@@ -171,6 +199,8 @@ class Image extends File
     }
 
     /**
+     * Sets current image backup
+     *
      * @param mixed  $resource
      * @param string $name
      *
@@ -185,6 +215,8 @@ class Image extends File
     }
 
     /**
+     * Checks if named backup exists
+     *
      * @param string $name
      *
      * @return bool
@@ -195,6 +227,8 @@ class Image extends File
     }
 
     /**
+     * Checks if current image is already encoded
+     *
      * @return bool
      */
     public function isEncoded()
@@ -203,6 +237,8 @@ class Image extends File
     }
 
     /**
+     * Returns encoded image data of current image
+     *
      * @return string
      */
     public function getEncoded()
@@ -211,6 +247,8 @@ class Image extends File
     }
 
     /**
+     * Sets encoded image buffer
+     *
      * @param string $value
      *
      * @return $this
@@ -223,6 +261,8 @@ class Image extends File
     }
 
     /**
+     * Calculates current image width
+     *
      * @return int
      */
     public function getWidth()
@@ -231,6 +271,8 @@ class Image extends File
     }
 
     /**
+     * Alias of getWidth()
+     *
      * @return int
      */
     public function width()
@@ -239,6 +281,8 @@ class Image extends File
     }
 
     /**
+     * Calculates current image height
+     *
      * @return int
      */
     public function getHeight()
@@ -247,6 +291,8 @@ class Image extends File
     }
 
     /**
+     * Alias of getHeight
+     *
      * @return int
      */
     public function height()
@@ -255,6 +301,8 @@ class Image extends File
     }
 
     /**
+     * Reads mime type
+     *
      * @return string
      */
     public function mime()
@@ -263,6 +311,8 @@ class Image extends File
     }
 
     /**
+     * Returns encoded image data in string conversion
+     *
      * @return string
      */
     public function __toString()
@@ -270,6 +320,9 @@ class Image extends File
         return $this->encoded;
     }
 
+    /**
+     * Cloning an image
+     */
     public function __clone()
     {
         $this->core = $this->driver->cloneCore($this->core);

@@ -34,7 +34,7 @@ abstract class AbstractUpload
     protected $fileType;
 
     /**
-     * @var \Notadd\Image\ImageManager
+     * @var \Notadd\Foundation\Image\ImageManager
      */
     protected $image;
 

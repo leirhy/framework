@@ -16,6 +16,8 @@ use Illuminate\Support\ServiceProvider;
 class ImageServiceProvider extends ServiceProvider
 {
     /**
+     * Determines if Intervention Imagecache is installed
+     *
      * @return bool
      */
     private function cacheIsInstalled()
@@ -23,15 +25,30 @@ class ImageServiceProvider extends ServiceProvider
         return class_exists('Notadd\\Image\\ImageCache');
     }
 
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
     public function boot()
     {
         $this->cacheIsInstalled() ? $this->bootstrapImageCache() : null;
     }
 
+    /**
+     * Bootstrap imagecache
+     *
+     * @return void
+     */
     private function bootstrapImageCache()
     {
     }
 
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
     public function register()
     {
         $this->app['image'] = $this->app->share(function () {
@@ -41,6 +58,8 @@ class ImageServiceProvider extends ServiceProvider
     }
 
     /**
+     * Get the services provided by the provider.
+     *
      * @return array
      */
     public function provides()

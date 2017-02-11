@@ -17,67 +17,90 @@ use Notadd\Foundation\Image\Exceptions\NotSupportedException;
 abstract class AbstractEncoder
 {
     /**
+     * Buffer of encode result data
+     *
      * @var string
      */
     public $result;
 
     /**
+     * Image object to encode
+     *
      * @var Image
      */
     public $image;
 
     /**
+     * Output format of encoder instance
+     *
      * @var string
      */
     public $format;
 
     /**
+     * Output quality of encoder instance
+     *
      * @var int
      */
     public $quality;
 
     /**
+     * Processes and returns encoded image as JPEG string
+     *
      * @return string
      */
     abstract protected function processJpeg();
 
     /**
+     * Processes and returns encoded image as PNG string
+     *
      * @return string
      */
     abstract protected function processPng();
 
     /**
+     * Processes and returns encoded image as GIF string
+     *
      * @return string
      */
     abstract protected function processGif();
 
     /**
+     * Processes and returns encoded image as TIFF string
+     *
      * @return string
      */
     abstract protected function processTiff();
 
     /**
+     * Processes and returns encoded image as BMP string
+     *
      * @return string
      */
     abstract protected function processBmp();
 
     /**
+     * Processes and returns encoded image as ICO string
+     *
      * @return string
      */
     abstract protected function processIco();
 
     /**
+     * Processes and returns encoded image as WEBP string
+     *
      * @return string
      */
     abstract protected function processWebp();
 
     /**
+     * Process a given image
+     *
      * @param Image  $image
      * @param string $format
      * @param int    $quality
      *
      * @return \Notadd\Foundation\Image\Image
-     *
      * @throws \Notadd\Foundation\Image\Exceptions\InvalidArgumentException
      * @throws \Notadd\Foundation\Image\Exceptions\NotSupportedException
      */
@@ -147,6 +170,8 @@ abstract class AbstractEncoder
     }
 
     /**
+     * Processes and returns encoded image as data-url string
+     *
      * @return string
      */
     protected function processDataUrl()
@@ -157,6 +182,8 @@ abstract class AbstractEncoder
     }
 
     /**
+     * Sets image to process
+     *
      * @param Image $image
      */
     protected function setImage($image)
@@ -165,6 +192,8 @@ abstract class AbstractEncoder
     }
 
     /**
+     * Determines output format
+     *
      * @param string $format
      *
      * @return $this
@@ -180,10 +209,11 @@ abstract class AbstractEncoder
     }
 
     /**
+     * Determines output quality
+     *
      * @param int $quality
      *
      * @return $this
-     *
      * @throws \Notadd\Foundation\Image\Exceptions\InvalidArgumentException
      */
     protected function setQuality($quality)

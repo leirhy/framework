@@ -13,22 +13,34 @@ namespace Notadd\Foundation\Image;
  */
 class Constraint
 {
+    /**
+     * Bit value of aspect ratio constraint
+     */
     const ASPECTRATIO = 1;
 
+    /**
+     * Bit value of upsize constraint
+     */
     const UPSIZE = 2;
 
     /**
+     * Constraint size
+     *
      * @var \Notadd\Foundation\Image\Size
      */
     private $size;
 
     /**
+     * Integer value of fixed parameters
+     *
      * @var int
      */
     private $fixed = 0;
 
     /**
-     * @param Size $size
+     * Constraint constructor.
+     *
+     * @param \Notadd\Foundation\Image\Size $size
      */
     public function __construct(Size $size)
     {
@@ -36,6 +48,8 @@ class Constraint
     }
 
     /**
+     * Returns current size of constraint
+     *
      * @return \Notadd\Foundation\Image\Size
      */
     public function getSize()
@@ -44,6 +58,8 @@ class Constraint
     }
 
     /**
+     * Fix the given argument in current constraint
+     *
      * @param int $type
      */
     public function fix($type)
@@ -52,6 +68,8 @@ class Constraint
     }
 
     /**
+     * Checks if given argument is fixed in current constraint
+     *
      * @param int $type
      *
      * @return bool
@@ -61,11 +79,21 @@ class Constraint
         return (bool)($this->fixed & (1 << $type));
     }
 
+    /**
+     * Fixes aspect ratio in current constraint
+     *
+     * @return void
+     */
     public function aspectRatio()
     {
         $this->fix(self::ASPECTRATIO);
     }
 
+    /**
+     * Fixes possibility to size up in current constraint
+     *
+     * @return void
+     */
     public function upsize()
     {
         $this->fix(self::UPSIZE);

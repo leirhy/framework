@@ -27,6 +27,12 @@ class CreatePermissionsTable extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
         });
+
+        $this->schema->create('member_permission', function (Blueprint $table) {
+            $table->unsignedInteger('member_id');
+            $table->unsignedInteger('permission_id');
+            $table->primary(['member_id', 'permission_id']);
+        });
     }
 
     /**
@@ -36,6 +42,7 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
+        $this->schema->dropIfExists('member_permission');
         $this->schema->dropIfExists('permissions');
     }
 }

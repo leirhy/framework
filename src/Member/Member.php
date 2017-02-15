@@ -69,7 +69,8 @@ class Member extends Authenticatable
     }
 
     public function save(array $options = [])
-    {   //both inserts and updates
+    {
+        //both inserts and updates
         $result = parent::save($options);
 
         Cache::tags('member_permission')->flush();
@@ -77,9 +78,10 @@ class Member extends Authenticatable
         return $result;
     }
 
-    public function delete(array $options = [])
-    {   //soft or hard
-        $result = parent::delete($options);
+    public function delete()
+    {
+        //soft or hard
+        $result = parent::delete();
 
         Cache::tags('member_permission')->flush();
 
@@ -87,7 +89,8 @@ class Member extends Authenticatable
     }
 
     public function restore()
-    {   //soft delete undo's
+    {
+        //soft delete undo's
         $result = parent::restore();
 
         Cache::tags('member_permission')->flush();

@@ -72,7 +72,7 @@ class ConfigureLogging
      */
     protected function configureSingleHandler(Application $app, Writer $log)
     {
-        $log->useFiles($app->storagePath() . '/logs/laravel.log', $app->make('config')->get('app.log_level', 'debug'));
+        $log->useFiles($app->storagePath() . '/logs/notadd.log', $app->make('config')->get('app.log_level', 'debug'));
     }
 
     /**
@@ -87,7 +87,7 @@ class ConfigureLogging
     {
         $config = $app->make('config');
         $maxFiles = $config->get('app.log_max_files');
-        $log->useDailyFiles($app->storagePath() . '/logs/laravel.log', is_null($maxFiles) ? 5 : $maxFiles,
+        $log->useDailyFiles($app->storagePath() . '/logs/notadd.log', is_null($maxFiles) ? 5 : $maxFiles,
             $config->get('app.log_level', 'debug'));
     }
 
@@ -101,7 +101,7 @@ class ConfigureLogging
      */
     protected function configureSyslogHandler(Application $app, Writer $log)
     {
-        $log->useSyslog('laravel', $app->make('config')->get('app.log_level', 'debug'));
+        $log->useSyslog('notadd', $app->make('config')->get('app.log_level', 'debug'));
     }
 
     /**

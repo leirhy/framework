@@ -3,22 +3,29 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-11-23 16:25
+ * @copyright (c) 2017, iBenchu.org
+ * @datetime 2017-02-15 17:01
  */
 namespace Notadd\Foundation\Mail\Handlers;
 
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 use Illuminate\Translation\Translator;
-use Notadd\Foundation\Passport\Abstracts\SetHandler as AbstractSetHandler;
+use Notadd\Foundation\Passport\Abstracts\SetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
- * Class SetHandler.
+ * Class TestHandler.
  */
-class SetHandler extends AbstractSetHandler
+class TestHandler extends SetHandler
 {
+    /**
+     * @var \Illuminate\Contracts\Mail\Mailer
+     */
+    protected $mailer;
+
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
@@ -27,29 +34,22 @@ class SetHandler extends AbstractSetHandler
     /**
      * SetHandler constructor.
      *
-     * @param \Illuminate\Container\Container $container
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Container\Container                         $container
+     * @param \Illuminate\Contracts\Mail\Mailer                       $mailer
+     * @param \Illuminate\Http\Request                                $request
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
-     * @param \Illuminate\Translation\Translator $translator
+     * @param \Illuminate\Translation\Translator                      $translator
      */
     public function __construct(
         Container $container,
+        Mailer $mailer,
         Request $request,
         SettingsRepository $settings,
         Translator $translator
     ) {
         parent::__construct($container, $request, $translator);
+        $this->mailer = $mailer;
         $this->settings = $settings;
-    }
-
-    /**
-     * Data for handler.
-     *
-     * @return array
-     */
-    public function data()
-    {
-        return $this->settings->all()->toArray();
     }
 
     /**
@@ -60,7 +60,7 @@ class SetHandler extends AbstractSetHandler
     public function errors()
     {
         return [
-            '修改设置失败！',
+            '测试邮件发送失败！',
         ];
     }
 
@@ -71,13 +71,14 @@ class SetHandler extends AbstractSetHandler
      */
     public function execute()
     {
-        $this->settings->set('mail.driver', $this->request->input('driver'));
-        $this->settings->set('mail.encryption', $this->request->input('encryption'));
-        $this->settings->set('mail.port', $this->request->input('port'));
-        $this->settings->set('mail.host', $this->request->input('host'));
-        $this->settings->set('mail.from', $this->request->input('from'));
-        $this->settings->set('mail.username', $this->request->input('username'));
-        $this->settings->set('mail.password', $this->request->input('password'));
+        $this->container->make('log')->info('Mail testing', [$this->mailer]);
+
+        $this->mailer->raw($this->request->input('content'), function (Message $message) {
+            $message->to($this->request->input('to'));
+            $message->subject('邮件功能测试');
+        });
+
+        $this->container->make('log')->info('Mail testing', [$this->mailer->failures()]);
 
         return true;
     }
@@ -90,7 +91,7 @@ class SetHandler extends AbstractSetHandler
     public function messages()
     {
         return [
-            '修改设置成功!',
+            '测试邮件成功!',
         ];
     }
 }

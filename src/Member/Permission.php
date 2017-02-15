@@ -31,6 +31,14 @@ class Permission extends Model
         'name', 'display_name', 'description',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function members()
+    {
+        return $this->belongsToMany(Member::class, 'member_permission', 'permission_id', 'member_id');
+    }
+
     public static function addPermission($name, $display_name = null, $description = null)
     {
         $permission = static::where('name', $name)->first();

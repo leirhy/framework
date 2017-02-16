@@ -8,6 +8,9 @@
  */
 namespace Notadd\Foundation\Navigation\Controllers;
 
+use Notadd\Foundation\Navigation\Handlers\Group\DeleteHandler;
+use Notadd\Foundation\Navigation\Handlers\Group\EditHandler;
+use Notadd\Foundation\Navigation\Handlers\Group\FetchHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 
 /**
@@ -15,15 +18,42 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
  */
 class GroupController extends Controller
 {
-    public function delete()
+    /**
+     * Delete handler.
+     *
+     * @param \Notadd\Foundation\Navigation\Handlers\Group\DeleteHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
+     */
+    public function delete(DeleteHandler $handler)
     {
+        return $handler->toResponse()->generateHttpResponse();
     }
 
-    public function edit()
+    /**
+     * Edit handler.
+     *
+     * @param \Notadd\Foundation\Navigation\Handlers\Group\EditHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
+     */
+    public function edit(EditHandler $handler)
     {
+        return $handler->toResponse()->generateHttpResponse();
     }
 
-    public function fetch()
+    /**
+     * Fetch handler.
+     *
+     * @param \Notadd\Foundation\Navigation\Handlers\Group\FetchHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
+     */
+    public function fetch(FetchHandler $handler)
     {
+        return $handler->toResponse()->generateHttpResponse();
     }
 }

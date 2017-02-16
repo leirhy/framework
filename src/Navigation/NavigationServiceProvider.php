@@ -9,14 +9,19 @@
 namespace Notadd\Foundation\Navigation;
 
 use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Navigation\Models\Item;
+use Notadd\Foundation\Navigation\Observers\ItemObserver;
 
 /**
  * Class NavigationServiceProvider.
  */
 class NavigationServiceProvider extends ServiceProvider
 {
+    /**
+     * Boot service provider.
+     */
     public function boot()
     {
-
+        Item::observe(ItemObserver::class);
     }
 }

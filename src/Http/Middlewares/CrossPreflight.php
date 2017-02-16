@@ -3,20 +3,19 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-12-28 18:04
+ * @copyright (c) 2017, iBenchu.org
+ * @datetime 2017-02-16 15:08
  */
 namespace Notadd\Foundation\Http\Middlewares;
 
 use Closure;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class EnableCrossRequest.
+ * Class CrossPreflight.
  */
-class EnableCrossRequest
+class CrossPreflight
 {
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
@@ -40,26 +39,20 @@ class EnableCrossRequest
      * @param \Closure                 $next
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function handle(Request $request, Closure $next)
     {
-        $headers = collect([
+        $headers = [
             'Access-Control-Allow-Origin'      => '*',
-            'Access-Control-Allow-Headers'     => 'Origin,Content-Type,Cookie,Accept',
+            'Access-Control-Allow-Headers'     => 'Origin,Content-Type,Cookie,Accept,Authorization',
             'Access-Control-Allow-Methods'     => 'GET,POST,PATCH,PUT,OPTIONS',
             'Access-Control-Allow-Credentials' => 'true',
-        ]);
-        $response = $next($request);
-        if ($response instanceof Response) {
-            $headers->each(function ($value, $key) use($response) {
-                $response->headers->set($key, $value);
-            });
+        ];
+        if ($request->getMethod() == 'OPTIONS') {
+            return $this->response->make('OK', 200, $headers);
         } else {
-            $headers->each(function ($value, $key) use($response) {
-                $response->header($key, $value);
-            });
+            return $next($request);
         }
-
-        return $response;
     }
 }

@@ -25,6 +25,8 @@ use Notadd\Foundation\Database\Model;
  */
 class Permission extends Model
 {
+    const ADMIN_PREFIX = 'admin-';
+
     protected $table = 'permissions';
 
     protected $fillable = [
@@ -52,5 +54,32 @@ class Permission extends Model
         $permission->save();
 
         return $permission;
+    }
+
+    /**
+     * 添加后台权限
+     *
+     * @param      $name
+     * @param null $display_name
+     * @param null $description
+     *
+     * @return \Notadd\Foundation\Member\Permission
+     */
+    public static function addAdminPermission($name, $display_name = null, $description = null)
+    {
+        return static::addPermission(static::ADMIN_PREFIX . $name, $display_name, $description);
+    }
+
+    /**
+     * 查询后台权限
+     *
+     * @param $query
+     * @param $name
+     *
+     * @return mixed
+     */
+    public function scopeWhereAdmin($query, $name)
+    {
+        return $query->where('name', static::ADMIN_PREFIX . $name);
     }
 }

@@ -20,7 +20,7 @@ class RouteRegistrar extends AbstractRouteRegistrar
      */
     public function handle()
     {
-        $this->router->group(['middleware' => ['auth:api', 'web'], 'prefix' => 'api'], function () {
+        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api'], function () {
             $this->router->post('debug', DebugController::class . '@handle');
         });
     }

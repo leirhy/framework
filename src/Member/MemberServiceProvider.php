@@ -31,13 +31,9 @@ class MemberServiceProvider extends ServiceProvider
             return $manager->manager();
         });
 
-        $this->app->bind('permission', function ($app) {
-            return new PermissionManager;
-        });
+        $this->registerPermission();
 
-        $this->commands([
-            PermissionCommand::class,
-        ]);
+        $this->registerCommands();
 
         $this->registerMiddleware();
     }
@@ -45,5 +41,19 @@ class MemberServiceProvider extends ServiceProvider
     public function registerMiddleware()
     {
         $this->app['router']->middleware('permission', Permission::class);
+    }
+
+    public function registerCommands()
+    {
+        $this->commands([
+            PermissionCommand::class,
+        ]);
+    }
+
+    public function registerPermission()
+    {
+        $this->app->bind('permission', function ($app) {
+            return new PermissionManager;
+        });
     }
 }

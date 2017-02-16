@@ -15,4 +15,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Group extends Model
 {
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'alias',
+    ];
 }

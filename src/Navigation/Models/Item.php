@@ -16,6 +16,22 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     /**
+     * @var array
+     */
+    protected $fillable = [
+        'color',
+        'enabled',
+        'group_id',
+        'icon_image',
+        'link',
+        'order_id',
+        'parent_id',
+        'target',
+        'title',
+        'tooltip',
+    ];
+
+    /**
      * Return structured data.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]

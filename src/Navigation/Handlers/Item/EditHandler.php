@@ -68,14 +68,16 @@ class EditHandler extends SetHandler
     {
         $article = $this->model->newQuery()->find($this->request->input('id'));
         $article->update([
-            'content' => $this->request->input('content'),
-            'is_hidden' => $this->request->input('hidden'),
-            'is_sticky' => $this->request->input('sticky'),
-            'source_author' => $this->request->input('source.author'),
-            'source_link' => $this->request->input('source.link'),
-            'description' => $this->request->input('summary'),
-            'keyword' => $this->request->input('tags'),
+            'color' => $this->request->input('color'),
+            'enabled' => $this->request->input('enabled'),
+            'group_id' => $this->request->input('group_id'),
+            'icon_image' => $this->request->input('icon_image'),
+            'link' => $this->request->input('link'),
+            'order_id' => $this->request->input('order_id'),
+            'parent_id' => $this->request->input('parent_id'),
+            'target' => $this->request->input('target'),
             'title' => $this->request->input('title'),
+            'tooltip' => $this->request->input('tooltip'),
         ]);
 
         return true;

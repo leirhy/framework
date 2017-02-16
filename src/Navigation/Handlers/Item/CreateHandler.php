@@ -4,7 +4,7 @@
  *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2017, iBenchu.org
- * @datetime 2017-02-16 17:56
+ * @datetime 2017-02-16 19:03
  */
 namespace Notadd\Foundation\Navigation\Handlers\Item;
 
@@ -15,12 +15,12 @@ use Notadd\Foundation\Navigation\Models\Item;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
 
 /**
- * Class EditHandler.
+ * Class CreateHandler.
  */
-class EditHandler extends SetHandler
+class CreateHandler extends SetHandler
 {
     /**
-     * ArticleEditorHandler constructor.
+     * CategoryCreatorHandler constructor.
      *
      * @param \Illuminate\Container\Container           $container
      * @param \Notadd\Foundation\Navigation\Models\Item $item
@@ -48,6 +48,16 @@ class EditHandler extends SetHandler
     }
 
     /**
+     * Data for handler.
+     *
+     * @return array
+     */
+    public function data()
+    {
+        return $this->model->newQuery()->get();
+    }
+
+    /**
      * Errors for handler.
      *
      * @return array
@@ -55,7 +65,7 @@ class EditHandler extends SetHandler
     public function errors()
     {
         return [
-            $this->translator->trans('content::article.update.fail'),
+            $this->translator->trans('content::category.create.fail'),
         ];
     }
 
@@ -66,8 +76,7 @@ class EditHandler extends SetHandler
      */
     public function execute()
     {
-        $article = $this->model->newQuery()->find($this->request->input('id'));
-        $article->update([
+        $this->model->create([
             'color'      => $this->request->input('color'),
             'enabled'    => $this->request->input('enabled'),
             'group_id'   => $this->request->input('group_id'),
@@ -91,7 +100,7 @@ class EditHandler extends SetHandler
     public function messages()
     {
         return [
-            $this->translator->trans('content::article.update.success'),
+            $this->translator->trans('content::category.create.success'),
         ];
     }
 }

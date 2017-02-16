@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Navigation\Controllers;
 
+use Notadd\Foundation\Navigation\Handlers\Item\CreateHandler;
 use Notadd\Foundation\Navigation\Handlers\Item\DeleteHandler;
 use Notadd\Foundation\Navigation\Handlers\Item\EditHandler;
 use Notadd\Foundation\Navigation\Handlers\Item\FetchHandler;
@@ -18,6 +19,19 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
  */
 class ItemController extends Controller
 {
+    /**
+     * Create handler.
+     *
+     * @param \Notadd\Foundation\Navigation\Handlers\Item\CreateHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
+     */
+    public function create(CreateHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
     /**
      * Delete handler.
      *

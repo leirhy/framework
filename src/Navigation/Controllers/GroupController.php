@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Navigation\Controllers;
 
+use Notadd\Foundation\Navigation\Handlers\Group\CreateHandler;
 use Notadd\Foundation\Navigation\Handlers\Group\DeleteHandler;
 use Notadd\Foundation\Navigation\Handlers\Group\EditHandler;
 use Notadd\Foundation\Navigation\Handlers\Group\FetchHandler;
@@ -18,6 +19,19 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
  */
 class GroupController extends Controller
 {
+    /**
+     * Created handler.
+     *
+     * @param \Notadd\Foundation\Navigation\Handlers\Group\CreateHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
+     */
+    public function create(CreateHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
     /**
      * Delete handler.
      *

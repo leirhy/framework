@@ -9,6 +9,8 @@
 namespace Notadd\Foundation\Http\Middlewares;
 
 use Closure;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -17,27 +19,50 @@ use Symfony\Component\HttpFoundation\Response;
 class EnableCrossRequest
 {
     /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    protected $response;
+
+    /**
+     * EnableCrossRequest constructor.
+     *
+     * @param \Illuminate\Contracts\Routing\ResponseFactory $response
+     */
+    public function __construct(ResponseFactory $response)
+    {
+        $this->response = $response;
+    }
+
+    /**
      * Middleware handler.
      *
-     * @param          $request
-     * @param \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        $response = $next($request);
-        if($response instanceof Response) {
-            $response->headers->set('Access-Control-Allow-Origin', '*');
-            $response->headers->set('Access-Control-Allow-Headers', 'Origin,Content-Type,Cookie,Accept');
-            $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PATCH,PUT,OPTIONS');
-            $response->headers->set('Access-Control-Allow-Credentials', 'true');
-        } else {
-            $response->header('Access-Control-Allow-Origin', '*');
-            $response->header('Access-Control-Allow-Headers', 'Origin,Content-Type,Cookie,Accept');
-            $response->header('Access-Control-Allow-Methods', 'GET,POST,PATCH,PUT,OPTIONS');
-            $response->header('Access-Control-Allow-Credentials', 'true');
+        $headers = [
+            'Access-Control-Allow-Origin'      => '*',
+            'Access-Control-Allow-Headers'     => 'Origin,Content-Type,Cookie,Accept',
+            'Access-Control-Allow-Methods'     => 'GET,POST,PATCH,PUT,OPTIONS',
+            'Access-Control-Allow-Credentials' => 'true',
+        ];
+        if ($request->getMethod() == 'OPTIONS') {
+            return $this->response->make('OK', 200, $headers);
         }
+        $response = $next($request);
+        if ($response instanceof Response) {
+            collect($headers)->each(function ($value, $key) use($response) {
+                $response->headers->set($key, $value);
+            });
+        } else {
+            collect($headers)->each(function ($value, $key) use($response) {
+                $response->header($key, $value);
+            });
+        }
+
         return $response;
     }
 }

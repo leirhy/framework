@@ -156,6 +156,7 @@ class Kernel implements KernelContract
      * @param \Illuminate\Http\Response $response
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function terminate($request, $response)
     {

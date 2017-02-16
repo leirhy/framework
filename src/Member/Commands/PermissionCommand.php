@@ -23,6 +23,7 @@ class PermissionCommand extends Command
     protected $signature = 'permission 
         {key? : Register permission config file path key.}
         {--path= : From file create permission.}
+        {--all : Export all permissions to database} 
         {--force : Force create}';
 
     protected $description = 'Export Permissions to database';
@@ -57,8 +58,8 @@ class PermissionCommand extends Command
             $permissions = (array) require $path;
         }
 
-        // 如果没有指定某个权限文件, 就执行导入所有注册的权限文件
-        if (! $this->argument('key') && ! $this->option('path')) {
+        if ($this->option('all')) {
+            $permissions = [];
             $paths = $this->permissionManager->getFilePaths();
             foreach ($paths as $path) {
                 if (empty($path) || ! file_exists($path)) {

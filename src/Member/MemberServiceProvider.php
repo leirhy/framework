@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Member;
 
 use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Member\Commands\PermissionExportCommand;
 
 /**
  * Class MemberServiceProvider.
@@ -28,5 +29,13 @@ class MemberServiceProvider extends ServiceProvider
 
             return $manager->manager();
         });
+
+        $this->app->bind('permission', function ($app) {
+            return new PermissionManager;
+        });
+
+        $this->commands([
+            PermissionExportCommand::class,
+        ]);
     }
 }

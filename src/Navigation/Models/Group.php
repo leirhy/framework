@@ -22,4 +22,9 @@ class Group extends Model
         'alias',
         'title',
     ];
+
+    /**
+     * @var string
+     */
+    protected $table = 'menu_groups';
 }

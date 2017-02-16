@@ -78,7 +78,7 @@ class CreateHandler extends SetHandler
     {
         $this->model->create([
             'alias' => $this->request->input('alias'),
-            'title' => $this->request->input('name'),
+            'title' => $this->request->input('title'),
         ]);
 
         return true;

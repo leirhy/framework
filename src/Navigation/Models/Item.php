@@ -32,6 +32,11 @@ class Item extends Model
     ];
 
     /**
+     * @var string
+     */
+    protected $table = 'menu_items';
+
+    /**
      * Return structured data.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]

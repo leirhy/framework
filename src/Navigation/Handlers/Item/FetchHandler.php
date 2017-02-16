@@ -8,6 +8,10 @@
  */
 namespace Notadd\Foundation\Navigation\Handlers\Item;
 
+use Illuminate\Container\Container;
+use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
+use Notadd\Foundation\Navigation\Models\Item;
 use Notadd\Foundation\Passport\Abstracts\DataHandler;
 
 /**
@@ -15,4 +19,65 @@ use Notadd\Foundation\Passport\Abstracts\DataHandler;
  */
 class FetchHandler extends DataHandler
 {
+    /**
+     * CategoryFinderHandler constructor.
+     *
+     * @param \Illuminate\Container\Container           $container
+     * @param \Notadd\Foundation\Navigation\Models\Item $item
+     * @param \Illuminate\Http\Request                  $request
+     * @param \Illuminate\Translation\Translator        $translator
+     */
+    public function __construct(
+        Container $container,
+        Item $item,
+        Request $request,
+        Translator $translator
+    ) {
+        parent::__construct($container, $request, $translator);
+        $this->model = $item;
+    }
+
+    /**
+     * Http code.
+     *
+     * @return int
+     */
+    public function code()
+    {
+        return 200;
+    }
+
+    /**
+     * Data for handler.
+     *
+     * @return array
+     */
+    public function data()
+    {
+        return $this->model->newQuery()->get();
+    }
+
+    /**
+     * Errors for handler.
+     *
+     * @return array
+     */
+    public function errors()
+    {
+        return [
+            $this->translator->trans('content::category.fetch.fail'),
+        ];
+    }
+
+    /**
+     * Messages for handler.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            $this->translator->trans('content::category.fetch.success'),
+        ];
+    }
 }

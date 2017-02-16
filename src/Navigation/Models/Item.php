@@ -15,4 +15,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Item extends Model
 {
+    /**
+     * Return structured data.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function structure()
+    {
+        return $this->newQuery()->get();
+    }
 }

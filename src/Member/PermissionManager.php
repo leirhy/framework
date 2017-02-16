@@ -40,4 +40,12 @@ class PermissionManager
     {
         return app('config')->get(static::PATH_PREFIX . $key, '');
     }
+
+    /**
+     * @return array
+     */
+    public function getFilePaths()
+    {
+        return app('config')->get(rtrim(static::PATH_PREFIX, '.'), []);
+    }
 }

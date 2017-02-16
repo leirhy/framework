@@ -14,13 +14,13 @@ use Illuminate\Console\ConfirmableTrait;
 use Notadd\Foundation\Member\Permission;
 use Symfony\Component\Console\Input\InputOption;
 
-class PermissionExportCommand extends Command
+class PermissionCommand extends Command
 {
     use ConfirmableTrait;
 
     protected $name = 'permission';
 
-    protected $signature = 'permission:export 
+    protected $signature = 'permission 
         {key? : Register permission config file path key.}
         {--path= : From file create permission.}
         {--force : Force create}';
@@ -49,12 +49,24 @@ class PermissionExportCommand extends Command
 
         $key = $this->argument('key');
         if (! empty($key) && ! empty($realPath = $this->permissionManager->getFilePath($key)) && file_exists($realPath)) {
-            $permissions = require $realPath;
+            $permissions = (array) require $realPath;
         }
 
         $path = $this->option('path');
         if (! empty($path) && file_exists($path)) {
-            $permissions = require $path;
+            $permissions = (array) require $path;
+        }
+
+        // 如果没有指定某个权限文件, 就执行导入所有注册的权限文件
+        if (! $this->argument('key') && ! $this->option('path')) {
+            $paths = $this->permissionManager->getFilePaths();
+            foreach ($paths as $path) {
+                if (empty($path) || ! file_exists($path)) {
+                    continue;
+                }
+
+                $permissions = array_merge($permissions, (array) require $path);
+            }
         }
 
         if (empty($permissions) || count($permissions) < 0) {

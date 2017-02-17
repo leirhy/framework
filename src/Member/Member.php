@@ -58,12 +58,21 @@ class Member extends Authenticatable
         return $this->newQuery()->where('name', $name)->first();
     }
 
-    public function cachedPermissions()
+    /**
+     * 获取缓存的用户的权限的动态键
+     *
+     * @return string
+     */
+    public function getCachePermissionKey()
     {
         $memberPrimaryKey = $this->primaryKey;
-        $cacheKey = 'permissions_for_member_' . $this->$memberPrimaryKey;
 
-        return Cache::tags('member_permission')->remember($cacheKey, 60, function () {
+        return 'permissions_for_member_' . $this->$memberPrimaryKey;
+    }
+
+    public function cachedPermissions()
+    {
+        return Cache::remember($this->getCachePermissionKey(), 60, function () {
             return $this->permissions()->get();
         });
     }
@@ -73,17 +82,17 @@ class Member extends Authenticatable
         //both inserts and updates
         $result = parent::save($options);
 
-        Cache::tags('member_permission')->flush();
+        Cache::forget($this->getCachePermissionKey());
 
         return $result;
     }
 
     public function delete()
     {
-        //soft or hard
+        // soft or hard
         $result = parent::delete();
 
-        Cache::tags('member_permission')->flush();
+        Cache::forget($this->getCachePermissionKey());
 
         return $result;
     }
@@ -93,7 +102,7 @@ class Member extends Authenticatable
         //soft delete undo's
         $result = parent::restore();
 
-        Cache::tags('member_permission')->flush();
+        Cache::forget($this->getCachePermissionKey());
 
         return $result;
     }

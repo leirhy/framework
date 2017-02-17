@@ -175,12 +175,18 @@ class Member extends Authenticatable
     public function hasAdminPermission($name, $requireAll = false)
     {
         $adminName = $name;
-        if (! str_contains($name, '*')) {
-            if (is_array($name)) {
-                $adminName = array_map(function ($val) {
-                    return Permission::ADMIN_PREFIX . $val;
-                }, $name);
-            } else {
+
+        if (is_array($name)) {
+            $adminName = array_map(function ($val) {
+                if (str_contains($val, '*')) {
+                    return $val;
+                }
+
+                return Permission::ADMIN_PREFIX . $val;
+            }, $name);
+        } else {
+
+            if (! str_contains($name, '*')) {
                 $adminName = Permission::ADMIN_PREFIX . $name;
             }
         }

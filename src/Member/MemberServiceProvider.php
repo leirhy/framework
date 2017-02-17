@@ -9,8 +9,9 @@
 namespace Notadd\Foundation\Member;
 
 use Illuminate\Support\ServiceProvider;
-use Notadd\Foundation\Member\Commands\PermissionCommand;
 use Notadd\Foundation\Member\Middleware\Permission;
+use Notadd\Foundation\Member\Middleware\AdminPermission;
+use Notadd\Foundation\Member\Commands\PermissionCommand;
 
 /**
  * Class MemberServiceProvider.
@@ -41,6 +42,7 @@ class MemberServiceProvider extends ServiceProvider
     public function registerMiddleware()
     {
         $this->app['router']->middleware('permission', Permission::class);
+        $this->app['router']->middleware('admin-permission', AdminPermission::class);
     }
 
     public function registerCommands()

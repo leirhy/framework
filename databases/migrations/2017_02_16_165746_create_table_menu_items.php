@@ -28,7 +28,7 @@ class CreateTableMenuItems extends Migration
             $table->string('tooltip')->nullable();
             $table->string('link');
             $table->enum('target', ['_blank', '_self', '_parent', '_top'])->default('_blank');
-            $table->string('foreground_color')->nullable();
+            $table->string('color')->nullable();
             $table->string('icon_image')->nullable();
             $table->tinyInteger('order_id')->default(0);
             $table->boolean('enabled')->default(true);

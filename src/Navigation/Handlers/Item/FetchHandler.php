@@ -54,7 +54,9 @@ class FetchHandler extends DataHandler
      */
     public function data()
     {
-        return $this->model->newQuery()->get();
+        $group = $this->request->input('group');
+
+        return $this->model->structure($group);
     }
 
     /**

@@ -48,6 +48,16 @@ class EditHandler extends SetHandler
     }
 
     /**
+     * Data for handler.
+     *
+     * @return array
+     */
+    public function data()
+    {
+        return $this->model->structure($this->request->input('group_id'));
+    }
+
+    /**
      * Errors for handler.
      *
      * @return array

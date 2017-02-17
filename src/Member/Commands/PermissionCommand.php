@@ -76,16 +76,35 @@ class PermissionCommand extends Command
         }
 
         $i = 0;
-        foreach ($permissions as $permission) {
-            if (! isset($permission['display_name']) || ! isset($permission['name']) || empty($permission['display_name']) || empty($permission['name'])) {
+
+        $frontendPermissions = array_get($permissions, 'frontend', []);
+        $adminPermissions = array_get($permissions, 'admin', []);
+
+        // 添加前台权限
+        foreach ($frontendPermissions as $frontendPermission) {
+            if (! isset($frontendPermission['display_name']) || ! isset($frontendPermission['name']) || empty($frontendPermission['display_name']) || empty($frontendPermission['name'])) {
                 continue;
             }
 
-            if (Permission::where('name', $permission['name'])->count()) {
+            if (Permission::where('name', $frontendPermission['name'])->count()) {
                 continue;
             }
 
-            Permission::addPermission($permission['name'], $permission['display_name'], isset($permission['description']) ? $permission['description'] : '');
+            Permission::addPermission($frontendPermission['name'], $frontendPermission['display_name'], isset($frontendPermission['description']) ? $frontendPermission['description'] : '');
+            $i++;
+        }
+
+        // 添加后台权限
+        foreach ($adminPermissions as $adminPermission) {
+            if (! isset($adminPermission['display_name']) || ! isset($adminPermission['name']) || empty($adminPermission['display_name']) || empty($adminPermission['name'])) {
+                continue;
+            }
+
+            if (Permission::whereAdmin($adminPermission['name'])->count()) {
+                continue;
+            }
+
+            Permission::addAdminPermission($adminPermission['name'], $adminPermission['display_name'], isset($adminPermission['description']) ? $adminPermission['description'] : '');
             $i++;
         }
 

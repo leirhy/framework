@@ -54,7 +54,7 @@ class SortHandler extends SetHandler
      */
     public function data()
     {
-        return $this->model->structure();
+        return $this->model->structure($this->request->input('group_id'));
     }
 
     /**

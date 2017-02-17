@@ -12,6 +12,7 @@ use Notadd\Foundation\Navigation\Handlers\Item\CreateHandler;
 use Notadd\Foundation\Navigation\Handlers\Item\DeleteHandler;
 use Notadd\Foundation\Navigation\Handlers\Item\EditHandler;
 use Notadd\Foundation\Navigation\Handlers\Item\FetchHandler;
+use Notadd\Foundation\Navigation\Handlers\Item\SortHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 
 /**
@@ -67,6 +68,19 @@ class ItemController extends Controller
      * @throws \Exception
      */
     public function fetch(FetchHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
+    /**
+     * Sort handler.
+     *
+     * @param \Notadd\Foundation\Navigation\Handlers\Item\SortHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
+     */
+    public function sort(SortHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

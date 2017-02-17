@@ -31,6 +31,7 @@ class RouteRegister extends AbstractRouteRegistrar
             $this->router->post('item/delete', ItemController::class . '@delete');
             $this->router->post('item/edit', ItemController::class . '@edit');
             $this->router->post('item/fetch', ItemController::class . '@fetch');
+            $this->router->post('item/sort', ItemController::class . '@sort');
         });
     }
 }

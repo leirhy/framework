@@ -59,6 +59,6 @@ class Item extends Model
             return $item;
         });
 
-        return $this->newQuery()->get();
+        return $list;
     }
 }

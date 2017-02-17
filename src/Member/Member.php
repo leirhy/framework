@@ -130,7 +130,7 @@ class Member extends Authenticatable
 
     /**
      * Checks if the member has a permission by its name.
-     *cachedPermissions
+     *
      * @param string|array $name       Permission name or array of permission names.
      * @param bool         $requireAll All permissions in the array are required.
      *
@@ -155,13 +155,37 @@ class Member extends Authenticatable
             return $requireAll;
         } else {
             foreach ($this->cachedPermissions() as $permission) {
-                if ($permission->name == $name) {
+                if (str_is($name, $permission->name)) {
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    /**
+     * Checks if the member has a admin permission by its name.
+     *
+     * @param string|array $name       Permission name or array of permission names.
+     * @param bool         $requireAll All permissions in the array are required.
+     *
+     * @return bool
+     */
+    public function hasAdminPermission($name, $requireAll = false)
+    {
+        $adminName = $name;
+        if (! str_contains($name, '*')) {
+            if (is_array($name)) {
+                $adminName = array_map(function ($val) {
+                    return Permission::ADMIN_PREFIX . $val;
+                }, $name);
+            } else {
+                $adminName = Permission::ADMIN_PREFIX . $name;
+            }
+        }
+
+        return $this->hasPermission($adminName, $requireAll);
     }
 
     /**

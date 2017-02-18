@@ -11,6 +11,9 @@ namespace Notadd\Foundation\Sitemap;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Content\Models\Article;
+use Notadd\Foundation\Setting\Contracts\SettingsRepository;
+use Notadd\Foundation\Sitemap\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\Sitemap\Listeners\RouteRegistrar;
 
 /**
  * Class SitemapServiceProvider.
@@ -21,14 +24,24 @@ class SitemapServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/views/sitemap'), 'sitemap');
         $this->app->make(Dispatcher::class)->listen('kernel.handled', function () {
-            $list = (new Article())->newQuery()->orderBy('created_at', 'desc')->take(100)->get();
-            $sitemap = $this->app->make('sitemap');
-            $list->each(function (Article $article) use ($sitemap) {
-                $sitemap->add($this->app->make('url')->to('article/' . $article->getAttribute('id')),
-                    $article->getAttribute('updated_at'), 0.8, 'daily', [], $article->getAttribute('title'));
-            });
-            $sitemap->store('xml', 'sitemap');
+            if ($this->app->isInstalled()) {
+                $setting = $this->app->make(SettingsRepository::class);
+                if ($setting->get('sitemap.recently', true)) {
+                    $list = (new Article())->newQuery()->orderBy('created_at', 'desc')->take(1000)->get();
+                } else {
+                    $list = (new Article())->newQuery()->orderBy('created_at', 'desc')->get();
+                }
+                $sitemap = $this->app->make('sitemap');
+                $list->each(function (Article $article) use ($sitemap) {
+                    $sitemap->add($this->app->make('url')->to('article/' . $article->getAttribute('id')),
+                        $article->getAttribute('updated_at'), 0.8, 'daily', [], $article->getAttribute('title'));
+                });
+                $setting->get('sitemap.xml', true) && $sitemap->store('xml', 'sitemap');
+                $setting->get('sitemap.html', true) && $sitemap->store('html', 'sitemap');
+            }
         });
+        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegistrar::class);
     }
 
     public function register()

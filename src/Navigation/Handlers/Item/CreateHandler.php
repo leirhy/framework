@@ -54,7 +54,7 @@ class CreateHandler extends SetHandler
      */
     public function data()
     {
-        return $this->model->newQuery()->get();
+        return $this->model->structure($this->request->input('group_id'));
     }
 
     /**
@@ -82,8 +82,8 @@ class CreateHandler extends SetHandler
             'group_id'   => $this->request->input('group_id'),
             'icon_image' => $this->request->input('icon_image'),
             'link'       => $this->request->input('link'),
-            'order_id'   => $this->request->input('order_id'),
-            'parent_id'  => $this->request->input('parent_id'),
+            'order_id'   => 0,
+            'parent_id'  => 0,
             'target'     => $this->request->input('target'),
             'title'      => $this->request->input('title'),
             'tooltip'    => $this->request->input('tooltip'),

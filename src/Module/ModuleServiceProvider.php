@@ -8,9 +8,12 @@
  */
 namespace Notadd\Foundation\Module;
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Module\Commands\GenerateCommand;
 use Notadd\Foundation\Module\Commands\ListCommand;
+use Notadd\Foundation\Module\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\Module\Listeners\RouteRegister;
 
 /**
  * Class ModuleServiceProvider.
@@ -27,6 +30,8 @@ class ModuleServiceProvider extends ServiceProvider
                 $this->app->register($module->getEntry());
             }
         });
+        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
         $this->commands([
             GenerateCommand::class,
             ListCommand::class

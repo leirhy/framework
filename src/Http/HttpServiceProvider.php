@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Http;
 
-use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\ServiceProvider;
@@ -26,7 +26,7 @@ class HttpServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->make('request')->getMethod() == 'OPTIONS') {
-            $this->app->make(Kernel::class)->prependMiddleware(CrossPreflight::class);
+            $this->app->make(KernelContract::class)->prependMiddleware(CrossPreflight::class);
         }
         $this->configureFormRequests();
         $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/errors'), 'error');

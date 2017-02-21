@@ -49,8 +49,6 @@ abstract class RouteRegistrar extends EventSubscriber
 
     /**
      * Handle Route Registrar.
-     *
-     * @return mixed
      */
     abstract public function handle();
 }

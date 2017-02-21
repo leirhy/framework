@@ -84,14 +84,15 @@ class ExtensionManager
                                 $extension = new Extension($name);
                                 $extension->setAuthor(Arr::get($package, 'authors'));
                                 $extension->setDescription(Arr::get($package, 'description'));
+                                $provider = '';
                                 if ($entries = data_get($package, 'autoload.psr-4')) {
                                     foreach ($entries as $namespace => $entry) {
                                         $provider = $namespace . 'Extension';
                                         $extension->setEntry($provider);
-                                        method_exists($provider, 'script') && call_user_func([$provider, 'script']);
-                                        method_exists($provider, 'stylesheet') && call_user_func([$provider, 'stylesheet']);
                                     }
                                 }
+                                method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
+                                method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
                                 $this->extensions->put($directory, $extension);
                             }
                         }

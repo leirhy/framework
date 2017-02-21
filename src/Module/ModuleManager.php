@@ -79,14 +79,15 @@ class ModuleManager
                             if ($installed) {
                                 $module->setInstalled($installed);
                             }
+                            $provider = '';
                             if ($entries = data_get($package, 'autoload.psr-4')) {
                                 foreach ($entries as $namespace => $entry) {
                                     $provider = $namespace . 'ModuleServiceProvider';
                                     $module->setEntry($provider);
-                                    method_exists($provider, 'script') && call_user_func([$provider, 'script']);
-                                    method_exists($provider, 'stylesheet') && call_user_func([$provider, 'stylesheet']);
                                 }
                             }
+                            method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
+                            method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
                             $this->modules->put($directory, $module);
                         }
                     }

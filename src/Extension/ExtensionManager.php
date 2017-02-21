@@ -86,7 +86,10 @@ class ExtensionManager
                                 $extension->setDescription(Arr::get($package, 'description'));
                                 if ($entries = data_get($package, 'autoload.psr-4')) {
                                     foreach ($entries as $namespace => $entry) {
-                                        $extension->setEntry($namespace . 'Extension');
+                                        $provider = $namespace . 'Extension';
+                                        $extension->setEntry($provider);
+                                        method_exists($provider, 'script') && call_user_func([$provider, 'script']);
+                                        method_exists($provider, 'stylesheet') && call_user_func([$provider, 'stylesheet']);
                                     }
                                 }
                                 $this->extensions->put($directory, $extension);

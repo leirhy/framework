@@ -39,6 +39,16 @@ class Module
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $script;
+
+    /**
+     * @var array
+     */
+    protected $stylesheet;
+
+    /**
      * Module constructor.
      *
      * @param string $name
@@ -63,7 +73,7 @@ class Module
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -73,7 +83,7 @@ class Module
      *
      * @return string
      */
-    public function getEntry(): string
+    public function getEntry()
     {
         return $this->entry;
     }
@@ -83,9 +93,29 @@ class Module
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Script of module.
+     *
+     * @return string
+     */
+    public function getScript()
+    {
+        return $this->script;
+    }
+
+    /**
+     * Stylesheet of module.
+     *
+     * @return array
+     */
+    public function getStylesheet()
+    {
+        return $this->stylesheet;
     }
 
     /**
@@ -93,7 +123,7 @@ class Module
      *
      * @return bool
      */
-    public function isInstalled(): bool
+    public function isInstalled()
     {
         return $this->installed;
     }
@@ -152,5 +182,25 @@ class Module
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * Set module's script.
+     *
+     * @param string $script
+     */
+    public function setScript($script)
+    {
+        $this->script = $script;
+    }
+
+    /**
+     * Set module's stylesheet.
+     *
+     * @param array $stylesheet
+     */
+    public function setStylesheet(array $stylesheet)
+    {
+        $this->stylesheet = $stylesheet;
     }
 }

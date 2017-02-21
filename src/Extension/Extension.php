@@ -51,6 +51,16 @@ class Extension
     /**
      * @var string
      */
+    protected $script;
+
+    /**
+     * @var array
+     */
+    protected $stylesheet;
+
+    /**
+     * @var string
+     */
     protected $version;
 
     /**
@@ -109,6 +119,26 @@ class Extension
     public function getVersion(): string
     {
         return $this->version;
+    }
+
+    /**
+     * Script of module.
+     *
+     * @return string
+     */
+    public function getScript()
+    {
+        return $this->script;
+    }
+
+    /**
+     * Stylesheet of module.
+     *
+     * @return array
+     */
+    public function getStylesheet()
+    {
+        return $this->stylesheet;
     }
 
     /**
@@ -181,6 +211,26 @@ class Extension
     public function setPath(string $path)
     {
         $this->path = $path;
+    }
+
+    /**
+     * Set module's script.
+     *
+     * @param string $script
+     */
+    public function setScript($script)
+    {
+        $this->script = $script;
+    }
+
+    /**
+     * Set module's stylesheet.
+     *
+     * @param array $stylesheet
+     */
+    public function setStylesheet(array $stylesheet)
+    {
+        $this->stylesheet = $stylesheet;
     }
 
     /**

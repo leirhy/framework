@@ -63,7 +63,7 @@ class ModuleManager
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getModules($installed = false): Collection
+    public function getModules($installed = false)
     {
         if ($this->modules->isEmpty()) {
             if ($this->files->isDirectory($this->getModulePath())) {
@@ -81,7 +81,10 @@ class ModuleManager
                             }
                             if ($entries = data_get($package, 'autoload.psr-4')) {
                                 foreach ($entries as $namespace => $entry) {
-                                    $module->setEntry($namespace . 'ModuleServiceProvider');
+                                    $provider = $namespace . 'ModuleServiceProvider';
+                                    $module->setEntry($provider);
+                                    method_exists($provider, 'script') && call_user_func([$provider, 'script']);
+                                    method_exists($provider, 'stylesheet') && call_user_func([$provider, 'stylesheet']);
                                 }
                             }
                             $this->modules->put($directory, $module);

@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Module\Controllers;
 
+use Notadd\Foundation\Module\Handlers\EnableHandler;
 use Notadd\Foundation\Module\Handlers\ModuleHandler;
 
 /**
@@ -15,6 +16,19 @@ use Notadd\Foundation\Module\Handlers\ModuleHandler;
  */
 class ModuleController
 {
+    /**
+     * Enable handler.
+     *
+     * @param \Notadd\Foundation\Module\Handlers\EnableHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
+     */
+    public function enable(EnableHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
     /**
      * Handler.
      *

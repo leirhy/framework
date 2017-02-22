@@ -57,17 +57,33 @@ class ModuleManager
     }
 
     /**
-     * Modules of installed or not installed.
-     *
-     * @param bool $installed
+     * Modules of enabled.
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getModules($installed = false)
+    public function getEnabledModules()
+    {
+        $list = new Collection();
+        if ($this->getModules()->isEmpty()) {
+            return $list;
+        }
+        $this->modules->each(function (Module $module) use ($list) {
+            $module->isEnabled() && $list->push($module);
+        });
+
+        return $list;
+    }
+
+    /**
+     * Modules of list.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getModules()
     {
         if ($this->modules->isEmpty()) {
             if ($this->files->isDirectory($this->getModulePath())) {
-                collect($this->files->directories($this->getModulePath()))->each(function ($directory) use ($installed) {
+                collect($this->files->directories($this->getModulePath()))->each(function ($directory) {
                     if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = new Collection(json_decode($this->files->get($file), true));
                         $name = Arr::get($package, 'name');
@@ -76,9 +92,6 @@ class ModuleManager
                             $module = new Module($name);
                             $module->setAuthor(Arr::get($package, 'authors'));
                             $module->setDescription(Arr::get($package, 'description'));
-                            if ($installed) {
-                                $module->setInstalled($installed);
-                            }
                             $provider = '';
                             if ($entries = data_get($package, 'autoload.psr-4')) {
                                 foreach ($entries as $namespace => $entry) {
@@ -88,11 +101,8 @@ class ModuleManager
                             }
                             method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
                             method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                            if ($this->container->isInstalled()) {
-                                $module->setEnabled($this->container->make('setting')->get('module.' . $name . '.enabled', false));
-                            } else {
-                                $module->setEnabled(false);
-                            }
+                            $status = $this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $name . '.enabled', false) : false;
+                            $module->setEnabled($status);
                             $this->modules->put($directory, $module);
                         }
                     }

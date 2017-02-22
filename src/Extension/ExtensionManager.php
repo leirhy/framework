@@ -65,10 +65,27 @@ class ExtensionManager
     }
 
     /**
+     * Extensions of enabled.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getEnabledExtensions()
+    {
+        $list = new Collection();
+        if ($this->getExtensions()->isEmpty()) {
+            return $list;
+        }
+        $this->extensions->each(function (Extension $extension) use ($list) {
+            $extension->isEnabled() && $list->push($extension);
+        });
+
+        return $list;
+    }
+
+    /**
      * Extension list.
      *
      * @return \Illuminate\Support\Collection
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function getExtensions()
     {
@@ -93,11 +110,7 @@ class ExtensionManager
                                 }
                                 method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
                                 method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                                if ($this->container->isInstalled()) {
-                                    $extension->setEnabled($this->container->make('setting')->get('extension.' . $name . '.enabled', false));
-                                } else {
-                                    $extension->setEnabled(false);
-                                }
+                                $extension->setEnabled($this->container->make('setting')->get('extension.' . $name . '.enabled', false));
                                 $this->extensions->put($directory, $extension);
                             }
                         }

@@ -88,6 +88,11 @@ class ModuleManager
                             }
                             method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
                             method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
+                            if ($this->container->isInstalled()) {
+                                $module->setEnabled($this->container->make('setting')->get('module.' . $name . '.enabled', false));
+                            } else {
+                                $module->setEnabled(false);
+                            }
                             $this->modules->put($directory, $module);
                         }
                     }

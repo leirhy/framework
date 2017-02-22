@@ -19,6 +19,11 @@ class Module
     protected $author;
 
     /**
+     * @var bool
+     */
+    protected $enabled;
+
+    /**
      * @var string
      */
     protected $description;
@@ -119,6 +124,16 @@ class Module
     }
 
     /**
+     * Enabled of module.
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
      * Module install status.
      *
      * @return bool
@@ -142,6 +157,16 @@ class Module
         });
 
         $this->author = $author->toArray();
+    }
+
+    /**
+     * Set module's enabled.
+     *
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled)
+    {
+        $this->enabled = $enabled;
     }
 
     /**

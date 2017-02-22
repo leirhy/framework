@@ -93,6 +93,11 @@ class ExtensionManager
                                 }
                                 method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
                                 method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
+                                if ($this->container->isInstalled()) {
+                                    $extension->setEnabled($this->container->make('setting')->get('extension.' . $name . '.enabled', false));
+                                } else {
+                                    $extension->setEnabled(false);
+                                }
                                 $this->extensions->put($directory, $extension);
                             }
                         }

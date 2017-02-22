@@ -64,6 +64,7 @@ class ModuleHandler extends DataHandler
         $modules->transform(function (Module $module) {
             return [
                 'author' => $module->getAuthor(),
+                'enabled' => $module->isEnabled(),
                 'description' => $module->getDescription(),
                 'name' => $module->getName(),
             ];

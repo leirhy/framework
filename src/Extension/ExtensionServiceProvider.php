@@ -8,8 +8,11 @@
  */
 namespace Notadd\Foundation\Extension;
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Extension\Commands\ListCommand;
+use Notadd\Foundation\Extension\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\Extension\Listeners\RouteRegister;
 
 /**
  * Class ExtensionServiceProvider.
@@ -23,6 +26,8 @@ class ExtensionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
         $this->app->make('extension')->getExtensions()->each(function (Extension $extension, $path) {
             if ($this->app->make('files')->isDirectory($path) && is_string($extension->getEntry())) {
                 $this->app->register($extension->getEntry());

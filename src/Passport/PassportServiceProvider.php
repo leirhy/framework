@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Passport;
 
+use Carbon\Carbon;
 use Illuminate\Events\Dispatcher;
 use Laravel\Passport\Console\ClientCommand;
 use Laravel\Passport\Console\InstallCommand;
@@ -32,6 +33,7 @@ class PassportServiceProvider extends LaravelPassportServiceProvider
             InstallCommand::class,
             KeysCommand::class,
         ]);
+        Passport::tokensExpireIn(Carbon::now()->addMinutes(10));
     }
 
     /**

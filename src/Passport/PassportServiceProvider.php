@@ -33,7 +33,7 @@ class PassportServiceProvider extends LaravelPassportServiceProvider
             InstallCommand::class,
             KeysCommand::class,
         ]);
-        Passport::tokensExpireIn(Carbon::now()->addMinutes(10));
+        Passport::tokensExpireIn(Carbon::now()->addHours(24));
     }
 
     /**

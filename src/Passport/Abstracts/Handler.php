@@ -10,14 +10,14 @@ namespace Notadd\Foundation\Passport\Abstracts;
 
 use Exception;
 use Illuminate\Container\Container;
-use Illuminate\Http\Request;
-use Illuminate\Translation\Translator;
+use Notadd\Foundation\Validation\ValidatesRequests;
 
 /**
  * Class Handler.
  */
 abstract class Handler
 {
+    use ValidatesRequests;
     /**
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */

@@ -77,6 +77,11 @@ class EditHandler extends SetHandler
         $this->validate($this->request, [
             'title' => 'required',
             'alias' => 'required|alpha_dash|unique:menu_groups,' . $this->request->input('id'),
+        ], [
+            'alias.required' => '必须填写分组别名',
+            'alias.alpha_dash' => '分组别名只能由字母、数字和斜杠组成',
+            'alias.unique' => '分组别名已被占用',
+            'title.required' => '必须填写分组标题',
         ]);
         $article = $this->model->newQuery()->find($this->request->input('id'));
         $article->update([

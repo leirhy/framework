@@ -75,6 +75,11 @@ class CreateHandler extends SetHandler
         $this->validate($this->request, [
             'title' => 'required',
             'alias' => 'required|alpha_dash|unique:menu_groups',
+        ], [
+            'alias.required' => '必须填写分组别名',
+            'alias.alpha_dash' => '分组别名只能由字母、数字和斜杠组成',
+            'alias.unique' => '分组别名已被占用',
+            'title.required' => '必须填写分组标题',
         ]);
         $this->model->create([
             'alias' => $this->request->input('alias'),

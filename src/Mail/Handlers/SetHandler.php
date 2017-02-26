@@ -9,8 +9,6 @@
 namespace Notadd\Foundation\Mail\Handlers;
 
 use Illuminate\Container\Container;
-use Illuminate\Http\Request;
-use Illuminate\Translation\Translator;
 use Notadd\Foundation\Passport\Abstracts\SetHandler as AbstractSetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -27,18 +25,14 @@ class SetHandler extends AbstractSetHandler
     /**
      * SetHandler constructor.
      *
-     * @param \Illuminate\Container\Container $container
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Container\Container                         $container
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
-     * @param \Illuminate\Translation\Translator $translator
      */
     public function __construct(
         Container $container,
-        Request $request,
-        SettingsRepository $settings,
-        Translator $translator
+        SettingsRepository $settings
     ) {
-        parent::__construct($container, $request, $translator);
+        parent::__construct($container);
         $this->settings = $settings;
     }
 

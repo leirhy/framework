@@ -9,8 +9,6 @@
 namespace Notadd\Foundation\Extension\Handlers;
 
 use Illuminate\Container\Container;
-use Illuminate\Http\Request;
-use Illuminate\Translation\Translator;
 use Notadd\Foundation\Extension\Extension;
 use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Passport\Abstracts\DataHandler;
@@ -30,16 +28,12 @@ class ExtensionHandler extends DataHandler
      *
      * @param \Illuminate\Container\Container               $container
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
-     * @param \Illuminate\Http\Request                      $request
-     * @param \Illuminate\Translation\Translator            $translator
      */
     public function __construct(
         Container $container,
-        ExtensionManager $manager,
-        Request $request,
-        Translator $translator
+        ExtensionManager $manager
     ) {
-        parent::__construct($container, $request, $translator);
+        parent::__construct($container);
         $this->manager = $manager;
     }
 

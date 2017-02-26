@@ -10,9 +10,7 @@ namespace Notadd\Foundation\Mail\Handlers;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
-use Illuminate\Translation\Translator;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -36,18 +34,14 @@ class TestHandler extends SetHandler
      *
      * @param \Illuminate\Container\Container                         $container
      * @param \Illuminate\Contracts\Mail\Mailer                       $mailer
-     * @param \Illuminate\Http\Request                                $request
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
-     * @param \Illuminate\Translation\Translator                      $translator
      */
     public function __construct(
         Container $container,
         Mailer $mailer,
-        Request $request,
-        SettingsRepository $settings,
-        Translator $translator
+        SettingsRepository $settings
     ) {
-        parent::__construct($container, $request, $translator);
+        parent::__construct($container);
         $this->mailer = $mailer;
         $this->settings = $settings;
     }

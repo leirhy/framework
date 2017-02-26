@@ -24,6 +24,11 @@ abstract class Handler
     protected $container;
 
     /**
+     * @var \Illuminate\Contracts\Logging\Log
+     */
+    protected $log;
+
+    /**
      * @var \Illuminate\Http\Request
      */
     protected $request;
@@ -37,14 +42,13 @@ abstract class Handler
      * Handler constructor.
      *
      * @param \Illuminate\Container\Container $container
-     * @param \Illuminate\Http\Request                                       $request
-     * @param \Illuminate\Translation\Translator                             $translator
      */
-    public function __construct(Container $container, Request $request, Translator $translator)
+    public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->request = $request;
-        $this->translator = $translator;
+        $this->log = $this->container->make('log');
+        $this->request = $this->container->make('request');
+        $this->translator = $this->container->make('translator');
     }
 
     /**

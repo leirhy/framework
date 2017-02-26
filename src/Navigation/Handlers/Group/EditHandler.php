@@ -9,8 +9,6 @@
 namespace Notadd\Foundation\Navigation\Handlers\Group;
 
 use Illuminate\Container\Container;
-use Illuminate\Http\Request;
-use Illuminate\Translation\Translator;
 use Notadd\Foundation\Navigation\Models\Group;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
 
@@ -24,18 +22,14 @@ class EditHandler extends SetHandler
      *
      * @param \Illuminate\Container\Container            $container
      * @param \Notadd\Foundation\Navigation\Models\Group $group
-     * @param \Illuminate\Http\Request                   $request
-     * @param \Illuminate\Translation\Translator         $translator
      *
      * @internal param \Notadd\Content\Models\Article $article
      */
     public function __construct(
         Container $container,
-        Group $group,
-        Request $request,
-        Translator $translator
+        Group $group
     ) {
-        parent::__construct($container, $request, $translator);
+        parent::__construct($container);
         $this->model = $group;
     }
 

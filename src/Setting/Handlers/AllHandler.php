@@ -9,8 +9,6 @@
 namespace Notadd\Foundation\Setting\Handlers;
 
 use Illuminate\Container\Container;
-use Illuminate\Http\Request;
-use Illuminate\Translation\Translator;
 use Notadd\Foundation\Passport\Abstracts\DataHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
@@ -28,17 +26,13 @@ class AllHandler extends DataHandler
      * AllHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
-     * @param \Illuminate\Http\Request                                $request
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
-     * @param \Illuminate\Translation\Translator                      $translator
      */
     public function __construct(
         Container $container,
-        Request $request,
-        SettingsRepository $settings,
-        Translator $translator
+        SettingsRepository $settings
     ) {
-        parent::__construct($container, $request, $translator);
+        parent::__construct($container);
         $this->settings = $settings;
     }
 

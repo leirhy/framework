@@ -67,9 +67,15 @@ class CreateHandler extends SetHandler
      * Execute Handler.
      *
      * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function execute()
     {
+        $this->validate($this->request, [
+            'title' => 'required',
+            'alias' => 'required|alpha_dash|unique:menu_groups',
+        ]);
         $this->model->create([
             'alias' => $this->request->input('alias'),
             'title' => $this->request->input('title'),

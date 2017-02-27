@@ -39,7 +39,7 @@ abstract class Manager
     }
 
     /**
-     * TODO: Method delete Description
+     * Delete a member.
      *
      * @param int  $id
      * @param bool $force
@@ -49,7 +49,7 @@ abstract class Manager
     abstract public function delete(int $id, $force = false);
 
     /**
-     * TODO: Method find Description
+     * Find a member from id.
      *
      * @param int $id
      *
@@ -58,14 +58,14 @@ abstract class Manager
     abstract public function find(int $id);
 
     /**
-     * TODO: Method init Description
+     * Init.
      */
     public function init()
     {
     }
 
     /**
-     * TODO: Method store Description
+     * Store a member info.
      *
      * @param array $data
      *
@@ -74,7 +74,7 @@ abstract class Manager
     abstract public function store(array $data);
 
     /**
-     * TODO: Method update Description
+     * Update a member info.
      *
      * @param int   $id
      * @param array $data

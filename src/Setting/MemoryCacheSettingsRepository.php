@@ -41,7 +41,7 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * TODO: Method all Description
+     * Get all settings.
      *
      * @return array|\Illuminate\Support\Collection
      */
@@ -56,7 +56,7 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * TODO: Method delete Description
+     * Delete a setting value.
      *
      * @param $key
      */
@@ -67,7 +67,7 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * TODO: Method get Description
+     * Get a setting value by key.
      *
      * @param      $key
      * @param null $default
@@ -84,7 +84,7 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * TODO: Method set Description
+     * Set a setting value from key and value.
      *
      * @param $key
      * @param $value

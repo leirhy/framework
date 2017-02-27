@@ -13,7 +13,7 @@ use Notadd\Foundation\Passport\Abstracts\DataHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
- * Class SettingHandler.
+ * Class AllHandler.
  */
 class AllHandler extends DataHandler
 {

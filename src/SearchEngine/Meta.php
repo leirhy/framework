@@ -41,7 +41,7 @@ class Meta
     }
 
     /**
-     * TODO: Method getData Description
+     * Get all data.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -56,7 +56,7 @@ class Meta
     }
 
     /**
-     * TODO: Method setTitle Description
+     * Set title.
      *
      * @param $title
      */
@@ -66,7 +66,7 @@ class Meta
     }
 
     /**
-     * TODO: Method setDescription Description
+     * Set description.
      *
      * @param $description
      */
@@ -76,7 +76,7 @@ class Meta
     }
 
     /**
-     * TODO: Method setKeywords Description
+     * Set keywords.
      *
      * @param $keywords
      */

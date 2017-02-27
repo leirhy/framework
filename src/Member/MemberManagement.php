@@ -48,7 +48,7 @@ class MemberManagement
     }
 
     /**
-     * TODO: Method create Description
+     * Create a member.
      *
      * @param array $data
      * @param bool  $force
@@ -61,7 +61,7 @@ class MemberManagement
     }
 
     /**
-     * TODO: Method delete Description
+     * Delete a member.
      *
      * @param array $data
      * @param bool  $force
@@ -74,7 +74,7 @@ class MemberManagement
     }
 
     /**
-     * TODO: Method edit Description
+     * Edit a member info.
      *
      * @param array $data
      * @param bool  $force
@@ -87,7 +87,7 @@ class MemberManagement
     }
 
     /**
-     * TODO: Method find Description
+     * Find a member.
      *
      * @param $key
      *
@@ -99,7 +99,7 @@ class MemberManagement
     }
 
     /**
-     * TODO: Method manager Description
+     * Get manager instance.
      *
      * @return \Notadd\Foundation\Member\Abstracts\Manager
      */
@@ -109,7 +109,7 @@ class MemberManagement
     }
 
     /**
-     * TODO: Method registerManager Description
+     * Register member manager instance.
      *
      * @param \Notadd\Foundation\Member\Abstracts\Manager $manager
      */
@@ -127,7 +127,7 @@ class MemberManagement
     }
 
     /**
-     * TODO: Method store Description
+     * Store a member info.
      *
      * @param array $data
      * @param bool  $force
@@ -140,7 +140,7 @@ class MemberManagement
     }
 
     /**
-     * TODO: Method update Description
+     * Update a member info.
      *
      * @param array $data
      * @param bool  $force

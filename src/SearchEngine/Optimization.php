@@ -63,7 +63,7 @@ class Optimization
     }
 
     /**
-     * TODO: Method getData Description
+     * Get all data or data by key.
      *
      * @param string $key
      *
@@ -83,7 +83,7 @@ class Optimization
     }
 
     /**
-     * TODO: Method setCode Description
+     * Set code.
      *
      * @param $key
      * @param $value
@@ -94,7 +94,7 @@ class Optimization
     }
 
     /**
-     * TODO: Method setCustomMeta Description
+     * Set custom meta.
      *
      * @param $title
      * @param $description
@@ -110,7 +110,7 @@ class Optimization
     }
 
     /**
-     * TODO: Method setTitleMeta Description
+     * Set title meta.
      *
      * @param $title
      */
@@ -120,7 +120,7 @@ class Optimization
     }
 
     /**
-     * TODO: Method setDescriptionMeta Description
+     * Set description meta.
      *
      * @param $description
      */
@@ -130,7 +130,7 @@ class Optimization
     }
 
     /**
-     * TODO: Method setKeywordsMeta Description
+     * Set keywords mets.
      *
      * @param $keywords
      */

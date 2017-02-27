@@ -14,7 +14,7 @@ use Notadd\Foundation\Setting\Handlers\AllHandler;
 use Notadd\Foundation\Setting\Handlers\SetHandler;
 
 /**
- * Class ApiController.
+ * Class SettingController.
  */
 class SettingController extends Controller
 {
@@ -37,7 +37,7 @@ class SettingController extends Controller
     }
 
     /**
-     * TODO: Method  Description
+     * All handler.
      *
      * @param \Notadd\Foundation\Setting\Handlers\AllHandler $handler
      *
@@ -50,6 +50,8 @@ class SettingController extends Controller
     }
 
     /**
+     * Set handler.
+     *
      * @param \Notadd\Foundation\Setting\Handlers\SetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse

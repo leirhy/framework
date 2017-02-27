@@ -32,7 +32,7 @@ class DatabaseSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * TODO: Method all Description
+     * Get all settings.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -42,7 +42,7 @@ class DatabaseSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * TODO: Method delete Description
+     * Delete a setting value.
      *
      * @param $keyLike
      */
@@ -52,7 +52,7 @@ class DatabaseSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * TODO: Method get Description
+     * Get a setting value by key.
      *
      * @param      $key
      * @param null $default
@@ -69,7 +69,7 @@ class DatabaseSettingsRepository implements SettingsRepositoryContract
     }
 
     /**
-     * TODO: Method set Description
+     * Set a setting value from key and value.
      *
      * @param $key
      * @param $value

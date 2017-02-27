@@ -30,7 +30,7 @@ class TestHandler extends SetHandler
     protected $settings;
 
     /**
-     * SetHandler constructor.
+     * TestHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
      * @param \Illuminate\Contracts\Mail\Mailer                       $mailer

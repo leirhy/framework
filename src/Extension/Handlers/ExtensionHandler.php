@@ -24,7 +24,7 @@ class ExtensionHandler extends DataHandler
     protected $manager;
 
     /**
-     * ModuleHandler constructor.
+     * ExtensionHandler constructor.
      *
      * @param \Illuminate\Container\Container               $container
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager

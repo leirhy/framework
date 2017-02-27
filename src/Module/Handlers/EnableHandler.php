@@ -23,7 +23,7 @@ class EnableHandler extends SetHandler
     protected $settings;
 
     /**
-     * SetHandler constructor.
+     * EnableHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings

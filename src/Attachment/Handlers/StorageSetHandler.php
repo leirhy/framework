@@ -13,7 +13,7 @@ use Notadd\Foundation\Passport\Abstracts\SetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
- * Class AttachmentSetHandler.
+ * Class StorageSetHandler.
  */
 class StorageSetHandler extends SetHandler
 {
@@ -23,7 +23,7 @@ class StorageSetHandler extends SetHandler
     protected $settings;
 
     /**
-     * SetHandler constructor.
+     * StorageSetHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings

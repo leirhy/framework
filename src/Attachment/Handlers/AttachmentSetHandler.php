@@ -23,7 +23,7 @@ class AttachmentSetHandler extends SetHandler
     protected $settings;
 
     /**
-     * SetHandler constructor.
+     * AttachmentSetHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings

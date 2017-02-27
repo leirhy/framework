@@ -13,7 +13,7 @@ use Notadd\Foundation\Passport\Abstracts\SetHandler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
- * Class AttachmentSetHandler.
+ * Class WatermarkSetHandler.
  */
 class WatermarkSetHandler extends SetHandler
 {
@@ -23,7 +23,7 @@ class WatermarkSetHandler extends SetHandler
     protected $settings;
 
     /**
-     * SetHandler constructor.
+     * WatermarkSetHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings

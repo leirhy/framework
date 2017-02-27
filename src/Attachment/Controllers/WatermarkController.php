@@ -42,8 +42,6 @@ class WatermarkController extends Controller
      */
     public function handle(WatermarkSetHandler $handler)
     {
-        $response = $handler->toResponse();
-
-        return $response->generateHttpResponse();
+        return $handler->toResponse()->generateHttpResponse();
     }
 }

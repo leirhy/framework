@@ -43,8 +43,6 @@ class SeoController extends ApiController
      */
     public function handle(SetHandler $handler)
     {
-        $response = $handler->toResponse();
-
-        return $response->generateHttpResponse();
+        return $handler->toResponse()->generateHttpResponse();
     }
 }

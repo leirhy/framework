@@ -45,8 +45,6 @@ class AttachmentController extends Controller
      */
     public function handle(AttachmentSetHandler $handler)
     {
-        $response = $handler->toResponse();
-
-        return $response->generateHttpResponse();
+        return $handler->toResponse()->generateHttpResponse();
     }
 }

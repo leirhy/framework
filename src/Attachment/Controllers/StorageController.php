@@ -42,8 +42,6 @@ class StorageController extends Controller
      */
     public function handle(StorageSetHandler $handler)
     {
-        $response = $handler->toResponse();
-
-        return $response->generateHttpResponse();
+        return $handler->toResponse()->generateHttpResponse();
     }
 }

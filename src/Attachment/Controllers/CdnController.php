@@ -45,8 +45,6 @@ class CdnController extends Controller
      */
     public function handle(CdnSetHandler $handler)
     {
-        $response = $handler->toResponse();
-
-        return $response->generateHttpResponse();
+        return $handler->toResponse()->generateHttpResponse();
     }
 }

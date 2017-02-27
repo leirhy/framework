@@ -46,9 +46,7 @@ class SettingController extends Controller
      */
     public function all(AllHandler $handler)
     {
-        $response = $handler->toResponse();
-
-        return $response->generateHttpResponse();
+        return $handler->toResponse()->generateHttpResponse();
     }
 
     /**
@@ -59,8 +57,6 @@ class SettingController extends Controller
      */
     public function set(SetHandler $handler)
     {
-        $response = $handler->toResponse();
-
-        return $response->generateHttpResponse();
+        return $handler->toResponse()->generateHttpResponse();
     }
 }

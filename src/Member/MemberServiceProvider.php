@@ -54,7 +54,7 @@ class MemberServiceProvider extends ServiceProvider
 
     public function registerPermission()
     {
-        $this->app->instance('permission', function ($app) {
+        $this->app->singleton('permission', function ($app) {
             return new PermissionManager;
         });
     }

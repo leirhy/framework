@@ -20,7 +20,7 @@ class RoutingServiceProvider extends IlluminateRoutingServiceProvider
      */
     protected function registerRedirector()
     {
-        $this->app['redirect'] = $this->app->share(function ($app) {
+        $this->app->singleton('redirect', function ($app) {
             $redirector = new Redirector($app['url']);
             if (isset($app['session.store'])) {
                 $redirector->setSession($app['session.store']);

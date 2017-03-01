@@ -51,7 +51,7 @@ use Notadd\Foundation\Session\Commands\SessionTableCommand;
 /**
  * Class ArtisanServiceProvider.
  */
-class ArtisanServiceProvider extends ServiceProvider
+class ConsoleServiceProvider extends ServiceProvider
 {
     /**
      * @var bool

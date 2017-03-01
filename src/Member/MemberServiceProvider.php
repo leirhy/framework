@@ -54,7 +54,7 @@ class MemberServiceProvider extends ServiceProvider
 
     public function registerPermission()
     {
-        $this->app->bind('permission', function ($app) {
+        $this->app->alias('permission', function ($app) {
             return new PermissionManager;
         });
     }

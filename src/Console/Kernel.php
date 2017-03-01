@@ -12,6 +12,7 @@ use Closure;
 use Exception;
 use Illuminate\Console\Events\ArtisanStarting;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
@@ -99,7 +100,7 @@ class Kernel implements KernelContract
      */
     protected function defineConsoleSchedule()
     {
-        $this->app->instance('Illuminate\Console\Scheduling\Schedule', $schedule = new Schedule());
+        $this->app->instance(Schedule::class, $schedule = new Schedule($this->app[Cache::class]));
         $this->schedule($schedule);
     }
 

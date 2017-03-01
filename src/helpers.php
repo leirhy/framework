@@ -499,7 +499,7 @@ if (!function_exists('event')) {
      */
     function event(...$args)
     {
-        return app('events')->fire(...$args);
+        return app('events')->dispatch(...$args);
     }
 }
 

@@ -177,9 +177,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this->hasBeenBootstrapped = true;
         foreach ($bootstrappers as $bootstrapper) {
-            $this['events']->fire('bootstrapping: ' . $bootstrapper, [$this]);
+            $this['events']->dispatch('bootstrapping: ' . $bootstrapper, [$this]);
             $this->make($bootstrapper)->bootstrap($this);
-            $this['events']->fire('bootstrapped: ' . $bootstrapper, [$this]);
+            $this['events']->dispatch('bootstrapped: ' . $bootstrapper, [$this]);
         }
     }
 
@@ -606,7 +606,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     protected function markAsRegistered($provider)
     {
-        $this['events']->fire($class = get_class($provider), [$provider]);
+        $this['events']->dispatch($class = get_class($provider), [$provider]);
         $this->serviceProviders[] = $provider;
         $this->loadedProviders[$class] = true;
     }
@@ -1016,7 +1016,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this['config']->set('app.locale', $locale);
         $this['translator']->setLocale($locale);
-        $this['events']->fire('locale.changed', [$locale]);
+        $this['events']->dispatch('locale.changed', [$locale]);
     }
 
     /**

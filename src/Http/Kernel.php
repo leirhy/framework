@@ -34,6 +34,7 @@ use Notadd\Foundation\Bootstrap\LoadConfiguration;
 use Notadd\Foundation\Bootstrap\LoadSetting;
 use Notadd\Foundation\Bootstrap\RegisterFacades;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
+use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Http\Middlewares\CheckForMaintenanceMode;
 use Notadd\Foundation\Http\Middlewares\EnableCrossRequest;
 use Notadd\Foundation\Http\Middlewares\RedirectIfAuthenticated;
@@ -161,7 +162,7 @@ class Kernel implements KernelContract
             $this->reportException($e = new FatalThrowableError($e));
             $response = $this->renderException($request, $e);
         }
-        $this->application['events']->fire('kernel.handled', [
+        $this->application['events']->dispatch(RequestHandled::class, [
             $request,
             $response,
         ]);

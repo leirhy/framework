@@ -41,8 +41,8 @@ class MemberServiceProvider extends ServiceProvider
 
     public function registerMiddleware()
     {
-        $this->app['router']->middleware('permission', Permission::class);
-        $this->app['router']->middleware('admin-permission', AdminPermission::class);
+        $this->app['router']->aliasMiddleware('permission', Permission::class);
+        $this->app['router']->aliasMiddleware('admin-permission', AdminPermission::class);
     }
 
     public function registerCommands()

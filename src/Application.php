@@ -12,12 +12,13 @@ use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ViewServiceProvider;
-use Notadd\Foundation\Bootstrap\DetectEnvironment;
+use Notadd\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Notadd\Foundation\Event\EventServiceProvider;
 use Notadd\Foundation\Routing\RoutingServiceProvider;
 use RuntimeException;
@@ -160,6 +161,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     protected function registerBaseServiceProviders()
     {
         $this->register(new EventServiceProvider($this));
+        $this->register(new FilesystemServiceProvider($this));
         $this->register(new RoutingServiceProvider($this));
         $this->register(new ViewServiceProvider($this));
     }
@@ -188,7 +190,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function afterLoadingEnvironment(Closure $callback)
     {
-        return $this->afterBootstrapping(DetectEnvironment::class, $callback);
+        return $this->afterBootstrapping(LoadEnvironmentVariables::class, $callback);
     }
 
     /**

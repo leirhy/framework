@@ -33,7 +33,6 @@ return [
         Notadd\Foundation\Editor\EditorServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
         Notadd\Foundation\Extension\ExtensionServiceProvider::class,
-        Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Notadd\Installer\InstallerServiceProvider::class,
         Notadd\Foundation\Image\ImageServiceProvider::class,

@@ -10,6 +10,13 @@ namespace Notadd\Foundation\Console;
 
 use Illuminate\Auth\Console\ClearResetsCommand;
 use Illuminate\Auth\Console\MakeAuthCommand;
+use Illuminate\Database\Console\Migrations\MigrateCommand;
+use Illuminate\Database\Console\Migrations\MigrateMakeCommand;
+use Illuminate\Database\Console\Migrations\ResetCommand as MigrateResetCommand;
+use Illuminate\Database\Console\Migrations\StatusCommand as MigrateStatusCommand;
+use Illuminate\Database\Console\Migrations\InstallCommand as MigrateInstallCommand;
+use Illuminate\Database\Console\Migrations\RefreshCommand as MigrateRefreshCommand;
+use Illuminate\Database\Console\Migrations\RollbackCommand as MigrateRollbackCommand;
 use Illuminate\Queue\Console\FailedTableCommand;
 use Illuminate\Queue\Console\TableCommand;
 use Illuminate\Support\ServiceProvider;
@@ -24,7 +31,6 @@ use Notadd\Foundation\Console\Commands\EnvironmentCommand;
 use Notadd\Foundation\Console\Commands\EventGenerateCommand;
 use Notadd\Foundation\Console\Commands\StorageLinkCommand;
 use Notadd\Foundation\Console\Commands\TestMakeCommand;
-use Notadd\Foundation\Console\Commands\TinkerCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
 use Notadd\Foundation\Database\Commands\ModelMakeCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
@@ -56,28 +62,32 @@ class ArtisanServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        'ClearCompiled' => 'command.clear-compiled',
-        'ClearResets'   => 'command.auth.resets.clear',
-        'ConfigCache'   => 'command.config.cache',
-        'ConfigClear'   => 'command.config.clear',
-        'Down'          => 'command.down',
-        'Environment'   => 'command.environment',
-        'KeyGenerate'   => 'command.key.generate',
-        'Optimize'      => 'command.optimize',
-        'RouteCache'    => 'command.route.cache',
-        'RouteClear'    => 'command.route.clear',
-        'RouteList'     => 'command.route.list',
-        'StorageLink'   => 'command.storage.link',
-        'Tinker'        => 'command.tinker',
-        'Up'            => 'command.up',
-        'ViewClear'     => 'command.view.clear',
+        'ClearCompiled'   => 'command.clear-compiled',
+        'ClearResets'     => 'command.auth.resets.clear',
+        'ConfigCache'     => 'command.config.cache',
+        'ConfigClear'     => 'command.config.clear',
+        'Down'            => 'command.down',
+        'Environment'     => 'command.environment',
+        'KeyGenerate'     => 'command.key.generate',
+        'Migrate'         => 'command.migrate',
+        'MigrateInstall'  => 'command.migrate.install',
+        'MigrateRefresh'  => 'command.migrate.refresh',
+        'MigrateReset'    => 'command.migrate.reset',
+        'MigrateRollback' => 'command.migrate.rollback',
+        'MigrateStatus'   => 'command.migrate.status',
+        'Optimize'        => 'command.optimize',
+        'RouteCache'      => 'command.route.cache',
+        'RouteClear'      => 'command.route.clear',
+        'RouteList'       => 'command.route.list',
+        'StorageLink'     => 'command.storage.link',
+        'Up'              => 'command.up',
+        'ViewClear'       => 'command.view.clear',
     ];
 
     /**
      * @var array
      */
     protected $devCommands = [
-        //'AppName' => 'command.app.name',
         'AuthMake'          => 'command.auth.make',
         'CacheTable'        => 'command.cache.table',
         'ConsoleMake'       => 'command.console.make',
@@ -310,6 +320,93 @@ class ArtisanServiceProvider extends ServiceProvider
 
     /**
      * Register the command.
+     *
+     * @return void
+     */
+    protected function registerMigrateCommand()
+    {
+        $this->app->singleton('command.migrate', function ($app) {
+            return new MigrateCommand($app['migrator']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerMigrateInstallCommand()
+    {
+        $this->app->singleton('command.migrate.install', function ($app) {
+            return new MigrateInstallCommand($app['migration.repository']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerMigrateMakeCommand()
+    {
+        $this->app->singleton('command.migrate.make', function ($app) {
+            $creator = $app['migration.creator'];
+            $composer = $app['composer'];
+
+            return new MigrateMakeCommand($creator, $composer);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerMigrateRefreshCommand()
+    {
+        $this->app->singleton('command.migrate.refresh', function () {
+            return new MigrateRefreshCommand;
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerMigrateResetCommand()
+    {
+        $this->app->singleton('command.migrate.reset', function ($app) {
+            return new MigrateResetCommand($app['migrator']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerMigrateRollbackCommand()
+    {
+        $this->app->singleton('command.migrate.rollback', function ($app) {
+            return new MigrateRollbackCommand($app['migrator']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerMigrateStatusCommand()
+    {
+        $this->app->singleton('command.migrate.status', function ($app) {
+            return new MigrateStatusCommand($app['migrator']);
+        });
+    }
+
+    /**
+     * Register the command.
      */
     protected function registerModelMakeCommand()
     {
@@ -445,16 +542,6 @@ class ArtisanServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.test.make', function ($app) {
             return new TestMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerTinkerCommand()
-    {
-        $this->app->singleton('command.tinker', function () {
-            return new TinkerCommand();
         });
     }
 

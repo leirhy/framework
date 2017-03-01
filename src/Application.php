@@ -21,6 +21,7 @@ use Illuminate\View\ViewServiceProvider;
 use Notadd\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Notadd\Foundation\Event\EventServiceProvider;
 use Notadd\Foundation\Routing\RoutingServiceProvider;
+use Notadd\Foundation\Translation\Events\LocaleUpdated;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -1016,7 +1017,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this['config']->set('app.locale', $locale);
         $this['translator']->setLocale($locale);
-        $this['events']->dispatch('locale.changed', [$locale]);
+        $this['events']->dispatch(LocaleUpdated::class, [$locale]);
     }
 
     /**

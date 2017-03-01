@@ -53,7 +53,7 @@ return [
         Notadd\Foundation\Session\SessionServiceProvider::class,
         Notadd\Foundation\Setting\SettingServiceProvider::class,
         Notadd\Foundation\Theme\ThemeServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
+        Notadd\Foundation\Translation\TranslationServiceProvider::class,
         Notadd\Foundation\Validation\ValidationServiceProvider::class,
         Notadd\Foundation\Http\HttpServiceProvider::class,
         Notadd\Foundation\Administration\AdministrationServiceProvider::class,

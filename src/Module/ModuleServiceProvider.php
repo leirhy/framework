@@ -46,7 +46,8 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-        $this->app->make(ModuleManager::class)->getModules()->each(function (Module $module, $path) {
+        $this->app->make(ModuleManager::class)->getModules()->each(function (Module $module) {
+            $path = $module->getDirectory();
             if ($this->files->isDirectory($path)) {
                 if(is_string($module->getEntry()) && class_exists($module->getEntry())) {
                     $this->app->register($module->getEntry());

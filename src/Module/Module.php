@@ -31,6 +31,11 @@ class Module
     /**
      * @var string
      */
+    protected $directory;
+
+    /**
+     * @var string
+     */
     protected $entry;
 
     /**
@@ -81,6 +86,16 @@ class Module
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Directory of module.
+     *
+     * @return string
+     */
+    public function getDirectory()
+    {
+        return $this->directory;
     }
 
     /**
@@ -177,6 +192,16 @@ class Module
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * Set module's directory.
+     *
+     * @param string $directory
+     */
+    public function setDirectory($directory)
+    {
+        $this->directory = $directory;
     }
 
     /**

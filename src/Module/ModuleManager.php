@@ -68,7 +68,7 @@ class ModuleManager
             return $list;
         }
         $this->modules->each(function (Module $module) use ($list) {
-            $module->isEnabled() && $list->push($module);
+            $module->isEnabled() && $list->put($module->getName(), $module);
         });
 
         return $list;
@@ -92,6 +92,9 @@ class ModuleManager
                             $module = new Module($name);
                             $module->setAuthor(Arr::get($package, 'authors'));
                             $module->setDescription(Arr::get($package, 'description'));
+                            $module->setDirectory($directory);
+                            $status = $this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $name . '.enabled', false) : false;
+                            $module->setEnabled($status);
                             $provider = '';
                             if ($entries = data_get($package, 'autoload.psr-4')) {
                                 foreach ($entries as $namespace => $entry) {
@@ -101,9 +104,7 @@ class ModuleManager
                             }
                             method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
                             method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                            $status = $this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $name . '.enabled', false) : false;
-                            $module->setEnabled($status);
-                            $this->modules->put($directory, $module);
+                            $this->modules->put($name, $module);
                         }
                     }
                 });

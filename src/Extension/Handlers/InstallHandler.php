@@ -25,7 +25,7 @@ class InstallHandler extends SetHandler
     /**
      * InstallHandler constructor.
      *
-     * @param \Illuminate\Container\Container               $container
+     * @param \Illuminate\Container\Container $container
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      */
     public function __construct(Container $container, ExtensionManager $manager)
@@ -53,6 +53,14 @@ class InstallHandler extends SetHandler
      */
     public function execute()
     {
+        $extension = $this->manager->get($this->request->input('name'));
+        if ($extension && method_exists($provider = $extension->getEntry(), 'install')) {
+            return call_user_func([
+                $provider,
+                'install',
+            ]);
+        }
+
         return false;
     }
 

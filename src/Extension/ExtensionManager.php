@@ -55,6 +55,18 @@ class ExtensionManager
     }
 
     /**
+     * Get a extension by name.
+     *
+     * @param $name
+     *
+     * @return \Notadd\Foundation\Extension\Extension
+     */
+    public function get($name)
+    {
+        return $this->extensions->get($name);
+    }
+
+    /**
      * Path for extension.
      *
      * @return string

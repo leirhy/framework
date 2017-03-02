@@ -25,7 +25,7 @@ class UninstallHandler extends SetHandler
     /**
      * UninstallHandler constructor.
      *
-     * @param \Illuminate\Container\Container         $container
+     * @param \Illuminate\Container\Container $container
      * @param \Notadd\Foundation\Module\ModuleManager $manager
      */
     public function __construct(Container $container, ModuleManager $manager)
@@ -53,6 +53,14 @@ class UninstallHandler extends SetHandler
      */
     public function execute()
     {
+        $module = $this->manager->get($this->request->input('name'));
+        if ($module && method_exists($provider = $module->getEntry(), 'uninstall')) {
+            return call_user_func([
+                $provider,
+                'uninstall',
+            ]);
+        }
+
         return false;
     }
 

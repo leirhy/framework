@@ -24,6 +24,11 @@ class Extension
     protected $description;
 
     /**
+     * @var string
+     */
+    protected $directory;
+
+    /**
      * @var bool
      */
     protected $enabled = false;
@@ -87,6 +92,16 @@ class Extension
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * Get directory of extension.
+     *
+     * @return string
+     */
+    public function getDirectory(): string
+    {
+        return $this->directory;
     }
 
     /**
@@ -177,6 +192,16 @@ class Extension
     public function setDescription(string $description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * Set directory of extension.
+     *
+     * @param string $directory
+     */
+    public function setDirectory(string $directory)
+    {
+        $this->directory = $directory;
     }
 
     /**

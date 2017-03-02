@@ -101,6 +101,8 @@ class ExtensionManager
                                 $extension = new Extension($name);
                                 $extension->setAuthor(Arr::get($package, 'authors'));
                                 $extension->setDescription(Arr::get($package, 'description'));
+                                $extension->setDirectory($directory);
+                                $extension->setEnabled($this->container->make('setting')->get('extension.' . $name . '.enabled', false));
                                 $provider = '';
                                 if ($entries = data_get($package, 'autoload.psr-4')) {
                                     foreach ($entries as $namespace => $entry) {
@@ -110,8 +112,7 @@ class ExtensionManager
                                 }
                                 method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
                                 method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                                $extension->setEnabled($this->container->make('setting')->get('extension.' . $name . '.enabled', false));
-                                $this->extensions->put($directory, $extension);
+                                $this->extensions->put($name, $extension);
                             }
                         }
                     });

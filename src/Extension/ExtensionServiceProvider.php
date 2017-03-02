@@ -47,7 +47,8 @@ class ExtensionServiceProvider extends ServiceProvider
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-        $this->app->make(ExtensionManager::class)->getExtensions()->each(function (Extension $extension, $path) {
+        $this->app->make(ExtensionManager::class)->getExtensions()->each(function (Extension $extension) {
+            $path = $extension->getDirectory();
             if ($this->files->isDirectory($path) && is_string($extension->getEntry())) {
                 if (!class_exists($extension->getEntry())) {
                     if ($this->files->exists($autoload = $path . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {

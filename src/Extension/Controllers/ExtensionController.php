@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Extension\Controllers;
 use Notadd\Foundation\Extension\Handlers\EnableHandler;
 use Notadd\Foundation\Extension\Handlers\ExtensionHandler;
 use Notadd\Foundation\Extension\Handlers\InstallHandler;
+use Notadd\Foundation\Extension\Handlers\UninstallHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 
 /**
@@ -53,6 +54,19 @@ class ExtensionController extends Controller
      * @throws \Exception
      */
     public function install(InstallHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
+    /**
+     * Uninstall handler.
+     *
+     * @param \Notadd\Foundation\Extension\Handlers\UninstallHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
+     */
+    public function uninstall(UninstallHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

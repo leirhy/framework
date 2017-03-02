@@ -8,7 +8,9 @@
  */
 namespace Notadd\Foundation\Extension;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Events\Dispatcher;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Extension\Commands\ListCommand;
 use Notadd\Foundation\Extension\Listeners\CsrfTokenRegister;
@@ -20,6 +22,23 @@ use Notadd\Foundation\Extension\Listeners\RouteRegister;
 class ExtensionServiceProvider extends ServiceProvider
 {
     /**
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+
+    /**
+     * ExtensionServiceProvider constructor.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Filesystem\Filesystem            $files
+     */
+    public function __construct(Application $app, Filesystem $files)
+    {
+        parent::__construct($app);
+        $this->files = $files;
+    }
+
+    /**
      * Boot service provider.
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -28,8 +47,18 @@ class ExtensionServiceProvider extends ServiceProvider
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-        $this->app->make('extension')->getExtensions()->each(function (Extension $extension, $path) {
-            if ($this->app->make('files')->isDirectory($path) && is_string($extension->getEntry())) {
+        $this->app->make(ExtensionManager::class)->getExtensions()->each(function (Extension $extension, $path) {
+            if ($this->files->isDirectory($path) && is_string($extension->getEntry())) {
+                if (!class_exists($extension->getEntry())) {
+                    if ($this->files->exists($autoload = $path . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
+                        $this->files->requireOnce($autoload);
+                        if (!class_exists($extension->getEntry())) {
+                            throw new \Exception('Extension load fail!');
+                        }
+                    } else {
+                        throw new \Exception('Extension load fail!');
+                    }
+                }
                 $this->app->register($extension->getEntry());
             }
         });

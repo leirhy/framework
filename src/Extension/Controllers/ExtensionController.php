@@ -42,4 +42,9 @@ class ExtensionController extends Controller
     {
         return $handler->toResponse()->generateHttpResponse();
     }
+
+    public function install()
+    {
+
+    }
 }

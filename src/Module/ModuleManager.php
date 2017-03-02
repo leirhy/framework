@@ -75,6 +75,18 @@ class ModuleManager
     }
 
     /**
+     * Get a module by name.
+     *
+     * @param $name
+     *
+     * @return \Notadd\Foundation\Module\Module
+     */
+    public function get($name)
+    {
+        return $this->modules->get($name);
+    }
+
+    /**
      * Modules of list.
      *
      * @return \Illuminate\Support\Collection

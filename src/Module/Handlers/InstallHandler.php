@@ -8,6 +8,8 @@
  */
 namespace Notadd\Foundation\Module\Handlers;
 
+use Illuminate\Container\Container;
+use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
 
 /**
@@ -15,4 +17,63 @@ use Notadd\Foundation\Passport\Abstracts\SetHandler;
  */
 class InstallHandler extends SetHandler
 {
+    /**
+     * @var \Notadd\Foundation\Module\ModuleManager
+     */
+    protected $manager;
+
+    /**
+     * InstallHandler constructor.
+     *
+     * @param \Illuminate\Container\Container $container
+     * @param \Notadd\Foundation\Module\ModuleManager $manager
+     */
+    public function __construct(Container $container, ModuleManager $manager)
+    {
+        parent::__construct($container);
+        $this->manager = $manager;
+    }
+
+    /**
+     * Errors for handler.
+     *
+     * @return array
+     */
+    public function errors()
+    {
+        return [
+            $this->translator->trans(''),
+        ];
+    }
+
+    /**
+     * Execute handler.
+     *
+     * @return bool
+     */
+    public function execute()
+    {
+        $module = $this->manager->get($this->request->input('name'));
+        $provider = $module->getEntry();
+        if (method_exists($provider, 'install')) {
+            return call_user_func([
+                $provider,
+                'install',
+            ]);
+        }
+
+        return false;
+    }
+
+    /**
+     * Messages for handler.
+     *
+     * @throws array
+     */
+    public function messages()
+    {
+        return [
+            $this->translator->trans(''),
+        ];
+    }
 }

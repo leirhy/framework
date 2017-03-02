@@ -8,6 +8,8 @@
  */
 namespace Notadd\Foundation\Extension\Handlers;
 
+use Illuminate\Container\Container;
+use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
 
 /**
@@ -15,5 +17,62 @@ use Notadd\Foundation\Passport\Abstracts\SetHandler;
  */
 class UninstallHandler extends SetHandler
 {
+    /**
+     * @var \Notadd\Foundation\Extension\ExtensionManager
+     */
+    protected $manager;
 
+    /**
+     * UninstallHandler constructor.
+     *
+     * @param \Illuminate\Container\Container $container
+     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
+     */
+    public function __construct(Container $container, ExtensionManager $manager)
+    {
+        parent::__construct($container);
+        $this->manager = $manager;
+    }
+
+    /**
+     * Errors for handler.
+     *
+     * @return array
+     */
+    public function errors()
+    {
+        return [
+            $this->translator->trans(''),
+        ];
+    }
+
+    /**
+     * Execute Handler.
+     *
+     * @return bool
+     */
+    public function execute()
+    {
+        $extension = $this->manager->get($this->request->input('name'));
+        if ($extension && method_exists($provider = $extension->getEntry(), 'uninstall')) {
+            return call_user_func([
+                $provider,
+                'uninstall',
+            ]);
+        }
+
+        return false;
+    }
+
+    /**
+     * Messages for handler.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            $this->translator->trans(''),
+        ];
+    }
 }

@@ -30,12 +30,11 @@ class ExtensionServiceProvider extends ServiceProvider
      * ExtensionServiceProvider constructor.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     * @param \Illuminate\Filesystem\Filesystem            $files
      */
-    public function __construct(Application $app, Filesystem $files)
+    public function __construct(Application $app)
     {
         parent::__construct($app);
-        $this->files = $files;
+        $this->files = $app->make(Filesystem::class);
     }
 
     /**

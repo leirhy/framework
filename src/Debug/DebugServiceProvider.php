@@ -10,7 +10,7 @@ namespace Notadd\Foundation\Debug;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Debug\Listeners\CsrfTokenRegister;
-use Notadd\Foundation\Debug\Listeners\RouteRegistrar;
+use Notadd\Foundation\Debug\Listeners\RouteRegister;
 
 /**
  * Class DebugServiceProvider.
@@ -23,6 +23,6 @@ class DebugServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegistrar::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
     }
 }

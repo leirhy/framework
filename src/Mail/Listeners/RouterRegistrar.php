@@ -9,12 +9,12 @@
 namespace Notadd\Foundation\Mail\Listeners;
 
 use Notadd\Foundation\Mail\Controllers\MailController;
-use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
+use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
  * Class RouterRegistrar.
  */
-class RouterRegistrar extends AbstractRouteRegistrar
+class RouterRegister extends AbstractRouteRegister
 {
     /**
      * Handle Route Registrar.

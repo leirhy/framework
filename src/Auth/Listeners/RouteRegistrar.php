@@ -9,12 +9,12 @@
 namespace Notadd\Foundation\Auth\Listeners;
 
 use Notadd\Foundation\Auth\Controllers\AuthController;
-use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
+use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
  * Class RouterRegistrar.
  */
-class RouteRegistrar extends AbstractRouteRegistrar
+class RouteRegister extends AbstractRouteRegister
 {
     /**
      * Handle Route Registrar.

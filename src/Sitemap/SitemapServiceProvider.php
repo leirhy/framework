@@ -14,7 +14,7 @@ use Notadd\Content\Models\Article;
 use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Notadd\Foundation\Sitemap\Listeners\CsrfTokenRegister;
-use Notadd\Foundation\Sitemap\Listeners\RouteRegistrar;
+use Notadd\Foundation\Sitemap\Listeners\RouteRegister;
 
 /**
  * Class SitemapServiceProvider.
@@ -42,7 +42,7 @@ class SitemapServiceProvider extends ServiceProvider
             }
         });
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegistrar::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
     }
 
     public function register()

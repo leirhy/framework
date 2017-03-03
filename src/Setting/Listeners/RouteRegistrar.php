@@ -8,13 +8,13 @@
  */
 namespace Notadd\Foundation\Setting\Listeners;
 
-use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
+use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 use Notadd\Foundation\Setting\Controllers\SettingController;
 
 /**
  * Class RouteRegistrar.
  */
-class RouteRegistrar extends AbstractRouteRegistrar
+class RouteRegister extends AbstractRouteRegister
 {
     /**
      * Handle Route Registrar.

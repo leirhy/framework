@@ -25,6 +25,7 @@ class RouteRegister extends AbstractRouteRegistrar
             $this->router->post('extension/enable', ExtensionController::class . '@enable');
             $this->router->post('extension/install', ExtensionController::class . '@install');
             $this->router->post('extension/uninstall', ExtensionController::class . '@uninstall');
+            $this->router->post('extension/update', ExtensionController::class . '@update');
             $this->router->post('extension', ExtensionController::class . '@handle');
         });
     }

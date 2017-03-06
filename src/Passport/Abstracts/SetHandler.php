@@ -24,7 +24,7 @@ abstract class SetHandler extends DataHandler
      */
     public function code()
     {
-        return 200;
+        return $this->code;
     }
 
     /**

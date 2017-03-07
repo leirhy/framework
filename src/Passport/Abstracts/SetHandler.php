@@ -56,17 +56,25 @@ abstract class SetHandler extends DataHandler
      */
     public function toResponse()
     {
-        $result = $this->execute();
-        if ($result) {
-            $messages = $this->messages();
-        } else {
-            $messages = $this->errors();
+        try {
+            $result = $this->execute();
+            if ($result) {
+                $messages = $this->messages();
+            } else {
+                $messages = $this->errors();
+            }
+            $code = $this->code();
+            $data = $this->data();
+        } catch (Exception $exception) {
+            $code = $exception->getCode();
+            $data = $exception->getTrace();
+            $messages = $exception->getMessage();
         }
         $response = new ApiResponse();
 
         return $response->withParams([
-            'code' => $this->code(),
-            'data' => $this->data(),
+            'code' => $code,
+            'data' => $data,
             'message' => $messages,
         ]);
     }

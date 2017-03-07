@@ -71,16 +71,23 @@ abstract class DataHandler extends Handler
      */
     public function toResponse()
     {
-        $data = $this->data();
-        if (empty($data)) {
-            $messages = $this->errors();
-        } else {
-            $messages = $this->messages();
+        try {
+            $code = $this->code();
+            $data = $this->data();
+            if (empty($data)) {
+                $messages = $this->errors();
+            } else {
+                $messages = $this->messages();
+            }
+        } catch (Exception $exception) {
+            $code = $exception->getCode();
+            $data = $exception->getTrace();
+            $messages = $exception->getMessage();
         }
         $response = new ApiResponse();
 
         return $response->withParams([
-            'code'    => $this->code(),
+            'code'    => $code,
             'data'    => $data,
             'message' => $messages,
         ]);

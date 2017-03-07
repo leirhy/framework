@@ -41,7 +41,7 @@ class UEditorController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->image = $this->container->make('image');
+        $this->image = $this->container->make('images');
         $this->setting = $this->getSetting();
         $this->config();
     }

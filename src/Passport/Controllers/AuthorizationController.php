@@ -108,8 +108,8 @@ class AuthorizationController extends Controller
      */
     public function store()
     {
-        return $this->withErrorHandling(function () use ($request) {
-            $authRequest = $this->getAuthRequestFromSession($request);
+        return $this->withErrorHandling(function () {
+            $authRequest = $this->getAuthRequestFromSession($this->request);
 
             return $this->server->completeAuthorizationRequest($authRequest, new Psr7Response());
         });

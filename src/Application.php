@@ -1088,10 +1088,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'filesystem.disk'           => [\Illuminate\Contracts\Filesystem\Filesystem::class],
             'filesystem.cloud'          => [\Illuminate\Contracts\Filesystem\Cloud::class],
             'hash'                      => [\Illuminate\Contracts\Hashing\Hasher::class],
-            'translator'                => [
-                \Illuminate\Translation\Translator::class,
-                \Illuminate\Contracts\Translation\Translator::class,
-            ],
+            'images'                    => [\Notadd\Foundation\Image\ImageManager::class],
             'log'                       => [
                 \Illuminate\Log\Writer::class,
                 \Illuminate\Contracts\Logging\Log::class,
@@ -1135,6 +1132,10 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             ],
             'setting'                   => [\Notadd\Foundation\Setting\Contracts\SettingsRepository::class],
             'theme'                     => [\Notadd\Foundation\Theme\ThemeManager::class],
+            'translator'                => [
+                \Illuminate\Translation\Translator::class,
+                \Illuminate\Contracts\Translation\Translator::class,
+            ],
             'url'                       => [
                 \Illuminate\Routing\UrlGenerator::class,
                 \Illuminate\Contracts\Routing\UrlGenerator::class,

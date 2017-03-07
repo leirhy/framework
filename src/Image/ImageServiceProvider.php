@@ -54,7 +54,6 @@ class ImageServiceProvider extends ServiceProvider
         $this->app->singleton('images', function () {
             return new ImageManager($this->app['config']->get('image'));
         });
-        $this->app->alias('image', 'Notadd\Foundation\Image\ImageManager');
     }
 
     /**

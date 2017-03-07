@@ -102,7 +102,7 @@ class UEditorController extends Controller
             'fileManagerUrlPrefix'    => '',
             'fileManagerListSize'     => 20,
             'fileManagerAllowFiles'   => $this->setting->get('attachment.manager.image'),
-            'watermark'               => public_path($this->setting->get('attachment.watermark.file', '.png,.jpg,.jpeg,.gif,.bmp,.flv,.swf,.mkv,.avi,.rm,.rmvb,.mpeg,.mpg,.ogg,.ogv,.mov,.wmv,.mp4,.webm,.mp3,.wav,.mid,.rar,.zip,.tar,.gz,.7z,.bz2,.cab,.iso,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.md,.xml')),
+            'watermark'               => asset($this->setting->get('attachment.watermark.file', 'watermark.png')),
         ];
     }
 

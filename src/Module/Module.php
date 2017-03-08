@@ -39,6 +39,11 @@ class Module
     protected $entry;
 
     /**
+     * @var string
+     */
+    protected $identification;
+
+    /**
      * @var bool
      */
     protected $installed = false;
@@ -46,7 +51,7 @@ class Module
     /**
      * @var string
      */
-    protected $identification;
+    protected $name;
 
     /**
      * @var string
@@ -109,13 +114,23 @@ class Module
     }
 
     /**
-     * Name of module.
+     * Identification of module.
      *
      * @return string
      */
     public function getIdentification()
     {
         return $this->identification;
+    }
+
+    /**
+     * Name of module.
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**
@@ -225,13 +240,23 @@ class Module
     }
 
     /**
-     * Set module's name.
+     * Set module's identification.
      *
      * @param string $identification
      */
     public function setIdentification($identification)
     {
         $this->identification = $identification;
+    }
+
+    /**
+     * Set module's name.
+     *
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
     }
 
     /**

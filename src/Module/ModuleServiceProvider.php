@@ -47,12 +47,6 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
         $this->app->make(ModuleManager::class)->getModules()->each(function (Module $module) {
             $path = $module->getDirectory();
-            if ($this->files->isDirectory($path)) {
-                if(is_string($module->getEntry()) && class_exists($module->getEntry())) {
-                    $this->app->register($module->getEntry());
-                } else {
-                }
-            }
             if ($this->files->isDirectory($path) && is_string($module->getEntry())) {
                 if (!class_exists($module->getEntry())) {
                     if ($this->files->exists($autoload = $path . DIRECTORY_SEPARATOR . 'vendor' .DIRECTORY_SEPARATOR . 'autoload.php')) {

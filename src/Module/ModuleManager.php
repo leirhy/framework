@@ -111,9 +111,19 @@ class ModuleManager
                             if ($entries = data_get($package, 'autoload.psr-4')) {
                                 foreach ($entries as $namespace => $entry) {
                                     $provider = $namespace . 'ModuleServiceProvider';
-                                    $module->setEntry($provider);
                                 }
                             }
+                            if (!class_exists($module->getEntry())) {
+                                if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' .DIRECTORY_SEPARATOR . 'autoload.php')) {
+                                    $this->files->requireOnce($autoload);
+                                    if (!class_exists($module->getEntry())) {
+                                        throw new \Exception('Module load fail!');
+                                    }
+                                } else {
+                                    throw new \Exception('Module load fail!');
+                                }
+                            }
+                            $module->setEntry($provider);
                             method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
                             method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
                             $this->modules->put($name, $module);

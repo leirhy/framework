@@ -119,9 +119,19 @@ class ExtensionManager
                                 if ($entries = data_get($package, 'autoload.psr-4')) {
                                     foreach ($entries as $namespace => $entry) {
                                         $provider = $namespace . 'Extension';
-                                        $extension->setEntry($provider);
                                     }
                                 }
+                                if (!class_exists($provider)) {
+                                    if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
+                                        $this->files->requireOnce($autoload);
+                                        if (!class_exists($provider)) {
+                                            throw new \Exception('Extension load fail!');
+                                        }
+                                    } else {
+                                        throw new \Exception('Extension load fail!');
+                                    }
+                                }
+                                $extension->setEntry($provider);
                                 method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
                                 method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
                                 $this->extensions->put($identification, $extension);

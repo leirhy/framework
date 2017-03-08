@@ -113,10 +113,10 @@ class ModuleManager
                                     $provider = $namespace . 'ModuleServiceProvider';
                                 }
                             }
-                            if (!class_exists($module->getEntry())) {
+                            if (!class_exists($provider)) {
                                 if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' .DIRECTORY_SEPARATOR . 'autoload.php')) {
                                     $this->files->requireOnce($autoload);
-                                    if (!class_exists($module->getEntry())) {
+                                    if (!class_exists($provider)) {
                                         throw new \Exception('Module load fail!');
                                     }
                                 } else {

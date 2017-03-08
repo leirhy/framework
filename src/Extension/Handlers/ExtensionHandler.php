@@ -61,7 +61,8 @@ class ExtensionHandler extends DataHandler
                 'author' => $extension->getAuthor(),
                 'enabled' => $extension->isEnabled(),
                 'description' => $extension->getDescription(),
-                'name' => $extension->getIdentification(),
+                'identification' => $extension->getIdentification(),
+                'name' => $extension->getName(),
             ];
         });
 

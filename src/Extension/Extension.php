@@ -39,6 +39,11 @@ class Extension
     protected $entry;
 
     /**
+     * @var string
+     */
+    protected $identification;
+
+    /**
      * @var bool
      */
     protected $installed = false;
@@ -71,11 +76,11 @@ class Extension
     /**
      * Extension constructor.
      *
-     * @param string $name
+     * @param string $identification
      */
-    public function __construct($name)
+    public function __construct($identification)
     {
-        $this->name = $name;
+        $this->identification = $identification;
     }
 
     /**
@@ -110,6 +115,14 @@ class Extension
     public function getEntry(): string
     {
         return $this->entry;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentification(): string
+    {
+        return $this->identification;
     }
 
     /**
@@ -226,6 +239,14 @@ class Extension
     public function setInstalled(bool $installed)
     {
         $this->installed = $installed;
+    }
+
+    /**
+     * @param string $identification
+     */
+    public function setIdentification(string $identification)
+    {
+        $this->identification = $identification;
     }
 
     /**

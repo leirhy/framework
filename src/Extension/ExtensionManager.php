@@ -107,14 +107,14 @@ class ExtensionManager
                     collect($this->files->directories($vendor))->each(function ($directory) {
                         if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                             $package = new Collection(json_decode($this->files->get($file), true));
-                            $name = Arr::get($package, 'name');
+                            $identification = Arr::get($package, 'name');
                             $type = Arr::get($package, 'type');
-                            if ($type == 'notadd-extension' && $name) {
-                                $extension = new Extension($name);
+                            if ($type == 'notadd-extension' && $identification) {
+                                $extension = new Extension($identification);
                                 $extension->setAuthor(Arr::get($package, 'authors'));
                                 $extension->setDescription(Arr::get($package, 'description'));
                                 $extension->setDirectory($directory);
-                                $extension->setEnabled($this->container->make('setting')->get('extension.' . $name . '.enabled', false));
+                                $extension->setEnabled($this->container->make('setting')->get('extension.' . $identification . '.enabled', false));
                                 $provider = '';
                                 if ($entries = data_get($package, 'autoload.psr-4')) {
                                     foreach ($entries as $namespace => $entry) {
@@ -124,7 +124,7 @@ class ExtensionManager
                                 }
                                 method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
                                 method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                                $this->extensions->put($name, $extension);
+                                $this->extensions->put($identification, $extension);
                             }
                         }
                     });

@@ -98,14 +98,14 @@ class ModuleManager
                 collect($this->files->directories($this->getModulePath()))->each(function ($directory) {
                     if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = new Collection(json_decode($this->files->get($file), true));
-                        $name = Arr::get($package, 'name');
+                        $identification = Arr::get($package, 'name');
                         $type = Arr::get($package, 'type');
-                        if ($type == 'notadd-module' && $name) {
-                            $module = new Module($name);
+                        if ($type == 'notadd-module' && $identification) {
+                            $module = new Module($identification);
                             $module->setAuthor(Arr::get($package, 'authors'));
                             $module->setDescription(Arr::get($package, 'description'));
                             $module->setDirectory($directory);
-                            $status = $this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $name . '.enabled', false) : false;
+                            $status = $this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.enabled', false) : false;
                             $module->setEnabled($status);
                             $provider = '';
                             if ($entries = data_get($package, 'autoload.psr-4')) {
@@ -126,7 +126,7 @@ class ModuleManager
                             $module->setEntry($provider);
                             method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
                             method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                            $this->modules->put($name, $module);
+                            $this->modules->put($identification, $module);
                         }
                     }
                 });

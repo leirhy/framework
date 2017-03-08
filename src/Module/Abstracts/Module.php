@@ -44,11 +44,25 @@ abstract class Module extends ServiceProvider
     abstract public function boot();
 
     /**
+     * Description of module
+     *
+     * @return string
+     */
+    abstract public function description();
+
+    /**
      * Install module.
      *
      * @return bool
      */
     abstract public function install();
+
+    /**
+     * Name of module.
+     *
+     * @return string
+     */
+    abstract public function name();
 
     /**
      * Register module extra providers.

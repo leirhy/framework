@@ -44,11 +44,25 @@ abstract class Extension extends ServiceProvider
     abstract public function boot();
 
     /**
+     * Description of extension
+     *
+     * @return string
+     */
+    abstract public function description();
+
+    /**
      * Install extension.
      *
      * @return bool
      */
     abstract public function install();
+
+    /**
+     * Name of extension.
+     *
+     * @return string
+     */
+    abstract public function name();
 
     /**
      * Register extension extra providers.

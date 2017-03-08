@@ -48,7 +48,7 @@ abstract class Module extends ServiceProvider
      *
      * @return string
      */
-    abstract public function description();
+    abstract public static function description();
 
     /**
      * Install module.
@@ -62,7 +62,7 @@ abstract class Module extends ServiceProvider
      *
      * @return string
      */
-    abstract public function name();
+    abstract public static function name();
 
     /**
      * Register module extra providers.

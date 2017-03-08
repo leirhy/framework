@@ -46,7 +46,7 @@ class Module
     /**
      * @var string
      */
-    protected $name;
+    protected $identification;
 
     /**
      * @var string
@@ -65,7 +65,7 @@ class Module
      */
     public function __construct($name = null)
     {
-        $this->name = $name;
+        $this->identification = $name;
     }
 
     /**
@@ -113,9 +113,9 @@ class Module
      *
      * @return string
      */
-    public function getName()
+    public function getIdentification()
     {
-        return $this->name;
+        return $this->identification;
     }
 
     /**
@@ -227,11 +227,11 @@ class Module
     /**
      * Set module's name.
      *
-     * @param string $name
+     * @param string $identification
      */
-    public function setName($name)
+    public function setIdentification($identification)
     {
-        $this->name = $name;
+        $this->identification = $identification;
     }
 
     /**

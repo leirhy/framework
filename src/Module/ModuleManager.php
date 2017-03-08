@@ -68,7 +68,7 @@ class ModuleManager
             return $list;
         }
         $this->modules->each(function (Module $module) use ($list) {
-            $module->isEnabled() && $list->put($module->getName(), $module);
+            $module->isEnabled() && $list->put($module->getIdentification(), $module);
         });
 
         return $list;

@@ -55,7 +55,7 @@ abstract class Module extends ServiceProvider
      *
      * @return bool
      */
-    abstract public function install();
+    abstract public static function install();
 
     /**
      * Name of module.
@@ -76,5 +76,5 @@ abstract class Module extends ServiceProvider
      *
      * @return mixed
      */
-    abstract public function uninstall();
+    abstract public static function uninstall();
 }

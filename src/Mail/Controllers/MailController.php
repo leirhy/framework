@@ -13,26 +13,11 @@ use Notadd\Foundation\Mail\Handlers\TestHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
+/**
+ * Class MailController.
+ */
 class MailController extends Controller
 {
-    /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected $settings;
-
-    /**
-     * WatermarkController constructor.
-     *
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function __construct(SettingsRepository $settings)
-    {
-        parent::__construct();
-        $this->settings = $settings;
-    }
-
     /**
      * Api handler.
      *

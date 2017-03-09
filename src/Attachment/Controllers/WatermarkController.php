@@ -10,7 +10,6 @@ namespace Notadd\Foundation\Attachment\Controllers;
 
 use Notadd\Foundation\Attachment\Handlers\WatermarkSetHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
-use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
  * Class WatermarkController.

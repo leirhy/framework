@@ -77,4 +77,11 @@ abstract class Module extends ServiceProvider
      * @return string
      */
     abstract public static function uninstall();
+
+    /**
+     * Version of module.
+     *
+     * @return string
+     */
+    abstract public static function version();
 }

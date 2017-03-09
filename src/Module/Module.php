@@ -64,6 +64,11 @@ class Module
     protected $stylesheet;
 
     /**
+     * @var string
+     */
+    protected $version;
+
+    /**
      * Module constructor.
      *
      * @param string $name
@@ -151,6 +156,16 @@ class Module
     public function getStylesheet()
     {
         return $this->stylesheet;
+    }
+
+    /**
+     * Version of module.
+     *
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return $this->version;
     }
 
     /**
@@ -277,5 +292,15 @@ class Module
     public function setStylesheet(array $stylesheet)
     {
         $this->stylesheet = $stylesheet;
+    }
+
+    /**
+     * Set module's version.
+     *
+     * @param string $version
+     */
+    public function setVersion(string $version)
+    {
+        $this->version = $version;
     }
 }

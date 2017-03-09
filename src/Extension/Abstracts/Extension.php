@@ -77,4 +77,11 @@ abstract class Extension extends ServiceProvider
      * @return string
      */
     abstract public static function uninstall();
+
+    /**
+     * Version of extension.
+     *
+     * @return string
+     */
+    abstract public static function version();
 }

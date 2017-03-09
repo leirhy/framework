@@ -142,14 +142,6 @@ class Extension
     }
 
     /**
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        return $this->version;
-    }
-
-    /**
      * Script of module.
      *
      * @return string
@@ -167,6 +159,14 @@ class Extension
     public function getStylesheet()
     {
         return $this->stylesheet;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return $this->version;
     }
 
     /**

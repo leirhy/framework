@@ -61,6 +61,7 @@ class InstallHandler extends SetHandler
         ) {
             if (class_exists($class)) {
                 $installer = $this->container->make($class);
+
                 return $installer->install();
             }
         }

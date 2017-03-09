@@ -10,7 +10,6 @@ namespace Notadd\Foundation\Passport\Controllers;
 
 use Illuminate\Http\Response;
 use Laravel\Passport\Http\Controllers\HandlesOAuthErrors;
-use Laravel\Passport\Passport;
 use Laravel\Passport\TokenRepository;
 use Lcobucci\JWT\Parser as JwtParser;
 use League\OAuth2\Server\AuthorizationServer;

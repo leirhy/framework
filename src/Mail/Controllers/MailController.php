@@ -11,7 +11,6 @@ namespace Notadd\Foundation\Mail\Controllers;
 use Notadd\Foundation\Mail\Handlers\SetHandler;
 use Notadd\Foundation\Mail\Handlers\TestHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
-use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
  * Class MailController.

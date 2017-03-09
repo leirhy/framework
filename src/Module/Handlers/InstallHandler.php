@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Module\Handlers;
 
 use Illuminate\Container\Container;
+use Notadd\Foundation\Module\Abstracts\Installer;
 use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
 
@@ -60,8 +61,9 @@ class InstallHandler extends SetHandler
             ])
         ) {
             $installer = $this->container->make($class);
-
-            return $installer->install();
+            if ($installer instanceof Installer) {
+                return $installer->install();
+            }
         }
 
         return false;

@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Extension\Handlers;
 
 use Illuminate\Container\Container;
+use Notadd\Foundation\Extension\Abstracts\Uninstaller;
 use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
 
@@ -59,8 +60,10 @@ class UninstallHandler extends SetHandler
                 'uninstall',
             ])
         ) {
-            $unInstaller = $this->container->make($class);
-            $unInstaller->uninstall();
+            $uninstaller = $this->container->make($class);
+            if ($uninstaller instanceof Uninstaller) {
+                return $uninstaller->uninstall();
+            }
         }
 
         return false;

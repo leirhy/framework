@@ -54,11 +54,13 @@ class UninstallHandler extends SetHandler
     public function execute()
     {
         $module = $this->manager->get($this->request->input('name'));
-        if ($module && method_exists($provider = $module->getEntry(), 'uninstall')) {
-            return call_user_func([
+        if ($module && method_exists($provider = $module->getEntry(), 'uninstall') && $class = call_user_func([
                 $provider,
                 'uninstall',
-            ]);
+            ])) {
+            $uninstaller = $this->container->make($class);
+
+            return $uninstaller->uninstall();
         }
 
         return false;

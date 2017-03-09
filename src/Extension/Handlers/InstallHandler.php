@@ -54,11 +54,15 @@ class InstallHandler extends SetHandler
     public function execute()
     {
         $extension = $this->manager->get($this->request->input('name'));
-        if ($extension && method_exists($provider = $extension->getEntry(), 'install')) {
-            return call_user_func([
+        if ($extension && method_exists($provider = $extension->getEntry(), 'install') && $class = call_user_func([
                 $provider,
                 'install',
-            ]);
+            ])
+        ) {
+            if (class_exists($class)) {
+                $installer = $this->container->make($class);
+                return $installer->install();
+            }
         }
 
         return false;

@@ -139,6 +139,18 @@ class ModuleManager
     }
 
     /**
+     * Check for module exist.
+     *
+     * @param $name
+     *
+     * @return bool
+     */
+    public function has($name)
+    {
+        return $this->modules->has($name);
+    }
+
+    /**
      * Module path.
      *
      * @return string

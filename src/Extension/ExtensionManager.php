@@ -148,6 +148,18 @@ class ExtensionManager
     }
 
     /**
+     * Check for extension exist.
+     *
+     * @param $name
+     *
+     * @return bool
+     */
+    public function has($name)
+    {
+        return $this->extensions->has($name);
+    }
+
+    /**
      * Vendor Path.
      *
      * @return string

@@ -51,9 +51,9 @@ abstract class Extension extends ServiceProvider
     abstract public static function description();
 
     /**
-     * Install extension.
+     * Installer for extension.
      *
-     * @return bool
+     * @return string
      */
     abstract public static function install();
 
@@ -72,9 +72,9 @@ abstract class Extension extends ServiceProvider
     }
 
     /**
-     * Uninstall extension.
+     * Uninstall for extension.
      *
-     * @return mixed
+     * @return string
      */
     abstract public static function uninstall();
 }

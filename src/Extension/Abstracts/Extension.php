@@ -48,7 +48,7 @@ abstract class Extension extends ServiceProvider
      *
      * @return string
      */
-    abstract public function description();
+    abstract public static function description();
 
     /**
      * Install extension.
@@ -62,7 +62,7 @@ abstract class Extension extends ServiceProvider
      *
      * @return string
      */
-    abstract public function name();
+    abstract public static function name();
 
     /**
      * Register extension extra providers.

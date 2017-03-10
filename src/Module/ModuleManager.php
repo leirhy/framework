@@ -128,6 +128,7 @@ class ModuleManager
                             method_exists($provider, 'name') && $module->setName(call_user_func([$provider, 'name']));
                             method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
                             method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
+                            method_exists($provider, 'version') && $module->setStylesheet(call_user_func([$provider, 'version']));
                             $this->modules->put($identification, $module);
                         }
                     }

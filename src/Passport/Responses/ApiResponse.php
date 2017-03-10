@@ -34,6 +34,7 @@ class ApiResponse
         is_null($response) && $response = new Response();
         $params && $this->params = array_merge($this->params, $params);
         $status = collect($this->params)->get('code', 200);
+        $status > 598 && $status = 500;
         $response = $response->withStatus($status)
             ->withHeader('pragma', 'no-cache')
             ->withHeader('cache-control', 'no-store')

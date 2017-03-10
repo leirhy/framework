@@ -50,6 +50,15 @@ class Permission extends Model
         return $this->belongsToMany(Member::class, 'member_permission', 'permission_id', 'member_id');
     }
 
+    /**
+     * 添加权限
+     *
+     * @param      $name
+     * @param null $display_name
+     * @param null $description
+     *
+     * @return static
+     */
     public static function addPermission($name, $display_name = null, $description = null)
     {
         $permission = static::where('name', $name)->first();
@@ -118,7 +127,7 @@ class Permission extends Model
      * 查询后台权限
      *
      * @param $query
-     * @param $name
+     * @param $nameMember
      *
      * @return mixed
      */

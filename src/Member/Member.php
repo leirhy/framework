@@ -178,7 +178,7 @@ class Member extends Authenticatable
 
         if (is_array($name)) {
             $adminName = array_map(function ($val) {
-                if (str_contains($val, '*')) {
+                if (ends_with($val, '*')) {
                     return $val;
                 }
 
@@ -186,7 +186,7 @@ class Member extends Authenticatable
             }, $name);
         } else {
 
-            if (! str_contains($name, '*')) {
+            if (! ends_with($name, '*')) {
                 $adminName = Permission::ADMIN_PREFIX . $name;
             }
         }

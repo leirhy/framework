@@ -9,6 +9,7 @@
 
 namespace Notadd\Foundation\Member;
 
+use Illuminate\Support\Str;
 use Notadd\Foundation\Database\Model;
 
 /**
@@ -75,7 +76,11 @@ class Permission extends Model
      */
     public static function addFrontPermission($name, $display_name = null, $description = null)
     {
-        return static::addPermission(static::FRONT_PREFIX . $name, $display_name, $description);
+        return static::addPermission(
+            Str::startsWith($name, static::FRONT_PREFIX) ? $name : static::FRONT_PREFIX . $name,
+            $display_name,
+            $description
+        );
     }
 
     /**
@@ -89,7 +94,11 @@ class Permission extends Model
      */
     public static function addAdminPermission($name, $display_name = null, $description = null)
     {
-        return static::addPermission(static::ADMIN_PREFIX . $name, $display_name, $description);
+        return static::addPermission(
+            Str::startsWith($name, static::ADMIN_PREFIX) ? $name : static::ADMIN_PREFIX . $name,
+            $display_name,
+            $description
+        );
     }
 
     /**

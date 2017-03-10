@@ -25,7 +25,7 @@ use Notadd\Foundation\Database\Model;
  */
 class Permission extends Model
 {
-    const ADMIN_PREFIX = 'admin-';
+    const ADMIN_PREFIX = 'admin.';
 
     protected $table = 'permissions';
 

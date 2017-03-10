@@ -136,7 +136,7 @@ class ExtensionManager
                                 method_exists($provider, 'name') && $extension->setName(call_user_func([$provider, 'name']));
                                 method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
                                 method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                                method_exists($provider, 'version') && $extension->setStylesheet(call_user_func([$provider, 'version']));
+                                method_exists($provider, 'version') && $extension->setVersion(call_user_func([$provider, 'version']));
                                 $this->extensions->put($identification, $extension);
                             }
                         }

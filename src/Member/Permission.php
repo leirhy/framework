@@ -25,6 +25,14 @@ use Notadd\Foundation\Database\Model;
  */
 class Permission extends Model
 {
+    /**
+     * 前台的权限前缀
+     */
+    const FRONT_PREFIX = 'front.';
+
+    /**
+     * 后台的权限前缀
+     */
     const ADMIN_PREFIX = 'admin.';
 
     protected $table = 'permissions';
@@ -54,6 +62,20 @@ class Permission extends Model
         $permission->save();
 
         return $permission;
+    }
+
+    /**
+     * 添加前台权限
+     *
+     * @param      $name
+     * @param null $display_name
+     * @param null $description
+     *
+     * @return \Notadd\Foundation\Member\Permission
+     */
+    public static function addFrontPermission($name, $display_name = null, $description = null)
+    {
+        return static::addPermission(static::FRONT_PREFIX . $name, $display_name, $description);
     }
 
     /**

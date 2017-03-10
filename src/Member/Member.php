@@ -165,6 +165,34 @@ class Member extends Authenticatable
     }
 
     /**
+     * 判断是否有前台的权限, 支持 * 通赔符
+     *
+     * @param      $name
+     * @param bool $requireAll
+     *
+     * @return bool
+     */
+    public function hasFrontPermission($name, $requireAll = false)
+    {
+        if (is_array($name)) {
+            $name = array_map(function ($val) {
+                if (ends_with($val, '*')) {
+                    return $val;
+                }
+
+                return Permission::FRONT_PREFIX . $val;
+            }, $name);
+        } else {
+
+            if (! ends_with($name, '*')) {
+                $name = Permission::FRONT_PREFIX . $name;
+            }
+        }
+
+        return $this->hasPermission($name, $requireAll);
+    }
+
+    /**
      * Checks if the member has a admin permission by its name.
      *
      * @param string|array $name       Permission name or array of permission names.
@@ -174,10 +202,8 @@ class Member extends Authenticatable
      */
     public function hasAdminPermission($name, $requireAll = false)
     {
-        $adminName = $name;
-
         if (is_array($name)) {
-            $adminName = array_map(function ($val) {
+            $name = array_map(function ($val) {
                 if (ends_with($val, '*')) {
                     return $val;
                 }
@@ -187,11 +213,11 @@ class Member extends Authenticatable
         } else {
 
             if (! ends_with($name, '*')) {
-                $adminName = Permission::ADMIN_PREFIX . $name;
+                $name = Permission::ADMIN_PREFIX . $name;
             }
         }
 
-        return $this->hasPermission($adminName, $requireAll);
+        return $this->hasPermission($name, $requireAll);
     }
 
     /**

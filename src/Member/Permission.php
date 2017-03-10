@@ -93,6 +93,19 @@ class Permission extends Model
     }
 
     /**
+     * 查询前台权限
+     *
+     * @param $query
+     * @param $name
+     *
+     * @return mixed
+     */
+    public function scopeWhereFront($query, $name)
+    {
+        return $query->where('name', static::FRONT_PREFIX . $name);
+    }
+
+    /**
      * 查询后台权限
      *
      * @param $query

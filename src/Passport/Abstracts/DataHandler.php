@@ -17,6 +17,11 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class DataHandler extends Handler
 {
     /**
+     * @var array
+     */
+    protected $data = [];
+
+    /**
      * @var bool
      */
     protected $hasFilter = false;
@@ -30,11 +35,10 @@ abstract class DataHandler extends Handler
      * Data for handler.
      *
      * @return array
-     * @throws \Exception
      */
     public function data()
     {
-        throw new Exception('Data is not setted!');
+        return $this->data;
     }
 
     /**

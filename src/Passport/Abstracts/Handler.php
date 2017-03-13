@@ -27,11 +27,6 @@ abstract class Handler
     /**
      * @var array
      */
-    protected $data = [];
-
-    /**
-     * @var array
-     */
     protected $errors = [];
 
     /**

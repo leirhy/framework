@@ -17,11 +17,6 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class DataHandler extends Handler
 {
     /**
-     * @var int
-     */
-    protected $code = 200;
-
-    /**
      * @var bool
      */
     protected $hasFilter = false;

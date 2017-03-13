@@ -18,6 +18,22 @@ use Notadd\Foundation\Validation\ValidatesRequests;
 abstract class Handler
 {
     use ValidatesRequests;
+
+    /**
+     * @var int
+     */
+    protected $code = 200;
+
+    /**
+     * @var array
+     */
+    protected $data = [];
+
+    /**
+     * @var array
+     */
+    protected $errors = [];
+
     /**
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
@@ -27,6 +43,11 @@ abstract class Handler
      * @var \Illuminate\Contracts\Logging\Log
      */
     protected $log;
+
+    /**
+     * @var array
+     */
+    protected $messages = [];
 
     /**
      * @var \Illuminate\Http\Request
@@ -55,32 +76,29 @@ abstract class Handler
      * Http code.
      *
      * @return int
-     * @throws \Exception
      */
     public function code()
     {
-        throw new Exception('Code is not setted!');
+        return $this->code;
     }
 
     /**
      * Errors for handler.
      *
      * @return array
-     * @throws \Exception
      */
     public function errors()
     {
-        throw new Exception('Error is not setted!');
+        return $this->errors;
     }
 
     /**
      * Messages for handler.
      *
      * @return array
-     * @throws \Exception
      */
     public function messages()
     {
-        throw new Exception('Message is not setted!');
+        return $this->messages;
     }
 }

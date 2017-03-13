@@ -72,7 +72,7 @@ abstract class Handler
      *
      * @return int
      */
-    public function code()
+    protected function code()
     {
         return $this->code;
     }
@@ -82,7 +82,7 @@ abstract class Handler
      *
      * @return array
      */
-    public function errors()
+    protected function errors()
     {
         return $this->errors;
     }
@@ -92,8 +92,44 @@ abstract class Handler
      *
      * @return array
      */
-    public function messages()
+    protected function messages()
     {
         return $this->messages;
+    }
+
+    /**
+     * @param int $code
+     *
+     * @return $this
+     */
+    protected function withCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @param array|string $errors
+     *
+     * @return $this
+     */
+    protected function withErrors($errors)
+    {
+        $this->errors = array_merge($this->errors, (array)$errors);
+
+        return $this;
+    }
+
+    /**
+     * @param array|string $messages
+     *
+     * @return $this
+     */
+    protected function withMessages($messages)
+    {
+        $this->messages = array_merge($this->messages, (array)$messages);
+
+        return $this;
     }
 }

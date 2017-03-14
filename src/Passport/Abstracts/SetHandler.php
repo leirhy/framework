@@ -24,7 +24,7 @@ abstract class SetHandler extends DataHandler
      */
     public function code()
     {
-        return $this->code;
+        return 200;
     }
 
     /**
@@ -56,26 +56,18 @@ abstract class SetHandler extends DataHandler
      */
     public function toResponse()
     {
-        $response = new ApiResponse();
-        try {
-            $result = $this->execute();
-            if ($result) {
-                $messages = $this->messages();
-            } else {
-                $messages = $this->errors();
-            }
-
-            return $response->withParams([
-                'code' => $this->code(),
-                'data' => $this->data(),
-                'message' => $messages,
-            ]);
-        } catch (Exception $exception) {
-            return $response->withParams([
-                'code'    => $exception->getCode(),
-                'message' => $exception->getMessage(),
-                'trace'   => $exception->getTrace(),
-            ]);
+        $result = $this->execute();
+        if ($result) {
+            $messages = $this->messages();
+        } else {
+            $messages = $this->errors();
         }
+        $response = new ApiResponse();
+
+        return $response->withParams([
+            'code' => $this->code(),
+            'data' => $this->data(),
+            'message' => $messages,
+        ]);
     }
 }

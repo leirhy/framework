@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Setting;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Setting\Listeners\CsrfTokenRegister;
-use Notadd\Foundation\Setting\Listeners\RouteRegister;
+use Notadd\Foundation\Setting\Listeners\RouteRegistrar;
 
 /**
  * Class SettingServiceProvider.
@@ -24,7 +24,7 @@ class SettingServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegistrar::class);
     }
 
     /**

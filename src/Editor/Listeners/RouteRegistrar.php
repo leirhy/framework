@@ -9,12 +9,12 @@
 namespace Notadd\Foundation\Editor\Listeners;
 
 use Notadd\Foundation\Editor\Controllers\UEditorController;
-use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
+use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 
 /**
  * Class RouteRegistrar.
  */
-class RouteRegister extends AbstractRouteRegister
+class RouteRegistrar extends AbstractRouteRegistrar
 {
     /**
      * Handle Route Registrar.

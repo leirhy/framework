@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Mail;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Mail\MailServiceProvider as IlluminateMailServiceProvider;
 use Notadd\Foundation\Mail\Listeners\CsrfTokenRegister;
-use Notadd\Foundation\Mail\Listeners\RouterRegister;
+use Notadd\Foundation\Mail\Listeners\RouterRegistrar;
 
 /**
  * Class MailServiceProvider.
@@ -29,6 +29,6 @@ class MailServiceProvider extends IlluminateMailServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouterRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouterRegistrar::class);
     }
 }

@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Editor;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Editor\Listeners\CsrfTokenRegister;
-use Notadd\Foundation\Editor\Listeners\RouteRegister;
+use Notadd\Foundation\Editor\Listeners\RouteRegistrar;
 
 /**
  * Class EditorServiceProvider.
@@ -24,6 +24,6 @@ class EditorServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegistrar::class);
     }
 }

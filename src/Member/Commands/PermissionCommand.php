@@ -77,20 +77,20 @@ class PermissionCommand extends Command
 
         $i = 0;
 
-        $frontPermissions = array_get($permissions, 'front', []);
+        $frontendPermissions = array_get($permissions, 'frontend', []);
         $adminPermissions = array_get($permissions, 'admin', []);
 
         // 添加前台权限
-        foreach ($frontPermissions as $frontPermission) {
-            if (! isset($frontPermission['display_name']) || ! isset($frontPermission['name']) || empty($frontPermission['display_name']) || empty($frontPermission['name'])) {
+        foreach ($frontendPermissions as $frontendPermission) {
+            if (! isset($frontendPermission['display_name']) || ! isset($frontendPermission['name']) || empty($frontendPermission['display_name']) || empty($frontendPermission['name'])) {
                 continue;
             }
 
-            if (Permission::whereFront($frontPermission['name'])->count()) {
+            if (Permission::where('name', $frontendPermission['name'])->count()) {
                 continue;
             }
 
-            Permission::addFrontPermission($frontPermission['name'], $frontPermission['display_name'], isset($frontPermission['description']) ? $frontPermission['description'] : '');
+            Permission::addPermission($frontendPermission['name'], $frontendPermission['display_name'], isset($frontendPermission['description']) ? $frontendPermission['description'] : '');
             $i++;
         }
 

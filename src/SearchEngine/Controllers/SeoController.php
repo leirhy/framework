@@ -10,12 +10,29 @@ namespace Notadd\Foundation\SearchEngine\Controllers;
 
 use Notadd\Foundation\Routing\Abstracts\ApiController;
 use Notadd\Foundation\SearchEngine\Handlers\SetHandler;
+use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
  * Class SeoController.
  */
 class SeoController extends ApiController
 {
+    /**
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $settings;
+
+    /**
+     * WatermarkController constructor.
+     *
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     */
+    public function __construct(SettingsRepository $settings)
+    {
+        parent::__construct();
+        $this->settings = $settings;
+    }
+
     /**
      * Api handler.
      *

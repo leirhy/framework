@@ -18,17 +18,6 @@ use Notadd\Foundation\Validation\ValidatesRequests;
 abstract class Handler
 {
     use ValidatesRequests;
-
-    /**
-     * @var int
-     */
-    protected $code = 200;
-
-    /**
-     * @var array
-     */
-    protected $errors = [];
-
     /**
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
@@ -38,11 +27,6 @@ abstract class Handler
      * @var \Illuminate\Contracts\Logging\Log
      */
     protected $log;
-
-    /**
-     * @var array
-     */
-    protected $messages = [];
 
     /**
      * @var \Illuminate\Http\Request
@@ -71,65 +55,32 @@ abstract class Handler
      * Http code.
      *
      * @return int
+     * @throws \Exception
      */
-    protected function code()
+    public function code()
     {
-        return $this->code;
+        throw new Exception('Code is not setted!');
     }
 
     /**
      * Errors for handler.
      *
      * @return array
+     * @throws \Exception
      */
-    protected function errors()
+    public function errors()
     {
-        return $this->errors;
+        throw new Exception('Error is not setted!');
     }
 
     /**
      * Messages for handler.
      *
      * @return array
+     * @throws \Exception
      */
-    protected function messages()
+    public function messages()
     {
-        return $this->messages;
-    }
-
-    /**
-     * @param int $code
-     *
-     * @return $this
-     */
-    protected function withCode($code)
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * @param array|string $errors
-     *
-     * @return $this
-     */
-    protected function withErrors($errors)
-    {
-        $this->errors = array_merge($this->errors, (array)$errors);
-
-        return $this;
-    }
-
-    /**
-     * @param array|string $messages
-     *
-     * @return $this
-     */
-    protected function withMessages($messages)
-    {
-        $this->messages = array_merge($this->messages, (array)$messages);
-
-        return $this;
+        throw new Exception('Message is not setted!');
     }
 }

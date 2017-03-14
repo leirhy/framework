@@ -8,13 +8,13 @@
  */
 namespace Notadd\Foundation\SearchEngine\Listeners;
 
-use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
+use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 use Notadd\Foundation\SearchEngine\Controllers\SeoController;
 
 /**
  * Class RouterRegistrar.
  */
-class RouterRegister extends AbstractRouteRegister
+class RouterRegistrar extends AbstractRouteRegistrar
 {
     /**
      * Handle Route Registrar.

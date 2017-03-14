@@ -51,9 +51,10 @@ class ImageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('images', function () {
+        $this->app['image'] = $this->app->share(function () {
             return new ImageManager($this->app['config']->get('image'));
         });
+        $this->app->alias('image', 'Notadd\Foundation\Image\ImageManager');
     }
 
     /**

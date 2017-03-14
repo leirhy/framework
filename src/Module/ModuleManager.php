@@ -68,22 +68,10 @@ class ModuleManager
             return $list;
         }
         $this->modules->each(function (Module $module) use ($list) {
-            $module->isEnabled() && $list->put($module->getIdentification(), $module);
+            $module->isEnabled() && $list->push($module);
         });
 
         return $list;
-    }
-
-    /**
-     * Get a module by name.
-     *
-     * @param $name
-     *
-     * @return \Notadd\Foundation\Module\Module
-     */
-    public function get($name)
-    {
-        return $this->modules->get($name);
     }
 
     /**
@@ -98,38 +86,24 @@ class ModuleManager
                 collect($this->files->directories($this->getModulePath()))->each(function ($directory) {
                     if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = new Collection(json_decode($this->files->get($file), true));
-                        $identification = Arr::get($package, 'name');
+                        $name = Arr::get($package, 'name');
                         $type = Arr::get($package, 'type');
-                        if ($type == 'notadd-module' && $identification) {
-                            $module = new Module($identification);
+                        if ($type == 'notadd-module' && $name) {
+                            $module = new Module($name);
                             $module->setAuthor(Arr::get($package, 'authors'));
                             $module->setDescription(Arr::get($package, 'description'));
-                            $module->setDirectory($directory);
-                            $status = $this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.enabled', false) : false;
-                            $module->setEnabled($status);
                             $provider = '';
                             if ($entries = data_get($package, 'autoload.psr-4')) {
                                 foreach ($entries as $namespace => $entry) {
                                     $provider = $namespace . 'ModuleServiceProvider';
+                                    $module->setEntry($provider);
                                 }
                             }
-                            if (!class_exists($provider)) {
-                                if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' .DIRECTORY_SEPARATOR . 'autoload.php')) {
-                                    $this->files->requireOnce($autoload);
-                                    if (!class_exists($provider)) {
-                                        throw new \Exception('Module load fail!');
-                                    }
-                                } else {
-                                    throw new \Exception('Module load fail!');
-                                }
-                            }
-                            $module->setEntry($provider);
-                            method_exists($provider, 'description') && $module->setDescription(call_user_func([$provider, 'description']));
-                            method_exists($provider, 'name') && $module->setName(call_user_func([$provider, 'name']));
                             method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
                             method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                            method_exists($provider, 'version') && $module->setVersion(call_user_func([$provider, 'version']));
-                            $this->modules->put($identification, $module);
+                            $status = $this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $name . '.enabled', false) : false;
+                            $module->setEnabled($status);
+                            $this->modules->put($directory, $module);
                         }
                     }
                 });
@@ -137,18 +111,6 @@ class ModuleManager
         }
 
         return $this->modules;
-    }
-
-    /**
-     * Check for module exist.
-     *
-     * @param $name
-     *
-     * @return bool
-     */
-    public function has($name)
-    {
-        return $this->modules->has($name);
     }
 
     /**

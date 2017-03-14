@@ -14,7 +14,7 @@ use Illuminate\Support\ServiceProvider;
 /**
  * Class Extension.
  */
-abstract class Extension extends ServiceProvider
+class Extension extends ServiceProvider
 {
     /**
      * @var \Illuminate\Events\Dispatcher
@@ -41,28 +41,8 @@ abstract class Extension extends ServiceProvider
     /**
      * Boot extension.
      */
-    abstract public function boot();
-
-    /**
-     * Description of extension
-     *
-     * @return string
-     */
-    abstract public static function description();
-
-    /**
-     * Installer for extension.
-     *
-     * @return string
-     */
-    abstract public static function install();
-
-    /**
-     * Name of extension.
-     *
-     * @return string
-     */
-    abstract public static function name();
+    public function boot() {
+    }
 
     /**
      * Register extension extra providers.
@@ -70,18 +50,4 @@ abstract class Extension extends ServiceProvider
     public function register()
     {
     }
-
-    /**
-     * Uninstall for extension.
-     *
-     * @return string
-     */
-    abstract public static function uninstall();
-
-    /**
-     * Version of extension.
-     *
-     * @return string
-     */
-    abstract public static function version();
 }

@@ -206,7 +206,7 @@ trait MocksApplicationServices
     {
         $observers = is_array($observers) ? $observers : [$observers];
         array_map(function ($observer) {
-            $this->app->alias($observer, function () use ($observer) {
+            $this->app->bind($observer, function () use ($observer) {
                 return $this->getMockBuilder($observer)->disableOriginalConstructor()->getMock();
             });
         }, $observers);

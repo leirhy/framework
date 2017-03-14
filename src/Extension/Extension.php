@@ -24,11 +24,6 @@ class Extension
     protected $description;
 
     /**
-     * @var string
-     */
-    protected $directory;
-
-    /**
      * @var bool
      */
     protected $enabled = false;
@@ -37,11 +32,6 @@ class Extension
      * @var string
      */
     protected $entry;
-
-    /**
-     * @var string
-     */
-    protected $identification;
 
     /**
      * @var bool
@@ -76,11 +66,11 @@ class Extension
     /**
      * Extension constructor.
      *
-     * @param string $identification
+     * @param string $name
      */
-    public function __construct($identification)
+    public function __construct($name)
     {
-        $this->identification = $identification;
+        $this->name = $name;
     }
 
     /**
@@ -100,29 +90,11 @@ class Extension
     }
 
     /**
-     * Get directory of extension.
-     *
-     * @return string
-     */
-    public function getDirectory(): string
-    {
-        return $this->directory;
-    }
-
-    /**
      * @return string
      */
     public function getEntry(): string
     {
         return $this->entry;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdentification(): string
-    {
-        return $this->identification;
     }
 
     /**
@@ -139,6 +111,14 @@ class Extension
     public function getPath(): string
     {
         return $this->path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return $this->version;
     }
 
     /**
@@ -159,14 +139,6 @@ class Extension
     public function getStylesheet()
     {
         return $this->stylesheet;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        return $this->version;
     }
 
     /**
@@ -208,16 +180,6 @@ class Extension
     }
 
     /**
-     * Set directory of extension.
-     *
-     * @param string $directory
-     */
-    public function setDirectory(string $directory)
-    {
-        $this->directory = $directory;
-    }
-
-    /**
      * @param string $entry
      */
     public function setEntry(string $entry)
@@ -239,14 +201,6 @@ class Extension
     public function setInstalled(bool $installed)
     {
         $this->installed = $installed;
-    }
-
-    /**
-     * @param string $identification
-     */
-    public function setIdentification(string $identification)
-    {
-        $this->identification = $identification;
     }
 
     /**

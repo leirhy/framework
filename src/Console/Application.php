@@ -48,16 +48,14 @@ class Application extends IlluminateApplication implements ApplicationContract
      *
      * @param string $command
      * @param array  $parameters
-     * @param null   $outputBuffer
      *
      * @return int
      * @throws \Exception
-     * @throws \Throwable
      */
-    public function call($command, array $parameters = [], $outputBuffer = null)
+    public function call($command, array $parameters = [])
     {
         $parameters = collect($parameters)->prepend($command);
-        $this->lastOutput = $outputBuffer ?: new BufferedOutput();
+        $this->lastOutput = new BufferedOutput();
         $this->setCatchExceptions(false);
         $result = $this->run(new ArrayInput($parameters->toArray()), $this->lastOutput);
         $this->setCatchExceptions(true);

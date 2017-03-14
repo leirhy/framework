@@ -31,17 +31,7 @@ class Module
     /**
      * @var string
      */
-    protected $directory;
-
-    /**
-     * @var string
-     */
     protected $entry;
-
-    /**
-     * @var string
-     */
-    protected $identification;
 
     /**
      * @var bool
@@ -64,18 +54,13 @@ class Module
     protected $stylesheet;
 
     /**
-     * @var string
-     */
-    protected $version;
-
-    /**
      * Module constructor.
      *
      * @param string $name
      */
     public function __construct($name = null)
     {
-        $this->identification = $name;
+        $this->name = $name;
     }
 
     /**
@@ -99,16 +84,6 @@ class Module
     }
 
     /**
-     * Directory of module.
-     *
-     * @return string
-     */
-    public function getDirectory()
-    {
-        return $this->directory;
-    }
-
-    /**
      * Entry of module.
      *
      * @return string
@@ -119,21 +94,11 @@ class Module
     }
 
     /**
-     * Identification of module.
-     *
-     * @return string
-     */
-    public function getIdentification()
-    {
-        return $this->identification;
-    }
-
-    /**
      * Name of module.
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -156,16 +121,6 @@ class Module
     public function getStylesheet()
     {
         return $this->stylesheet;
-    }
-
-    /**
-     * Version of module.
-     *
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        return $this->version;
     }
 
     /**
@@ -225,16 +180,6 @@ class Module
     }
 
     /**
-     * Set module's directory.
-     *
-     * @param string $directory
-     */
-    public function setDirectory($directory)
-    {
-        $this->directory = $directory;
-    }
-
-    /**
      * Set module's entry.
      *
      * @param string $entry
@@ -255,21 +200,11 @@ class Module
     }
 
     /**
-     * Set module's identification.
-     *
-     * @param string $identification
-     */
-    public function setIdentification($identification)
-    {
-        $this->identification = $identification;
-    }
-
-    /**
      * Set module's name.
      *
      * @param string $name
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -292,15 +227,5 @@ class Module
     public function setStylesheet(array $stylesheet)
     {
         $this->stylesheet = $stylesheet;
-    }
-
-    /**
-     * Set module's version.
-     *
-     * @param string $version
-     */
-    public function setVersion(string $version)
-    {
-        $this->version = $version;
     }
 }

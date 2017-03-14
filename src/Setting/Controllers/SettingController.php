@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Setting\Controllers;
 
 use Notadd\Foundation\Routing\Abstracts\Controller;
+use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Notadd\Foundation\Setting\Handlers\AllHandler;
 use Notadd\Foundation\Setting\Handlers\SetHandler;
 
@@ -17,6 +18,24 @@ use Notadd\Foundation\Setting\Handlers\SetHandler;
  */
 class SettingController extends Controller
 {
+    /**
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $settings;
+
+    /**
+     * SettingController constructor.
+     *
+     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function __construct(SettingsRepository $settings)
+    {
+        parent::__construct();
+        $this->settings = $settings;
+    }
+
     /**
      * All handler.
      *

@@ -15,7 +15,7 @@ use Laravel\Passport\Console\InstallCommand;
 use Laravel\Passport\Console\KeysCommand;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
-use Notadd\Foundation\Passport\Listeners\RouterRegistrar;
+use Notadd\Foundation\Passport\Listeners\RouterRegister;
 
 /**
  * Class PassportServiceProvider.
@@ -27,7 +27,7 @@ class PassportServiceProvider extends LaravelPassportServiceProvider
      */
     public function boot()
     {
-        $this->app->make(Dispatcher::class)->subscribe(RouterRegistrar::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouterRegister::class);
         $this->commands([
             ClientCommand::class,
             InstallCommand::class,

@@ -17,7 +17,7 @@ use Notadd\Foundation\Routing\Events\RouteRegister as RouteRegisterEvent;
 /**
  * Class AbstractRouteRegister.
  */
-abstract class RouteRegistrar extends EventSubscriber
+abstract class RouteRegister extends EventSubscriber
 {
     /**
      * @var \Illuminate\Routing\Router

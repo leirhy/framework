@@ -335,6 +335,7 @@ if (!function_exists('csrf_field')) {
      * Generate a CSRF token form field.
      *
      * @return \Illuminate\Support\HtmlString
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function csrf_field()
     {
@@ -353,7 +354,7 @@ if (!function_exists('csrf_token')) {
     {
         $session = app('session');
         if (isset($session)) {
-            return $session->getToken();
+            return $session->token();
         }
         throw new RuntimeException('Application session store not set.');
     }
@@ -499,7 +500,7 @@ if (!function_exists('event')) {
      */
     function event(...$args)
     {
-        return app('events')->fire(...$args);
+        return app('events')->dispatch(...$args);
     }
 }
 

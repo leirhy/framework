@@ -9,12 +9,12 @@
 namespace Notadd\Foundation\Extension\Listeners;
 
 use Notadd\Foundation\Extension\Controllers\ExtensionController;
-use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
+use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
  * Class RouteRegistrar.
  */
-class RouteRegister extends AbstractRouteRegistrar
+class RouteRegister extends AbstractRouteRegister
 {
     /**
      * Handle Route Registrar.
@@ -23,6 +23,9 @@ class RouteRegister extends AbstractRouteRegistrar
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api'], function () {
             $this->router->post('extension/enable', ExtensionController::class . '@enable');
+            $this->router->post('extension/install', ExtensionController::class . '@install');
+            $this->router->post('extension/uninstall', ExtensionController::class . '@uninstall');
+            $this->router->post('extension/update', ExtensionController::class . '@update');
             $this->router->post('extension', ExtensionController::class . '@handle');
         });
     }

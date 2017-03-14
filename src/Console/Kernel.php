@@ -12,12 +12,13 @@ use Closure;
 use Exception;
 use Illuminate\Console\Events\ArtisanStarting;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Notadd\Foundation\Bootstrap\LoadProviders;
 use Notadd\Foundation\Bootstrap\ConfigureLogging;
-use Notadd\Foundation\Bootstrap\DetectEnvironment;
+use Notadd\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Notadd\Foundation\Bootstrap\HandleExceptions;
 use Notadd\Foundation\Bootstrap\LoadConfiguration;
 use Notadd\Foundation\Bootstrap\LoadSetting;
@@ -65,7 +66,7 @@ class Kernel implements KernelContract
      * @var array
      */
     protected $bootstrappers = [
-        DetectEnvironment::class,
+        LoadEnvironmentVariables::class,
         LoadConfiguration::class,
         ConfigureLogging::class,
         HandleExceptions::class,
@@ -99,7 +100,7 @@ class Kernel implements KernelContract
      */
     protected function defineConsoleSchedule()
     {
-        $this->app->instance('Illuminate\Console\Scheduling\Schedule', $schedule = new Schedule());
+        $this->app->instance(Schedule::class, $schedule = new Schedule($this->app[Cache::class]));
         $this->schedule($schedule);
     }
 

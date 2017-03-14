@@ -57,7 +57,7 @@ class ListCommand extends Command
             $author = $data->get('name');
             $data->has('email') ? $author .= ' <' . $data->get('email') . '>' : null;
             $list->push([
-                $extension->getName(),
+                $extension->getIdentification(),
                 $author,
                 $extension->getDescription(),
                 $path,

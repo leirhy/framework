@@ -14,12 +14,12 @@ use Laravel\Passport\ApiTokenCookieFactory;
 use Notadd\Foundation\Passport\Controllers\AccessTokenController;
 use Notadd\Foundation\Passport\Controllers\AuthorizationController;
 use Notadd\Foundation\Passport\Controllers\ClientsController;
-use Notadd\Foundation\Routing\Abstracts\RouteRegistrar;
+use Notadd\Foundation\Routing\Abstracts\RouteRegister;
 
 /**
  * Class RouterRegistrar.
  */
-class RouterRegistrar extends RouteRegistrar
+class RouterRegister extends RouteRegister
 {
     /**
      * Handle Route Registrar.

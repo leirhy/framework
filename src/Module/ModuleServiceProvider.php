@@ -8,7 +8,9 @@
  */
 namespace Notadd\Foundation\Module;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Events\Dispatcher;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Module\Commands\GenerateCommand;
 use Notadd\Foundation\Module\Commands\ListCommand;
@@ -21,17 +23,34 @@ use Notadd\Foundation\Module\Listeners\RouteRegister;
 class ModuleServiceProvider extends ServiceProvider
 {
     /**
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+
+    /**
+     * ModuleServiceProvider constructor.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     */
+    public function __construct(Application $app)
+    {
+        parent::__construct($app);
+        $this->files = $app->make(Filesystem::class);
+    }
+
+    /**
      * Boot service provider.
      */
     public function boot()
     {
-        collect($this->app->make('module')->getModules())->each(function (Module $module, $path) {
-            if ($this->app->make('files')->isDirectory($path) && is_string($module->getEntry())) {
+        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
+        $this->app->make(ModuleManager::class)->getModules()->each(function (Module $module) {
+            $path = $module->getDirectory();
+            if ($this->files->isDirectory($path) && is_string($module->getEntry())) {
                 $this->app->register($module->getEntry());
             }
         });
-        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
         $this->commands([
             GenerateCommand::class,
             ListCommand::class

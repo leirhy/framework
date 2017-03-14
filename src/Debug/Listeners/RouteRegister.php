@@ -1,19 +1,20 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: TwilRoad
- * Date: 2016/11/16 0016
- * Time: 13:54.
+ * This file is part of Notadd.
+ *
+ * @author TwilRoad <269044570@qq.com>
+ * @copyright (c) 2017, iBenchu.org
+ * @datetime 2017-03-10 14:12
  */
 namespace Notadd\Foundation\Debug\Listeners;
 
 use Notadd\Foundation\Debug\Controllers\DebugController;
-use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
+use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
  * Class RouteRegistrar.
  */
-class RouteRegistrar extends AbstractRouteRegistrar
+class RouteRegister extends AbstractRouteRegister
 {
     /**
      * Handle Route Registrar.

@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 /**
  * Class DetectEnvironment.
  */
-class DetectEnvironment
+class LoadEnvironmentVariables
 {
     /**
      * Bootstrap the given application.

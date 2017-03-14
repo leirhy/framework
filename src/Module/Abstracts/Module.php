@@ -3,18 +3,18 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
- * @datetime 2016-12-16 19:07
+ * @copyright (c) 2017, iBenchu.org
+ * @datetime 2017-03-03 15:12
  */
-namespace Notadd\Foundation\Extension\Abstracts;
+namespace Notadd\Foundation\Module\Abstracts;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class Extension.
+ * Class Module.
  */
-abstract class Extension extends ServiceProvider
+abstract class Module extends ServiceProvider
 {
     /**
      * @var \Illuminate\Events\Dispatcher
@@ -27,7 +27,7 @@ abstract class Extension extends ServiceProvider
     protected $router;
 
     /**
-     * Extension constructor.
+     * Module constructor.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      */
@@ -39,47 +39,47 @@ abstract class Extension extends ServiceProvider
     }
 
     /**
-     * Boot extension.
+     * Boot module.
      */
     abstract public function boot();
 
     /**
-     * Description of extension
+     * Description of module
      *
      * @return string
      */
     abstract public static function description();
 
     /**
-     * Installer for extension.
+     * Install for module.
      *
      * @return string
      */
     abstract public static function install();
 
     /**
-     * Name of extension.
+     * Name of module.
      *
      * @return string
      */
     abstract public static function name();
 
     /**
-     * Register extension extra providers.
+     * Register module extra providers.
      */
     public function register()
     {
     }
 
     /**
-     * Uninstall for extension.
+     * Uninstall for module.
      *
      * @return string
      */
     abstract public static function uninstall();
 
     /**
-     * Version of extension.
+     * Version of module.
      *
      * @return string
      */

@@ -28,13 +28,14 @@ use Laravel\Passport\Http\Middleware\CheckForAnyScope;
 use Laravel\Passport\Http\Middleware\CheckScopes;
 use Notadd\Foundation\Bootstrap\LoadProviders;
 use Notadd\Foundation\Bootstrap\ConfigureLogging;
-use Notadd\Foundation\Bootstrap\DetectEnvironment;
+use Notadd\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Notadd\Foundation\Bootstrap\HandleExceptions;
 use Notadd\Foundation\Bootstrap\LoadConfiguration;
 use Notadd\Foundation\Bootstrap\LoadSetting;
 use Notadd\Foundation\Bootstrap\RegisterFacades;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
 use Notadd\Foundation\Http\Middlewares\CheckForCloseMode;
+use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Http\Middlewares\CheckForMaintenanceMode;
 use Notadd\Foundation\Http\Middlewares\EnableCrossRequest;
 use Notadd\Foundation\Http\Middlewares\RedirectIfAuthenticated;
@@ -62,7 +63,7 @@ class Kernel implements KernelContract
      * @var array
      */
     protected $bootstrappers = [
-        DetectEnvironment::class,
+        LoadEnvironmentVariables::class,
         LoadConfiguration::class,
         ConfigureLogging::class,
         HandleExceptions::class,
@@ -140,7 +141,7 @@ class Kernel implements KernelContract
             $router->middlewareGroup($key, $middleware);
         }
         foreach ($this->routeMiddleware as $key => $middleware) {
-            $router->middleware($key, $middleware);
+            $router->aliasMiddleware($key, $middleware);
         }
     }
 
@@ -163,7 +164,7 @@ class Kernel implements KernelContract
             $this->reportException($e = new FatalThrowableError($e));
             $response = $this->renderException($request, $e);
         }
-        $this->application['events']->fire('kernel.handled', [
+        $this->application['events']->dispatch(RequestHandled::class, [
             $request,
             $response,
         ]);

@@ -10,10 +10,9 @@ namespace Notadd\Foundation\Debug\Controllers;
 
 use Notadd\Foundation\Debug\Handlers\SetHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
-use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
- * Class DebugApi.
+ * Class DebugController.
  */
 class DebugController extends Controller
 {

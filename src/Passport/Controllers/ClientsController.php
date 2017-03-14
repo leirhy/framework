@@ -83,8 +83,11 @@ class ClientsController extends Controller
             'redirect' => 'required|url',
         ])->validate();
 
-        return $this->clients->create($this->request->user()->getKey(), $this->request->name,
-            $this->request->redirect)->makeVisible('secret');
+        return $this->clients->create(
+            $this->request->user()->getKey(),
+            $this->request->name,
+            $this->request->redirect
+        )->makeVisible('secret');
     }
 
     /**
@@ -98,13 +101,16 @@ class ClientsController extends Controller
     public function update($clientId)
     {
         if (!$this->request->user()->clients->find($clientId)) {
-            return new Response('', 404);
+            return new Response('User not found!', 404);
         }
         $this->validation->make($this->request->all(), [
             'name'     => 'required|max:255',
             'redirect' => 'required|url',
         ])->validate();
 
-        return $this->clients->update($this->request->user()->clients->find($clientId), $this->request->name, $this->request->redirect);
+        return $this->clients->update(
+            $this->request->user()->clients->find($clientId),
+            $this->request->name, $this->request->redirect
+        );
     }
 }

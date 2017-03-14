@@ -11,9 +11,10 @@ namespace Notadd\Foundation\Sitemap;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Content\Models\Article;
+use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Notadd\Foundation\Sitemap\Listeners\CsrfTokenRegister;
-use Notadd\Foundation\Sitemap\Listeners\RouteRegistrar;
+use Notadd\Foundation\Sitemap\Listeners\RouteRegister;
 
 /**
  * Class SitemapServiceProvider.
@@ -23,7 +24,7 @@ class SitemapServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/views/sitemap'), 'sitemap');
-        $this->app->make(Dispatcher::class)->listen('kernel.handled', function () {
+        $this->app->make(Dispatcher::class)->listen(RequestHandled::class, function () {
             if ($this->app->isInstalled()) {
                 $setting = $this->app->make(SettingsRepository::class);
                 if ($setting->get('sitemap.recently', true)) {
@@ -41,7 +42,7 @@ class SitemapServiceProvider extends ServiceProvider
             }
         });
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegistrar::class);
+        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
     }
 
     public function register()

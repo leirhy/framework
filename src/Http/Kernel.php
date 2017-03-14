@@ -34,6 +34,7 @@ use Notadd\Foundation\Bootstrap\LoadConfiguration;
 use Notadd\Foundation\Bootstrap\LoadSetting;
 use Notadd\Foundation\Bootstrap\RegisterFacades;
 use Notadd\Foundation\Bootstrap\RegisterRouter;
+use Notadd\Foundation\Http\Middlewares\CheckForCloseMode;
 use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Http\Middlewares\CheckForMaintenanceMode;
 use Notadd\Foundation\Http\Middlewares\EnableCrossRequest;
@@ -84,6 +85,7 @@ class Kernel implements KernelContract
      */
     protected $middlewareGroups = [
         'web' => [
+            CheckForCloseMode::class,
             EncryptCookies::class,
             AddQueuedCookiesToResponse::class,
             StartSession::class,

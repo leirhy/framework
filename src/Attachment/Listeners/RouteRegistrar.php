@@ -11,12 +11,12 @@ namespace Notadd\Foundation\Attachment\Listeners;
 use Notadd\Foundation\Attachment\Controllers\AttachmentController;
 use Notadd\Foundation\Attachment\Controllers\CdnController;
 use Notadd\Foundation\Attachment\Controllers\StorageController;
-use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
+use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
 
 /**
  * Class RouteRegistrar.
  */
-class RouteRegister extends AbstractRouteRegister
+class RouteRegistrar extends AbstractRouteRegistrar
 {
     /**
      * Handle Route Registrar.

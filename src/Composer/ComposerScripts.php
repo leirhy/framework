@@ -47,6 +47,12 @@ class ComposerScripts
      */
     protected static function clearCompiled()
     {
-        file_exists($servicesPath = (new Application(getcwd()))->getCachedCompilePath()) && @unlink($servicesPath);
+        $laravel = new Application(getcwd());
+        if (file_exists($compiledPath = $laravel->getCachedCompilePath())) {
+            @unlink($compiledPath);
+        }
+        if (file_exists($servicesPath = $laravel->getCachedServicesPath())) {
+            @unlink($servicesPath);
+        }
     }
 }

@@ -10,7 +10,6 @@ namespace Notadd\Foundation\Member;
 
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Member\Middleware\Permission;
-use Notadd\Foundation\Member\Middleware\FrontPermission;
 use Notadd\Foundation\Member\Middleware\AdminPermission;
 use Notadd\Foundation\Member\Commands\PermissionCommand;
 
@@ -42,9 +41,8 @@ class MemberServiceProvider extends ServiceProvider
 
     public function registerMiddleware()
     {
-        $this->app['router']->aliasMiddleware('permission', Permission::class);
-        $this->app['router']->aliasMiddleware('permission.admin', AdminPermission::class);
-        $this->app['router']->aliasMiddleware('permission.front', FrontPermission::class);
+        $this->app['router']->middleware('permission', Permission::class);
+        $this->app['router']->middleware('admin-permission', AdminPermission::class);
     }
 
     public function registerCommands()
@@ -56,7 +54,7 @@ class MemberServiceProvider extends ServiceProvider
 
     public function registerPermission()
     {
-        $this->app->singleton('permission', function ($app) {
+        $this->app->bind('permission', function ($app) {
             return new PermissionManager;
         });
     }

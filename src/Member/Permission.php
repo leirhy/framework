@@ -9,7 +9,6 @@
 
 namespace Notadd\Foundation\Member;
 
-use Illuminate\Support\Str;
 use Notadd\Foundation\Database\Model;
 
 /**
@@ -26,15 +25,7 @@ use Notadd\Foundation\Database\Model;
  */
 class Permission extends Model
 {
-    /**
-     * 前台的权限前缀
-     */
-    const FRONT_PREFIX = 'front.';
-
-    /**
-     * 后台的权限前缀
-     */
-    const ADMIN_PREFIX = 'admin.';
+    const ADMIN_PREFIX = 'admin-';
 
     protected $table = 'permissions';
 
@@ -50,15 +41,6 @@ class Permission extends Model
         return $this->belongsToMany(Member::class, 'member_permission', 'permission_id', 'member_id');
     }
 
-    /**
-     * 添加权限
-     *
-     * @param      $name
-     * @param null $display_name
-     * @param null $description
-     *
-     * @return static
-     */
     public static function addPermission($name, $display_name = null, $description = null)
     {
         $permission = static::where('name', $name)->first();
@@ -75,24 +57,6 @@ class Permission extends Model
     }
 
     /**
-     * 添加前台权限
-     *
-     * @param      $name
-     * @param null $display_name
-     * @param null $description
-     *
-     * @return \Notadd\Foundation\Member\Permission
-     */
-    public static function addFrontPermission($name, $display_name = null, $description = null)
-    {
-        return static::addPermission(
-            Str::startsWith($name, static::FRONT_PREFIX) ? $name : static::FRONT_PREFIX . $name,
-            $display_name,
-            $description
-        );
-    }
-
-    /**
      * 添加后台权限
      *
      * @param      $name
@@ -103,31 +67,14 @@ class Permission extends Model
      */
     public static function addAdminPermission($name, $display_name = null, $description = null)
     {
-        return static::addPermission(
-            Str::startsWith($name, static::ADMIN_PREFIX) ? $name : static::ADMIN_PREFIX . $name,
-            $display_name,
-            $description
-        );
-    }
-
-    /**
-     * 查询前台权限
-     *
-     * @param $query
-     * @param $name
-     *
-     * @return mixed
-     */
-    public function scopeWhereFront($query, $name)
-    {
-        return $query->where('name', static::FRONT_PREFIX . $name);
+        return static::addPermission(static::ADMIN_PREFIX . $name, $display_name, $description);
     }
 
     /**
      * 查询后台权限
      *
      * @param $query
-     * @param $nameMember
+     * @param $name
      *
      * @return mixed
      */

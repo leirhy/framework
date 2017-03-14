@@ -9,12 +9,12 @@
 namespace Notadd\Foundation\Http\Middlewares;
 
 use Closure;
-use Illuminate\Http\Exceptions\PostTooLargeException;
+use Illuminate\Http\Exception\PostTooLargeException;
 
 /**
  * Class VerifyPostSize.
  */
-class ValidatePostSize
+class VerifyPostSize
 {
     /**
      * Middleware handler.
@@ -22,15 +22,13 @@ class ValidatePostSize
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
      *
-     * @throws \Illuminate\Http\Exceptions\PostTooLargeException
+     * @throws \Illuminate\Http\Exception\PostTooLargeException
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        $max = $this->getPostMaxSize();
-
-        if ($max > 0 && $request->server('CONTENT_LENGTH') > $max) {
-            throw new PostTooLargeException;
+        if ($request->server('CONTENT_LENGTH') > $this->getPostMaxSize()) {
+            throw new PostTooLargeException();
         }
 
         return $next($request);

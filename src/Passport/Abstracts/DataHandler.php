@@ -17,11 +17,6 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class DataHandler extends Handler
 {
     /**
-     * @var array
-     */
-    protected $data = [];
-
-    /**
      * @var bool
      */
     protected $hasFilter = false;
@@ -35,10 +30,11 @@ abstract class DataHandler extends Handler
      * Data for handler.
      *
      * @return array
+     * @throws \Exception
      */
     public function data()
     {
-        return $this->data;
+        throw new Exception('Data is not setted!');
     }
 
     /**
@@ -70,26 +66,18 @@ abstract class DataHandler extends Handler
      */
     public function toResponse()
     {
-        $response = new ApiResponse();
-        try {
-            $data = $this->data();
-            if (empty($data)) {
-                $messages = $this->errors();
-            } else {
-                $messages = $this->messages();
-            }
-
-            return $response->withParams([
-                'code'    => $this->code(),
-                'data'    => $data,
-                'message' => $messages,
-            ]);
-        } catch (Exception $exception) {
-            return $response->withParams([
-                'code'    => $exception->getCode(),
-                'message' => $exception->getMessage(),
-                'trace'   => $exception->getTrace(),
-            ]);
+        $data = $this->data();
+        if (empty($data)) {
+            $messages = $this->errors();
+        } else {
+            $messages = $this->messages();
         }
+        $response = new ApiResponse();
+
+        return $response->withParams([
+            'code'    => $this->code(),
+            'data'    => $data,
+            'message' => $messages,
+        ]);
     }
 }

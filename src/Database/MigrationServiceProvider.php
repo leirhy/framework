@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Database;
 
+use Illuminate\Database\Console\Migrations\MigrateCommand;
 use Illuminate\Database\MigrationServiceProvider as IlluminateMigrationServiceProvider;
 use Notadd\Foundation\Database\Migrations\MigrationCreator;
 use Notadd\Foundation\Database\Migrations\Migrator;
@@ -24,6 +25,16 @@ class MigrationServiceProvider extends IlluminateMigrationServiceProvider
     {
         $this->app->singleton('migration.creator', function ($app) {
             return new MigrationCreator($app, $app['files']);
+        });
+    }
+
+    /**
+     * Register the "migrate" migration command.
+     */
+    protected function registerMigrateCommand()
+    {
+        $this->app->singleton('command.migrate', function ($app) {
+            return new MigrateCommand($app['migrator']);
         });
     }
 

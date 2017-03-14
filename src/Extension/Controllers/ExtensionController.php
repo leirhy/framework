@@ -10,9 +10,6 @@ namespace Notadd\Foundation\Extension\Controllers;
 
 use Notadd\Foundation\Extension\Handlers\EnableHandler;
 use Notadd\Foundation\Extension\Handlers\ExtensionHandler;
-use Notadd\Foundation\Extension\Handlers\InstallHandler;
-use Notadd\Foundation\Extension\Handlers\UninstallHandler;
-use Notadd\Foundation\Extension\Handlers\UpdateHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 
 /**
@@ -42,45 +39,6 @@ class ExtensionController extends Controller
      * @throws \Exception
      */
     public function handle(ExtensionHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Install handler.
-     *
-     * @param \Notadd\Foundation\Extension\Handlers\InstallHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function install(InstallHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Uninstall handler.
-     *
-     * @param \Notadd\Foundation\Extension\Handlers\UninstallHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function uninstall(UninstallHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Update handler.
-     *
-     * @param \Notadd\Foundation\Extension\Handlers\UpdateHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function update(UpdateHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

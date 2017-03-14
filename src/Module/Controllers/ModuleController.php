@@ -9,10 +9,7 @@
 namespace Notadd\Foundation\Module\Controllers;
 
 use Notadd\Foundation\Module\Handlers\EnableHandler;
-use Notadd\Foundation\Module\Handlers\InstallHandler;
 use Notadd\Foundation\Module\Handlers\ModuleHandler;
-use Notadd\Foundation\Module\Handlers\UninstallHandler;
-use Notadd\Foundation\Module\Handlers\UpdateHandler;
 
 /**
  * Class ModuleController.
@@ -41,45 +38,6 @@ class ModuleController
      * @throws \Exception
      */
     public function handle(ModuleHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Install handler.
-     *
-     * @param \Notadd\Foundation\Module\Handlers\InstallHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function install(InstallHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Uninstall handler.
-     *
-     * @param \Notadd\Foundation\Module\Handlers\UninstallHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function uninstall(UninstallHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Update Handler.
-     *
-     * @param \Notadd\Foundation\Module\Handlers\UpdateHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function update(UpdateHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

@@ -25,16 +25,26 @@ class HttpServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->afterResolving(ValidatesWhenResolved::class, function (ValidatesWhenResolved $resolved) {
-            $resolved->validate();
-        });
-        $this->app->make('request')->getMethod() == 'OPTIONS' && $this->app->make(KernelContract::class)->prependMiddleware(CrossPreflight::class);
-        $this->app->resolving(FormRequest::class, function (FormRequest $request, $app) {
-            $this->initializeRequest($request, $app['request']);
-            $request->setContainer($app)->setRedirector($this->app->make(Redirector::class));
-        });
+        if ($this->app->make('request')->getMethod() == 'OPTIONS') {
+            $this->app->make(KernelContract::class)->prependMiddleware(CrossPreflight::class);
+        }
+        $this->configureFormRequests();
         $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/errors'), 'error');
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../../databases/migrations'));
+    }
+
+    /**
+     * Configure the form request related services.
+     */
+    protected function configureFormRequests()
+    {
+        $this->app->afterResolving(function (ValidatesWhenResolved $resolved) {
+            $resolved->validate();
+        });
+        $this->app->resolving(function (FormRequest $request, $app) {
+            $this->initializeRequest($request, $app['request']);
+            $request->setContainer($app)->setRedirector($app->make(Redirector::class));
+        });
     }
 
     /**

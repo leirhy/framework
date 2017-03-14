@@ -53,7 +53,7 @@ class ListCommand extends Command
         $this->info('Extensions list:');
         $modules->each(function (Module $module, $path) use ($list) {
             $list->push([
-                $module->getIdentification(),
+                $module->getName(),
                 collect($module->getAuthor())->first(),
                 $module->getDescription(),
                 $path,

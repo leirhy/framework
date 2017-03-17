@@ -4,9 +4,9 @@
  *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2017, iBenchu.org
- * @datetime 2017-03-17 18:33
+ * @datetime 2017-03-17 18:57
  */
-namespace Notadd\Foundation\Setting\Handlers;
+namespace Notadd\Foundation\SearchEngine\Handlers;
 
 use Illuminate\Container\Container;
 use Notadd\Foundation\Passport\Abstracts\DataHandler;
@@ -42,13 +42,9 @@ class GetHandler extends DataHandler
     public function data()
     {
         return [
-            'beian' => $this->settings->get('site.beian', ''),
-            'company' => $this->settings->get('site.company', ''),
-            'copyright' => $this->settings->get('site.copyright', ''),
-            'domain' => $this->settings->get('site.domain', ''),
-            'enabled' => $this->settings->get('site.enabled', true),
-            'name' => $this->settings->get('site.name', ''),
-            'statistics' => $this->settings->get('site.statistics', ''),
+            'description' => $this->settings->get('seo.description', ''),
+            'keyword' => $this->settings->get('seo.keyword', ''),
+            'title' => $this->settings->get('seo.title', ''),
         ];
     }
 }

@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Setting\Controllers;
 
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Handlers\AllHandler;
+use Notadd\Foundation\Setting\Handlers\GetHandler;
 use Notadd\Foundation\Setting\Handlers\SetHandler;
 
 /**
@@ -26,6 +27,17 @@ class SettingController extends Controller
      * @throws \Exception
      */
     public function all(AllHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
+    /**
+     * Get handler.
+     *
+     * @param GetHandler $handler
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function get(GetHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

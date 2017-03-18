@@ -65,16 +65,16 @@ class AttachmentSetHandler extends SetHandler
      */
     public function execute()
     {
-        $this->settings->set('attachment.engine', $this->request->get('engine'));
-        $this->settings->set('attachment.limit.file', $this->request->get('limit_file'));
-        $this->settings->set('attachment.limit.image', $this->request->get('limit_image'));
-        $this->settings->set('attachment.limit.video', $this->request->get('limit_video'));
-        $this->settings->set('attachment.format.image', $this->request->get('allow_image'));
-        $this->settings->set('attachment.format.catcher', $this->request->get('allow_catcher'));
-        $this->settings->set('attachment.format.video', $this->request->get('allow_video'));
-        $this->settings->set('attachment.format.file', $this->request->get('allow_file'));
-        $this->settings->set('attachment.manager.image', $this->request->get('allow_manager_image'));
-        $this->settings->set('attachment.manager.file', $this->request->get('allow_manager_file'));
+        $this->settings->set('attachment.engine', $this->request->get('imageProcessingEngine'));
+        $this->settings->set('attachment.format.catcher', $this->request->get('canUploadCatcherExtension'));
+        $this->settings->set('attachment.format.file', $this->request->get('canUploadFileExtension'));
+        $this->settings->set('attachment.format.image', $this->request->get('canUploadImageExtension'));
+        $this->settings->set('attachment.format.video', $this->request->get('canUploadVideoExtension'));
+        $this->settings->set('attachment.limit.file', $this->request->get('fileMaxSize'));
+        $this->settings->set('attachment.limit.image', $this->request->get('imageMaxSize'));
+        $this->settings->set('attachment.limit.video', $this->request->get('videoMaxSize'));
+        $this->settings->set('attachment.manager.file', $this->request->get('canManagementFileExtension'));
+        $this->settings->set('attachment.manager.image', $this->request->get('canManagementImageExtension'));
         $this->settings->set('attachment.watermark', $this->request->get('allow_watermark'));
 
         return true;

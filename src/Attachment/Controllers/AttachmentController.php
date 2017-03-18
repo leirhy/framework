@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Attachment\Controllers;
 
+use Notadd\Foundation\Attachment\Handlers\AttachmentGetHandler;
 use Notadd\Foundation\Attachment\Handlers\AttachmentSetHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 
@@ -17,14 +18,26 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class AttachmentController extends Controller
 {
     /**
-     * Api handler.
+     * Get handler.
+     *
+     * @param AttachmentGetHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function get(AttachmentGetHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
+    /**
+     * Set handler.
      *
      * @param \Notadd\Foundation\Attachment\Handlers\AttachmentSetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      * @throws \Exception
      */
-    public function handle(AttachmentSetHandler $handler)
+    public function set(AttachmentSetHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

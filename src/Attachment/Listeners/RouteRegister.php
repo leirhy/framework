@@ -24,7 +24,8 @@ class RouteRegister extends AbstractRouteRegister
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/attachment'], function () {
-            $this->router->post('/', AttachmentController::class . '@handle');
+            $this->router->post('get', AttachmentController::class . '@get');
+            $this->router->post('set', AttachmentController::class . '@set');
             $this->router->post('cdn', CdnController::class . '@handle');
             $this->router->post('storage', StorageController::class . '@handle');
         });

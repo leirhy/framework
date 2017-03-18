@@ -21,8 +21,9 @@ class RouteRegister extends AbstractRouteRegister
      */
     public function handle()
     {
-        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api'], function () {
-            $this->router->post('sitemap', SitemapController::class . '@handle');
+        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/sitemap'], function () {
+            $this->router->post('get', SitemapController::class . '@get');
+            $this->router->post('set', SitemapController::class . '@set');
         });
     }
 }

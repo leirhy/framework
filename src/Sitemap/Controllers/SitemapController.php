@@ -9,7 +9,8 @@
 namespace Notadd\Foundation\Sitemap\Controllers;
 
 use Notadd\Foundation\Routing\Abstracts\Controller;
-use Notadd\Foundation\Sitemap\Handlers\SitemapHandler;
+use Notadd\Foundation\Sitemap\Handlers\GetHandler;
+use Notadd\Foundation\Sitemap\Handlers\SetHandler;
 
 /**
  * Class SitemapController.
@@ -17,14 +18,26 @@ use Notadd\Foundation\Sitemap\Handlers\SitemapHandler;
 class SitemapController extends Controller
 {
     /**
-     * Handler.
+     * Get handler.
      *
-     * @param \Notadd\Foundation\Sitemap\Handlers\SitemapHandler $handler
+     * @param GetHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function get(GetHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
+    /**
+     * Set handler.
+     *
+     * @param \Notadd\Foundation\Sitemap\Handlers\SetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
-    public function handle(SitemapHandler $handler)
+    public function set(SetHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

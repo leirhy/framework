@@ -15,7 +15,7 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 /**
  * Class SitemapHandler.
  */
-class SitemapHandler extends AbstractSetHandler
+class SetHandler extends AbstractSetHandler
 {
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository

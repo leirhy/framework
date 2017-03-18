@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Mail\Controllers;
 
+use Notadd\Foundation\Mail\Handlers\GetHandler;
 use Notadd\Foundation\Mail\Handlers\SetHandler;
 use Notadd\Foundation\Mail\Handlers\TestHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
@@ -18,14 +19,26 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class MailController extends Controller
 {
     /**
-     * Api handler.
+     * Get handler.
+     *
+     * @param GetHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function get(GetHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+    
+    /**
+     * Set handler.
      *
      * @param \Notadd\Foundation\Mail\Handlers\SetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse * @throws \Exception
      * @throws \Exception
      */
-    public function handle(SetHandler $handler)
+    public function set(SetHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

@@ -21,9 +21,10 @@ class RouterRegister extends AbstractRouteRegister
      */
     public function handle()
     {
-        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api'], function () {
-            $this->router->post('mail/test', MailController::class . '@test');
-            $this->router->post('mail', MailController::class . '@handle');
+        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/mail'], function () {
+            $this->router->post('get', MailController::class . '@get');
+            $this->router->post('set', MailController::class . '@set');
+            $this->router->post('test', MailController::class . '@test');
         });
     }
 }

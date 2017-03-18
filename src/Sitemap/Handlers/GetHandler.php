@@ -42,7 +42,7 @@ class GetHandler extends DataHandler
     public function data()
     {
         return [
-            'xml' => $this->settings->get('sitemap.beian', false),
+            'xml' => $this->settings->get('sitemap.xml', false),
             'html' => $this->settings->get('sitemap.html', false),
             'cycle' => $this->settings->get('sitemap.cycle', false),
             'recently' => $this->settings->get('sitemap.recently', false),

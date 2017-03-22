@@ -27,7 +27,7 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
         $this->app->singleton('translator', function ($app) {
             $loader = $app['translation.loader'];
             $locale = $app['config']['app.locale'];
-            $trans = new Translator($loader, $locale);
+            $trans = new Translator($loader, $locale, $app['files']);
             $trans->setFallback($app['config']['app.fallback_locale']);
 
             return $trans;

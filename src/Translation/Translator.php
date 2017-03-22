@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Translation;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Translation\LoaderInterface;
 use Illuminate\Translation\Translator as IlluminateTranslator;
 
@@ -70,8 +71,23 @@ class Translator extends IlluminateTranslator
                 $this->load($namespace, $this->files->name($path), $local);
             });
         });
+        $data = collect();
+        collect($this->loaded[$local])->each(function ($value, $key) use ($data) {
+            $this->loop($value, $key, $data);
+        });
 
-        return $this->loaded[$local] ?: [];
+        return $data;
+    }
+
+    private function loop($data, $pre, Collection $list) {
+        if (is_array($data)) {
+            collect($data)->each(function ($data, $key) use ($list, $pre) {
+                $pre .= '.' . $key;
+                $this->loop($data, $pre, $list);
+            });
+        } else {
+            $list->put($pre, $data);
+        }
     }
 
     /**

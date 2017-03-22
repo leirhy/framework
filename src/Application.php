@@ -1135,6 +1135,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'translator'                => [
                 \Illuminate\Translation\Translator::class,
                 \Illuminate\Contracts\Translation\Translator::class,
+                \Notadd\Foundation\Translation\Translator::class,
             ],
             'url'                       => [
                 \Illuminate\Routing\UrlGenerator::class,

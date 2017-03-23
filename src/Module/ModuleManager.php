@@ -85,6 +85,11 @@ class ModuleManager
         return $list;
     }
 
+    /**
+     * Modules of installed.
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function getInstalledModules()
     {
         $list = new Collection();
@@ -148,6 +153,23 @@ class ModuleManager
         }
 
         return $this->modules;
+    }
+
+    /**
+     * Modules of not-installed.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getNotInstalledModules()
+    {
+        $list = new Collection();
+        if ($this->getModules()->isNotEmpty()) {
+            $this->modules->each(function (Module $module) use ($list) {
+                $module->isInstalled() || $list->put($module->getIdentification(), $module);
+            });
+        }
+
+        return $list;
     }
 
     /**

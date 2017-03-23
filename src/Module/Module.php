@@ -245,16 +245,6 @@ class Module
     }
 
     /**
-     * Set module's install status.
-     *
-     * @param bool $installed
-     */
-    public function setInstalled(bool $installed)
-    {
-        $this->installed = $installed;
-    }
-
-    /**
      * Set module's identification.
      *
      * @param string $identification
@@ -262,6 +252,16 @@ class Module
     public function setIdentification($identification)
     {
         $this->identification = $identification;
+    }
+
+    /**
+     * Set module's install status.
+     *
+     * @param bool $installed
+     */
+    public function setInstalled(bool $installed)
+    {
+        $this->installed = $installed;
     }
 
     /**

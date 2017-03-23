@@ -57,24 +57,6 @@ class ModuleManager
     }
 
     /**
-     * Modules of enabled.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getEnabledModules()
-    {
-        $list = new Collection();
-        if ($this->getModules()->isEmpty()) {
-            return $list;
-        }
-        $this->modules->each(function (Module $module) use ($list) {
-            $module->isEnabled() && $list->put($module->getIdentification(), $module);
-        });
-
-        return $list;
-    }
-
-    /**
      * Get a module by name.
      *
      * @param $name
@@ -84,6 +66,35 @@ class ModuleManager
     public function get($name)
     {
         return $this->modules->get($name);
+    }
+
+    /**
+     * Modules of enabled.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getEnabledModules()
+    {
+        $list = new Collection();
+        if ($this->getModules()->isNotEmpty()) {
+            $this->getModules()->each(function (Module $module) use ($list) {
+                $module->isEnabled() && $list->put($module->getIdentification(), $module);
+            });
+        }
+
+        return $list;
+    }
+
+    public function getInstalledModules()
+    {
+        $list = new Collection();
+        if ($this->getModules()->isNotEmpty()) {
+            $this->modules->each(function (Module $module) use ($list) {
+                $module->isInstalled() && $list->put($module->getIdentification(), $module);
+            });
+        }
+
+        return $list;
     }
 
     /**
@@ -105,8 +116,8 @@ class ModuleManager
                             $module->setAuthor(Arr::get($package, 'authors'));
                             $module->setDescription(Arr::get($package, 'description'));
                             $module->setDirectory($directory);
-                            $status = $this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.enabled', false) : false;
-                            $module->setEnabled($status);
+                            $module->setEnabled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.enabled', false) : false);
+                            $module->setInstalled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.installed', false) : false);
                             $provider = '';
                             if ($entries = data_get($package, 'autoload.psr-4')) {
                                 foreach ($entries as $namespace => $entry) {

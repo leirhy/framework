@@ -26,7 +26,7 @@ class InstallHandler extends SetHandler
     /**
      * InstallHandler constructor.
      *
-     * @param \Illuminate\Container\Container $container
+     * @param \Illuminate\Container\Container         $container
      * @param \Notadd\Foundation\Module\ModuleManager $manager
      */
     public function __construct(Container $container, ModuleManager $manager)
@@ -43,7 +43,7 @@ class InstallHandler extends SetHandler
     public function errors()
     {
         return [
-            $this->translator->trans(''),
+            $this->translator->trans('安装失败！'),
         ];
     }
 
@@ -54,7 +54,7 @@ class InstallHandler extends SetHandler
      */
     public function execute()
     {
-        $module = $this->manager->get($this->request->input('name'));
+        $module = $this->manager->get($this->request->input('identification'));
         if ($module && method_exists($provider = $module->getEntry(), 'install') && $class = call_user_func([
                 $provider,
                 'install',
@@ -77,7 +77,7 @@ class InstallHandler extends SetHandler
     public function messages()
     {
         return [
-            $this->translator->trans(''),
+            $this->translator->trans('安装成功！'),
         ];
     }
 }

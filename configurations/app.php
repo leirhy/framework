@@ -48,7 +48,7 @@ return [
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Notadd\Foundation\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,
-        Notadd\Foundation\Sitemap\SitemapServiceProvider::class,
+//        Notadd\Foundation\Sitemap\SitemapServiceProvider::class,
         Notadd\Foundation\SearchEngine\SearchEngineServiceProvider::class,
         Notadd\Foundation\Session\SessionServiceProvider::class,
         Notadd\Foundation\Setting\SettingServiceProvider::class,

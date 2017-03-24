@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Module\Abstracts;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Notadd\Foundation\Translation\Translator;
 
@@ -29,6 +30,11 @@ abstract class Installer
     protected $info;
 
     /**
+     * @var \Notadd\Foundation\Module\Module
+     */
+    protected $module;
+
+    /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
     protected $settings;
@@ -40,6 +46,7 @@ abstract class Installer
 
     /**
      * Installer constructor.
+     *
      * @param Container $container
      */
     public function __construct(Container $container)
@@ -70,6 +77,12 @@ abstract class Installer
      */
     public final function install()
     {
+        if ($this->settings->get('module.' . $this->module->getIdentification() . '.installed', false)) {
+            $this->info->put('errors', '模块标识[]已经被占用，如需继续安装，请卸载同标识插件！');
+
+            return false;
+        }
+
         $requires = collect($this->require());
         $noInstalled = new Collection();
         $requires->each(function ($require) use ($noInstalled) {
@@ -87,11 +100,20 @@ abstract class Installer
         if (!$this->require()) {
             return false;
         }
+
         return $this->handle();
     }
 
     /**
      * @return array
      */
-    abstract public function require();
+    abstract public function require ();
+
+    /**
+     * @param \Notadd\Foundation\Module\Module $module
+     */
+    public function setModule(Module $module)
+    {
+        $this->module = $module;
+    }
 }

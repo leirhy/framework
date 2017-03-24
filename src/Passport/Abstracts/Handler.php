@@ -8,8 +8,8 @@
  */
 namespace Notadd\Foundation\Passport\Abstracts;
 
-use Exception;
 use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
 /**
@@ -27,7 +27,7 @@ abstract class Handler
     /**
      * @var array
      */
-    protected $errors = [];
+    protected $errors;
 
     /**
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
@@ -42,7 +42,7 @@ abstract class Handler
     /**
      * @var array
      */
-    protected $messages = [];
+    protected $messages;
 
     /**
      * @var \Illuminate\Http\Request
@@ -62,7 +62,9 @@ abstract class Handler
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->errors = new Collection();
         $this->log = $this->container->make('log');
+        $this->messages = new Collection();
         $this->request = $this->container->make('request');
         $this->translator = $this->container->make('translator');
     }
@@ -84,7 +86,7 @@ abstract class Handler
      */
     protected function errors()
     {
-        return $this->errors;
+        return $this->errors->toArray();
     }
 
     /**
@@ -94,7 +96,7 @@ abstract class Handler
      */
     protected function messages()
     {
-        return $this->messages;
+        return $this->messages->toArray();
     }
 
     /**
@@ -116,7 +118,7 @@ abstract class Handler
      */
     protected function withErrors($errors)
     {
-        $this->errors = array_merge($this->errors, (array)$errors);
+        $this->errors = $this->errors->merge((array)$errors);
 
         return $this;
     }
@@ -128,7 +130,7 @@ abstract class Handler
      */
     protected function withMessages($messages)
     {
-        $this->messages = array_merge($this->messages, (array)$messages);
+        $this->messages = $this->messages->merge((array)$messages);
 
         return $this;
     }

@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Module\Handlers;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Module\Abstracts\Installer;
 use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
@@ -32,19 +33,9 @@ class InstallHandler extends SetHandler
     public function __construct(Container $container, ModuleManager $manager)
     {
         parent::__construct($container);
+        $this->errors->push($this->translator->trans('安装失败！'));
         $this->manager = $manager;
-    }
-
-    /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    public function errors()
-    {
-        return [
-            $this->translator->trans('安装失败！'),
-        ];
+        $this->messages->push($this->translator->trans('安装成功！'));
     }
 
     /**
@@ -54,30 +45,24 @@ class InstallHandler extends SetHandler
      */
     public function execute()
     {
+        $result = false;
         $module = $this->manager->get($this->request->input('identification'));
-        if ($module && method_exists($provider = $module->getEntry(), 'install') && $class = call_user_func([
-                $provider,
-                'install',
-            ])
-        ) {
-            $installer = $this->container->make($class);
-            if ($installer instanceof Installer) {
-                return $installer->install();
+        if ($module && method_exists($provider = $module->getEntry(), 'install')) {
+            if (($installer = $this->container->make(call_user_func([$provider, 'install']))) instanceof Installer) {
+                if ($installer->install()) {
+                    $result = true;
+                } else {
+                    $this->code = 500;
+                }
+                $this->parseInfo($installer->info());
             }
         }
 
-        return false;
+        return $result;
     }
 
-    /**
-     * Messages for handler.
-     *
-     * @throws array
-     */
-    public function messages()
-    {
-        return [
-            $this->translator->trans('安装成功！'),
-        ];
+    protected function parseInfo(Collection $data) {
+        $data->has('errors') && $this->errors = collect($data->get('errors'));
+        $data->has('messages') && $this->messages = collect($data->get('messages'));
     }
 }

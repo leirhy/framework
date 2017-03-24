@@ -9,10 +9,13 @@
 namespace Notadd\Foundation\Module\Abstracts;
 
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Notadd\Foundation\Translation\Translator;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * Class Installer.
@@ -58,6 +61,20 @@ abstract class Installer
     }
 
     /**
+     * Get console instance.
+     *
+     * @return \Illuminate\Contracts\Console\Kernel|\Notadd\Foundation\Console\Application
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function getConsole()
+    {
+        $kernel = $this->container->make(Kernel::class);
+        $kernel->bootstrap();
+
+        return $kernel->getArtisan();
+    }
+
+    /**
      * @return bool
      */
     abstract public function handle();
@@ -97,11 +114,21 @@ abstract class Installer
             return false;
         }
 
-        if (!$this->require()) {
-            return false;
+        if ($this->handle()) {
+            $input = new ArrayInput([
+                '--force' => true,
+            ]);
+            $output = new BufferedOutput();
+            $this->getConsole()->find('migrate')->run($input, $output);
+            $this->getConsole()->find('vendor:publish')->run($input, $output);
+            $this->container->make('log')->info('install module:' . $this->module->getIdentification(), [$output->fetch()]);
+            $this->settings->set('module.' . $this->module->getIdentification() . '.installed', true);
+            $this->info->put('messages', '安装模块[' . $this->module->getIdentification() . ']成功！');
+
+            return true;
         }
 
-        return $this->handle();
+        return false;
     }
 
     /**

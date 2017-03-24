@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Module\Handlers;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Module\Abstracts\Uninstaller;
 use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Passport\Abstracts\SetHandler;
@@ -32,19 +33,9 @@ class UninstallHandler extends SetHandler
     public function __construct(Container $container, ModuleManager $manager)
     {
         parent::__construct($container);
+        $this->errors->push($this->translator->trans('卸载失败！'));
         $this->manager = $manager;
-    }
-
-    /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    public function errors()
-    {
-        return [
-            $this->translator->trans(''),
-        ];
+        $this->messages->push($this->translator->trans('卸载成功！'));
     }
 
     /**
@@ -54,29 +45,29 @@ class UninstallHandler extends SetHandler
      */
     public function execute()
     {
-        $module = $this->manager->get($this->request->input('name'));
-        if ($module && method_exists($provider = $module->getEntry(), 'uninstall') && $class = call_user_func([
-                $provider,
-                'uninstall',
-            ])) {
-            $uninstaller = $this->container->make($class);
-            if ($uninstaller instanceof Uninstaller) {
-                return $uninstaller->uninstall();
+        set_time_limit(0);
+        $result = false;
+        $module = $this->manager->get($this->request->input('identification'));
+        if ($module && method_exists($provider = $module->getEntry(), 'uninstall')) {
+            if (($uninstaller = $this->container->make(call_user_func([$provider, 'uninstall']))) instanceof Uninstaller) {
+                $uninstaller->setModule($module);
+                if ($uninstaller->uninstall()) {
+                    $result = true;
+                } else {
+                    $this->code = 500;
+                }
+                $this->parseInfo($uninstaller->info());
             }
         }
 
-        return false;
+        return $result;
     }
 
     /**
-     * Messages for handler.
-     *
-     * @return array
+     * @param \Illuminate\Support\Collection $data
      */
-    public function messages()
-    {
-        return [
-            $this->translator->trans(''),
-        ];
+    protected function parseInfo(Collection $data) {
+        $data->has('errors') && $this->errors = collect($data->get('errors'));
+        $data->has('messages') && $this->messages = collect($data->get('messages'));
     }
 }

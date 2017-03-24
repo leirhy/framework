@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Module\Abstracts;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -20,6 +21,11 @@ abstract class Module extends ServiceProvider
      * @var \Illuminate\Events\Dispatcher
      */
     protected $events;
+
+    /**
+     * @var \Illuminate\Support\Collection
+     */
+    protected static $migrations;
 
     /**
      * @var \Illuminate\Routing\Router
@@ -36,6 +42,7 @@ abstract class Module extends ServiceProvider
         parent::__construct($app);
         $this->events = $app['events'];
         $this->router = $app['router'];
+        static::$migrations = new Collection();
     }
 
     /**
@@ -56,6 +63,19 @@ abstract class Module extends ServiceProvider
      * @return string
      */
     abstract public static function install();
+
+    /**
+     * @param array|string $paths
+     */
+    public function loadMigrationsFrom($paths)
+    {
+        static::$migrations = static::$migrations->merge((array)$paths);
+        parent::loadMigrationsFrom($paths);
+    }
+
+    public static function migrations() {
+        return static::$migrations->toArray();
+    }
 
     /**
      * Name of module.

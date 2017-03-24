@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Module\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Collection;
-use Notadd\Foundation\Module\Module;
+use Notadd\Foundation\Module\Module as BaseModule;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Notadd\Foundation\Translation\Translator;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -139,7 +139,7 @@ abstract class Installer
     /**
      * @param \Notadd\Foundation\Module\Module $module
      */
-    public function setModule(Module $module)
+    public function setModule(BaseModule $module)
     {
         $this->module = $module;
     }

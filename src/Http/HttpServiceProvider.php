@@ -29,15 +29,17 @@ class HttpServiceProvider extends ServiceProvider
             $resolved->validate();
         });
         $this->app->make('request')->getMethod() == 'OPTIONS' && $this->app->make(KernelContract::class)->prependMiddleware(CrossPreflight::class);
-        $this->app->make('router')->get('/', function () {
-            echo 'Notadd 已经安装成功！';
-        });
         $this->app->resolving(FormRequest::class, function (FormRequest $request, $app) {
             $this->initializeRequest($request, $app['request']);
             $request->setContainer($app)->setRedirector($this->app->make(Redirector::class));
         });
         $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/errors'), 'error');
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../../databases/migrations'));
+        if ($this->app->isInstalled()) {
+            $this->app->make('router')->get('/', function () {
+                echo 'Notadd 已经安装成功！';
+            });
+        }
     }
 
     /**

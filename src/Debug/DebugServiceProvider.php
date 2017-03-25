@@ -9,9 +9,12 @@
 namespace Notadd\Foundation\Debug;
 
 use Illuminate\Events\Dispatcher;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Debug\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Debug\Listeners\RouteRegister;
+use Notadd\Foundation\Http\Events\RequestHandled;
+use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
  * Class DebugServiceProvider.
@@ -23,6 +26,11 @@ class DebugServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->isInstalled() && $this->app->make(Dispatcher::class)->listen(RequestHandled::class, function () {
+            $this->app->make(SettingsRepository::class)->get('debug.enabled', false) && Artisan::call('vendor:publish', [
+                '--force' => true,
+            ]);
+        });
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
     }

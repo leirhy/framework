@@ -57,6 +57,7 @@ class UninstallHandler extends SetHandler
                     $this->code = 500;
                 }
                 $this->parseInfo($uninstaller->info());
+                $this->container->make('log')->info('uninstall data:', $this->data());
             }
         }
 
@@ -67,6 +68,7 @@ class UninstallHandler extends SetHandler
      * @param \Illuminate\Support\Collection $data
      */
     protected function parseInfo(Collection $data) {
+        $data->has('data') && $this->data = collect($data->get('data'));
         $data->has('errors') && $this->errors = collect($data->get('errors'));
         $data->has('messages') && $this->messages = collect($data->get('messages'));
     }

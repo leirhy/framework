@@ -56,6 +56,7 @@ class InstallHandler extends SetHandler
                     $this->code = 500;
                 }
                 $this->parseInfo($installer->info());
+                $this->container->make('log')->info('install data:', $this->data());
             }
         }
 
@@ -63,6 +64,7 @@ class InstallHandler extends SetHandler
     }
 
     protected function parseInfo(Collection $data) {
+        $data->has('data') && $this->data = collect($data->get('data'));
         $data->has('errors') && $this->errors = collect($data->get('errors'));
         $data->has('messages') && $this->messages = collect($data->get('messages'));
     }

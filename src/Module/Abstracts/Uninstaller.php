@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 abstract class Uninstaller
 {
     /**
-     * @var Container
+     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
 
@@ -49,7 +49,8 @@ abstract class Uninstaller
 
     /**
      * Uninstaller constructor.
-     * @param Container $container
+     *
+     * @param \Illuminate\Container\Container $container
      */
     public function __construct(Container $container)
     {
@@ -108,20 +109,27 @@ abstract class Uninstaller
         }
         if ($this->handle()) {
             $output = new BufferedOutput();
+
             $provider = $this->module->getEntry();
-            $migrations = call_user_func([$provider, 'migrations']);
-            foreach ($migrations as $migration) {
-                $input = new ArrayInput([
-                    '--path' => $migration,
-                    '--force' => true,
-                ]);
-                $this->getConsole()->find('migrate:rollback')->run($input, $output);
+            $this->container->getProvider($provider) || $this->container->register($provider);
+            if (method_exists($provider, 'migrations')) {
+                $migrations = call_user_func([$provider, 'migrations']);
+                foreach ((array)$migrations as $migration) {
+                    $migration = str_replace($this->container->basePath(), '', $migration);
+                    $input = new ArrayInput([
+                        '--path' => $migration,
+                        '--force' => true,
+                    ]);
+                    $this->getConsole()->find('migrate:rollback')->run($input, $output);
+                }
             }
             $input = new ArrayInput([
                 '--force' => true,
             ]);
             $this->getConsole()->find('vendor:publish')->run($input, $output);
-            $this->container->make('log')->info('install module:' . $this->module->getIdentification(), [$output->fetch()]);
+            $log = explode(PHP_EOL, $output->fetch());
+            $this->container->make('log')->info('uninstall module:' . $this->module->getIdentification(), $log);
+            $this->info->put('data', $log);
             $this->settings->set('module.' . $this->module->getIdentification() . '.installed', false);
             $this->info->put('messages', '卸载模块[' . $this->module->getIdentification() . ']成功！');
             return true;

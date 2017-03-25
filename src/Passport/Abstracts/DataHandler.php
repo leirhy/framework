@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Passport\Abstracts;
 
 use Exception;
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 
 /**
@@ -38,7 +39,7 @@ abstract class DataHandler extends Handler
      */
     public function data()
     {
-        return $this->data;
+        return $this->data instanceof Collection ? $this->data->toArray() : $this->data;
     }
 
     /**

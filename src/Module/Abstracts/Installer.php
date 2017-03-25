@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 abstract class Installer
 {
     /**
-     * @var Container
+     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
 
@@ -50,7 +50,7 @@ abstract class Installer
     /**
      * Installer constructor.
      *
-     * @param Container $container
+     * @param \Illuminate\Container\Container $container
      */
     public function __construct(Container $container)
     {
@@ -114,6 +114,9 @@ abstract class Installer
             return false;
         }
 
+        $provider = $this->module->getEntry();
+        $this->container->getProvider($provider) || $this->container->register($provider);
+
         if ($this->handle()) {
             $input = new ArrayInput([
                 '--force' => true,
@@ -121,9 +124,11 @@ abstract class Installer
             $output = new BufferedOutput();
             $this->getConsole()->find('migrate')->run($input, $output);
             $this->getConsole()->find('vendor:publish')->run($input, $output);
-            $this->container->make('log')->info('install module:' . $this->module->getIdentification(), [$output->fetch()]);
-            $this->settings->set('module.' . $this->module->getIdentification() . '.installed', true);
+            $log = explode(PHP_EOL, $output->fetch());
+            $this->container->make('log')->info('install module:' . $this->module->getIdentification(), $log);
+            $this->info->put('data', $log);
             $this->info->put('messages', '安装模块[' . $this->module->getIdentification() . ']成功！');
+            $this->settings->set('module.' . $this->module->getIdentification() . '.installed', true);
 
             return true;
         }

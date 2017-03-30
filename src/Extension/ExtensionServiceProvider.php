@@ -49,7 +49,7 @@ class ExtensionServiceProvider extends ServiceProvider
         $this->app->make(ExtensionManager::class)->getExtensions()->each(function (Extension $extension) {
             $path = $extension->getDirectory();
             if ($this->files->isDirectory($path) && is_string($extension->getEntry())) {
-                $this->app->register($extension->getEntry());
+                $extension->isEnabled() && $this->app->register($extension->getEntry());
             }
         });
         $this->commands([

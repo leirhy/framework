@@ -114,7 +114,8 @@ class ExtensionManager
                                 $extension->setAuthor(Arr::get($package, 'authors'));
                                 $extension->setDescription(Arr::get($package, 'description'));
                                 $extension->setDirectory($directory);
-                                $extension->setEnabled($this->container->make('setting')->get('extension.' . $identification . '.enabled', false));
+                                $extension->setEnabled($this->container->isInstalled() ? $this->container->make('setting')->get('extension.' . $identification . '.enabled', false) : false);
+                                $extension->setInstalled($this->container->isInstalled() ? $this->container->make('setting')->get('extension.' . $identification . '.installed', false) : false);
                                 $provider = '';
                                 if ($entries = data_get($package, 'autoload.psr-4')) {
                                     foreach ($entries as $namespace => $entry) {
@@ -146,6 +147,40 @@ class ExtensionManager
         }
 
         return $this->extensions;
+    }
+
+    /**
+     * Modules of installed.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getInstalledExtensions()
+    {
+        $list = new Collection();
+        if ($this->getExtensions()->isNotEmpty()) {
+            $this->extensions->each(function (Extension $extension) use ($list) {
+                $extension->isInstalled() && $list->put($extension->getIdentification(), $extension);
+            });
+        }
+
+        return $list;
+    }
+
+    /**
+     * Modules of not-installed.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getNotInstalledModules()
+    {
+        $list = new Collection();
+        if ($this->getExtensions()->isNotEmpty()) {
+            $this->extensions->each(function (Extension $extension) use ($list) {
+                $extension->isInstalled() || $list->put($extension->getIdentification(), $extension);
+            });
+        }
+
+        return $list;
     }
 
     /**

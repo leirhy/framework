@@ -171,7 +171,7 @@ class ExtensionManager
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getNotInstalledModules()
+    public function getNotInstalledExtensions()
     {
         $list = new Collection();
         if ($this->getExtensions()->isNotEmpty()) {

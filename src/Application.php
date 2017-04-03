@@ -1149,6 +1149,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 \Illuminate\View\Factory::class,
                 \Illuminate\Contracts\View\Factory::class,
             ],
+            'yaml'                      => [
+                \Symfony\Component\Yaml\Yaml::class,
+            ],
         ];
         foreach ($aliases as $key => $aliases) {
             foreach ($aliases as $alias) {

@@ -8,8 +8,8 @@
  */
 namespace Notadd\Foundation\Member;
 
-use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Cache;
+use Laravel\Passport\HasApiTokens;
 use Notadd\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -37,7 +37,7 @@ class Member extends Authenticatable
     ];
 
     /**
-     * 用户的权限
+     * Permissions for member.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -59,7 +59,7 @@ class Member extends Authenticatable
     }
 
     /**
-     * 获取缓存的用户的权限的动态键
+     * Get cache key for user permission.
      *
      * @return string
      */
@@ -70,6 +70,11 @@ class Member extends Authenticatable
         return 'permissions_for_member_' . $this->$memberPrimaryKey;
     }
 
+    /**
+     * Get cached permissions data.
+     *
+     * @return mixed
+     */
     public function cachedPermissions()
     {
         return Cache::remember($this->getCachePermissionKey(), 60, function () {
@@ -77,21 +82,33 @@ class Member extends Authenticatable
         });
     }
 
+    /**
+     * Save the model to the database.
+     *
+     * @param array $options
+     *
+     * @return bool
+     */
     public function save(array $options = [])
     {
         //both inserts and updates
         $result = parent::save($options);
-
         Cache::forget($this->getCachePermissionKey());
 
         return $result;
     }
 
+    /**
+     * Delete the model from the database.
+     *
+     * @return bool|null
+     *
+     * @throws \Exception
+     */
     public function delete()
     {
         // soft or hard
         $result = parent::delete();
-
         Cache::forget($this->getCachePermissionKey());
 
         return $result;
@@ -101,7 +118,6 @@ class Member extends Authenticatable
     {
         //soft delete undo's
         $result = parent::restore();
-
         Cache::forget($this->getCachePermissionKey());
 
         return $result;
@@ -117,10 +133,8 @@ class Member extends Authenticatable
     public static function boot()
     {
         parent::boot();
-
-        static::deleting(function($member) {
-
-            if (! method_exists(static::class, 'bootSoftDeletes')) {
+        static::deleting(function ($member) {
+            if (!method_exists(static::class, 'bootSoftDeletes')) {
                 $member->permissions()->sync([]);
             }
 
@@ -131,7 +145,7 @@ class Member extends Authenticatable
     /**
      * Checks if the member has a permission by its name.
      *
-     * @param string|array $name       Permission name or array of permission names.
+     * @param string|array $name Permission name or array of permission names.
      * @param bool         $requireAll All permissions in the array are required.
      *
      * @return bool
@@ -141,14 +155,12 @@ class Member extends Authenticatable
         if (is_array($name)) {
             foreach ($name as $permissionName) {
                 $hasPermission = $this->hasPermission($permissionName);
-
-                if ($hasPermission && ! $requireAll) {
+                if ($hasPermission && !$requireAll) {
                     return true;
-                } elseif (! $hasPermission && $requireAll) {
+                } elseif (!$hasPermission && $requireAll) {
                     return false;
                 }
             }
-
             // If we've made it this far and $requireAll is FALSE, then NONE of the permissions were found
             // If we've made it this far and $requireAll is TRUE, then ALL of the permissions were found.
             // Return the value of $requireAll;
@@ -183,8 +195,7 @@ class Member extends Authenticatable
                 return Permission::FRONT_PREFIX . $val;
             }, $name);
         } else {
-
-            if (! ends_with($name, '*')) {
+            if (!ends_with($name, '*')) {
                 $name = Permission::FRONT_PREFIX . $name;
             }
         }
@@ -195,7 +206,7 @@ class Member extends Authenticatable
     /**
      * Checks if the member has a admin permission by its name.
      *
-     * @param string|array $name       Permission name or array of permission names.
+     * @param string|array $name Permission name or array of permission names.
      * @param bool         $requireAll All permissions in the array are required.
      *
      * @return bool
@@ -211,8 +222,7 @@ class Member extends Authenticatable
                 return Permission::ADMIN_PREFIX . $val;
             }, $name);
         } else {
-
-            if (! ends_with($name, '*')) {
+            if (!ends_with($name, '*')) {
                 $name = Permission::ADMIN_PREFIX . $name;
             }
         }
@@ -232,11 +242,9 @@ class Member extends Authenticatable
         if (is_object($permission)) {
             $permission = $permission->getKey();
         }
-
         if (is_array($permission)) {
             $permission = $permission['id'];
         }
-
         $this->permissions()->attach($permission);
     }
 
@@ -251,10 +259,8 @@ class Member extends Authenticatable
     {
         if (is_object($permission))
             $permission = $permission->getKey();
-
         if (is_array($permission))
             $permission = $permission['id'];
-
         $this->permissions()->detach($permission);
     }
 

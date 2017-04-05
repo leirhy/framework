@@ -27,10 +27,13 @@ class LoadEnvironmentVariables
      */
     public function bootstrap(Application $application)
     {
+        $application->singleton('env.instance', function () use ($application) {
+            return new Dotenv($application->environmentPath(), $application->environmentFile());
+        });
         if (!$application->configurationIsCached()) {
             $this->checkForSpecificEnvironmentFile($application);
             try {
-                (new Dotenv($application->environmentPath(), $application->environmentFile()))->load();
+                $application->make('env.instance')->load();
             } catch (InvalidPathException $e) {
             }
         }

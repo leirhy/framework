@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Passport\Abstracts;
 use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
@@ -99,7 +100,13 @@ abstract class Handler
      */
     protected function handleExceptions(ApiResponse $response, Exception $exception)
     {
-        dd($exception);
+        if ($exception instanceof ValidationException) {
+            return $response->withParams([
+                'code'    => 422,
+                'message' => $exception->validator->errors()->getMessages(),
+                'trace'   => $exception->getTrace(),
+            ]);
+        }
 
         return $response->withParams([
             'code'    => $exception->getCode(),

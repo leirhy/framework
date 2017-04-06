@@ -8,8 +8,10 @@
  */
 namespace Notadd\Foundation\Passport\Abstracts;
 
+use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
 /**
@@ -87,6 +89,23 @@ abstract class Handler
     protected function errors()
     {
         return $this->errors->toArray();
+    }
+
+    /**
+     * @param \Notadd\Foundation\Passport\Responses\ApiResponse $response
+     * @param \Exception                                        $exception
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     */
+    protected function handleExceptions(ApiResponse $response, Exception $exception)
+    {
+        dd($exception);
+
+        return $response->withParams([
+            'code'    => $exception->getCode(),
+            'message' => $exception->getMessage(),
+            'trace'   => $exception->getTrace(),
+        ]);
     }
 
     /**

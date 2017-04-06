@@ -86,11 +86,7 @@ abstract class DataHandler extends Handler
                 'message' => $messages,
             ]);
         } catch (Exception $exception) {
-            return $response->withParams([
-                'code'    => $exception->getCode(),
-                'message' => $exception->getMessage(),
-                'trace'   => $exception->getTrace(),
-            ]);
+            return $this->handleExceptions($response, $exception);
         }
     }
 }

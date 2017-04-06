@@ -1201,13 +1201,12 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         if ($this->bound('installed')) {
             return true;
         } else {
-            if (file_exists($this->storagePath() . DIRECTORY_SEPARATOR . 'bootstraps' . DIRECTORY_SEPARATOR . 'replace.php')) {
-                $this->instance('installed', true);
-
-                return true;
-            } else {
+            if (!file_exists($this->storagePath() . DIRECTORY_SEPARATOR . 'installed')) {
                 return false;
             }
+            $this->instance('installed', true);
+
+            return true;
         }
     }
 }

@@ -43,7 +43,7 @@ class YamlEnv
      * @param string $file
      * @param bool   $castToUpper
      */
-    public function __construct($path, $file = 'env.yaml', $castToUpper = false)
+    public function __construct($path, $file = 'environment.yaml', $castToUpper = false)
     {
         $this->filePath = $this->getFilePath($path, $file);
         $this->castToUpper = $castToUpper;

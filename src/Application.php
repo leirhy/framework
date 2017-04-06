@@ -116,7 +116,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     /**
      * @var string
      */
-    protected $environmentFile = '.env';
+    protected $environmentFile = 'environment.yaml';
 
     /**
      * @var string
@@ -452,7 +452,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function environmentFile()
     {
-        return $this->environmentFile ?: '.env';
+        return $this->environmentFile ?: 'environment.yaml';
     }
 
     /**

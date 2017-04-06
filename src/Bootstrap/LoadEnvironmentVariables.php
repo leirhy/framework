@@ -8,9 +8,9 @@
  */
 namespace Notadd\Foundation\Bootstrap;
 
-use Dotenv\Dotenv;
-use Dotenv\Exception\InvalidPathException;
 use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Yaml\Exceptions\InvalidPathException;
+use Notadd\Foundation\Yaml\YamlEnv;
 use Symfony\Component\Console\Input\ArgvInput;
 
 /**
@@ -27,13 +27,13 @@ class LoadEnvironmentVariables
      */
     public function bootstrap(Application $application)
     {
-        $application->singleton('env.instance', function () use ($application) {
-            return new Dotenv($application->environmentPath(), $application->environmentFile());
+        $application->singleton('yaml.environment', function () use ($application) {
+            return new YamlEnv($application->environmentPath(), $application->environmentFile());
         });
         if (!$application->configurationIsCached()) {
             $this->checkForSpecificEnvironmentFile($application);
             try {
-                $application->make('env.instance')->load();
+                $application->make('yaml.environment')->load();
             } catch (InvalidPathException $e) {
             }
         }

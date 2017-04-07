@@ -9,6 +9,8 @@
 namespace Notadd\Foundation\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class KeyGenerateCommand.
@@ -58,13 +60,13 @@ class KeyGenerateCommand extends Command
     protected function setKeyInEnvironmentFile($key)
     {
         $path = $this->laravel->environmentFilePath();
-        if (file_exists($path)) {
-            file_put_contents($path, str_replace('APP_KEY=' . $this->laravel['config']['app.key'], 'APP_KEY=' . $key,
-                file_get_contents($path)));
-        } else {
-            touch($path);
-            file_put_contents($path, 'APP_KEY=' . $key);
-        }
+
+        file_exists($path) || touch($path);
+
+        $environments = new Collection($this->laravel->make(Yaml::class)->parse(file_get_contents($path)));
+        $environments->put('APP_KEY', $key);
+
+        file_put_contents($path, $this->laravel->make(Yaml::class)->dump($environments->toArray()));
     }
 
     /**

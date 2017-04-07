@@ -10,7 +10,7 @@ namespace Notadd\Foundation\Module\Abstracts;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
-use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
  * Class Module.

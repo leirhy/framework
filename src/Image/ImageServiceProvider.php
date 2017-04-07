@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Image;
 
-use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
  * Class ImageServiceProvider.

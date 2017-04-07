@@ -9,8 +9,8 @@
 namespace Notadd\Foundation\Administration;
 
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Administration\Listeners\RouteMatched;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
  * Class AdministrationServiceProvider.

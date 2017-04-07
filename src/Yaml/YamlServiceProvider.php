@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Yaml;
 
-use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Symfony\Component\Yaml\Yaml;
 
 /**

@@ -9,9 +9,9 @@
 namespace Notadd\Foundation\Editor;
 
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Editor\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Editor\Listeners\RouteRegister;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
  * Class EditorServiceProvider.

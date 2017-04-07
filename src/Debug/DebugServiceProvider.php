@@ -10,9 +10,9 @@ namespace Notadd\Foundation\Debug;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Debug\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Debug\Listeners\RouteRegister;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 

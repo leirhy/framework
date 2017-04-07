@@ -11,10 +11,10 @@ namespace Notadd\Foundation\Extension;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Extension\Commands\ListCommand;
 use Notadd\Foundation\Extension\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Extension\Listeners\RouteRegister;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
  * Class ExtensionServiceProvider.

@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Member;
 
-use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Member\Middleware\Permission;
 use Notadd\Foundation\Member\Middleware\FrontPermission;
 use Notadd\Foundation\Member\Middleware\AdminPermission;

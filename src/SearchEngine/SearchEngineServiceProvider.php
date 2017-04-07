@@ -9,7 +9,7 @@
 namespace Notadd\Foundation\SearchEngine;
 
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\SearchEngine\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\SearchEngine\Listeners\RouterRegister;
 

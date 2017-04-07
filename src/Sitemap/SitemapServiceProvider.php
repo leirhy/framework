@@ -9,8 +9,8 @@
 namespace Notadd\Foundation\Sitemap;
 
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 use Notadd\Content\Models\Article;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Notadd\Foundation\Sitemap\Listeners\CsrfTokenRegister;

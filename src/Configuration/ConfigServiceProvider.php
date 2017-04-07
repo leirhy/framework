@@ -8,8 +8,8 @@
  */
 namespace Notadd\Foundation\Configuration;
 
-use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Configuration\Loaders\FileLoader;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
  * Class ConfigServiceProvider.

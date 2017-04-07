@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Module;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Module\Commands\GenerateCommand;
 use Notadd\Foundation\Module\Commands\ListCommand;
 use Notadd\Foundation\Module\Listeners\CsrfTokenRegister;

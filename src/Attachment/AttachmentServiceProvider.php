@@ -9,9 +9,9 @@
 namespace Notadd\Foundation\Attachment;
 
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Attachment\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Attachment\Listeners\RouteRegister;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
  * Class AttachmentServiceProvider.

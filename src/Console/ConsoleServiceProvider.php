@@ -19,7 +19,6 @@ use Illuminate\Database\Console\Migrations\RefreshCommand as MigrateRefreshComma
 use Illuminate\Database\Console\Migrations\RollbackCommand as MigrateRollbackCommand;
 use Illuminate\Queue\Console\FailedTableCommand;
 use Illuminate\Queue\Console\TableCommand;
-use Illuminate\Support\ServiceProvider;
 use Notadd\Foundation\Cache\Commands\CacheTableCommand;
 use Notadd\Foundation\Console\Commands\AppNameCommand;
 use Notadd\Foundation\Console\Commands\ClearCompiledCommand;
@@ -36,6 +35,7 @@ use Notadd\Foundation\Database\Commands\ModelMakeCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
 use Notadd\Foundation\Event\Commands\EventMakeCommand;
 use Notadd\Foundation\Event\Commands\ListenerMakeCommand;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Http\Commands\RequestMakeCommand;
 use Notadd\Foundation\Mail\Commands\MailMakeCommand;
 use Notadd\Foundation\Notification\Commands\NotificationMakeCommand;

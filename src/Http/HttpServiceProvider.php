@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Http;
 use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Http\Middlewares\CrossPreflight;
 use Symfony\Component\HttpFoundation\Request;
 

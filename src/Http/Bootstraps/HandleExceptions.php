@@ -6,7 +6,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-21 11:03
  */
-namespace Notadd\Foundation\Bootstrap;
+namespace Notadd\Foundation\Http\Bootstraps;
 
 use ErrorException;
 use Exception;

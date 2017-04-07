@@ -18,7 +18,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ViewServiceProvider;
-use Notadd\Foundation\Bootstrap\LoadEnvironmentVariables;
+use Notadd\Foundation\Http\Bootstraps\LoadEnvironmentVariables;
 use Notadd\Foundation\Event\EventServiceProvider;
 use Notadd\Foundation\Routing\RoutingServiceProvider;
 use Notadd\Foundation\Translation\Events\LocaleUpdated;

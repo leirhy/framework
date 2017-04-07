@@ -6,7 +6,7 @@
  * @copyright (c) 2016, iBenchu.org
  * @datetime 2016-10-24 10:15
  */
-namespace Notadd\Foundation\Bootstrap;
+namespace Notadd\Foundation\Http\Bootstraps;
 
 use Illuminate\Contracts\Foundation\Application;
 use Notadd\Foundation\Configuration\Repository as ConfigRepository;

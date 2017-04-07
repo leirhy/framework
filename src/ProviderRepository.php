@@ -17,7 +17,7 @@ use Illuminate\Filesystem\Filesystem;
 class ProviderRepository
 {
     /**
-     * @var \Illuminate\Contracts\Foundation\Application
+     * @var \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
     protected $app;
 

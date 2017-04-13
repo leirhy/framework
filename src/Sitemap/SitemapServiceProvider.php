@@ -23,7 +23,6 @@ class SitemapServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/views/sitemap'), 'sitemap');
         $this->app->make(Dispatcher::class)->listen(RequestHandled::class, function () {
             if ($this->app->isInstalled()) {
                 $setting = $this->app->make(SettingsRepository::class);

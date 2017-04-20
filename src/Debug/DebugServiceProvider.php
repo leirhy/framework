@@ -8,8 +8,8 @@
  */
 namespace Notadd\Foundation\Debug;
 
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\Facades\Artisan;
 use Notadd\Foundation\Debug\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Debug\Listeners\RouteRegister;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
@@ -27,9 +27,11 @@ class DebugServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->isInstalled() && $this->app->make(Dispatcher::class)->listen(RequestHandled::class, function () {
-            $this->app->make(SettingsRepository::class)->get('debug.enabled', false) && Artisan::call('vendor:publish', [
-                '--force' => true,
-            ]);
+            if ($this->app->make(SettingsRepository::class)->get('debug.enabled', false)) {
+                $this->app->make(Kernel::class)->call('vendor:publish', [
+                    '--force' => true,
+                ]);
+            }
         });
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);

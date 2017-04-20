@@ -133,10 +133,10 @@ class ModuleManager
                                 if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' .DIRECTORY_SEPARATOR . 'autoload.php')) {
                                     $this->files->requireOnce($autoload);
                                     if (!class_exists($provider)) {
-                                        throw new \Exception('Module load fail!');
+                                        throw new \Exception('Module load fail! Class ' . $provider . ' do not exists.');
                                     }
                                 } else {
-                                    throw new \Exception('Module load fail!');
+                                    throw new \Exception('Module load fail! Class ' . $provider . ' do not exists.');
                                 }
                             }
                             $module->setEntry($provider);

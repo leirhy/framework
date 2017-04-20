@@ -61,9 +61,6 @@ class ItemObserver
                 $dictionary = $this->pathSplit($hash, '12', Collection::make([
                     'uploads',
                 ]))->implode(DIRECTORY_SEPARATOR);
-                if (!$this->file->isDirectory(app_path($dictionary))) {
-                    $this->file->makeDirectory(app_path($dictionary), 0777, true, true);
-                }
                 $file = Str::substr($hash, 12, 20) . '.' . $thumbImage->getClientOriginalExtension();
                 if (!$this->file->exists($dictionary . DIRECTORY_SEPARATOR . $file)) {
                     $thumbImage->move($dictionary, $file);
@@ -113,9 +110,6 @@ class ItemObserver
                 $dictionary = $this->pathSplit($hash, '12', Collection::make([
                     'uploads',
                 ]))->implode(DIRECTORY_SEPARATOR);
-                if (!$this->file->isDirectory(app_path($dictionary))) {
-                    $this->file->makeDirectory(app_path($dictionary), 0777, true, true);
-                }
                 $file = Str::substr($hash, 12, 20) . '.' . $thumbImage->getClientOriginalExtension();
                 if (!$this->file->exists($dictionary . DIRECTORY_SEPARATOR . $file)) {
                     $thumbImage->move($dictionary, $file);

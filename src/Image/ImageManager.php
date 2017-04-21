@@ -116,7 +116,7 @@ class ImageManager
     private function createDriver()
     {
         $drivername = ucfirst($this->config['driver']);
-        $driverclass = sprintf('Notadd\\Image\\%s\\Driver', $drivername);
+        $driverclass = sprintf('Notadd\\Foundation\\Image\\%s\\Driver', $drivername);
         if (class_exists($driverclass)) {
             return new $driverclass();
         }

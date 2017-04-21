@@ -9,7 +9,7 @@
 namespace Notadd\Foundation\Navigation;
 
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Navigation\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Navigation\Listeners\RouteRegister;
 use Notadd\Foundation\Navigation\Models\Item;

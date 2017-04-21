@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Passport\Abstracts;
 
 use Exception;
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 
 /**
@@ -16,6 +17,11 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
  */
 abstract class DataHandler extends Handler
 {
+    /**
+     * @var array
+     */
+    protected $data = [];
+
     /**
      * @var bool
      */
@@ -30,11 +36,10 @@ abstract class DataHandler extends Handler
      * Data for handler.
      *
      * @return array
-     * @throws \Exception
      */
     public function data()
     {
-        throw new Exception('Data is not setted!');
+        return $this->data instanceof Collection ? $this->data->toArray() : $this->data;
     }
 
     /**
@@ -66,18 +71,22 @@ abstract class DataHandler extends Handler
      */
     public function toResponse()
     {
-        $data = $this->data();
-        if (empty($data)) {
-            $messages = $this->errors();
-        } else {
-            $messages = $this->messages();
-        }
         $response = new ApiResponse();
+        try {
+            $data = $this->data();
+            if (empty($data)) {
+                $messages = $this->errors();
+            } else {
+                $messages = $this->messages();
+            }
 
-        return $response->withParams([
-            'code'    => $this->code(),
-            'data'    => $data,
-            'message' => $messages,
-        ]);
+            return $response->withParams([
+                'code'    => $this->code(),
+                'data'    => $data,
+                'message' => $messages,
+            ]);
+        } catch (Exception $exception) {
+            return $this->handleExceptions($response, $exception);
+        }
     }
 }

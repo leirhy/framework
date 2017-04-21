@@ -13,6 +13,7 @@ use Illuminate\Database\ConnectionResolverInterface as Resolver;
 use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use Illuminate\Database\Migrations\Migrator as IlluminateMigrator;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -24,6 +25,11 @@ class Migrator extends IlluminateMigrator
      * @var \Illuminate\Container\Container
      */
     protected $container;
+
+    /**
+     * @var \Notadd\Foundation\Database\Migrations\DatabaseMigrationRepository
+     */
+    protected $repository;
 
     /**
      * Migrator constructor.
@@ -38,9 +44,53 @@ class Migrator extends IlluminateMigrator
         MigrationRepositoryInterface $repository,
         Resolver $resolver,
         Filesystem $files
-    ) {
+    )
+    {
         $this->container = $container;
         parent::__construct($repository, $resolver, $files);
+    }
+
+    /**
+     * Get the migrations for a rollback operation.
+     *
+     * @param array $options
+     * @param array $paths
+     *
+     * @return array
+     */
+    protected function getMigrationsForRollbackOnPaths(array $options, array $paths)
+    {
+        if (($steps = Arr::get($options, 'step', 0)) > 0) {
+            return $this->repository->getMigrations($steps);
+        } else {
+            return $this->repository->getLastOnPath(array_keys($this->getMigrationFiles($paths)));
+        }
+    }
+
+    /**
+     * Rollback the last migration operation.
+     *
+     * @param  array|string $paths
+     * @param  array        $options
+     *
+     * @return array
+     */
+    public function rollback($paths = [], array $options = [])
+    {
+        $this->notes = [];
+        if ($paths) {
+            $migrations = $this->getMigrationsForRollbackOnPaths($options, $paths);
+        } else {
+            $migrations = $this->getMigrationsForRollback($options);
+        }
+
+        if (count($migrations) === 0) {
+            $this->note('<info>Nothing to rollback.</info>');
+
+            return [];
+        } else {
+            return $this->rollbackMigrations($migrations, $paths, $options);
+        }
     }
 
     /**

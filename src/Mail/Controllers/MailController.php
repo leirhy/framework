@@ -8,40 +8,37 @@
  */
 namespace Notadd\Foundation\Mail\Controllers;
 
+use Notadd\Foundation\Mail\Handlers\GetHandler;
 use Notadd\Foundation\Mail\Handlers\SetHandler;
 use Notadd\Foundation\Mail\Handlers\TestHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
-use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
+/**
+ * Class MailController.
+ */
 class MailController extends Controller
 {
     /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected $settings;
-
-    /**
-     * WatermarkController constructor.
+     * Get handler.
      *
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @param GetHandler $handler
      *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function __construct(SettingsRepository $settings)
+    public function get(GetHandler $handler)
     {
-        parent::__construct();
-        $this->settings = $settings;
+        return $handler->toResponse()->generateHttpResponse();
     }
-
+    
     /**
-     * Api handler.
+     * Set handler.
      *
      * @param \Notadd\Foundation\Mail\Handlers\SetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse * @throws \Exception
      * @throws \Exception
      */
-    public function handle(SetHandler $handler)
+    public function set(SetHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

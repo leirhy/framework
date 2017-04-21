@@ -10,12 +10,12 @@ namespace Notadd\Foundation\Navigation\Listeners;
 
 use Notadd\Foundation\Navigation\Controllers\GroupController;
 use Notadd\Foundation\Navigation\Controllers\ItemController;
-use Notadd\Foundation\Routing\Abstracts\RouteRegistrar as AbstractRouteRegistrar;
+use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
  * Class RouteRegister.
  */
-class RouteRegister extends AbstractRouteRegistrar
+class RouteRegister extends AbstractRouteRegister
 {
     /**
      * Handle Route Registrar.

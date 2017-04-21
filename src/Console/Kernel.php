@@ -12,18 +12,19 @@ use Closure;
 use Exception;
 use Illuminate\Console\Events\ArtisanStarting;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
-use Notadd\Foundation\Bootstrap\LoadProviders;
-use Notadd\Foundation\Bootstrap\ConfigureLogging;
-use Notadd\Foundation\Bootstrap\DetectEnvironment;
-use Notadd\Foundation\Bootstrap\HandleExceptions;
-use Notadd\Foundation\Bootstrap\LoadConfiguration;
-use Notadd\Foundation\Bootstrap\LoadSetting;
-use Notadd\Foundation\Bootstrap\RegisterFacades;
-use Notadd\Foundation\Bootstrap\RegisterRouter;
-use Notadd\Foundation\Bootstrap\SetRequestForConsole;
+use Notadd\Foundation\Http\Bootstraps\LoadProviders;
+use Notadd\Foundation\Http\Bootstraps\ConfigureLogging;
+use Notadd\Foundation\Http\Bootstraps\LoadEnvironmentVariables;
+use Notadd\Foundation\Http\Bootstraps\HandleExceptions;
+use Notadd\Foundation\Http\Bootstraps\LoadConfiguration;
+use Notadd\Foundation\Http\Bootstraps\LoadSetting;
+use Notadd\Foundation\Http\Bootstraps\RegisterFacades;
+use Notadd\Foundation\Http\Bootstraps\RegisterRouter;
+use Notadd\Foundation\Http\Bootstraps\SetRequestForConsole;
 use Notadd\Foundation\Console\Application as Artisan;
 use Notadd\Foundation\Console\Commands\ClosureCommand;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
@@ -65,7 +66,7 @@ class Kernel implements KernelContract
      * @var array
      */
     protected $bootstrappers = [
-        DetectEnvironment::class,
+        LoadEnvironmentVariables::class,
         LoadConfiguration::class,
         ConfigureLogging::class,
         HandleExceptions::class,
@@ -99,7 +100,7 @@ class Kernel implements KernelContract
      */
     protected function defineConsoleSchedule()
     {
-        $this->app->instance('Illuminate\Console\Scheduling\Schedule', $schedule = new Schedule());
+        $this->app->instance(Schedule::class, $schedule = new Schedule($this->app[Cache::class]));
         $this->schedule($schedule);
     }
 

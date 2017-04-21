@@ -8,42 +8,36 @@
  */
 namespace Notadd\Foundation\Attachment\Controllers;
 
+use Notadd\Foundation\Attachment\Handlers\AttachmentGetHandler;
 use Notadd\Foundation\Attachment\Handlers\AttachmentSetHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
-use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
- * Class AttachmentApi.
+ * Class AttachmentController.
  */
 class AttachmentController extends Controller
 {
     /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected $settings;
-
-    /**
-     * WatermarkController constructor.
+     * Get handler.
      *
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @param AttachmentGetHandler $handler
      *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function __construct(SettingsRepository $settings)
+    public function get(AttachmentGetHandler $handler)
     {
-        parent::__construct();
-        $this->settings = $settings;
+        return $handler->toResponse()->generateHttpResponse();
     }
 
     /**
-     * Api handler.
+     * Set handler.
      *
      * @param \Notadd\Foundation\Attachment\Handlers\AttachmentSetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      * @throws \Exception
      */
-    public function handle(AttachmentSetHandler $handler)
+    public function set(AttachmentSetHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

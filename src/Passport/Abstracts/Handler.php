@@ -10,6 +10,9 @@ namespace Notadd\Foundation\Passport\Abstracts;
 
 use Exception;
 use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
+use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
 /**
@@ -18,6 +21,17 @@ use Notadd\Foundation\Validation\ValidatesRequests;
 abstract class Handler
 {
     use ValidatesRequests;
+
+    /**
+     * @var int
+     */
+    protected $code = 200;
+
+    /**
+     * @var array
+     */
+    protected $errors;
+
     /**
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
@@ -27,6 +41,11 @@ abstract class Handler
      * @var \Illuminate\Contracts\Logging\Log
      */
     protected $log;
+
+    /**
+     * @var array
+     */
+    protected $messages;
 
     /**
      * @var \Illuminate\Http\Request
@@ -46,7 +65,9 @@ abstract class Handler
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->errors = new Collection();
         $this->log = $this->container->make('log');
+        $this->messages = new Collection();
         $this->request = $this->container->make('request');
         $this->translator = $this->container->make('translator');
     }
@@ -55,32 +76,88 @@ abstract class Handler
      * Http code.
      *
      * @return int
-     * @throws \Exception
      */
-    public function code()
+    protected function code()
     {
-        throw new Exception('Code is not setted!');
+        return $this->code;
     }
 
     /**
      * Errors for handler.
      *
      * @return array
-     * @throws \Exception
      */
-    public function errors()
+    protected function errors()
     {
-        throw new Exception('Error is not setted!');
+        return $this->errors->toArray();
+    }
+
+    /**
+     * @param \Notadd\Foundation\Passport\Responses\ApiResponse $response
+     * @param \Exception                                        $exception
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     */
+    protected function handleExceptions(ApiResponse $response, Exception $exception)
+    {
+        if ($exception instanceof ValidationException) {
+            return $response->withParams([
+                'code'    => 422,
+                'message' => $exception->validator->errors()->getMessages(),
+                'trace'   => $exception->getTrace(),
+            ]);
+        }
+
+        return $response->withParams([
+            'code'    => $exception->getCode(),
+            'message' => $exception->getMessage(),
+            'trace'   => $exception->getTrace(),
+        ]);
     }
 
     /**
      * Messages for handler.
      *
      * @return array
-     * @throws \Exception
      */
-    public function messages()
+    protected function messages()
     {
-        throw new Exception('Message is not setted!');
+        return $this->messages->toArray();
+    }
+
+    /**
+     * @param int $code
+     *
+     * @return $this
+     */
+    protected function withCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @param array|string $errors
+     *
+     * @return $this
+     */
+    protected function withErrors($errors)
+    {
+        $this->errors = $this->errors->merge((array)$errors);
+
+        return $this;
+    }
+
+    /**
+     * @param array|string $messages
+     *
+     * @return $this
+     */
+    protected function withMessages($messages)
+    {
+        $this->messages = $this->messages->merge((array)$messages);
+
+        return $this;
     }
 }

@@ -9,8 +9,8 @@
 namespace Notadd\Foundation\SearchEngine\Controllers;
 
 use Notadd\Foundation\Routing\Abstracts\ApiController;
+use Notadd\Foundation\SearchEngine\Handlers\GetHandler;
 use Notadd\Foundation\SearchEngine\Handlers\SetHandler;
-use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
  * Class SeoController.
@@ -18,19 +18,15 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 class SeoController extends ApiController
 {
     /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected $settings;
-
-    /**
-     * WatermarkController constructor.
+     * Get handler.
      *
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
+     * @param GetHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function __construct(SettingsRepository $settings)
+    public function get(GetHandler $handler)
     {
-        parent::__construct();
-        $this->settings = $settings;
+        return $handler->toResponse()->generateHttpResponse();
     }
 
     /**
@@ -38,10 +34,10 @@ class SeoController extends ApiController
      *
      * @param \Notadd\Foundation\SearchEngine\Handlers\SetHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse * @throws \Exception
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      * @throws \Exception
      */
-    public function handle(SetHandler $handler)
+    public function set(SetHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

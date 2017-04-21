@@ -60,6 +60,7 @@ class ModuleHandler extends DataHandler
                 'author' => $module->getAuthor(),
                 'enabled' => $module->isEnabled(),
                 'description' => $module->getDescription(),
+                'identification' => $module->getIdentification(),
                 'name' => $module->getName(),
             ];
         });

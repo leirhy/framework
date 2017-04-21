@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Http;
 use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\ServiceProvider;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Http\Middlewares\CrossPreflight;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,26 +25,21 @@ class HttpServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->make('request')->getMethod() == 'OPTIONS') {
-            $this->app->make(KernelContract::class)->prependMiddleware(CrossPreflight::class);
-        }
-        $this->configureFormRequests();
-        $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/errors'), 'error');
-        $this->loadMigrationsFrom(realpath(__DIR__ . '/../../databases/migrations'));
-    }
-
-    /**
-     * Configure the form request related services.
-     */
-    protected function configureFormRequests()
-    {
-        $this->app->afterResolving(function (ValidatesWhenResolved $resolved) {
+        $this->app->afterResolving(ValidatesWhenResolved::class, function (ValidatesWhenResolved $resolved) {
             $resolved->validate();
         });
-        $this->app->resolving(function (FormRequest $request, $app) {
+        $this->app->make('request')->getMethod() == 'OPTIONS' && $this->app->make(KernelContract::class)->prependMiddleware(CrossPreflight::class);
+        $this->app->resolving(FormRequest::class, function (FormRequest $request, $app) {
             $this->initializeRequest($request, $app['request']);
-            $request->setContainer($app)->setRedirector($app->make(Redirector::class));
+            $request->setContainer($app)->setRedirector($this->app->make(Redirector::class));
         });
+        $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/errors'), 'error');
+        $this->loadMigrationsFrom(realpath(__DIR__ . '/../../databases/migrations'));
+        if ($this->app->isInstalled()) {
+            $this->app->make('router')->get('/', function () {
+                echo 'Notadd 已经安装成功！';
+            });
+        }
     }
 
     /**

@@ -17,27 +17,6 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class SetHandler extends DataHandler
 {
     /**
-     * Http code.
-     *
-     * @return int
-     * @throws \Exception
-     */
-    public function code()
-    {
-        return 200;
-    }
-
-    /**
-     * Data for handler.
-     *
-     * @return array
-     */
-    public function data()
-    {
-        return [];
-    }
-
-    /**
      * Execute Handler.
      *
      * @return bool
@@ -56,18 +35,22 @@ abstract class SetHandler extends DataHandler
      */
     public function toResponse()
     {
-        $result = $this->execute();
-        if ($result) {
-            $messages = $this->messages();
-        } else {
-            $messages = $this->errors();
-        }
         $response = new ApiResponse();
+        try {
+            $result = $this->execute();
+            if ($result) {
+                $messages = $this->messages();
+            } else {
+                $messages = $this->errors();
+            }
 
-        return $response->withParams([
-            'code' => $this->code(),
-            'data' => $this->data(),
-            'message' => $messages,
-        ]);
+            return $response->withParams([
+                'code' => $this->code(),
+                'data' => $this->data(),
+                'message' => $messages,
+            ]);
+        } catch (Exception $exception) {
+            return $this->handleExceptions($response, $exception);
+        }
     }
 }

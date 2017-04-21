@@ -8,17 +8,35 @@
  */
 namespace Notadd\Foundation\Extension;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Extension\Commands\ListCommand;
 use Notadd\Foundation\Extension\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Extension\Listeners\RouteRegister;
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
  * Class ExtensionServiceProvider.
  */
 class ExtensionServiceProvider extends ServiceProvider
 {
+    /**
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+
+    /**
+     * ExtensionServiceProvider constructor.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     */
+    public function __construct(Application $app)
+    {
+        parent::__construct($app);
+        $this->files = $app->make(Filesystem::class);
+    }
+
     /**
      * Boot service provider.
      *
@@ -28,9 +46,10 @@ class ExtensionServiceProvider extends ServiceProvider
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-        $this->app->make('extension')->getExtensions()->each(function (Extension $extension, $path) {
-            if ($this->app->make('files')->isDirectory($path) && is_string($extension->getEntry())) {
-                $this->app->register($extension->getEntry());
+        $this->app->make(ExtensionManager::class)->getExtensions()->each(function (Extension $extension) {
+            $path = $extension->getDirectory();
+            if ($this->files->isDirectory($path) && is_string($extension->getEntry())) {
+                $extension->isEnabled() && $this->app->register($extension->getEntry());
             }
         });
         $this->commands([

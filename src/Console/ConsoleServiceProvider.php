@@ -98,6 +98,7 @@ class ConsoleServiceProvider extends ServiceProvider
         'ListenerMake'      => 'command.listener.make',
         'MailMake'          => 'command.mail.make',
         'MiddlewareMake'    => 'command.middleware.make',
+        'MigrateMake'       => 'command.migrate.make',
         'ModelMake'         => 'command.model.make',
         'NotificationMake'  => 'command.notification.make',
         'NotificationTable' => 'command.notification.table',

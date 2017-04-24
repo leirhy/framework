@@ -59,4 +59,14 @@ class MigrationCreator extends IlluminateMigrationCreator
 
         return str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
     }
+
+    /**
+     * Get the path to the stubs.
+     *
+     * @return string
+     */
+    public function stubPath()
+    {
+        return __DIR__ . '/../../../stubs/migrations';
+    }
 }

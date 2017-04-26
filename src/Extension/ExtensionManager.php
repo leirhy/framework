@@ -122,15 +122,11 @@ class ExtensionManager
                                         $provider = $namespace . 'Extension';
                                     }
                                 }
+                                if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
+                                    $this->files->requireOnce($autoload);
+                                }
                                 if (!class_exists($provider)) {
-                                    if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
-                                        $this->files->requireOnce($autoload);
-                                        if (!class_exists($provider)) {
-                                            throw new \Exception('Extension load fail!');
-                                        }
-                                    } else {
-                                        throw new \Exception('Extension load fail!');
-                                    }
+                                    throw new \Exception('Extension load fail!');
                                 }
                                 $extension->setEntry($provider);
                                 method_exists($provider, 'description') && $extension->setDescription(call_user_func([$provider, 'description']));

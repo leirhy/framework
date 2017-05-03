@@ -54,6 +54,19 @@ class Permission
      */
     public static function validate(array $attributes)
     {
+        $needs = [
+            'default',
+            'description',
+            'key',
+            'name',
+            'type',
+        ];
+        foreach ($needs as $need) {
+            if (!isset($attributes[$need])) {
+                return false;
+            }
+        }
+
         return true;
     }
 }

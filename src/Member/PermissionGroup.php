@@ -19,7 +19,7 @@ class PermissionGroup
     /**
      * @var array
      */
-    private $attributes;
+    protected $attributes;
 
     /**
      * @var \Illuminate\Container\Container
@@ -57,10 +57,18 @@ class PermissionGroup
     /**
      * @param string $key
      * @param array  $attributes
+     *
+     * @return bool
      */
     public function permission(string $key, array $attributes)
     {
-        Permission::validate($attributes) && $this->permissions->put($key, '');
+        if (Permission::validate($attributes)) {
+            $this->permissions->put($key, Permission::createFromAttributes($attributes));
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -70,6 +78,17 @@ class PermissionGroup
      */
     public static function validate(array $attributes)
     {
+        $needs = [
+            'description',
+            'key',
+            'name',
+        ];
+        foreach ($needs as $need) {
+            if (!isset($attributes[$need])) {
+                return false;
+            }
+        }
+
         return true;
     }
 }

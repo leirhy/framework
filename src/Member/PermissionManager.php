@@ -2,45 +2,47 @@
 /**
  * This file is part of Notadd.
  *
- * @author Qiyueshiyi <qiyueshiyi@outlook.com>
+ * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2017, iBenchu.org
- * @datetime 2017-02-15 18:57
+ * @datetime 2017-05-03 18:15
  */
 namespace Notadd\Foundation\Member;
+
+use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
 
 /**
  * Class PermissionManager.
  */
 class PermissionManager
 {
-    const PATH_PREFIX = 'permission.paths.';
-
     /**
-     * @param string $key
-     * @param string $path
+     * @var \Illuminate\Container\Container
      */
-    public function registerFilePath(string $key, string $path)
-    {
-        if (! app('config')->has(static::PATH_PREFIX . $key)) {
-            app('config')->set(static::PATH_PREFIX . $key, $path);
-        }
-    }
+    protected $container;
 
     /**
-     * @param string $key
+     * @var \Illuminate\Support\Collection
+     */
+    protected $groups;
+
+    /**
+     * PermissionManager constructor.
      *
-     * @return string
+     * @param \Illuminate\Container\Container $container
      */
-    public function getFilePath(string $key)
+    public function __construct(Container $container)
     {
-        return app('config')->get(static::PATH_PREFIX . $key, '');
+        $this->container = $container;
+        $this->groups = new Collection();
     }
 
     /**
-     * @return array
+     * @param string $key
+     * @param array  $attributes
      */
-    public function getFilePaths()
+    public function group(string $key, array $attributes)
     {
-        return app('config')->get(rtrim(static::PATH_PREFIX, '.'), []);
+        PermissionGroup::validate($attributes) && $this->groups->put($key, PermissionGroup::createFromAttributes($attributes));
     }
 }

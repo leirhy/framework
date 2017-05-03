@@ -2,18 +2,17 @@
 /**
  * This file is part of Notadd.
  *
- * @author        Qiyueshiyi <qiyueshiyi@outlook.com>
+ * @author Qiyueshiyi <qiyueshiyi@outlook.com>
  * @copyright (c) 2017, iBenchu.org
- * @datetime      2017-02-14 16:04
+ * @datetime 2017-02-14 16:04
  */
-
 namespace Notadd\Foundation\Member;
 
 use Illuminate\Support\Str;
 use Notadd\Foundation\Database\Model;
 
 /**
- * Class Permission
+ * Class Permission.
  *
  * @property integer             $id
  * @property string              $name

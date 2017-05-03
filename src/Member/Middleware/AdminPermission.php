@@ -2,17 +2,19 @@
 /**
  * This file is part of Notadd.
  *
- * @author        Qiyueshiyi <qiyueshiyi@outlook.com>
+ * @author Qiyueshiyi <qiyueshiyi@outlook.com>
  * @copyright (c) 2017, iBenchu.org
- * @datetime      2017-02-17 17:20
+ * @datetime 2017-02-17 17:20
  */
-
 namespace Notadd\Foundation\Member\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * Class AdminPermission.
+ */
 class AdminPermission extends Permission
 {
     /**

@@ -2,11 +2,10 @@
 /**
  * This file is part of Notadd.
  *
- * @author        Qiyueshiyi <qiyueshiyi@outlook.com>
+ * @author Qiyueshiyi <qiyueshiyi@outlook.com>
  * @copyright (c) 2017, iBenchu.org
- * @datetime      2017-02-15 18:01
+ * @datetime 2017-02-15 18:01
  */
-
 namespace Notadd\Foundation\Member\Commands;
 
 use Illuminate\Console\Command;
@@ -14,6 +13,9 @@ use Illuminate\Console\ConfirmableTrait;
 use Notadd\Foundation\Member\Permission;
 use Symfony\Component\Console\Input\InputOption;
 
+/**
+ * Class PermissionCommand.
+ */
 class PermissionCommand extends Command
 {
     use ConfirmableTrait;
@@ -33,6 +35,9 @@ class PermissionCommand extends Command
      */
     protected $permissionManager;
 
+    /**
+     * PermissionCommand constructor.
+     */
     public function __construct()
     {
         parent::__construct();

@@ -3,17 +3,19 @@
 /**
  * This file is part of Notadd.
  *
- * @author        Qiyueshiyi <qiyueshiyi@outlook.com>
+ * @author Qiyueshiyi <qiyueshiyi@outlook.com>
  * @copyright (c) 2017, iBenchu.org
- * @datetime      2017-02-16 13:41
+ * @datetime 2017-02-16 13:41
  */
-
 namespace Notadd\Foundation\Member\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * Class Permission.
+ */
 class Permission
 {
     protected $auth;

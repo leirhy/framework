@@ -72,6 +72,14 @@ class PermissionGroup
     }
 
     /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function permissions()
+    {
+        return $this->permissions;
+    }
+
+    /**
      * @param array $attributes
      *
      * @return bool

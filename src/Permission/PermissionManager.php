@@ -53,4 +53,25 @@ class PermissionManager
             return false;
         }
     }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function groups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function permissions()
+    {
+        $permissions = new Collection();
+        $this->groups->each(function (PermissionGroup $group) use ($permissions) {
+            $permissions->merge($group->permissions());
+        });
+
+        return $permissions;
+    }
 }

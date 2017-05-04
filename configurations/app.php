@@ -45,6 +45,7 @@ return [
         Illuminate\Pagination\PaginationServiceProvider::class,
         Notadd\Foundation\Passport\PassportServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        Notadd\Foundation\Permission\PermissionServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Notadd\Foundation\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,

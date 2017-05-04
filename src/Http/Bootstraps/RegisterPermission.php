@@ -9,7 +9,7 @@
 namespace Notadd\Foundation\Http\Bootstraps;
 
 use Illuminate\Contracts\Foundation\Application;
-use Notadd\Foundation\Member\Events\PermissionRegister;
+use Notadd\Foundation\Permission\Events\PermissionRegister;
 
 /**
  * Class RegisterPermission.

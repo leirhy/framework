@@ -6,10 +6,10 @@
  * @copyright (c) 2017, iBenchu.org
  * @datetime 2017-05-03 19:48
  */
-namespace Notadd\Foundation\Member\Events;
+namespace Notadd\Foundation\Permission\Events;
 
 use Illuminate\Container\Container;
-use Notadd\Foundation\Member\PermissionManager;
+use Notadd\Foundation\Permission\PermissionManager;
 
 /**
  * Class PermissionRegister.
@@ -22,15 +22,15 @@ class PermissionRegister
     protected $container;
 
     /**
-     * @var \Notadd\Foundation\Member\PermissionManager
+     * @var \Notadd\Foundation\Permission\PermissionManager
      */
     protected $permission;
 
     /**
      * PermissionRegister constructor.
      *
-     * @param \Illuminate\Container\Container             $container
-     * @param \Notadd\Foundation\Member\PermissionManager $permission
+     * @param \Illuminate\Container\Container                 $container
+     * @param \Notadd\Foundation\Permission\PermissionManager $permission
      */
     public function __construct(Container $container, PermissionManager $permission)
     {

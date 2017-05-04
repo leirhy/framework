@@ -32,8 +32,6 @@ class MemberServiceProvider extends ServiceProvider
             return $manager->manager();
         });
 
-        $this->registerPermission();
-
         $this->registerMiddleware();
     }
 
@@ -42,12 +40,5 @@ class MemberServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('permission', Permission::class);
         $this->app['router']->aliasMiddleware('permission.admin', AdminPermission::class);
         $this->app['router']->aliasMiddleware('permission.front', FrontPermission::class);
-    }
-
-    public function registerPermission()
-    {
-        $this->app->singleton('permission', function ($app) {
-            return new PermissionManager($app);
-        });
     }
 }

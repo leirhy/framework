@@ -6,7 +6,7 @@
  * @copyright (c) 2017, iBenchu.org
  * @datetime 2017-05-03 18:15
  */
-namespace Notadd\Foundation\Member;
+namespace Notadd\Foundation\Permission;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;

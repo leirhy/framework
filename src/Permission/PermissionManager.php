@@ -63,6 +63,22 @@ class PermissionManager
     }
 
     /**
+     * @param string $group
+     * @param string $key
+     * @param array  $attributes
+     *
+     * @return bool
+     */
+    public function permission(string $group, string $key, array $attributes)
+    {
+        if ($this->groups->has($group)) {
+            return $this->groups->get($group)->permission($key, $attributes);
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * @return \Illuminate\Support\Collection
      */
     public function permissions()

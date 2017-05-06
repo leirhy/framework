@@ -48,6 +48,46 @@ class Permission
     }
 
     /**
+     * @return string
+     */
+    public function default()
+    {
+        return $this->attributes['default'];
+    }
+
+    /**
+     * @return string
+     */
+    public function description()
+    {
+        return $this->attributes['description'];
+    }
+
+    /**
+     * @return string
+     */
+    public function key()
+    {
+        return $this->attributes['key'];
+    }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return $this->attributes['name'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function type()
+    {
+        return $this->attributes['type'];
+    }
+
+    /**
      * @param array $attributes
      *
      * @return bool

@@ -38,8 +38,6 @@ use Notadd\Foundation\Event\Commands\ListenerMakeCommand;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Http\Commands\RequestMakeCommand;
 use Notadd\Foundation\Mail\Commands\MailMakeCommand;
-use Notadd\Foundation\Notification\Commands\NotificationMakeCommand;
-use Notadd\Foundation\Notification\Commands\NotificationTableCommand;
 use Notadd\Foundation\Queue\Commands\JobMakeCommand;
 use Notadd\Foundation\Routing\Commands\ControllerMakeCommand;
 use Notadd\Foundation\Routing\Commands\MiddlewareMakeCommand;
@@ -100,7 +98,6 @@ class ConsoleServiceProvider extends ServiceProvider
         'MiddlewareMake'    => 'command.middleware.make',
         'MigrateMake'       => 'command.migrate.make',
         'ModelMake'         => 'command.model.make',
-        'NotificationMake'  => 'command.notification.make',
         'NotificationTable' => 'command.notification.table',
         'PolicyMake'        => 'command.policy.make',
         'QueueFailedTable'  => 'command.queue.failed-table',
@@ -419,16 +416,6 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * Register the command.
      */
-    protected function registerNotificationMakeCommand()
-    {
-        $this->app->singleton('command.notification.make', function ($app) {
-            return new NotificationMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
     protected function registerOptimizeCommand()
     {
         $this->app->singleton('command.optimize', function ($app) {
@@ -583,16 +570,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.policy.make', function ($app) {
             return new Commands\PolicyMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerNotificationTableCommand()
-    {
-        $this->app->singleton('command.notification.table', function ($app) {
-            return new NotificationTableCommand($app['files'], $app['composer']);
         });
     }
 

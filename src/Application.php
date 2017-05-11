@@ -1101,7 +1101,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             ],
             'member'                    => [\Notadd\Foundation\Member\MemberManagement::class],
             'module'                    => [\Notadd\Foundation\Module\ModuleManager::class],
-            'permission'                => [\Notadd\Foundation\Member\MemberManagement::class],
+            'permission'                => [\Notadd\Foundation\Permission\PermissionManager::class],
             'queue'                     => [
                 \Illuminate\Queue\QueueManager::class,
                 \Illuminate\Contracts\Queue\Factory::class,

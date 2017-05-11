@@ -106,4 +106,12 @@ class PermissionManager
 
         return $permissions;
     }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function types()
+    {
+        return $this->types;
+    }
 }

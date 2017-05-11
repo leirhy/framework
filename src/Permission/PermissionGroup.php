@@ -65,9 +65,9 @@ class PermissionGroup
     /**
      * @return string
      */
-    public function key()
+    public function identification()
     {
-        return $this->attributes['key'];
+        return $this->attributes['identification'];
     }
 
     /**
@@ -79,15 +79,15 @@ class PermissionGroup
     }
 
     /**
-     * @param string $key
+     * @param string $identification
      * @param array  $attributes
      *
      * @return bool
      */
-    public function permission(string $key, array $attributes)
+    public function permission(string $identification, array $attributes)
     {
         if (Permission::validate($attributes)) {
-            $this->permissions->put($key, Permission::createFromAttributes($attributes));
+            $this->permissions->put($identification, Permission::createFromAttributes($attributes));
 
             return true;
         } else {
@@ -112,7 +112,7 @@ class PermissionGroup
     {
         $needs = [
             'description',
-            'key',
+            'identification',
             'name',
         ];
         foreach ($needs as $need) {

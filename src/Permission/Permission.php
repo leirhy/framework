@@ -66,9 +66,9 @@ class Permission
     /**
      * @return string
      */
-    public function key()
+    public function identification()
     {
-        return $this->attributes['key'];
+        return $this->attributes['identification'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Permission
         $needs = [
             'default',
             'description',
-            'key',
+            'identification',
             'name',
             'type',
         ];

@@ -22,7 +22,7 @@ class PermissionRegister extends AbstractPermissionRegister
     {
         $this->manager->group('global', [
             'description' => '全局权限定义。',
-            'key' => 'global',
+            'identification' => 'global',
             'name' => '全局权限',
         ]);
     }

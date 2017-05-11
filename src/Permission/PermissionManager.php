@@ -45,15 +45,15 @@ class PermissionManager
     }
 
     /**
-     * @param string $key
+     * @param string $identification
      * @param array  $attributes
      *
      * @return bool
      */
-    public function group(string $key, array $attributes)
+    public function group(string $identification, array $attributes)
     {
         if (PermissionGroup::validate($attributes)) {
-            $this->groups->put($key, PermissionGroup::createFromAttributes($attributes));
+            $this->groups->put($identification, PermissionGroup::createFromAttributes($attributes));
 
             return true;
         } else {
@@ -80,15 +80,15 @@ class PermissionManager
 
     /**
      * @param string $group
-     * @param string $key
+     * @param string $identification
      * @param array  $attributes
      *
      * @return bool
      */
-    public function permission(string $group, string $key, array $attributes)
+    public function permission(string $group, string $identification, array $attributes)
     {
         if ($this->groups->has($group)) {
-            return $this->groups->get($group)->permission($key, $attributes);
+            return $this->groups->get($group)->permission($identification, $attributes);
         } else {
             return false;
         }

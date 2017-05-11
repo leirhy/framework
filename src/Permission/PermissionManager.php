@@ -27,6 +27,11 @@ class PermissionManager
     protected $groups;
 
     /**
+     * @var \Illuminate\Support\Collection
+     */
+    protected $types;
+
+    /**
      * PermissionManager constructor.
      *
      * @param \Illuminate\Container\Container $container
@@ -35,6 +40,8 @@ class PermissionManager
     {
         $this->container = $container;
         $this->groups = new Collection();
+        $this->types = new Collection();
+        $this->initialize();
     }
 
     /**
@@ -60,6 +67,15 @@ class PermissionManager
     public function groups()
     {
         return $this->groups;
+    }
+
+    public function initialize()
+    {
+        $this->types->put('global', PermissionType::createFromAttributes([
+            'description' => '全局权限类型。',
+            'identification' => 'global',
+            'name' => '全局',
+        ]));
     }
 
     /**

@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/notadd/framework.svg?branch=master)](https://travis-ci.org/notadd/framework)
 ![Packagist](https://img.shields.io/packagist/v/notadd/framework.svg) 
 ![Downloads](https://img.shields.io/packagist/dt/notadd/framework.svg)
 # Notadd Framework

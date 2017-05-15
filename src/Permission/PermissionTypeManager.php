@@ -33,5 +33,34 @@ class PermissionTypeManager
     {
         $this->container = $container;
         $this->types = new Collection();
+        $this->initialize();
+    }
+
+    /**
+     * @param string $identification
+     * @param array  $attributes
+     */
+    public function extend(string $identification, array $attributes)
+    {
+        if (!$this->types->has($identification) && PermissionType::validate($attributes)) {
+            $this->types->put($identification, PermissionType::createFromAttributes($attributes));
+        }
+    }
+
+    public function initialize()
+    {
+        $this->types->put('global', PermissionType::createFromAttributes([
+            'description' => '全局权限类型。',
+            'identification' => 'global',
+            'name' => '全局',
+        ]));
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function types()
+    {
+        return $this->types;
     }
 }

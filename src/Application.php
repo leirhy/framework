@@ -6,6 +6,7 @@
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-20 19:41
  */
+
 namespace Notadd\Foundation;
 
 use Closure;
@@ -1102,6 +1103,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'member'                    => [\Notadd\Foundation\Member\MemberManagement::class],
             'module'                    => [\Notadd\Foundation\Module\ModuleManager::class],
             'permission'                => [\Notadd\Foundation\Permission\PermissionManager::class],
+            'permission.type'           => [\Notadd\Foundation\Permission\PermissionTypeManager::class],
             'queue'                     => [
                 \Illuminate\Queue\QueueManager::class,
                 \Illuminate\Contracts\Queue\Factory::class,

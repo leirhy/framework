@@ -33,5 +33,8 @@ class PermissionServiceProvider extends ServiceProvider
         $this->app->singleton('permission', function ($app) {
             return new PermissionManager($app);
         });
+        $this->app->singleton('permission.type', function ($app) {
+            return new PermissionTypeManager($app);
+        });
     }
 }

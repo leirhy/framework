@@ -13,12 +13,18 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Configuration\Repository as ConfigurationRepository;
 
 /**
  * Class ExtensionManager.
  */
 class ExtensionManager
 {
+    /**
+     * @var \Notadd\Foundation\Configuration\Repository
+     */
+    protected $configuration;
+
     /**
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
@@ -47,12 +53,14 @@ class ExtensionManager
     /**
      * ExtensionManager constructor.
      *
-     * @param \Illuminate\Container\Container   $container
-     * @param \Illuminate\Events\Dispatcher     $events
-     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param \Illuminate\Container\Container             $container
+     * @param \Notadd\Foundation\Configuration\Repository $configuration
+     * @param \Illuminate\Events\Dispatcher               $events
+     * @param \Illuminate\Filesystem\Filesystem           $files
      */
-    public function __construct(Container $container, Dispatcher $events, Filesystem $files)
+    public function __construct(Container $container, ConfigurationRepository $configuration, Dispatcher $events, Filesystem $files)
     {
+        $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;
         $this->extensions = new Collection();
@@ -79,7 +87,7 @@ class ExtensionManager
      */
     public function getExtensionPath()
     {
-        return $this->container->basePath() . DIRECTORY_SEPARATOR . 'extensions';
+        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('extension.directory');
     }
 
     /**

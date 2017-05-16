@@ -14,6 +14,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Configuration\Repository as ConfigurationRepository;
 
 /**
  * Class ModuleManager.
@@ -48,14 +49,21 @@ class ModuleManager
     protected $unloaded;
 
     /**
+     * @var \Notadd\Foundation\Configuration\Repository
+     */
+    private $configuration;
+
+    /**
      * ModuleManager constructor.
      *
-     * @param \Illuminate\Container\Container   $container
-     * @param \Illuminate\Events\Dispatcher     $events
-     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param \Illuminate\Container\Container             $container
+     * @param \Notadd\Foundation\Configuration\Repository $configuration
+     * @param \Illuminate\Events\Dispatcher               $events
+     * @param \Illuminate\Filesystem\Filesystem           $files
      */
-    public function __construct(Container $container, Dispatcher $events, Filesystem $files)
+    public function __construct(Container $container, ConfigurationRepository $configuration, Dispatcher $events, Filesystem $files)
     {
+        $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;
         $this->files = $files;
@@ -202,6 +210,6 @@ class ModuleManager
      */
     public function getModulePath(): string
     {
-        return $this->container->basePath() . DIRECTORY_SEPARATOR . 'modules';
+        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('module.directory');
     }
 }

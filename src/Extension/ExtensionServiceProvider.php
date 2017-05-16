@@ -12,6 +12,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Extension\Commands\ListCommand;
+use Notadd\Foundation\Extension\Commands\ListUnloadedCommand;
 use Notadd\Foundation\Extension\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Extension\Listeners\RouteRegister;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
@@ -54,6 +55,7 @@ class ExtensionServiceProvider extends ServiceProvider
         });
         $this->commands([
             ListCommand::class,
+            ListUnloadedCommand::class,
         ]);
     }
 

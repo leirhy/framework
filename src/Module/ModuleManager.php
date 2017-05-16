@@ -6,7 +6,6 @@
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-12-13 21:05
  */
-
 namespace Notadd\Foundation\Module;
 
 use Illuminate\Container\Container;
@@ -159,11 +158,11 @@ class ModuleManager
                                 $this->modules->put($identification, $module);
                             } else {
                                 $this->unloaded->put($identification, [
-                                    'authors'     => $authors,
-                                    'description' => $description,
-                                    'directory'   => $directory,
-                                    'provider'    => $provider,
+                                    'authors'        => $authors,
+                                    'description'    => $description,
+                                    'directory'      => $directory,
                                     'identification' => $identification,
+                                    'provider'       => $provider,
                                 ]);
                             }
                         }
@@ -190,6 +189,14 @@ class ModuleManager
         }
 
         return $list;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getUnloadedExtensions()
+    {
+        return $this->unloaded;
     }
 
     /**

@@ -151,11 +151,11 @@ class ExtensionManager
                                     $this->extensions->put($identification, $extension);
                                 } else {
                                     $this->unloaded->put($identification, [
-                                        'authors'     => $authors,
-                                        'description' => $description,
-                                        'directory'   => $directory,
-                                        'provider'    => $provider,
+                                        'authors'        => $authors,
+                                        'description'    => $description,
+                                        'directory'      => $directory,
                                         'identification' => $identification,
+                                        'provider'       => $provider,
                                     ]);
                                 }
                             }
@@ -200,6 +200,14 @@ class ExtensionManager
         }
 
         return $list;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getUnloadedExtensions()
+    {
+        return $this->unloaded;
     }
 
     /**

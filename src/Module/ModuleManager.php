@@ -163,6 +163,7 @@ class ModuleManager
                                     'description' => $description,
                                     'directory'   => $directory,
                                     'provider'    => $provider,
+                                    'identification' => $identification,
                                 ]);
                             }
                         }

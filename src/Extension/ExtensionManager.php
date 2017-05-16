@@ -155,6 +155,7 @@ class ExtensionManager
                                         'description' => $description,
                                         'directory'   => $directory,
                                         'provider'    => $provider,
+                                        'identification' => $identification,
                                     ]);
                                 }
                             }

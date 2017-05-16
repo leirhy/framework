@@ -45,6 +45,7 @@ class ListCommand extends Command
      *
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      *
+     * @return bool
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function fire(ExtensionManager $manager)
@@ -52,7 +53,7 @@ class ListCommand extends Command
         $extensions = $manager->getExtensions();
         $list = new Collection();
         $this->info('Extensions list:');
-        $extensions->each(function (Extension $extension, $path) use ($list) {
+        $extensions->each(function (Extension $extension) use ($list) {
             $data = collect(collect($extension->getAuthor())->first());
             $author = $data->get('name');
             $data->has('email') ? $author .= ' <' . $data->get('email') . '>' : null;
@@ -60,11 +61,13 @@ class ListCommand extends Command
                 $extension->getIdentification(),
                 $author,
                 $extension->getDescription(),
-                $path,
+                $extension->getPath(),
                 $extension->getEntry(),
-                'Normal'
+                'Normal',
             ]);
         });
         $this->table($this->headers, $list->toArray());
+
+        return true;
     }
 }

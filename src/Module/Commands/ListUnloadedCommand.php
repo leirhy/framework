@@ -3,20 +3,19 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, notadd.com
- * @datetime 2016-12-21 18:12
+ * @copyright (c) 2017, notadd.com
+ * @datetime 2017-05-16 15:24
  */
 namespace Notadd\Foundation\Module\Commands;
 
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Console\Abstracts\Command;
-use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
 
 /**
- * Class ListCommand.
+ * Class ListUnloadedCommand.
  */
-class ListCommand extends Command
+class ListUnloadedCommand extends Command
 {
     /**
      * @var array
@@ -35,29 +34,30 @@ class ListCommand extends Command
      */
     public function configure()
     {
-        $this->setDescription('Show module list.');
-        $this->setName('module:list');
+        $this->setDescription('Show unloaded module list.');
+        $this->setName('module:unloaded');
     }
 
     /**
-     * Command Handler.
-     *
      * @param \Notadd\Foundation\Module\ModuleManager $manager
      *
      * @return bool
      */
-    public function fire(ModuleManager $manager): bool
+    public function fire(ModuleManager $manager)
     {
         $modules = $manager->getModules();
         $list = new Collection();
         $this->info('Extensions list:');
-        $modules->each(function (Module $module, $path) use ($list) {
+        $modules->each(function (array $module) use ($list) {
+            $data = collect($module['authors']);
+            $author = $data->get('name');
+            $data->has('email') ? $author .= ' <' . $data->get('email') . '>' : null;
             $list->push([
-                $module->getIdentification(),
-                collect($module->getAuthor())->first(),
-                $module->getDescription(),
-                $path,
-                $module->getEntry(),
+                $module['identification'],
+                $author,
+                $module['description'],
+                $module['directory'],
+                $module['provider'],
                 'Normal'
             ]);
         });

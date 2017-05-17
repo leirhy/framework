@@ -45,7 +45,7 @@ class ListUnloadedCommand extends Command
      */
     public function fire(ModuleManager $manager)
     {
-        $modules = $manager->getModules();
+        $modules = $manager->getUnloadedModules();
         $list = new Collection();
         $this->info('Modules list:');
         $modules->each(function (array $module) use ($list) {

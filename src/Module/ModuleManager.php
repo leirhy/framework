@@ -194,7 +194,7 @@ class ModuleManager
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function getUnloadedExtensions()
+    public function getUnloadedModules()
     {
         return $this->unloaded;
     }

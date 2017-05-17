@@ -16,10 +16,18 @@ use Illuminate\Notifications\NotificationServiceProvider as IlluminateNotificati
 class NotificationServiceProvider extends IlluminateNotificationServiceProvider
 {
     /**
+     * @var \Notadd\Foundation\Application
+     */
+    protected $app;
+
+    /**
      * Register for service provider.
      */
     public function register()
     {
         parent::register();
+        $this->app->singleton('notification.type', function ($app) {
+            return new NotificationTypeManager($app);
+        });
     }
 }

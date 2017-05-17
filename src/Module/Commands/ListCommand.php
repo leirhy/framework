@@ -50,7 +50,7 @@ class ListCommand extends Command
     {
         $modules = $manager->getModules();
         $list = new Collection();
-        $this->info('Extensions list:');
+        $this->info('Modules list:');
         $modules->each(function (Module $module, $path) use ($list) {
             $list->push([
                 $module->getIdentification(),

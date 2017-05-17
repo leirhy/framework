@@ -47,7 +47,7 @@ class ListUnloadedCommand extends Command
     {
         $modules = $manager->getModules();
         $list = new Collection();
-        $this->info('Extensions list:');
+        $this->info('Modules list:');
         $modules->each(function (array $module) use ($list) {
             $data = collect($module['authors']);
             $author = $data->get('name');

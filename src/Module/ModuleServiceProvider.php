@@ -14,6 +14,7 @@ use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Module\Commands\GenerateCommand;
 use Notadd\Foundation\Module\Commands\ListCommand;
+use Notadd\Foundation\Module\Commands\ListUnloadedCommand;
 use Notadd\Foundation\Module\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Module\Listeners\RouteRegister;
 
@@ -53,7 +54,8 @@ class ModuleServiceProvider extends ServiceProvider
         });
         $this->commands([
             GenerateCommand::class,
-            ListCommand::class
+            ListCommand::class,
+            ListUnloadedCommand::class,
         ]);
     }
 

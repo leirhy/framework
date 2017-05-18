@@ -15,9 +15,19 @@ use Illuminate\Notifications\Notification;
  */
 abstract class NotificationType extends Notification
 {
+    /**
+     * @var array
+     */
+    protected $attributes;
+
+    /**
+     * NotificationType constructor.
+     *
+     * @param array $attributes
+     */
     public function __construct(array $attributes)
     {
-
+        $this->attributes = $attributes;
     }
 
     /**

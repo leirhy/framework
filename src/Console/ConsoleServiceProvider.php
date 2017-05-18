@@ -26,7 +26,6 @@ use Notadd\Foundation\Console\Commands\ConfigClearCommand;
 use Notadd\Foundation\Console\Commands\DownCommand;
 use Notadd\Foundation\Console\Commands\EnvironmentCommand;
 use Notadd\Foundation\Console\Commands\EventGenerateCommand;
-use Notadd\Foundation\Console\Commands\StorageLinkCommand;
 use Notadd\Foundation\Console\Commands\TestMakeCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
 use Notadd\Foundation\Database\Commands\ModelMakeCommand;
@@ -70,7 +69,6 @@ class ConsoleServiceProvider extends ServiceProvider
         'RouteCache'      => 'command.route.cache',
         'RouteClear'      => 'command.route.clear',
         'RouteList'       => 'command.route.list',
-        'StorageLink'     => 'command.storage.link',
         'Up'              => 'command.up',
         'ViewClear'       => 'command.view.clear',
     ];
@@ -385,16 +383,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.session.table', function ($app) {
             return new SessionTableCommand($app['files'], $app['composer']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerStorageLinkCommand()
-    {
-        $this->app->singleton('command.storage.link', function () {
-            return new StorageLinkCommand();
         });
     }
 

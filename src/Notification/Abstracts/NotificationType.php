@@ -15,6 +15,11 @@ use Illuminate\Notifications\Notification;
  */
 abstract class NotificationType extends Notification
 {
+    public function __construct(array $attributes)
+    {
+
+    }
+
     /**
      * Get the notification's delivery channels.
      *

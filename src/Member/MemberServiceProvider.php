@@ -9,9 +9,6 @@
 namespace Notadd\Foundation\Member;
 
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
-use Notadd\Foundation\Member\Middleware\Permission;
-use Notadd\Foundation\Member\Middleware\FrontPermission;
-use Notadd\Foundation\Member\Middleware\AdminPermission;
 
 /**
  * Class MemberServiceProvider.
@@ -31,14 +28,5 @@ class MemberServiceProvider extends ServiceProvider
 
             return $manager->manager();
         });
-
-        $this->registerMiddleware();
-    }
-
-    public function registerMiddleware()
-    {
-        $this->app['router']->aliasMiddleware('permission', Permission::class);
-        $this->app['router']->aliasMiddleware('permission.admin', AdminPermission::class);
-        $this->app['router']->aliasMiddleware('permission.front', FrontPermission::class);
     }
 }

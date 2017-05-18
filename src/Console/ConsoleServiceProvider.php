@@ -25,7 +25,6 @@ use Notadd\Foundation\Console\Commands\ConfigCacheCommand;
 use Notadd\Foundation\Console\Commands\ConfigClearCommand;
 use Notadd\Foundation\Console\Commands\DownCommand;
 use Notadd\Foundation\Console\Commands\EnvironmentCommand;
-use Notadd\Foundation\Console\Commands\EventGenerateCommand;
 use Notadd\Foundation\Console\Commands\TestMakeCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
@@ -77,7 +76,6 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     protected $devCommands = [
         'CacheTable'        => 'command.cache.table',
-        'EventGenerate'     => 'command.event.generate',
         'JobMake'           => 'command.job.make',
         'MailMake'          => 'command.mail.make',
         'MigrateMake'       => 'command.migrate.make',
@@ -174,16 +172,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.config.clear', function ($app) {
             return new ConfigClearCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerEventGenerateCommand()
-    {
-        $this->app->singleton('command.event.generate', function () {
-            return new EventGenerateCommand();
         });
     }
 

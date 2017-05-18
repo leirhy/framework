@@ -30,7 +30,6 @@ use Notadd\Foundation\Console\Commands\VendorPublishCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Mail\Commands\MailMakeCommand;
-use Notadd\Foundation\Queue\Commands\JobMakeCommand;
 use Notadd\Foundation\Routing\Commands\RouteCacheCommand;
 use Notadd\Foundation\Routing\Commands\RouteClearCommand;
 use Notadd\Foundation\Routing\Commands\RouteListCommand;
@@ -76,7 +75,6 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     protected $devCommands = [
         'CacheTable'        => 'command.cache.table',
-        'JobMake'           => 'command.job.make',
         'MailMake'          => 'command.mail.make',
         'MigrateMake'       => 'command.migrate.make',
         'QueueFailedTable'  => 'command.queue.failed-table',
@@ -191,16 +189,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.environment', function () {
             return new EnvironmentCommand();
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerJobMakeCommand()
-    {
-        $this->app->singleton('command.job.make', function ($app) {
-            return new JobMakeCommand($app['files']);
         });
     }
 

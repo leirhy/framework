@@ -28,7 +28,6 @@ use Notadd\Foundation\Console\Commands\EnvironmentCommand;
 use Notadd\Foundation\Console\Commands\EventGenerateCommand;
 use Notadd\Foundation\Console\Commands\TestMakeCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
-use Notadd\Foundation\Database\Commands\ModelMakeCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Mail\Commands\MailMakeCommand;
@@ -82,7 +81,6 @@ class ConsoleServiceProvider extends ServiceProvider
         'JobMake'           => 'command.job.make',
         'MailMake'          => 'command.mail.make',
         'MigrateMake'       => 'command.migrate.make',
-        'ModelMake'         => 'command.model.make',
         'PolicyMake'        => 'command.policy.make',
         'QueueFailedTable'  => 'command.queue.failed-table',
         'QueueTable'        => 'command.queue.table',
@@ -323,16 +321,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.migrate.status', function ($app) {
             return new MigrateStatusCommand($app['migrator']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerModelMakeCommand()
-    {
-        $this->app->singleton('command.model.make', function ($app) {
-            return new ModelMakeCommand($app['files']);
         });
     }
 

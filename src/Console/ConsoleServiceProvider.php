@@ -79,7 +79,6 @@ class ConsoleServiceProvider extends ServiceProvider
         'JobMake'           => 'command.job.make',
         'MailMake'          => 'command.mail.make',
         'MigrateMake'       => 'command.migrate.make',
-        'PolicyMake'        => 'command.policy.make',
         'QueueFailedTable'  => 'command.queue.failed-table',
         'QueueTable'        => 'command.queue.table',
         'SeederMake'        => 'command.seeder.make',
@@ -439,16 +438,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.view.clear', function ($app) {
             return new Commands\ViewClearCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerPolicyMakeCommand()
-    {
-        $this->app->singleton('command.policy.make', function ($app) {
-            return new Commands\PolicyMakeCommand($app['files']);
         });
     }
 

@@ -25,7 +25,6 @@ use Notadd\Foundation\Console\Commands\ConfigCacheCommand;
 use Notadd\Foundation\Console\Commands\ConfigClearCommand;
 use Notadd\Foundation\Console\Commands\DownCommand;
 use Notadd\Foundation\Console\Commands\EnvironmentCommand;
-use Notadd\Foundation\Console\Commands\TestMakeCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
@@ -82,7 +81,6 @@ class ConsoleServiceProvider extends ServiceProvider
         'SeederMake'        => 'command.seeder.make',
         'SessionTable'      => 'command.session.table',
         'Serve'             => 'command.serve',
-        'TestMake'          => 'command.test.make',
         'VendorPublish'     => 'command.vendor.publish',
     ];
 
@@ -386,16 +384,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.serve', function () {
             return new Commands\ServeCommand();
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerTestMakeCommand()
-    {
-        $this->app->singleton('command.test.make', function ($app) {
-            return new TestMakeCommand($app['files']);
         });
     }
 

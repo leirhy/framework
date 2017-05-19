@@ -91,6 +91,8 @@ abstract class Installer
 
     /**
      * @return bool
+     * @throws \Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public final function install()
     {

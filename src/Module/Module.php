@@ -14,6 +14,11 @@ namespace Notadd\Foundation\Module;
 class Module
 {
     /**
+     * @var array
+     */
+    protected $alias;
+
+    /**
      * @var string|array
      */
     protected $author;
@@ -76,6 +81,14 @@ class Module
     public function __construct($name = null)
     {
         $this->identification = $name;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAlias(): array
+    {
+        return $this->alias;
     }
 
     /**
@@ -186,6 +199,14 @@ class Module
     public function isInstalled()
     {
         return $this->installed;
+    }
+
+    /**
+     * @param array $alias
+     */
+    public function setAlias(array $alias)
+    {
+        $this->alias = $alias;
     }
 
     /**

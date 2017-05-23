@@ -59,7 +59,7 @@ class Module
     protected $name;
 
     /**
-     * @var string
+     * @var string|array
      */
     protected $script;
 
@@ -154,7 +154,7 @@ class Module
     /**
      * Script of module.
      *
-     * @return string
+     * @return string|array
      */
     public function getScript()
     {
@@ -298,7 +298,7 @@ class Module
     /**
      * Set module's script.
      *
-     * @param string $script
+     * @param string|array $script
      */
     public function setScript($script)
     {

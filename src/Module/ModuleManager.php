@@ -150,6 +150,11 @@ class ModuleManager
                                 $module->setEnabled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.enabled', false) : false);
                                 $module->setInstalled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.installed', false) : false);
                                 $module->setEntry($provider);
+                                if (method_exists($provider, 'alias')) {
+                                    $module->setAlias(call_user_func([$provider, 'alias']));
+                                } else {
+                                    $module->setAlias([$identification]);
+                                }
                                 method_exists($provider, 'description') && $module->setDescription(call_user_func([$provider, 'description']));
                                 method_exists($provider, 'name') && $module->setName(call_user_func([$provider, 'name']));
                                 method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));

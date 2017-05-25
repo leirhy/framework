@@ -38,6 +38,14 @@ class Permission
     }
 
     /**
+     * @return array
+     */
+    public function attributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
      * @param array $attributes
      *
      * @return static

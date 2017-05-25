@@ -20,6 +20,15 @@ class PermissionRegister extends AbstractPermissionRegister
      */
     public function handle()
     {
-        // TODO: Implement handle() method.
+        $this->manager->permission('global', [
+            'default' => false,
+            'description' => '全局导航分组管理权限',
+            'identification' => 'navigation.group.manage',
+        ]);
+        $this->manager->permission('global', [
+            'default' => false,
+            'description' => '全局导航项管理权限',
+            'identification' => 'navigation.item.manage',
+        ]);
     }
 }

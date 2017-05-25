@@ -64,15 +64,14 @@ class PermissionManager
 
     /**
      * @param string $group
-     * @param string $identification
      * @param array  $attributes
      *
      * @return bool
      */
-    public function permission(string $group, string $identification, array $attributes)
+    public function permission(string $group, array $attributes)
     {
         if ($this->groups->has($group)) {
-            return $this->groups->get($group)->permission($identification, $attributes);
+            return $this->groups->get($group)->permission($attributes);
         } else {
             return false;
         }

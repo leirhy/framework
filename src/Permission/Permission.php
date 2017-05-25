@@ -98,8 +98,6 @@ class Permission
             'default',
             'description',
             'identification',
-            'name',
-            'type',
         ];
         foreach ($needs as $need) {
             if (!isset($attributes[$need])) {

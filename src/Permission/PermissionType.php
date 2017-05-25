@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Permission;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
 
 /**
  * Class PermissionType.
@@ -61,6 +62,24 @@ class PermissionType
     public function description()
     {
         return $this->attributes['description'];
+    }
+
+    /**
+     * @return array
+     */
+    public function has()
+    {
+        $data = new Collection();
+        $settings = collect($this->container->make('setting')->get('permissions', []));
+        $permissionGroups = $this->container->make(PermissionManager::class)->groups();
+        $permissionGroups->each(function (PermissionGroup $group) use ($data, $settings) {
+            $group->permissions()->each(function (Permission $permission) use ($data, $group, $settings) {
+                $identification = $this->identification() . '::' . $group->identification() . '::' . $permission->identification();
+                $data->put($identification, $settings->get($identification, []));
+            });
+        });
+
+        return $data->toArray();
     }
 
     /**

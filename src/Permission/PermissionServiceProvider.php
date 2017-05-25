@@ -8,23 +8,13 @@
  */
 namespace Notadd\Foundation\Permission;
 
-use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
-use Notadd\Foundation\Permission\Listeners\PermissionRegister;
 
 /**
  * Class PermissionServiceProvider.
  */
 class PermissionServiceProvider extends ServiceProvider
 {
-    /**
-     * Boot service provider.
-     */
-    public function boot()
-    {
-        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
-    }
-
     /**
      * ServiceProvider register.
      */

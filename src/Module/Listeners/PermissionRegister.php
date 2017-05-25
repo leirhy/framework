@@ -20,6 +20,10 @@ class PermissionRegister extends AbstractPermissionRegister
      */
     public function handle()
     {
-        // TODO: Implement handle() method.
+        $this->manager->permission('global', [
+            'default' => false,
+            'description' => '全局模块管理权限',
+            'identification' => 'module.manage',
+        ]);
     }
 }

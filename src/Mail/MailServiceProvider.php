@@ -12,6 +12,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Mail\MailServiceProvider as IlluminateMailServiceProvider;
 use Illuminate\Mail\Markdown;
 use Notadd\Foundation\Mail\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\Mail\Listeners\PermissionRegister;
 use Notadd\Foundation\Mail\Listeners\RouterRegister;
 
 /**
@@ -35,6 +36,7 @@ class MailServiceProvider extends IlluminateMailServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouterRegister::class);
     }
 

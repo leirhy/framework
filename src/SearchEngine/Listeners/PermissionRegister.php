@@ -20,6 +20,15 @@ class PermissionRegister extends AbstractPermissionRegister
      */
     public function handle()
     {
-        // TODO: Implement handle() method.
+        $this->manager->permission('global', [
+            'default' => false,
+            'description' => '获取全局 SEO 配置项',
+            'identification' => 'seo.get',
+        ]);
+        $this->manager->permission('global', [
+            'default' => false,
+            'description' => '获取全局 SEO 配置项',
+            'identification' => 'seo.set',
+        ]);
     }
 }

@@ -26,11 +26,6 @@ class RegisterPermission
     public function bootstrap(Application $application)
     {
         if ($application->isInstalled()) {
-            $application['permission']->group('global', [
-                'description' => '全局权限定义。',
-                'identification' => 'global',
-                'name' => '全局权限',
-            ]);
             $application->make('events')->fire(new PermissionRegister($application, $application['permission']));
         }
     }

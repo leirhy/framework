@@ -35,6 +35,7 @@ class PermissionManager
     {
         $this->container = $container;
         $this->groups = new Collection();
+        $this->initialize();
     }
 
     /**
@@ -60,6 +61,15 @@ class PermissionManager
     public function groups()
     {
         return $this->groups;
+    }
+
+    public function initialize()
+    {
+        $this->groups->put('global', PermissionGroup::createFromAttributes([
+            'description' => '全局权限定义。',
+            'identification' => 'global',
+            'name' => '全局权限',
+        ]));
     }
 
     /**

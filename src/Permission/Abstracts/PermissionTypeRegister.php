@@ -20,7 +20,7 @@ use Notadd\Foundation\Permission\PermissionTypeManager;
 abstract class PermissionTypeRegister extends EventSubscriber
 {
     /**
-     * @var \Notadd\Foundation\Permission\PermissionManager
+     * @var \Notadd\Foundation\Permission\PermissionTypeManager
      */
     protected $manager;
 

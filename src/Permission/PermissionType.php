@@ -70,7 +70,12 @@ class PermissionType
     public function has()
     {
         $data = new Collection();
-        $settings = collect($this->container->make('setting')->get('permissions', []));
+        $settings = $this->container->make('setting')->get('permissions', '');
+        if ($settings) {
+            $settings = collect(json_decode($settings));
+        } else {
+            $settings = collect();
+        }
         $permissionGroups = $this->container->make(PermissionManager::class)->groups();
         $permissionGroups->each(function (PermissionGroup $group) use ($data, $settings) {
             $group->permissions()->each(function (Permission $permission) use ($data, $group, $settings) {

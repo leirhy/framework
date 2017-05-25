@@ -21,7 +21,7 @@ class CreateSettingsTable extends Migration
     {
         $this->schema->create('settings', function (Blueprint $table) {
             $table->string('key', 100)->primary();
-            $table->string('value')->nullable();
+            $table->text('value')->nullable();
         });
     }
 

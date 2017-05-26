@@ -39,15 +39,14 @@ class PermissionManager
     }
 
     /**
-     * @param string $identification
      * @param array  $attributes
      *
      * @return bool
      */
-    public function group(string $identification, array $attributes)
+    public function group(array $attributes)
     {
         if (PermissionGroup::validate($attributes)) {
-            $this->groups->put($identification, PermissionGroup::createFromAttributes($attributes));
+            $this->groups->put($attributes['identification'], PermissionGroup::createFromAttributes($attributes));
 
             return true;
         } else {

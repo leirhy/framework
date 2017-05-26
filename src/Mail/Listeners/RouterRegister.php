@@ -12,12 +12,12 @@ use Notadd\Foundation\Mail\Controllers\MailController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
- * Class RouterRegistrar.
+ * Class RouterRegister.
  */
 class RouterRegister extends AbstractRouteRegister
 {
     /**
-     * Handle Route Registrar.
+     * Handle Route Register.
      */
     public function handle()
     {

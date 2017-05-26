@@ -12,12 +12,12 @@ use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 use Notadd\Foundation\SearchEngine\Controllers\SeoController;
 
 /**
- * Class RouterRegistrar.
+ * Class RouterRegister.
  */
 class RouterRegister extends AbstractRouteRegister
 {
     /**
-     * Handle Route Registrar.
+     * Handle Route Register.
      */
     public function handle()
     {

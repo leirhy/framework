@@ -12,12 +12,12 @@ use Notadd\Foundation\Auth\Controllers\AuthController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
- * Class RouterRegistrar.
+ * Class RouteRegister.
  */
 class RouteRegister extends AbstractRouteRegister
 {
     /**
-     * Handle Route Registrar.
+     * Handle Route Register.
      */
     public function handle()
     {

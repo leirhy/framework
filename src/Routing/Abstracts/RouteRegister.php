@@ -25,7 +25,7 @@ abstract class RouteRegister extends EventSubscriber
     protected $router;
 
     /**
-     * RouteRegistrar constructor.
+     * RouteRegister constructor.
      *
      * @param \Illuminate\Container\Container $container
      * @param \Illuminate\Events\Dispatcher   $events
@@ -48,7 +48,7 @@ abstract class RouteRegister extends EventSubscriber
     }
 
     /**
-     * Handle Route Registrar.
+     * Handle Route Register.
      */
     abstract public function handle();
 }

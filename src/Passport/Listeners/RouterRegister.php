@@ -17,12 +17,12 @@ use Notadd\Foundation\Passport\Controllers\ClientsController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister;
 
 /**
- * Class RouterRegistrar.
+ * Class RouterRegister.
  */
 class RouterRegister extends RouteRegister
 {
     /**
-     * Handle Route Registrar.
+     * Handle Route Register.
      */
     public function handle()
     {

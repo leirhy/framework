@@ -49,7 +49,7 @@ abstract class PermissionGroupRegister extends EventSubscriber
     }
 
     /**
-     * Handle Permission Registrar.
+     * Handle Permission Group Register.
      */
     abstract public function handle();
 }

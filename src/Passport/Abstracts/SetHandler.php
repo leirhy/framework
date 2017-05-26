@@ -22,10 +22,7 @@ abstract class SetHandler extends DataHandler
      * @return bool
      * @throws \Exception
      */
-    public function execute()
-    {
-        throw new Exception('Method execute is not setted!');
-    }
+    abstract public function execute();
 
     /**
      * Make execute result to response with errors or messages.

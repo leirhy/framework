@@ -10,68 +10,20 @@ namespace Notadd\Foundation\Navigation\Handlers\Group;
 
 use Illuminate\Container\Container;
 use Notadd\Foundation\Navigation\Models\Group;
-use Notadd\Foundation\Passport\Abstracts\DataHandler;
+use Notadd\Foundation\Passport\Abstracts\Handler;
 
 /**
  * Class Fetch.
  */
-class FetchHandler extends DataHandler
+class FetchHandler extends Handler
 {
     /**
-     * CategoryFinderHandler constructor.
+     * Execute Handler.
      *
-     * @param \Illuminate\Container\Container            $container
-     * @param \Notadd\Foundation\Navigation\Models\Group $group
+     * @throws \Exception
      */
-    public function __construct(
-        Container $container,
-        Group $group
-    ) {
-        parent::__construct($container);
-        $this->model = $group;
-    }
-
-    /**
-     * Http code.
-     *
-     * @return int
-     */
-    public function code()
+    protected function execute()
     {
-        return 200;
-    }
-
-    /**
-     * Data for handler.
-     *
-     * @return array
-     */
-    public function data()
-    {
-        return $this->model->newQuery()->get();
-    }
-
-    /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    public function errors()
-    {
-        return [
-            $this->translator->trans('content::category.fetch.fail'),
-        ];
-    }
-
-    /**
-     * Messages for handler.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            $this->translator->trans('content::category.fetch.success'),
-        ];
+        $this->success()->withData(Group::query()->get()->toArray())->withMessage('content::category.fetch.success');
     }
 }

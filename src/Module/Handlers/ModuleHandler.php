@@ -11,12 +11,12 @@ namespace Notadd\Foundation\Module\Handlers;
 use Illuminate\Container\Container;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
-use Notadd\Foundation\Passport\Abstracts\DataHandler;
+use Notadd\Foundation\Passport\Abstracts\Handler;
 
 /**
  * Class ModuleHandler.
  */
-class ModuleHandler extends DataHandler
+class ModuleHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Module\ModuleManager
@@ -29,33 +29,19 @@ class ModuleHandler extends DataHandler
      * @param \Illuminate\Container\Container         $container
      * @param \Notadd\Foundation\Module\ModuleManager $manager
      */
-    public function __construct(
-        Container $container,
-        ModuleManager $manager
-    ) {
+    public function __construct(Container $container, ModuleManager $manager) {
         parent::__construct($container);
         $this->manager = $manager;
     }
 
     /**
-     * Http code.
+     * Execute Handler.
      *
-     * @return int
+     * @throws \Exception
      */
-    public function code()
+    protected function execute()
     {
-        return 200;
-    }
-
-    /**
-     * Data for handler.
-     *
-     * @return array
-     */
-    public function data()
-    {
-        $modules = $this->manager->getModules();
-        $modules->transform(function (Module $module) {
+        $this->success()->withData($this->manager->getModules()->transform(function (Module $module) {
             return [
                 'author' => $module->getAuthor(),
                 'enabled' => $module->isEnabled(),
@@ -63,32 +49,6 @@ class ModuleHandler extends DataHandler
                 'identification' => $module->getIdentification(),
                 'name' => $module->getName(),
             ];
-        });
-
-        return $modules->toArray();
-    }
-
-    /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    public function errors()
-    {
-        return [
-            '获取全局设置失败！',
-        ];
-    }
-
-    /**
-     * Messages for handler.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            '获取全局设置成功！',
-        ];
+        })->toArray())->withMessage('获取模块列表成功！');
     }
 }

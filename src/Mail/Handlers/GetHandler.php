@@ -9,13 +9,13 @@
 namespace Notadd\Foundation\Mail\Handlers;
 
 use Illuminate\Container\Container;
-use Notadd\Foundation\Passport\Abstracts\DataHandler;
+use Notadd\Foundation\Passport\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
  * Class GetHandler.
  */
-class GetHandler extends DataHandler
+class GetHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
@@ -35,13 +35,13 @@ class GetHandler extends DataHandler
     }
 
     /**
-     * Data for handler.
+     * Execute Handler.
      *
-     * @return array
+     * @throws \Exception
      */
-    public function data()
+    protected function execute()
     {
-        return [
+        $this->success()->withData([
             'driver' => $this->settings->get('mail.driver', 'mail'),
             'encryption' => $this->settings->get('mail.encryption', 'none'),
             'port' => $this->settings->get('mail.port', '25'),
@@ -49,6 +49,6 @@ class GetHandler extends DataHandler
             'from' => $this->settings->get('mail.from', ''),
             'username' => $this->settings->get('mail.username', ''),
             'password' => $this->settings->get('mail.password', ''),
-        ];
+        ])->withMessage('获取邮件配置成功！');
     }
 }

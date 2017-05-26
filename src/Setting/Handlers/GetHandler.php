@@ -9,13 +9,13 @@
 namespace Notadd\Foundation\Setting\Handlers;
 
 use Illuminate\Container\Container;
-use Notadd\Foundation\Passport\Abstracts\DataHandler;
+use Notadd\Foundation\Passport\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
  * Class GetHandler.
  */
-class GetHandler extends DataHandler
+class GetHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
@@ -35,13 +35,13 @@ class GetHandler extends DataHandler
     }
 
     /**
-     * Data for handler.
+     * Execute Handler.
      *
-     * @return array
+     * @throws \Exception
      */
-    public function data()
+    protected function execute()
     {
-        return [
+        $this->success()->withData([
             'beian' => $this->settings->get('site.beian', ''),
             'company' => $this->settings->get('site.company', ''),
             'copyright' => $this->settings->get('site.copyright', ''),
@@ -49,6 +49,6 @@ class GetHandler extends DataHandler
             'enabled' => $this->settings->get('site.enabled', true),
             'name' => $this->settings->get('site.name', ''),
             'statistics' => $this->settings->get('site.statistics', ''),
-        ];
+        ])->withMessage('获取配置项成功！');
     }
 }

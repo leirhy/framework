@@ -17,14 +17,6 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
 abstract class SetHandler extends DataHandler
 {
     /**
-     * Execute Handler.
-     *
-     * @return bool
-     * @throws \Exception
-     */
-    abstract public function execute();
-
-    /**
      * Make execute result to response with errors or messages.
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse

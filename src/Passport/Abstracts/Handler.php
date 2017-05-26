@@ -28,14 +28,24 @@ abstract class Handler
     protected $code = 200;
 
     /**
+     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
+     */
+    protected $container;
+
+    /**
+     * @var \Illuminate\Support\Collection
+     */
+    protected $data;
+
+    /**
      * @var array
      */
     protected $errors;
 
     /**
-     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
+     * @var \Illuminate\Support\Collection
      */
-    protected $container;
+    protected $extra;
 
     /**
      * @var \Illuminate\Contracts\Logging\Log
@@ -65,7 +75,9 @@ abstract class Handler
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->data = new Collection();
         $this->errors = new Collection();
+        $this->extra = new Collection();
         $this->log = $this->container->make('log');
         $this->messages = new Collection();
         $this->request = $this->container->make('request');
@@ -83,6 +95,14 @@ abstract class Handler
     }
 
     /**
+     * @return array
+     */
+    public function data()
+    {
+        return $this->data->toArray();
+    }
+
+    /**
      * Errors for handler.
      *
      * @return array
@@ -91,6 +111,13 @@ abstract class Handler
     {
         return $this->errors->toArray();
     }
+
+    /**
+     * Execute Handler.
+     *
+     * @throws \Exception
+     */
+    abstract protected function execute();
 
     /**
      * @param \Notadd\Foundation\Passport\Responses\ApiResponse $response
@@ -126,6 +153,43 @@ abstract class Handler
     }
 
     /**
+     * Make data to response with errors or messages.
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @throws \Exception
+     */
+    public function toResponse()
+    {
+        $response = new ApiResponse();
+        try {
+            $this->execute();
+            if ($this->code !== 200) {
+                $messages = $this->errors();
+            } else {
+                $messages = $this->messages();
+            }
+
+            return $response->withParams([
+                'code'    => $this->code(),
+                'data'    => $this->data(),
+                'message' => $messages,
+            ]);
+        } catch (Exception $exception) {
+            return $this->handleExceptions($response, $exception);
+        }
+    }
+
+    /**
+     * @return $this
+     */
+    protected function success()
+    {
+        $this->code = 200;
+
+        return $this;
+    }
+
+    /**
      * @param int $code
      *
      * @return $this
@@ -138,13 +202,49 @@ abstract class Handler
     }
 
     /**
+     * @param $data
+     *
+     * @return $this
+     */
+    protected function withData($data)
+    {
+        foreach ((array)$data as $key=>$value) {
+            if (is_numeric($key)) {
+                $this->data->push($value);
+            } else {
+                $this->data->put($key, $value);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @param array|string $errors
      *
      * @return $this
      */
-    protected function withErrors($errors)
+    protected function withError($errors)
     {
-        $this->errors = $this->errors->merge((array)$errors);
+        foreach ((array)$errors as $error) {
+            $this->errors->push($this->translator->trans($error));
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $extras
+     *
+     * @return $this
+     */
+    public function withExtra($extras)
+    {
+        foreach ((array)$extras as $key=>$extra) {
+            if (!is_numeric($key)) {
+                $this->extra->put($key, $extra);
+            }
+        }
 
         return $this;
     }
@@ -154,9 +254,11 @@ abstract class Handler
      *
      * @return $this
      */
-    protected function withMessages($messages)
+    protected function withMessage($messages)
     {
-        $this->messages = $this->messages->merge((array)$messages);
+        foreach ((array)$messages as $message) {
+            $this->messages->push($this->translator->trans($message));
+        }
 
         return $this;
     }

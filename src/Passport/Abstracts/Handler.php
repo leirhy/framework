@@ -168,12 +168,16 @@ abstract class Handler
             } else {
                 $messages = $this->messages();
             }
-
-            return $response->withParams([
+            $response = $response->withParams([
                 'code'    => $this->code(),
                 'data'    => $this->data(),
                 'message' => $messages,
             ]);
+            if ($this->extra->count()) {
+                $response = $response->withParams($this->extra->toArray());
+            }
+
+            return $response;
         } catch (Exception $exception) {
             return $this->handleExceptions($response, $exception);
         }

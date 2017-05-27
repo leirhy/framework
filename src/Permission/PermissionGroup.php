@@ -27,11 +27,6 @@ class PermissionGroup
     protected $container;
 
     /**
-     * @var \Illuminate\Support\Collection
-     */
-    protected $permissions;
-
-    /**
      * PermissionGroup constructor.
      *
      * @param \Illuminate\Container\Container $container
@@ -41,7 +36,6 @@ class PermissionGroup
     {
         $this->attributes = $attributes;
         $this->container = $container;
-        $this->permissions = new Collection();
     }
 
     /**
@@ -81,33 +75,17 @@ class PermissionGroup
     /**
      * @return string
      */
+    public function module()
+    {
+        return $this->attributes['module'];
+    }
+
+    /**
+     * @return string
+     */
     public function name()
     {
         return $this->attributes['name'];
-    }
-
-    /**
-     * @param array  $attributes
-     *
-     * @return bool
-     */
-    public function permission(array $attributes)
-    {
-        if (Permission::validate($attributes)) {
-            $this->permissions->put($attributes['identification'], Permission::createFromAttributes($attributes));
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function permissions()
-    {
-        return $this->permissions;
     }
 
     /**
@@ -120,6 +98,7 @@ class PermissionGroup
         $needs = [
             'description',
             'identification',
+            'module',
             'name',
         ];
         foreach ($needs as $need) {

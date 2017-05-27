@@ -21,7 +21,13 @@ class PermissionServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('permission', function ($app) {
-            return new PermissionManager($app);
+            return new PermissionManager($app, $app['permission.group']);
+        });
+        $this->app->singleton('permission.group', function ($app) {
+            return new PermissionGroupManager($app, $app['permission.module']);
+        });
+        $this->app->singleton('permission.module', function ($app) {
+            return new PermissionModuleManager($app);
         });
         $this->app->singleton('permission.type', function ($app) {
             return new PermissionTypeManager($app);

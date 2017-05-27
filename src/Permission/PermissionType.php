@@ -76,13 +76,27 @@ class PermissionType
         } else {
             $settings = collect();
         }
-        $permissionGroups = $this->container->make(PermissionManager::class)->groups();
-        $permissionGroups->each(function (PermissionGroup $group) use ($data, $settings) {
-            $group->permissions()->each(function (Permission $permission) use ($data, $group, $settings) {
-                $identification = $this->identification() . '::' . $group->identification() . '::' . $permission->identification();
-                $data->put($identification, $settings->get($identification, []));
+        $this->container->make(PermissionModuleManager::class)
+            ->list()
+            ->each(function (PermissionModule $module) use ($data, $settings) {
+                $this->container->make(PermissionGroupManager::class)
+                    ->groupsForModule($module->identification())
+                    ->each(function (PermissionGroup $group) use ($data, $module, $settings) {
+                        $this->container
+                            ->make(PermissionManager::class)
+                            ->permissionsForGroup($module->identification() . '::' . $group->identification())
+                            ->each(function (Permission $permission) use ($data, $group, $module, $settings) {
+                                $identification = $this->identification()
+                                    . '::'
+                                    . $module->identification()
+                                    . '::'
+                                    . $group->identification()
+                                    . '::'
+                                    . $permission->identification();
+                                $data->put($identification, $settings->get($identification, []));
+                            });
+                    });
             });
-        });
 
         return $data->toArray();
     }
@@ -116,7 +130,7 @@ class PermissionType
             'name',
         ];
         foreach ($needs as $need) {
-            if (!isset($attributes[$need])) {
+            if (!isset($attributes[ $need ])) {
                 return false;
             }
         }

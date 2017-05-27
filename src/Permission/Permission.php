@@ -74,9 +74,25 @@ class Permission
     /**
      * @return string
      */
+    public function group()
+    {
+        return $this->attributes['group'];
+    }
+
+    /**
+     * @return string
+     */
     public function identification()
     {
         return $this->attributes['identification'];
+    }
+
+    /**
+     * @return string
+     */
+    public function module()
+    {
+        return $this->attributes['module'];
     }
 
     /**
@@ -105,7 +121,9 @@ class Permission
         $needs = [
             'default',
             'description',
+            'group',
             'identification',
+            'module',
         ];
         foreach ($needs as $need) {
             if (!isset($attributes[$need])) {

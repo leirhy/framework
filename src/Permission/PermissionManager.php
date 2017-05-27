@@ -22,68 +22,44 @@ class PermissionManager
     protected $container;
 
     /**
+     * @var \Notadd\Foundation\Permission\PermissionGroupManager
+     */
+    protected $group;
+
+    /**
      * @var \Illuminate\Support\Collection
      */
-    protected $groups;
+    protected $permissions;
 
     /**
      * PermissionManager constructor.
      *
-     * @param \Illuminate\Container\Container $container
+     * @param \Illuminate\Container\Container                      $container
+     * @param \Notadd\Foundation\Permission\PermissionGroupManager $group
      */
-    public function __construct(Container $container)
+    public function __construct(Container $container, PermissionGroupManager $group)
     {
         $this->container = $container;
-        $this->groups = new Collection();
-        $this->initialize();
+        $this->group = $group;
+        $this->permissions = new Collection();
     }
 
     /**
-     * @param array  $attributes
+     * @param array $attributes
      *
-     * @return bool
+     * @return \Illuminate\Support\Collection|bool
      */
-    public function group(array $attributes)
+    public function extend(array $attributes)
     {
-        if (PermissionGroup::validate($attributes)) {
-            $this->groups->put($attributes['identification'], PermissionGroup::createFromAttributes($attributes));
+        $group = $attributes['module'] . '::' . $attributes['group'];
+        $permission = $attributes['module'] . '::' . $attributes['group'] . '::' . $attributes['identification'];
+        if (Permission::validate($attributes) && $this->group->exists($group) && !$this->permissions->has($permission)) {
+            $this->permissions->put($permission, Permission::createFromAttributes($attributes));
 
             return true;
-        } else {
-            return false;
         }
-    }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function groups()
-    {
-        return $this->groups;
-    }
-
-    public function initialize()
-    {
-        $this->groups->put('global', PermissionGroup::createFromAttributes([
-            'description' => '全局权限定义。',
-            'identification' => 'global',
-            'name' => '全局权限',
-        ]));
-    }
-
-    /**
-     * @param string $group
-     * @param array  $attributes
-     *
-     * @return bool
-     */
-    public function permission(string $group, array $attributes)
-    {
-        if ($this->groups->has($group)) {
-            return $this->groups->get($group)->permission($attributes);
-        } else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -91,11 +67,19 @@ class PermissionManager
      */
     public function permissions()
     {
-        $permissions = new Collection();
-        $this->groups->each(function (PermissionGroup $group) use ($permissions) {
-            $permissions->merge($group->permissions());
-        });
+        return $this->permissions;
+    }
 
-        return $permissions;
+    /**
+     * @param $key
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function permissionsForGroup($key)
+    {
+        list($module, $group) = explode('::', $key);
+        return $this->permissions->filter(function (Permission $permission) use ($group, $module) {
+            return $permission->module() == $module && $permission->group() == $group;
+        });
     }
 }

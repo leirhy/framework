@@ -7,6 +7,7 @@
  * @datetime 2017-05-04 12:41
  */
 namespace Notadd\Foundation\Permission;
+
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 
@@ -27,6 +28,7 @@ class PermissionTypeManager
 
     /**
      * PermissionTypeManager constructor.
+     *
      * @param Container $container
      */
     public function __construct(Container $container)
@@ -37,23 +39,30 @@ class PermissionTypeManager
     }
 
     /**
-     * @param string $identification
-     * @param array  $attributes
+     * @param array $attributes
      */
-    public function extend(string $identification, array $attributes)
+    public function extend(array $attributes)
     {
-        if (!$this->types->has($identification) && PermissionType::validate($attributes)) {
-            $this->types->put($identification, PermissionType::createFromAttributes($attributes));
+        if (PermissionType::validate($attributes) && !$this->types->has($attributes['identification'])) {
+            $this->types->put($attributes['identification'], PermissionType::createFromAttributes($attributes));
         }
     }
 
     public function initialize()
     {
         $this->types->put('global', PermissionType::createFromAttributes([
-            'description' => '全局权限类型。',
+            'description'    => '全局权限类型。',
             'identification' => 'global',
-            'name' => '全局',
+            'name'           => '全局',
         ]));
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function list()
+    {
+        return $this->types();
     }
 
     /**

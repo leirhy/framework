@@ -12,7 +12,7 @@ use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Event\Abstracts\EventSubscriber;
 use Notadd\Foundation\Permission\Events\PermissionRegister as PermissionRegisterEvent;
-use Notadd\Foundation\Permission\PermissionManager;
+use Notadd\Foundation\Permission\PermissionGroupManager;
 
 /**
  * Class PermissionGroupRegister.
@@ -27,11 +27,11 @@ abstract class PermissionGroupRegister extends EventSubscriber
     /**
      * PermissionRegister constructor.
      *
-     * @param \Illuminate\Container\Container                 $container
-     * @param \Illuminate\Events\Dispatcher                   $events
-     * @param \Notadd\Foundation\Permission\PermissionManager $manager
+     * @param \Illuminate\Container\Container                      $container
+     * @param \Illuminate\Events\Dispatcher                        $events
+     * @param \Notadd\Foundation\Permission\PermissionGroupManager $manager
      */
-    public function __construct(Container $container, Dispatcher $events, PermissionManager $manager)
+    public function __construct(Container $container, Dispatcher $events, PermissionGroupManager $manager)
     {
         parent::__construct($container, $events);
         $this->manager = $manager;

@@ -20,10 +20,12 @@ class PermissionRegister extends AbstractPermissionRegister
      */
     public function handle()
     {
-        $this->manager->permission('global', [
-            'default' => false,
-            'description' => '全局邮件配置管理权限',
+        $this->manager->extend([
+            'default'        => false,
+            'description'    => '全局邮件配置管理权限',
+            'group'          => 'mail',
             'identification' => 'mail.manage',
+            'module'         => 'global',
         ]);
     }
 }

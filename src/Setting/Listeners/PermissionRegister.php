@@ -20,15 +20,19 @@ class PermissionRegister extends AbstractPermissionRegister
      */
     public function handle()
     {
-        $this->manager->permission('global', [
-            'default' => false,
-            'description' => '获取全局配置项',
+        $this->manager->extend([
+            'default'        => false,
+            'description'    => '获取全局配置项',
+            'group'          => 'global',
             'identification' => 'setting.get',
+            'module'         => 'global',
         ]);
-        $this->manager->permission('global', [
-            'default' => false,
-            'description' => '获取全局配置项',
+        $this->manager->extend([
+            'default'        => false,
+            'description'    => '获取全局配置项',
+            'group'          => 'global',
             'identification' => 'setting.set',
+            'module'         => 'global',
         ]);
     }
 }

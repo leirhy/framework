@@ -6,7 +6,6 @@
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-20 19:41
  */
-
 namespace Notadd\Foundation;
 
 use Closure;
@@ -561,7 +560,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             $provider->register();
         }
         foreach ($options as $key => $value) {
-            $this[$key] = $value;
+            $this[ $key ] = $value;
         }
         $this->markAsRegistered($provider);
         if ($this->booted) {
@@ -610,7 +609,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this['events']->dispatch($class = get_class($provider), [$provider]);
         $this->serviceProviders[] = $provider;
-        $this->loadedProviders[$class] = true;
+        $this->loadedProviders[ $class ] = true;
     }
 
     /**
@@ -633,11 +632,11 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function loadDeferredProvider($service)
     {
-        if (!isset($this->deferredServices[$service])) {
+        if (!isset($this->deferredServices[ $service ])) {
             return;
         }
-        $provider = $this->deferredServices[$service];
-        if (!isset($this->loadedProviders[$provider])) {
+        $provider = $this->deferredServices[ $service ];
+        if (!isset($this->loadedProviders[ $provider ])) {
             $this->registerDeferredProvider($provider, $service);
         }
     }
@@ -651,7 +650,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function registerDeferredProvider($provider, $service = null)
     {
         if ($service) {
-            unset($this->deferredServices[$service]);
+            unset($this->deferredServices[ $service ]);
         }
         $this->register($instance = new $provider($this));
         if (!$this->booted) {
@@ -673,7 +672,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function make($abstract, array $parameters = [])
     {
         $abstract = $this->getAlias($abstract);
-        if (isset($this->deferredServices[$abstract])) {
+        if (isset($this->deferredServices[ $abstract ])) {
             $this->loadDeferredProvider($abstract);
         }
 
@@ -689,7 +688,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function bound($abstract)
     {
-        return isset($this->deferredServices[$abstract]) || parent::bound($abstract);
+        return isset($this->deferredServices[ $abstract ]) || parent::bound($abstract);
     }
 
     /**
@@ -960,7 +959,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function isDeferredService($service)
     {
-        return isset($this->deferredServices[$service]);
+        return isset($this->deferredServices[ $service ]);
     }
 
     /**
@@ -1103,6 +1102,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'member'                    => [\Notadd\Foundation\Member\MemberManagement::class],
             'module'                    => [\Notadd\Foundation\Module\ModuleManager::class],
             'permission'                => [\Notadd\Foundation\Permission\PermissionManager::class],
+            'permission.group'          => [\Notadd\Foundation\Permission\PermissionGroupManager::class],
+            'permission.module'         => [\Notadd\Foundation\Permission\PermissionModuleManager::class],
             'permission.type'           => [\Notadd\Foundation\Permission\PermissionTypeManager::class],
             'queue'                     => [
                 \Illuminate\Queue\QueueManager::class,

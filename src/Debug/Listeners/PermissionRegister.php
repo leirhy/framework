@@ -20,10 +20,12 @@ class PermissionRegister extends AbstractPermissionRegister
      */
     public function handle()
     {
-        $this->manager->permission('global', [
-            'default' => false,
-            'description' => '全局调试模式管理权限',
+        $this->manager->extend([
+            'default'        => false,
+            'description'    => '全局调试模式管理权限',
+            'group'          => 'debug',
             'identification' => 'debug.manage',
+            'module'         => 'global',
         ]);
     }
 }

@@ -16,6 +16,7 @@ use Notadd\Foundation\Module\Commands\GenerateCommand;
 use Notadd\Foundation\Module\Commands\ListCommand;
 use Notadd\Foundation\Module\Commands\ListUnloadedCommand;
 use Notadd\Foundation\Module\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\Module\Listeners\PermissionGroupRegister;
 use Notadd\Foundation\Module\Listeners\PermissionRegister;
 use Notadd\Foundation\Module\Listeners\RouteRegister;
 
@@ -46,6 +47,7 @@ class ModuleServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
         $this->app->make(ModuleManager::class)->getEnabledModules()->each(function (Module $module) {

@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-04 10:48
  */
 namespace Notadd\Foundation\SearchEngine;
@@ -11,6 +11,8 @@ namespace Notadd\Foundation\SearchEngine;
 use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\SearchEngine\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\SearchEngine\Listeners\PermissionGroupRegister;
+use Notadd\Foundation\SearchEngine\Listeners\PermissionRegister;
 use Notadd\Foundation\SearchEngine\Listeners\RouterRegister;
 
 /**
@@ -24,6 +26,8 @@ class SearchEngineServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouterRegister::class);
     }
 

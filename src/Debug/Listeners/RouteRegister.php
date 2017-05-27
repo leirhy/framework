@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2017, iBenchu.org
+ * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-10 14:12
  */
 namespace Notadd\Foundation\Debug\Listeners;
@@ -12,12 +12,12 @@ use Notadd\Foundation\Debug\Controllers\DebugController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
- * Class RouteRegistrar.
+ * Class RouteRegister.
  */
 class RouteRegister extends AbstractRouteRegister
 {
     /**
-     * Handle Route Registrar.
+     * Handle Route Register.
      */
     public function handle()
     {

@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2017, iBenchu.org
+ * @copyright (c) 2017, notadd.com
  * @datetime 2017-02-16 17:03
  */
 namespace Notadd\Foundation\Navigation;
@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Navigation;
 use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Navigation\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\Navigation\Listeners\PermissionRegister;
 use Notadd\Foundation\Navigation\Listeners\RouteRegister;
 use Notadd\Foundation\Navigation\Models\Item;
 use Notadd\Foundation\Navigation\Observers\ItemObserver;
@@ -27,6 +28,7 @@ class NavigationServiceProvider extends ServiceProvider
     {
         Item::observe(ItemObserver::class);
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
     }
 }

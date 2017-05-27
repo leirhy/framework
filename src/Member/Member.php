@@ -3,14 +3,14 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-09-24 18:13
  */
 namespace Notadd\Foundation\Member;
 
-use Illuminate\Support\Facades\Cache;
 use Laravel\Passport\HasApiTokens;
 use Notadd\Foundation\Auth\User as Authenticatable;
+use Notadd\Foundation\Permission\Permission;
 
 /**
  * Class Member.
@@ -18,6 +18,11 @@ use Notadd\Foundation\Auth\User as Authenticatable;
 class Member extends Authenticatable
 {
     use HasApiTokens;
+
+    /**
+     * @var \Illuminate\Cache\CacheManager
+     */
+    protected $cache;
 
     /**
      * @var array
@@ -35,6 +40,17 @@ class Member extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * Member constructor.
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->cache = $this->container->make('cache');
+    }
 
     /**
      * Permissions for member.
@@ -77,7 +93,7 @@ class Member extends Authenticatable
      */
     public function cachedPermissions()
     {
-        return Cache::remember($this->getCachePermissionKey(), 60, function () {
+        return $this->cache->remember($this->getCachePermissionKey(), 60, function () {
             return $this->permissions()->get();
         });
     }
@@ -93,7 +109,7 @@ class Member extends Authenticatable
     {
         //both inserts and updates
         $result = parent::save($options);
-        Cache::forget($this->getCachePermissionKey());
+        $this->cache->forget($this->getCachePermissionKey());
 
         return $result;
     }
@@ -109,7 +125,7 @@ class Member extends Authenticatable
     {
         // soft or hard
         $result = parent::delete();
-        Cache::forget($this->getCachePermissionKey());
+        $this->cache->forget($this->getCachePermissionKey());
 
         return $result;
     }
@@ -118,7 +134,7 @@ class Member extends Authenticatable
     {
         //soft delete undo's
         $result = parent::restore();
-        Cache::forget($this->getCachePermissionKey());
+        $this->cache->forget($this->getCachePermissionKey());
 
         return $result;
     }

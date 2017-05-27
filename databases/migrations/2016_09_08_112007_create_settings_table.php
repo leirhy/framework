@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-09-08 19:21
  */
 use Illuminate\Database\Schema\Blueprint;
@@ -21,7 +21,7 @@ class CreateSettingsTable extends Migration
     {
         $this->schema->create('settings', function (Blueprint $table) {
             $table->string('key', 100)->primary();
-            $table->string('value')->nullable();
+            $table->text('value')->nullable();
         });
     }
 

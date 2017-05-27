@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-21 15:30
  */
 namespace Notadd\Foundation\Routing\Abstracts;
@@ -25,7 +25,7 @@ abstract class RouteRegister extends EventSubscriber
     protected $router;
 
     /**
-     * RouteRegistrar constructor.
+     * RouteRegister constructor.
      *
      * @param \Illuminate\Container\Container $container
      * @param \Illuminate\Events\Dispatcher   $events
@@ -48,7 +48,7 @@ abstract class RouteRegister extends EventSubscriber
     }
 
     /**
-     * Handle Route Registrar.
+     * Handle Route Register.
      */
     abstract public function handle();
 }

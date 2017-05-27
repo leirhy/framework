@@ -3,19 +3,19 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-23 14:44
  */
 namespace Notadd\Foundation\Setting\Handlers;
 
 use Illuminate\Container\Container;
-use Notadd\Foundation\Passport\Abstracts\DataHandler;
+use Notadd\Foundation\Passport\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
  * Class AllHandler.
  */
-class AllHandler extends DataHandler
+class AllHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
@@ -28,55 +28,18 @@ class AllHandler extends DataHandler
      * @param \Illuminate\Container\Container                         $container
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(
-        Container $container,
-        SettingsRepository $settings
-    ) {
+    public function __construct(Container $container, SettingsRepository $settings) {
         parent::__construct($container);
         $this->settings = $settings;
     }
 
     /**
-     * Http code.
+     * Execute Handler.
      *
-     * @return int
+     * @throws \Exception
      */
-    public function code()
+    protected function execute()
     {
-        return 200;
-    }
-
-    /**
-     * Data for handler.
-     *
-     * @return array
-     */
-    public function data()
-    {
-        return $this->settings->all()->toArray();
-    }
-
-    /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    public function errors()
-    {
-        return [
-            '获取全局设置失败！',
-        ];
-    }
-
-    /**
-     * Messages for handler.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            '获取全局设置成功！',
-        ];
+        $this->success()->withData($this->settings->all()->toArray())->withMessage('获取全局设置成功！');
     }
 }

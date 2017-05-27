@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-24 10:07
  */
 namespace Notadd\Foundation\Setting;
@@ -11,6 +11,8 @@ namespace Notadd\Foundation\Setting;
 use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Setting\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\Setting\Listeners\PermissionGroupRegister;
+use Notadd\Foundation\Setting\Listeners\PermissionRegister;
 use Notadd\Foundation\Setting\Listeners\RouteRegister;
 
 /**
@@ -24,6 +26,8 @@ class SettingServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
     }
 

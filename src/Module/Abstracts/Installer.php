@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2017, iBenchu.org
+ * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-10 14:12
  */
 namespace Notadd\Foundation\Module\Abstracts;
@@ -91,6 +91,8 @@ abstract class Installer
 
     /**
      * @return bool
+     * @throws \Exception
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public final function install()
     {

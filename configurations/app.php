@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2017, iBenchu.org
+ * @copyright (c) 2017, notadd.com
  * @datetime 2017-01-13 12:17
  */
 
@@ -45,6 +45,7 @@ return [
         Illuminate\Pagination\PaginationServiceProvider::class,
         Notadd\Foundation\Passport\PassportServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        Notadd\Foundation\Permission\PermissionServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Notadd\Foundation\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,

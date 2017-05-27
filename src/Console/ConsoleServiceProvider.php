@@ -3,13 +3,12 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-21 11:56
  */
 namespace Notadd\Foundation\Console;
 
 use Illuminate\Auth\Console\ClearResetsCommand;
-use Illuminate\Auth\Console\MakeAuthCommand;
 use Illuminate\Database\Console\Migrations\MigrateCommand;
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand;
 use Illuminate\Database\Console\Migrations\ResetCommand as MigrateResetCommand;
@@ -24,25 +23,12 @@ use Notadd\Foundation\Console\Commands\AppNameCommand;
 use Notadd\Foundation\Console\Commands\ClearCompiledCommand;
 use Notadd\Foundation\Console\Commands\ConfigCacheCommand;
 use Notadd\Foundation\Console\Commands\ConfigClearCommand;
-use Notadd\Foundation\Console\Commands\ConsoleMakeCommand;
 use Notadd\Foundation\Console\Commands\DownCommand;
 use Notadd\Foundation\Console\Commands\EnvironmentCommand;
-use Notadd\Foundation\Console\Commands\EventGenerateCommand;
-use Notadd\Foundation\Console\Commands\StorageLinkCommand;
-use Notadd\Foundation\Console\Commands\TestMakeCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
-use Notadd\Foundation\Database\Commands\ModelMakeCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
-use Notadd\Foundation\Event\Commands\EventMakeCommand;
-use Notadd\Foundation\Event\Commands\ListenerMakeCommand;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
-use Notadd\Foundation\Http\Commands\RequestMakeCommand;
 use Notadd\Foundation\Mail\Commands\MailMakeCommand;
-use Notadd\Foundation\Notification\Commands\NotificationMakeCommand;
-use Notadd\Foundation\Notification\Commands\NotificationTableCommand;
-use Notadd\Foundation\Queue\Commands\JobMakeCommand;
-use Notadd\Foundation\Routing\Commands\ControllerMakeCommand;
-use Notadd\Foundation\Routing\Commands\MiddlewareMakeCommand;
 use Notadd\Foundation\Routing\Commands\RouteCacheCommand;
 use Notadd\Foundation\Routing\Commands\RouteClearCommand;
 use Notadd\Foundation\Routing\Commands\RouteListCommand;
@@ -79,7 +65,6 @@ class ConsoleServiceProvider extends ServiceProvider
         'RouteCache'      => 'command.route.cache',
         'RouteClear'      => 'command.route.clear',
         'RouteList'       => 'command.route.list',
-        'StorageLink'     => 'command.storage.link',
         'Up'              => 'command.up',
         'ViewClear'       => 'command.view.clear',
     ];
@@ -88,27 +73,14 @@ class ConsoleServiceProvider extends ServiceProvider
      * @var array
      */
     protected $devCommands = [
-        'AuthMake'          => 'command.auth.make',
         'CacheTable'        => 'command.cache.table',
-        'ConsoleMake'       => 'command.console.make',
-        'ControllerMake'    => 'command.controller.make',
-        'EventGenerate'     => 'command.event.generate',
-        'EventMake'         => 'command.event.make',
-        'JobMake'           => 'command.job.make',
-        'ListenerMake'      => 'command.listener.make',
         'MailMake'          => 'command.mail.make',
-        'MiddlewareMake'    => 'command.middleware.make',
-        'ModelMake'         => 'command.model.make',
-        'NotificationMake'  => 'command.notification.make',
-        'NotificationTable' => 'command.notification.table',
-        'PolicyMake'        => 'command.policy.make',
+        'MigrateMake'       => 'command.migrate.make',
         'QueueFailedTable'  => 'command.queue.failed-table',
         'QueueTable'        => 'command.queue.table',
-        'RequestMake'       => 'command.request.make',
         'SeederMake'        => 'command.seeder.make',
         'SessionTable'      => 'command.session.table',
         'Serve'             => 'command.serve',
-        'TestMake'          => 'command.test.make',
         'VendorPublish'     => 'command.vendor.publish',
     ];
 
@@ -145,16 +117,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.app.name', function ($app) {
             return new AppNameCommand($app['composer'], $app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerAuthMakeCommand()
-    {
-        $this->app->singleton('command.auth.make', function ($app) {
-            return new MakeAuthCommand();
         });
     }
 
@@ -211,46 +173,6 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * Register the command.
      */
-    protected function registerConsoleMakeCommand()
-    {
-        $this->app->singleton('command.console.make', function ($app) {
-            return new ConsoleMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerControllerMakeCommand()
-    {
-        $this->app->singleton('command.controller.make', function ($app) {
-            return new ControllerMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerEventGenerateCommand()
-    {
-        $this->app->singleton('command.event.generate', function () {
-            return new EventGenerateCommand();
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerEventMakeCommand()
-    {
-        $this->app->singleton('command.event.make', function ($app) {
-            return new EventMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
     protected function registerDownCommand()
     {
         $this->app->singleton('command.down', function () {
@@ -271,16 +193,6 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * Register the command.
      */
-    protected function registerJobMakeCommand()
-    {
-        $this->app->singleton('command.job.make', function ($app) {
-            return new JobMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
     protected function registerKeyGenerateCommand()
     {
         $this->app->singleton('command.key.generate', function () {
@@ -291,30 +203,10 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * Register the command.
      */
-    protected function registerListenerMakeCommand()
-    {
-        $this->app->singleton('command.listener.make', function ($app) {
-            return new ListenerMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
     protected function registerMailMakeCommand()
     {
         $this->app->singleton('command.mail.make', function ($app) {
             return new MailMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerMiddlewareMakeCommand()
-    {
-        $this->app->singleton('command.middleware.make', function ($app) {
-            return new MiddlewareMakeCommand($app['files']);
         });
     }
 
@@ -408,26 +300,6 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * Register the command.
      */
-    protected function registerModelMakeCommand()
-    {
-        $this->app->singleton('command.model.make', function ($app) {
-            return new ModelMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerNotificationMakeCommand()
-    {
-        $this->app->singleton('command.notification.make', function ($app) {
-            return new NotificationMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
     protected function registerOptimizeCommand()
     {
         $this->app->singleton('command.optimize', function ($app) {
@@ -458,16 +330,6 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * Register the command.
      */
-    protected function registerRequestMakeCommand()
-    {
-        $this->app->singleton('command.request.make', function ($app) {
-            return new RequestMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
     protected function registerSeederMakeCommand()
     {
         $this->app->singleton('command.seeder.make', function ($app) {
@@ -482,16 +344,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.session.table', function ($app) {
             return new SessionTableCommand($app['files'], $app['composer']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerStorageLinkCommand()
-    {
-        $this->app->singleton('command.storage.link', function () {
-            return new StorageLinkCommand();
         });
     }
 
@@ -538,16 +390,6 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * Register the command.
      */
-    protected function registerTestMakeCommand()
-    {
-        $this->app->singleton('command.test.make', function ($app) {
-            return new TestMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
     protected function registerUpCommand()
     {
         $this->app->singleton('command.up', function () {
@@ -572,26 +414,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.view.clear', function ($app) {
             return new Commands\ViewClearCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerPolicyMakeCommand()
-    {
-        $this->app->singleton('command.policy.make', function ($app) {
-            return new Commands\PolicyMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerNotificationTableCommand()
-    {
-        $this->app->singleton('command.notification.table', function ($app) {
-            return new NotificationTableCommand($app['files'], $app['composer']);
         });
     }
 

@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-22 15:38
  */
 namespace Notadd\Foundation\Database\Migrations;
@@ -58,5 +58,15 @@ class MigrationCreator extends IlluminateMigrationCreator
         $stub = parent::populateStub($name, $stub, $table);
 
         return str_replace('DummyDatetime', Carbon::now()->toDateTimeString(), $stub);
+    }
+
+    /**
+     * Get the path to the stubs.
+     *
+     * @return string
+     */
+    public function stubPath()
+    {
+        return __DIR__ . '/../../../stubs/migrations';
     }
 }

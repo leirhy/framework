@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-02 10:50
  */
 namespace Notadd\Foundation\Extension\Commands;
@@ -45,6 +45,7 @@ class ListCommand extends Command
      *
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      *
+     * @return bool
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function fire(ExtensionManager $manager)
@@ -52,7 +53,7 @@ class ListCommand extends Command
         $extensions = $manager->getExtensions();
         $list = new Collection();
         $this->info('Extensions list:');
-        $extensions->each(function (Extension $extension, $path) use ($list) {
+        $extensions->each(function (Extension $extension) use ($list) {
             $data = collect(collect($extension->getAuthor())->first());
             $author = $data->get('name');
             $data->has('email') ? $author .= ' <' . $data->get('email') . '>' : null;
@@ -60,11 +61,13 @@ class ListCommand extends Command
                 $extension->getIdentification(),
                 $author,
                 $extension->getDescription(),
-                $path,
+                $extension->getPath(),
                 $extension->getEntry(),
-                'Normal'
+                'Normal',
             ]);
         });
         $this->table($this->headers, $list->toArray());
+
+        return true;
     }
 }

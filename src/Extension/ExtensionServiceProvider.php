@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-08-29 14:06
  */
 namespace Notadd\Foundation\Extension;
@@ -12,7 +12,10 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Extension\Commands\ListCommand;
+use Notadd\Foundation\Extension\Commands\ListUnloadedCommand;
 use Notadd\Foundation\Extension\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\Extension\Listeners\PermissionGroupRegister;
+use Notadd\Foundation\Extension\Listeners\PermissionRegister;
 use Notadd\Foundation\Extension\Listeners\RouteRegister;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
@@ -45,6 +48,8 @@ class ExtensionServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
         $this->app->make(ExtensionManager::class)->getExtensions()->each(function (Extension $extension) {
             $path = $extension->getDirectory();
@@ -54,6 +59,7 @@ class ExtensionServiceProvider extends ServiceProvider
         });
         $this->commands([
             ListCommand::class,
+            ListUnloadedCommand::class,
         ]);
     }
 
@@ -63,7 +69,7 @@ class ExtensionServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('extension', function ($app) {
-            return new ExtensionManager($app, $app['events'], $app['files']);
+            return new ExtensionManager($app, $app['config'], $app['events'], $app['files']);
         });
     }
 }

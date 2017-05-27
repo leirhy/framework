@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-12-13 21:06
  */
 namespace Notadd\Foundation\Module;
@@ -13,6 +13,11 @@ namespace Notadd\Foundation\Module;
  */
 class Module
 {
+    /**
+     * @var array
+     */
+    protected $alias;
+
     /**
      * @var string|array
      */
@@ -54,7 +59,7 @@ class Module
     protected $name;
 
     /**
-     * @var string
+     * @var string|array
      */
     protected $script;
 
@@ -76,6 +81,14 @@ class Module
     public function __construct($name = null)
     {
         $this->identification = $name;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAlias(): array
+    {
+        return $this->alias;
     }
 
     /**
@@ -141,7 +154,7 @@ class Module
     /**
      * Script of module.
      *
-     * @return string
+     * @return string|array
      */
     public function getScript()
     {
@@ -186,6 +199,14 @@ class Module
     public function isInstalled()
     {
         return $this->installed;
+    }
+
+    /**
+     * @param array $alias
+     */
+    public function setAlias(array $alias)
+    {
+        $this->alias = $alias;
     }
 
     /**
@@ -277,7 +298,7 @@ class Module
     /**
      * Set module's script.
      *
-     * @param string $script
+     * @param string|array $script
      */
     public function setScript($script)
     {

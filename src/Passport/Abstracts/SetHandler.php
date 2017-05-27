@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-23 15:11
  */
 namespace Notadd\Foundation\Passport\Abstracts;
@@ -16,17 +16,6 @@ use Notadd\Foundation\Passport\Responses\ApiResponse;
  */
 abstract class SetHandler extends DataHandler
 {
-    /**
-     * Execute Handler.
-     *
-     * @return bool
-     * @throws \Exception
-     */
-    public function execute()
-    {
-        throw new Exception('Method execute is not setted!');
-    }
-
     /**
      * Make execute result to response with errors or messages.
      *

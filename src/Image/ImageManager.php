@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2017, iBenchu.org
+ * @copyright (c) 2017, notadd.com
  * @datetime 2017-02-10 15:24
  */
 namespace Notadd\Foundation\Image;
@@ -116,7 +116,7 @@ class ImageManager
     private function createDriver()
     {
         $drivername = ucfirst($this->config['driver']);
-        $driverclass = sprintf('Notadd\\Image\\%s\\Driver', $drivername);
+        $driverclass = sprintf('Notadd\\Foundation\\Image\\%s\\Driver', $drivername);
         if (class_exists($driverclass)) {
             return new $driverclass();
         }

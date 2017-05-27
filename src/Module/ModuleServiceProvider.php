@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-12-02 20:29
  */
 namespace Notadd\Foundation\Module;
@@ -14,7 +14,10 @@ use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Module\Commands\GenerateCommand;
 use Notadd\Foundation\Module\Commands\ListCommand;
+use Notadd\Foundation\Module\Commands\ListUnloadedCommand;
 use Notadd\Foundation\Module\Listeners\CsrfTokenRegister;
+use Notadd\Foundation\Module\Listeners\PermissionGroupRegister;
+use Notadd\Foundation\Module\Listeners\PermissionRegister;
 use Notadd\Foundation\Module\Listeners\RouteRegister;
 
 /**
@@ -44,6 +47,8 @@ class ModuleServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
+        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
         $this->app->make(ModuleManager::class)->getEnabledModules()->each(function (Module $module) {
             $path = $module->getDirectory();
@@ -53,7 +58,8 @@ class ModuleServiceProvider extends ServiceProvider
         });
         $this->commands([
             GenerateCommand::class,
-            ListCommand::class
+            ListCommand::class,
+            ListUnloadedCommand::class,
         ]);
     }
 
@@ -63,7 +69,7 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('module', function ($app) {
-            return new ModuleManager($app, $app['events'], $app['files']);
+            return new ModuleManager($app, $app['config'], $app['events'], $app['files']);
         });
     }
 }

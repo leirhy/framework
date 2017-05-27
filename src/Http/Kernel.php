@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-20 20:04
  */
 namespace Notadd\Foundation\Http;
@@ -33,6 +33,7 @@ use Notadd\Foundation\Http\Bootstraps\HandleExceptions;
 use Notadd\Foundation\Http\Bootstraps\LoadConfiguration;
 use Notadd\Foundation\Http\Bootstraps\LoadSetting;
 use Notadd\Foundation\Http\Bootstraps\RegisterFacades;
+use Notadd\Foundation\Http\Bootstraps\RegisterPermission;
 use Notadd\Foundation\Http\Bootstraps\RegisterRouter;
 use Notadd\Foundation\Http\Middlewares\CheckForCloseMode;
 use Notadd\Foundation\Http\Events\RequestHandled;
@@ -71,6 +72,7 @@ class Kernel implements KernelContract
         RegisterFacades::class,
         LoadSetting::class,
         RegisterRouter::class,
+        RegisterPermission::class,
     ];
 
     /**

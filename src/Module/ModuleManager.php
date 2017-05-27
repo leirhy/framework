@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-12-13 21:05
  */
 namespace Notadd\Foundation\Module;
@@ -13,6 +13,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Configuration\Repository as ConfigurationRepository;
 
 /**
  * Class ModuleManager.
@@ -42,18 +43,31 @@ class ModuleManager
     protected $modules;
 
     /**
+     * @var \Illuminate\Support\Collection
+     */
+    protected $unloaded;
+
+    /**
+     * @var \Notadd\Foundation\Configuration\Repository
+     */
+    private $configuration;
+
+    /**
      * ModuleManager constructor.
      *
-     * @param \Illuminate\Container\Container   $container
-     * @param \Illuminate\Events\Dispatcher     $events
-     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param \Illuminate\Container\Container             $container
+     * @param \Notadd\Foundation\Configuration\Repository $configuration
+     * @param \Illuminate\Events\Dispatcher               $events
+     * @param \Illuminate\Filesystem\Filesystem           $files
      */
-    public function __construct(Container $container, Dispatcher $events, Filesystem $files)
+    public function __construct(Container $container, ConfigurationRepository $configuration, Dispatcher $events, Filesystem $files)
     {
+        $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;
         $this->files = $files;
         $this->modules = new Collection();
+        $this->unloaded = new Collection();
     }
 
     /**
@@ -117,35 +131,45 @@ class ModuleManager
                         $identification = Arr::get($package, 'name');
                         $type = Arr::get($package, 'type');
                         if ($type == 'notadd-module' && $identification) {
-                            $module = new Module($identification);
-                            $module->setAuthor(Arr::get($package, 'authors'));
-                            $module->setDescription(Arr::get($package, 'description'));
-                            $module->setDirectory($directory);
-                            $module->setEnabled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.enabled', false) : false);
-                            $module->setInstalled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.installed', false) : false);
                             $provider = '';
                             if ($entries = data_get($package, 'autoload.psr-4')) {
                                 foreach ($entries as $namespace => $entry) {
                                     $provider = $namespace . 'ModuleServiceProvider';
                                 }
                             }
-                            if (!class_exists($provider)) {
-                                if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' .DIRECTORY_SEPARATOR . 'autoload.php')) {
-                                    $this->files->requireOnce($autoload);
-                                    if (!class_exists($provider)) {
-                                        throw new \Exception('Module load fail! Class ' . $provider . ' do not exists.');
-                                    }
-                                } else {
-                                    throw new \Exception('Module load fail! Class ' . $provider . ' do not exists.');
-                                }
+                            if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
+                                $this->files->requireOnce($autoload);
                             }
-                            $module->setEntry($provider);
-                            method_exists($provider, 'description') && $module->setDescription(call_user_func([$provider, 'description']));
-                            method_exists($provider, 'name') && $module->setName(call_user_func([$provider, 'name']));
-                            method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
-                            method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                            method_exists($provider, 'version') && $module->setVersion(call_user_func([$provider, 'version']));
-                            $this->modules->put($identification, $module);
+                            $authors = Arr::get($package, 'authors');
+                            $description = Arr::get($package, 'description');
+                            if (class_exists($provider)) {
+                                $module = new Module($identification);
+                                $module->setAuthor($authors);
+                                $module->setDescription($description);
+                                $module->setDirectory($directory);
+                                $module->setEnabled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.enabled', false) : false);
+                                $module->setInstalled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.installed', false) : false);
+                                $module->setEntry($provider);
+                                if (method_exists($provider, 'alias')) {
+                                    $module->setAlias(call_user_func([$provider, 'alias']));
+                                } else {
+                                    $module->setAlias([$identification]);
+                                }
+                                method_exists($provider, 'description') && $module->setDescription(call_user_func([$provider, 'description']));
+                                method_exists($provider, 'name') && $module->setName(call_user_func([$provider, 'name']));
+                                method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
+                                method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
+                                method_exists($provider, 'version') && $module->setVersion(call_user_func([$provider, 'version']));
+                                $this->modules->put($identification, $module);
+                            } else {
+                                $this->unloaded->put($identification, [
+                                    'authors'        => $authors,
+                                    'description'    => $description,
+                                    'directory'      => $directory,
+                                    'identification' => $identification,
+                                    'provider'       => $provider,
+                                ]);
+                            }
                         }
                     }
                 });
@@ -173,6 +197,14 @@ class ModuleManager
     }
 
     /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getUnloadedModules()
+    {
+        return $this->unloaded;
+    }
+
+    /**
      * Check for module exist.
      *
      * @param $name
@@ -191,6 +223,6 @@ class ModuleManager
      */
     public function getModulePath(): string
     {
-        return $this->container->basePath() . DIRECTORY_SEPARATOR . 'modules';
+        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('module.directory');
     }
 }

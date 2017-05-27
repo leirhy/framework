@@ -3,7 +3,7 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
+ * @copyright (c) 2016, notadd.com
  * @datetime 2016-08-29 14:07
  */
 namespace Notadd\Foundation\Extension;
@@ -13,12 +13,18 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Configuration\Repository as ConfigurationRepository;
 
 /**
  * Class ExtensionManager.
  */
 class ExtensionManager
 {
+    /**
+     * @var \Notadd\Foundation\Configuration\Repository
+     */
+    protected $configuration;
+
     /**
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
@@ -40,18 +46,26 @@ class ExtensionManager
     protected $files;
 
     /**
+     * @var \Illuminate\Support\Collection
+     */
+    protected $unloaded;
+
+    /**
      * ExtensionManager constructor.
      *
-     * @param \Illuminate\Container\Container   $container
-     * @param \Illuminate\Events\Dispatcher     $events
-     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param \Illuminate\Container\Container             $container
+     * @param \Notadd\Foundation\Configuration\Repository $configuration
+     * @param \Illuminate\Events\Dispatcher               $events
+     * @param \Illuminate\Filesystem\Filesystem           $files
      */
-    public function __construct(Container $container, Dispatcher $events, Filesystem $files)
+    public function __construct(Container $container, ConfigurationRepository $configuration, Dispatcher $events, Filesystem $files)
     {
+        $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;
         $this->extensions = new Collection();
         $this->files = $files;
+        $this->unloaded = new Collection();
     }
 
     /**
@@ -73,7 +87,7 @@ class ExtensionManager
      */
     public function getExtensionPath()
     {
-        return $this->container->basePath() . DIRECTORY_SEPARATOR . 'extensions';
+        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('extension.directory');
     }
 
     /**
@@ -110,35 +124,40 @@ class ExtensionManager
                             $identification = Arr::get($package, 'name');
                             $type = Arr::get($package, 'type');
                             if ($type == 'notadd-extension' && $identification) {
-                                $extension = new Extension($identification);
-                                $extension->setAuthor(Arr::get($package, 'authors'));
-                                $extension->setDescription(Arr::get($package, 'description'));
-                                $extension->setDirectory($directory);
-                                $extension->setEnabled($this->container->isInstalled() ? $this->container->make('setting')->get('extension.' . $identification . '.enabled', false) : false);
-                                $extension->setInstalled($this->container->isInstalled() ? $this->container->make('setting')->get('extension.' . $identification . '.installed', false) : false);
                                 $provider = '';
                                 if ($entries = data_get($package, 'autoload.psr-4')) {
                                     foreach ($entries as $namespace => $entry) {
                                         $provider = $namespace . 'Extension';
                                     }
                                 }
-                                if (!class_exists($provider)) {
-                                    if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
-                                        $this->files->requireOnce($autoload);
-                                        if (!class_exists($provider)) {
-                                            throw new \Exception('Extension load fail!');
-                                        }
-                                    } else {
-                                        throw new \Exception('Extension load fail!');
-                                    }
+                                if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
+                                    $this->files->requireOnce($autoload);
                                 }
-                                $extension->setEntry($provider);
-                                method_exists($provider, 'description') && $extension->setDescription(call_user_func([$provider, 'description']));
-                                method_exists($provider, 'name') && $extension->setName(call_user_func([$provider, 'name']));
-                                method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
-                                method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                                method_exists($provider, 'version') && $extension->setVersion(call_user_func([$provider, 'version']));
-                                $this->extensions->put($identification, $extension);
+                                $authors = Arr::get($package, 'authors');
+                                $description = Arr::get($package, 'description');
+                                if (class_exists($provider)) {
+                                    $extension = new Extension($identification);
+                                    $extension->setAuthor($authors);
+                                    $extension->setDescription($description);
+                                    $extension->setDirectory($directory);
+                                    $extension->setEnabled($this->container->isInstalled() ? $this->container->make('setting')->get('extension.' . $identification . '.enabled', false) : false);
+                                    $extension->setInstalled($this->container->isInstalled() ? $this->container->make('setting')->get('extension.' . $identification . '.installed', false) : false);
+                                    $extension->setEntry($provider);
+                                    method_exists($provider, 'description') && $extension->setDescription(call_user_func([$provider, 'description']));
+                                    method_exists($provider, 'name') && $extension->setName(call_user_func([$provider, 'name']));
+                                    method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
+                                    method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
+                                    method_exists($provider, 'version') && $extension->setVersion(call_user_func([$provider, 'version']));
+                                    $this->extensions->put($identification, $extension);
+                                } else {
+                                    $this->unloaded->put($identification, [
+                                        'authors'        => $authors,
+                                        'description'    => $description,
+                                        'directory'      => $directory,
+                                        'identification' => $identification,
+                                        'provider'       => $provider,
+                                    ]);
+                                }
                             }
                         }
                     });
@@ -181,6 +200,14 @@ class ExtensionManager
         }
 
         return $list;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getUnloadedExtensions()
+    {
+        return $this->unloaded;
     }
 
     /**

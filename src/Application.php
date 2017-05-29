@@ -1066,14 +1066,14 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 \Illuminate\Contracts\Cookie\Factory::class,
                 \Illuminate\Contracts\Cookie\QueueingFactory::class,
             ],
-            'encrypter'                 => [
-                \Illuminate\Encryption\Encrypter::class,
-                \Illuminate\Contracts\Encryption\Encrypter::class,
-            ],
             'db'                        => [\Illuminate\Database\DatabaseManager::class],
             'db.connection'             => [
                 \Illuminate\Database\Connection::class,
                 \Illuminate\Database\ConnectionInterface::class,
+            ],
+            'encrypter'                 => [
+                \Illuminate\Encryption\Encrypter::class,
+                \Illuminate\Contracts\Encryption\Encrypter::class,
             ],
             'extension'                 => [\Notadd\Foundation\Extension\ExtensionManager::class],
             'events'                    => [
@@ -1087,6 +1087,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             ],
             'filesystem.disk'           => [\Illuminate\Contracts\Filesystem\Filesystem::class],
             'filesystem.cloud'          => [\Illuminate\Contracts\Filesystem\Cloud::class],
+            'flow'                      => [\Notadd\Foundation\Flow\FlowManager::class],
             'hash'                      => [\Illuminate\Contracts\Hashing\Hasher::class],
             'images'                    => [\Notadd\Foundation\Image\ImageManager::class],
             'log'                       => [

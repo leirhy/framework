@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Flow\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Event\Abstracts\EventSubscriber;
+use Notadd\Foundation\Flow\Events\FlowRegister as FlowRegisterEvent;
 use Notadd\Foundation\Flow\FlowManager;
 
 /**
@@ -34,6 +35,17 @@ abstract class FlowRegister extends EventSubscriber
     {
         parent::__construct($container, $events);
         $this->flow = $flow;
+    }
+
+    /**
+     * Name of event.
+     *
+     * @throws \Exception
+     * @return string|object
+     */
+    protected function getEvent()
+    {
+        return FlowRegisterEvent::class;
     }
 
     /**

@@ -6,7 +6,7 @@
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-23 14:21
  */
-namespace Notadd\Foundation\Passport\Abstracts;
+namespace Notadd\Foundation\Routing\Abstracts;
 
 use Exception;
 use Illuminate\Container\Container;

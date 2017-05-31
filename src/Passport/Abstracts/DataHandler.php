@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Passport\Abstracts;
 use Exception;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class DataHandler.

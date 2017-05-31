@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Module\Handlers;
 use Illuminate\Container\Container;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
-use Notadd\Foundation\Passport\Abstracts\Handler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class ModuleHandler.

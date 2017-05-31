@@ -9,7 +9,7 @@
 namespace Notadd\Foundation\Navigation\Handlers\Item;
 
 use Notadd\Foundation\Navigation\Models\Item;
-use Notadd\Foundation\Passport\Abstracts\Handler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class FetchHandler.

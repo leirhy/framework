@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Extension\Handlers;
 use Illuminate\Container\Container;
 use Notadd\Foundation\Extension\Extension;
 use Notadd\Foundation\Extension\ExtensionManager;
-use Notadd\Foundation\Passport\Abstracts\Handler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class ExtensionHandler.

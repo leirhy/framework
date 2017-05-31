@@ -10,7 +10,7 @@ namespace Notadd\Foundation\Navigation\Handlers\Group;
 
 use Illuminate\Container\Container;
 use Notadd\Foundation\Navigation\Models\Group;
-use Notadd\Foundation\Passport\Abstracts\Handler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class Fetch.

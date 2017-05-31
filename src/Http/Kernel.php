@@ -33,6 +33,7 @@ use Notadd\Foundation\Http\Bootstraps\HandleExceptions;
 use Notadd\Foundation\Http\Bootstraps\LoadConfiguration;
 use Notadd\Foundation\Http\Bootstraps\LoadSetting;
 use Notadd\Foundation\Http\Bootstraps\RegisterFacades;
+use Notadd\Foundation\Http\Bootstraps\RegisterFlow;
 use Notadd\Foundation\Http\Bootstraps\RegisterPermission;
 use Notadd\Foundation\Http\Bootstraps\RegisterRouter;
 use Notadd\Foundation\Http\Middlewares\CheckForCloseMode;
@@ -73,6 +74,7 @@ class Kernel implements KernelContract
         LoadSetting::class,
         RegisterRouter::class,
         RegisterPermission::class,
+        RegisterFlow::class,
     ];
 
     /**

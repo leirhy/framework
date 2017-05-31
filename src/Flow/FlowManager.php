@@ -9,6 +9,10 @@
 namespace Notadd\Foundation\Flow;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
+use InvalidArgumentException;
+use Symfony\Component\Workflow\SupportStrategy\ClassInstanceSupportStrategy;
+use Symfony\Component\Workflow\SupportStrategy\SupportStrategyInterface;
 
 /**
  * Class FlowManager.
@@ -28,5 +32,87 @@ class FlowManager
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->flows = new Collection();
+    }
+
+    /**
+     * @param \Notadd\Foundation\Flow\Flow    $flow
+     * @param string|SupportStrategyInterface $supportStrategy
+     *
+     * @throws \Exception
+     */
+    public function add(Flow $flow, $supportStrategy)
+    {
+        if ($this->flows->has($flow->getName())) {
+            throw new \Exception('The same named flow is added!');
+        }
+        if (!$supportStrategy instanceof SupportStrategyInterface) {
+            @trigger_error('Support of class name string was deprecated after version 3.2 and won\'t work anymore in 4.0.', E_USER_DEPRECATED);
+            $supportStrategy = new ClassInstanceSupportStrategy($supportStrategy);
+        }
+        $this->flows->put($flow->getName(), [$flow, $supportStrategy]);
+    }
+
+    /**
+     * @param $flow
+     *
+     * @return bool
+     */
+    public function exists($flow)
+    {
+        if (is_object($flow) && $flow instanceof Flow) {
+            return $this->flows->has($flow->getName());
+        }
+
+        return $this->flows->has($flow);
+    }
+
+    /**
+     * @param      $subject
+     * @param null $name
+     *
+     * @return int|mixed|null|string
+     */
+    public function get($subject, $name = null)
+    {
+        $matched = null;
+        foreach ($this->flows as list($workflow, $supportStrategy)) {
+            if ($this->supports($workflow, $supportStrategy, $subject, $name)) {
+                if ($matched) {
+                    throw new InvalidArgumentException('At least two workflows match this subject. Set a different name on each and use the second (name) argument of this method.');
+                }
+                $matched = $workflow;
+            }
+        }
+        if (!$matched) {
+            throw new InvalidArgumentException(sprintf('Unable to find a workflow for class "%s".', get_class($subject)));
+        }
+
+        return $matched;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function list()
+    {
+        return $this->flows;
+    }
+
+    /**
+     * @param \Notadd\Foundation\Flow\flow                                         $workflow
+     * @param \Symfony\Component\Workflow\SupportStrategy\SupportStrategyInterface $supportStrategy
+     * @param                                                                      $subject
+     * @param                                                                      $workflowName
+     *
+     * @return bool
+     */
+    private function supports(flow $workflow, SupportStrategyInterface $supportStrategy, $subject, $workflowName)
+    {
+        if (null !== $workflowName && $workflowName !== $workflow->getName()) {
+            return false;
+        }
+
+        return $supportStrategy->supports($workflow, $subject);
     }
 }

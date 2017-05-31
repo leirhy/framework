@@ -11,9 +11,8 @@ namespace Notadd\Foundation\Extension\Handlers;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
-use Notadd\Foundation\Extension\Abstracts\Installer;
 use Notadd\Foundation\Extension\ExtensionManager;
-use Notadd\Foundation\Passport\Abstracts\SetHandler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -21,7 +20,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * Class InstallHandler.
  */
-class InstallHandler extends SetHandler
+class InstallHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Extension\ExtensionManager
@@ -49,43 +48,43 @@ class InstallHandler extends SetHandler
 
     /**
      * Execute Handler.
-     *
-     * @return bool
      */
     public function execute()
     {
         $extension = $this->manager->get($this->request->input('identification'));
-        if ($extension && method_exists($provider = $extension->getEntry(), 'install') && $closure = call_user_func([
+        if ($extension
+            && method_exists($provider = $extension->getEntry(), 'install')
+            && $closure = call_user_func([
                 $provider,
                 'install',
             ])
         ) {
             if ($closure instanceof Closure) {
                 if ($this->settings->get('extension.' . $extension->getIdentification() . '.installed', false)) {
-                    $this->errors->push('模块标识[]已经被占用，如需继续安装，请卸载同标识插件！');
-
-                    return false;
+                    $this->withCode(500)->withError('模块标识[]已经被占用，如需继续安装，请卸载同标识插件！');
+                } else {
+                    $this->container->getProvider($provider) || $this->container->register($provider);
+                    if ($closure()) {
+                        $input = new ArrayInput([
+                            '--force' => true,
+                        ]);
+                        $output = new BufferedOutput();
+                        $this->getConsole()->find('migrate')->run($input, $output);
+                        $this->getConsole()->find('vendor:publish')->run($input, $output);
+                        $log = explode(PHP_EOL, $output->fetch());
+                        $this->container->make('log')->info('install module:' . $extension->getIdentification(), $log);
+                        $this->settings->set('extension.' . $extension->getIdentification() . '.installed', true);
+                        $this->withCode(200)
+                            ->withData($log)
+                            ->withMessage('安装插件[' . $extension->getIdentification() . ']成功！');
+                    }
                 }
-                $this->container->getProvider($provider) || $this->container->register($provider);
-                if ($closure()) {
-                    $input = new ArrayInput([
-                        '--force' => true,
-                    ]);
-                    $output = new BufferedOutput();
-                    $this->getConsole()->find('migrate')->run($input, $output);
-                    $this->getConsole()->find('vendor:publish')->run($input, $output);
-                    $log = explode(PHP_EOL, $output->fetch());
-                    $this->container->make('log')->info('install module:' . $extension->getIdentification(), $log);
-                    $this->data = $log;
-                    $this->messages->push('安装插件[' . $extension->getIdentification() . ']成功！');
-                    $this->settings->set('extension.' . $extension->getIdentification() . '.installed', true);
-
-                    return true;
-                }
+            } else {
+                $this->withCode(500)->withError('');
             }
+        } else {
+            $this->withCode(500)->withError('');
         }
-
-        return false;
     }
 
     /**

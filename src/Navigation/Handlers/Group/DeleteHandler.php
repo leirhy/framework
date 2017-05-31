@@ -8,86 +8,24 @@
  */
 namespace Notadd\Foundation\Navigation\Handlers\Group;
 
-use Illuminate\Container\Container;
 use Notadd\Foundation\Navigation\Models\Group;
-use Notadd\Foundation\Passport\Abstracts\SetHandler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class DeleteHandler.
  */
-class DeleteHandler extends SetHandler
+class DeleteHandler extends Handler
 {
     /**
-     * CategoryDeleterHandler constructor.
-     *
-     * @param \Illuminate\Container\Container            $container
-     * @param \Notadd\Foundation\Navigation\Models\Group $group
-     */
-    public function __construct(
-        Container $container,
-        Group $group
-    ) {
-        parent::__construct($container);
-        $this->model = $group;
-    }
-
-    /**
-     * Http code.
-     *
-     * @return int
-     */
-    public function code()
-    {
-        return 200;
-    }
-
-    /**
-     * Data for handler.
-     *
-     * @return array
-     */
-    public function data()
-    {
-        return $this->model->newQuery()->get();
-    }
-
-    /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    public function errors()
-    {
-        return [
-            $this->translator->trans('content::category.delete.fail'),
-        ];
-    }
-
-    /**
      * Execute Handler.
-     *
-     * @return bool
      */
     public function execute()
     {
-        $category = $this->model->newQuery()->find($this->request->input('id'));
-        if ($category === null) {
-            return false;
+        $category = Group::query()->find($this->request->input('id'));
+        if ($category && $category->delete()) {
+            $this->withCode(200)->withMessage('content::category.delete.success');
+        } else {
+            $this->withCode(500)->withError('');
         }
-        $category->delete();
-
-        return true;
-    }
-
-    /**
-     * Messages for handler.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            $this->translator->trans('content::category.delete.success'),
-        ];
     }
 }

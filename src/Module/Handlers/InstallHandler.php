@@ -12,12 +12,12 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Module\Abstracts\Installer;
 use Notadd\Foundation\Module\ModuleManager;
-use Notadd\Foundation\Passport\Abstracts\SetHandler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class InstallHandler.
  */
-class InstallHandler extends SetHandler
+class InstallHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Module\ModuleManager
@@ -33,15 +33,11 @@ class InstallHandler extends SetHandler
     public function __construct(Container $container, ModuleManager $manager)
     {
         parent::__construct($container);
-        $this->errors->push($this->translator->trans('安装失败！'));
         $this->manager = $manager;
-        $this->messages->push($this->translator->trans('安装成功！'));
     }
 
     /**
      * Execute handler.
-     *
-     * @return bool
      */
     public function execute()
     {
@@ -59,8 +55,11 @@ class InstallHandler extends SetHandler
                 $this->container->make('log')->info('install data:', $this->data());
             }
         }
-
-        return $result;
+        if ($result) {
+            $this->withCode(200)->withMessage('');
+        } else {
+            $this->withCode(500)->withError('');
+        }
     }
 
     protected function parseInfo(Collection $data) {

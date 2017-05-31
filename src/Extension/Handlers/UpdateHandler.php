@@ -10,12 +10,12 @@ namespace Notadd\Foundation\Extension\Handlers;
 
 use Illuminate\Container\Container;
 use Notadd\Foundation\Extension\ExtensionManager;
-use Notadd\Foundation\Passport\Abstracts\SetHandler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class UpdateHandler.
  */
-class UpdateHandler extends SetHandler
+class UpdateHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Extension\ExtensionManager
@@ -35,44 +35,19 @@ class UpdateHandler extends SetHandler
     }
 
     /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    public function errors()
-    {
-        return [
-            $this->translator->trans(''),
-        ];
-    }
-
-    /**
      * Execute Handler.
-     *
-     * @return bool
      */
     public function execute()
     {
         $extension = $this->manager->get($this->request->input('name'));
-        if ($extension && method_exists($provider = $extension->getEntry(), 'update')) {
-            return call_user_func([
+        if ($extension && method_exists($provider = $extension->getEntry(), 'update') && call_user_func([
                 $provider,
                 'update',
-            ]);
+            ])
+        ) {
+            $this->withCode(200)->withMessage('');
+        } else {
+            $this->withCode(500)->withError('');
         }
-
-        return false;
-    }
-
-    /**
-     * Messages for handler.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            $this->translator->trans(''),
-        ];
     }
 }

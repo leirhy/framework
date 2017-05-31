@@ -46,10 +46,7 @@ abstract class EventSubscriber
      * @throws \Exception
      * @return string|object
      */
-    protected function getEvent()
-    {
-        throw new Exception('Event not found!', 404);
-    }
+    abstract protected function getEvent();
 
     /**
      * Event subscribe handler.

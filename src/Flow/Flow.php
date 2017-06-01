@@ -71,7 +71,7 @@ class Flow
         }
         $event = new Event($subject, $marking, $initialTransition);
         foreach ($this->getEnabledTransitions($subject) as $transition) {
-            $this->dispatcher->dispatch(sprintf('workflow.%s.announce.%s', $this->name, $transition->getName()), $event);
+            $this->dispatcher->dispatch(sprintf('flow.%s.announce.%s', $this->name, $transition->getName()), $event);
         }
     }
 
@@ -161,10 +161,10 @@ class Flow
         $places = $transition->getTos();
         if (null !== $this->dispatcher) {
             $event = new Event($subject, $marking, $transition, $this->name);
-            $this->dispatcher->dispatch('workflow.enter', $event);
-            $this->dispatcher->dispatch(sprintf('workflow.%s.enter', $this->name), $event);
+            $this->dispatcher->dispatch('flow.enter', $event);
+            $this->dispatcher->dispatch(sprintf('flow.%s.enter', $this->name), $event);
             foreach ($places as $place) {
-                $this->dispatcher->dispatch(sprintf('workflow.%s.enter.%s', $this->name, $place), $event);
+                $this->dispatcher->dispatch(sprintf('flow.%s.enter.%s', $this->name, $place), $event);
             }
         }
         foreach ($places as $place) {
@@ -183,10 +183,10 @@ class Flow
             return;
         }
         $event = new Event($subject, $marking, $transition, $this->name);
-        $this->dispatcher->dispatch('workflow.entered', $event);
-        $this->dispatcher->dispatch(sprintf('workflow.%s.entered', $this->name), $event);
+        $this->dispatcher->dispatch('flow.entered', $event);
+        $this->dispatcher->dispatch(sprintf('flow.%s.entered', $this->name), $event);
         foreach ($transition->getTos() as $place) {
-            $this->dispatcher->dispatch(sprintf('workflow.%s.entered.%s', $this->name, $place), $event);
+            $this->dispatcher->dispatch(sprintf('flow.%s.entered.%s', $this->name, $place), $event);
         }
     }
 
@@ -272,9 +272,9 @@ class Flow
             return null;
         }
         $event = new GuardEvent($subject, $marking, $transition, $this->name);
-        $this->dispatcher->dispatch('workflow.guard', $event);
-        $this->dispatcher->dispatch(sprintf('workflow.%s.guard', $this->name), $event);
-        $this->dispatcher->dispatch(sprintf('workflow.%s.guard.%s', $this->name, $transition->getName()), $event);
+        $this->dispatcher->dispatch('flow.guard', $event);
+        $this->dispatcher->dispatch(sprintf('flow.%s.guard', $this->name), $event);
+        $this->dispatcher->dispatch(sprintf('flow.%s.guard.%s', $this->name, $transition->getName()), $event);
 
         return $event->isBlocked();
     }
@@ -289,10 +289,10 @@ class Flow
         $places = $transition->getFroms();
         if (null !== $this->dispatcher) {
             $event = new Event($subject, $marking, $transition, $this->name);
-            $this->dispatcher->dispatch('workflow.leave', $event);
-            $this->dispatcher->dispatch(sprintf('workflow.%s.leave', $this->name), $event);
+            $this->dispatcher->dispatch('flow.leave', $event);
+            $this->dispatcher->dispatch(sprintf('flow.%s.leave', $this->name), $event);
             foreach ($places as $place) {
-                $this->dispatcher->dispatch(sprintf('workflow.%s.leave.%s', $this->name, $place), $event);
+                $this->dispatcher->dispatch(sprintf('flow.%s.leave.%s', $this->name, $place), $event);
             }
         }
         foreach ($places as $place) {
@@ -311,8 +311,8 @@ class Flow
             return;
         }
         $event = new Event($subject, $marking, $transition, $this->name);
-        $this->dispatcher->dispatch('workflow.transition', $event);
-        $this->dispatcher->dispatch(sprintf('workflow.%s.transition', $this->name), $event);
-        $this->dispatcher->dispatch(sprintf('workflow.%s.transition.%s', $this->name, $transition->getName()), $event);
+        $this->dispatcher->dispatch('flow.transition', $event);
+        $this->dispatcher->dispatch(sprintf('flow.%s.transition', $this->name), $event);
+        $this->dispatcher->dispatch(sprintf('flow.%s.transition.%s', $this->name, $transition->getName()), $event);
     }
 }

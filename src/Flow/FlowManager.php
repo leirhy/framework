@@ -11,8 +11,7 @@ namespace Notadd\Foundation\Flow;
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
-use Symfony\Component\Workflow\SupportStrategy\ClassInstanceSupportStrategy;
-use Symfony\Component\Workflow\SupportStrategy\SupportStrategyInterface;
+use Notadd\Foundation\Flow\Contracts\SupportStrategy;
 
 /**
  * Class FlowManager.
@@ -36,8 +35,8 @@ class FlowManager
     }
 
     /**
-     * @param \Notadd\Foundation\Flow\Flow    $flow
-     * @param string|SupportStrategyInterface $supportStrategy
+     * @param \Notadd\Foundation\Flow\Flow $flow
+     * @param                              $supportStrategy
      *
      * @throws \Exception
      */
@@ -46,7 +45,7 @@ class FlowManager
         if ($this->flows->has($flow->getName())) {
             throw new \Exception('The same named flow is added!');
         }
-        if (!$supportStrategy instanceof SupportStrategyInterface) {
+        if (!$supportStrategy instanceof SupportStrategy) {
             @trigger_error('Support of class name string was deprecated after version 3.2 and won\'t work anymore in 4.0.', E_USER_DEPRECATED);
             $supportStrategy = new ClassInstanceSupportStrategy($supportStrategy);
         }
@@ -71,7 +70,7 @@ class FlowManager
      * @param      $subject
      * @param null $name
      *
-     * @return int|mixed|null|string
+     * @return \Notadd\Foundation\Flow\Flow
      */
     public function get($subject, $name = null)
     {
@@ -100,14 +99,14 @@ class FlowManager
     }
 
     /**
-     * @param \Notadd\Foundation\Flow\flow                                         $workflow
-     * @param \Symfony\Component\Workflow\SupportStrategy\SupportStrategyInterface $supportStrategy
-     * @param                                                                      $subject
-     * @param                                                                      $workflowName
+     * @param \Notadd\Foundation\Flow\flow                      $workflow
+     * @param \Notadd\Foundation\Flow\Contracts\SupportStrategy $supportStrategy
+     * @param                                                   $subject
+     * @param                                                   $workflowName
      *
      * @return bool
      */
-    private function supports(flow $workflow, SupportStrategyInterface $supportStrategy, $subject, $workflowName)
+    private function supports(flow $workflow, SupportStrategy $supportStrategy, $subject, $workflowName)
     {
         if (null !== $workflowName && $workflowName !== $workflow->getName()) {
             return false;

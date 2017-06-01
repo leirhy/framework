@@ -8,9 +8,7 @@
  */
 namespace Notadd\Foundation\Debug\Listeners;
 
-use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Event\Abstracts\EventSubscriber;
 use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
@@ -20,24 +18,6 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
  */
 class VendorPublish extends EventSubscriber
 {
-    /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected $setting;
-
-    /**
-     * VendorPublish constructor.
-     *
-     * @param \Illuminate\Container\Container                         $container
-     * @param \Illuminate\Events\Dispatcher                           $events
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $setting
-     */
-    public function __construct(Container $container, Dispatcher $events, SettingsRepository $setting)
-    {
-        parent::__construct($container, $events);
-        $this->setting = $setting;
-    }
-
     /**
      * Name of event.
      *
@@ -51,10 +31,12 @@ class VendorPublish extends EventSubscriber
 
     public function handle()
     {
-        if ($this->container->isInstalled() && $this->setting->get('debug.enabled', false)) {
-            $this->container->make(Kernel::class)->call('vendor:publish', [
-                '--force' => true,
-            ]);
+        if ($this->container->isInstalled()) {
+            if ($this->container->make(SettingsRepository::class)->get('debug.enabled', false)) {
+                $this->container->make(Kernel::class)->call('vendor:publish', [
+                    '--force' => true,
+                ]);
+            }
         }
     }
 }

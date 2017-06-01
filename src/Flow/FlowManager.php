@@ -122,6 +122,12 @@ class FlowManager
         if ($definition instanceof Entity || $definition instanceof FlowBuilder) {
             if (method_exists($definition, 'entity')) {
                 $definition->setEntity($definition->{'entity'}());
+            } else {
+                if ($definition instanceof Entity) {
+                    $definition->setEntity(get_class($definition));
+                } else {
+                    throw new InvalidDefinitionException('Entity is not defined');
+                }
             }
             if (method_exists($definition, 'events')) {
                 $events = $definition->{'events'}();

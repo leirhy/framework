@@ -32,7 +32,7 @@ class FlowBuilder
     /**
      * @var string
      */
-    protected $name;
+    protected $name = 'unnamed';
 
     /**
      * @var array

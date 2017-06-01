@@ -8,12 +8,33 @@
  */
 namespace Notadd\Foundation\Flow\Abstracts;
 
+use Illuminate\Container\Container;
+use Notadd\Foundation\Member\Member;
+
 /**
  * Class Entity.
  */
 abstract class Entity
 {
+    /**
+     * @var mixed
+     */
     protected $currentState;
+
+    /**
+     * @var \Notadd\Foundation\Member\Member
+     */
+    protected $user;
+
+    /**
+     * Entity constructor.
+     *
+     * @param \Notadd\Foundation\Member\Member|null $user
+     */
+    public function __construct(Member $user = null)
+    {
+        $this->user = $user;
+    }
 
     /**
      * @return mixed
@@ -21,6 +42,19 @@ abstract class Entity
     public function getCurrentState()
     {
         return $this->currentState;
+    }
+
+    /**
+     * @return \Notadd\Foundation\Member\Member
+     */
+    public function getUser(): \Notadd\Foundation\Member\Member
+    {
+        if (is_null($this->user)) {
+            $auth = Container::getInstance()->make('auth');
+            return $auth->guard()->user();
+        }
+
+        return $this->user;
     }
 
     /**

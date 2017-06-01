@@ -15,10 +15,13 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
  */
 class FlowServiceProvider extends ServiceProvider
 {
+    /**
+     * Register service to provider.
+     */
     public function register()
     {
         $this->app->singleton('flow', function ($app) {
-            return new FlowManager($app);
+            return new FlowManager($app, $app['events']);
         });
     }
 }

@@ -9,9 +9,13 @@
 namespace Notadd\Foundation\Flow;
 
 use Illuminate\Container\Container;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use Notadd\Foundation\Flow\Abstracts\Entity;
 use Notadd\Foundation\Flow\Contracts\SupportStrategy;
+use Symfony\Component\Workflow\Exception\InvalidDefinitionException;
+use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 
 /**
  * Class FlowManager.
@@ -24,14 +28,21 @@ class FlowManager
     protected $container;
 
     /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    protected $dispatcher;
+
+    /**
      * FlowManager constructor.
      *
      * @param \Illuminate\Container\Container $container
+     * @param \Illuminate\Events\Dispatcher   $dispatcher
      */
-    public function __construct(Container $container)
+    public function __construct(Container $container, Dispatcher $dispatcher)
     {
         $this->container = $container;
         $this->flows = new Collection();
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -50,6 +61,47 @@ class FlowManager
             $supportStrategy = new ClassInstanceSupportStrategy($supportStrategy);
         }
         $this->flows->put($flow->getName(), [$flow, $supportStrategy]);
+    }
+
+    /**
+     * @param $definition
+     *
+     * @throws \Exception
+     */
+    public function build($definition)
+    {
+        if (is_string($definition)) {
+            $definition = $this->container->make($definition);
+        }
+        if ($definition instanceof Entity || $definition instanceof FlowBuilder) {
+            if (method_exists($definition, 'entity')) {
+                $definition->setEntity($definition->{'entity'}());
+            }
+            if (method_exists($definition, 'events')) {
+                $events = $definition->{'events'}();
+                foreach ((array)$events as $event=>$handler) {
+                    $this->dispatcher->listen($event, $handler);
+                }
+            }
+            if (method_exists($definition, 'marking')) {
+                $definition->setMarking($definition->{'marking'}());
+            } else {
+                $definition->setMarking(new SingleStateMarkingStore('currentState'));
+            }
+            if (method_exists($definition, 'name')) {
+                $definition->setName($definition->{'name'}());
+            }
+            if (method_exists($definition, 'places')) {
+                $definition->addPlaces($definition->{'places'}());
+            }
+            if (method_exists($definition, 'transitions')) {
+                $definition->addTransitions($definition->{'transitions'}());
+            }
+            $flow = new Flow($definition->build(), $definition->getMarking(), $definition->getName());
+            $this->add($flow, $definition->getEntity());
+        } else {
+            throw new InvalidDefinitionException('instance must instanceof ' . FlowBuilder::class . ' or ' . Entity::class);
+        }
     }
 
     /**

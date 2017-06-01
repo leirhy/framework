@@ -9,12 +9,13 @@
 namespace Notadd\Foundation\Flow\Abstracts;
 
 use Illuminate\Container\Container;
+use Notadd\Foundation\Flow\FlowBuilder;
 use Notadd\Foundation\Member\Member;
 
 /**
  * Class Entity.
  */
-abstract class Entity
+abstract class Entity extends FlowBuilder
 {
     /**
      * @var mixed

@@ -8,6 +8,10 @@
  */
 namespace Notadd\Foundation\Flow;
 
+use Illuminate\Container\Container;
+use Symfony\Component\Workflow\Definition;
+use Symfony\Component\Workflow\MarkingStore\MarkingStoreInterface;
+use Symfony\Component\Workflow\MarkingStore\MultipleStateMarkingStore;
 use Symfony\Component\Workflow\Workflow;
 
 /**
@@ -15,4 +19,38 @@ use Symfony\Component\Workflow\Workflow;
  */
 class Flow extends Workflow
 {
+    /**
+     * @var \Symfony\Component\Workflow\Definition
+     */
+    protected $definition;
+
+    /**
+     * @var \Illuminate\Contracts\Events\Dispatcher
+     */
+    protected $dispatcher;
+
+    /**
+     * @var \Symfony\Component\Workflow\MarkingStore\MultipleStateMarkingStore
+     */
+    protected $markingStore;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * Flow constructor.
+     *
+     * @param \Symfony\Component\Workflow\Definition                              $definition
+     * @param \Symfony\Component\Workflow\MarkingStore\MarkingStoreInterface|null $markingStore
+     * @param string                                                              $name
+     */
+    public function __construct(Definition $definition, MarkingStoreInterface $markingStore = null, $name = 'unnamed')
+    {
+        $this->definition = $definition;
+        $this->markingStore = $markingStore ?: new MultipleStateMarkingStore();
+        $this->dispatcher = Container::getInstance()->make('events');
+        $this->name = $name;
+    }
 }

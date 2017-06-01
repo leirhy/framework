@@ -64,47 +64,6 @@ class FlowManager
     }
 
     /**
-     * @param $definition
-     *
-     * @throws \Exception
-     */
-    public function build($definition)
-    {
-        if (is_string($definition)) {
-            $definition = $this->container->make($definition);
-        }
-        if ($definition instanceof Entity || $definition instanceof FlowBuilder) {
-            if (method_exists($definition, 'entity')) {
-                $definition->setEntity($definition->{'entity'}());
-            }
-            if (method_exists($definition, 'events')) {
-                $events = $definition->{'events'}();
-                foreach ((array)$events as $event=>$handler) {
-                    $this->dispatcher->listen($event, $handler);
-                }
-            }
-            if (method_exists($definition, 'marking')) {
-                $definition->setMarking($definition->{'marking'}());
-            } else {
-                $definition->setMarking(new SingleStateMarkingStore('currentState'));
-            }
-            if (method_exists($definition, 'name')) {
-                $definition->setName($definition->{'name'}());
-            }
-            if (method_exists($definition, 'places')) {
-                $definition->addPlaces($definition->{'places'}());
-            }
-            if (method_exists($definition, 'transitions')) {
-                $definition->addTransitions($definition->{'transitions'}());
-            }
-            $flow = new Flow($definition->build(), $definition->getMarking(), $definition->getName());
-            $this->add($flow, $definition->getEntity());
-        } else {
-            throw new InvalidDefinitionException('instance must instanceof ' . FlowBuilder::class . ' or ' . Entity::class);
-        }
-    }
-
-    /**
      * @param $flow
      *
      * @return bool
@@ -148,6 +107,47 @@ class FlowManager
     public function list()
     {
         return $this->flows;
+    }
+
+    /**
+     * @param $definition
+     *
+     * @throws \Exception
+     */
+    public function register($definition)
+    {
+        if (is_string($definition)) {
+            $definition = $this->container->make($definition);
+        }
+        if ($definition instanceof Entity || $definition instanceof FlowBuilder) {
+            if (method_exists($definition, 'entity')) {
+                $definition->setEntity($definition->{'entity'}());
+            }
+            if (method_exists($definition, 'events')) {
+                $events = $definition->{'events'}();
+                foreach ((array)$events as $event=>$handler) {
+                    $this->dispatcher->listen($event, $handler);
+                }
+            }
+            if (method_exists($definition, 'marking')) {
+                $definition->setMarking($definition->{'marking'}());
+            } else {
+                $definition->setMarking(new SingleStateMarkingStore('currentState'));
+            }
+            if (method_exists($definition, 'name')) {
+                $definition->setName($definition->{'name'}());
+            }
+            if (method_exists($definition, 'places')) {
+                $definition->addPlaces($definition->{'places'}());
+            }
+            if (method_exists($definition, 'transitions')) {
+                $definition->addTransitions($definition->{'transitions'}());
+            }
+            $flow = new Flow($definition->build(), $definition->getMarking(), $definition->getName());
+            $this->add($flow, $definition->getEntity());
+        } else {
+            throw new InvalidDefinitionException('instance must instanceof ' . FlowBuilder::class . ' or ' . Entity::class);
+        }
     }
 
     /**

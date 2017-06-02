@@ -131,8 +131,11 @@ class FlowManager
             }
             if (method_exists($definition, 'events')) {
                 $events = $definition->{'events'}();
-                foreach ((array)$events as $event=>$handler) {
-                    $this->dispatcher->listen($event, $handler);
+                foreach ((array)$events as $event => $handler) {
+                    $this->dispatcher->listen($event, [
+                        $definition,
+                        $handler,
+                    ]);
                 }
             }
             if (method_exists($definition, 'marking')) {

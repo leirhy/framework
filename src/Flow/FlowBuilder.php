@@ -27,6 +27,9 @@ class FlowBuilder
      */
     protected $initialPlace;
 
+    /**
+     * @var
+     */
     protected $marking;
 
     /**

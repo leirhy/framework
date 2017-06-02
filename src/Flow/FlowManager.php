@@ -132,7 +132,7 @@ class FlowManager
             if (method_exists($definition, 'events')) {
                 $events = $definition->{'events'}();
                 foreach ((array)$events as $event => $handler) {
-                    $this->dispatcher->listen($event, [
+                    method_exists($definition, $handler) && $this->dispatcher->listen($event, [
                         $definition,
                         $handler,
                     ]);

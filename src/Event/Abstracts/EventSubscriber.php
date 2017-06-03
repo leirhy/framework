@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-21 15:34
  */
@@ -46,10 +46,7 @@ abstract class EventSubscriber
      * @throws \Exception
      * @return string|object
      */
-    protected function getEvent()
-    {
-        throw new Exception('Event not found!', 404);
-    }
+    abstract protected function getEvent();
 
     /**
      * Event subscribe handler.

@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-03 15:27
  */
@@ -10,12 +10,12 @@ namespace Notadd\Foundation\Module\Handlers;
 
 use Illuminate\Container\Container;
 use Notadd\Foundation\Module\ModuleManager;
-use Notadd\Foundation\Passport\Abstracts\SetHandler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class UpdateHandler.
  */
-class UpdateHandler extends SetHandler
+class UpdateHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Module\ModuleManager
@@ -35,44 +35,19 @@ class UpdateHandler extends SetHandler
     }
 
     /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    public function errors()
-    {
-        return [
-            $this->translator->trans(''),
-        ];
-    }
-
-    /**
      * Execute Handler.
-     *
-     * @return bool
      */
     public function execute()
     {
         $module = $this->manager->get($this->request->input('name'));
-        if ($module && method_exists($provider = $module->getEntry(), 'update')) {
-            return call_user_func([
+        if ($module && method_exists($provider = $module->getEntry(), 'update') && call_user_func([
                 $provider,
                 'update',
-            ]);
+            ])
+        ) {
+            $this->withCode(200)->withMessage('');
+        } else {
+            $this->withCode(500)->withError('');
         }
-
-        return false;
-    }
-
-    /**
-     * Messages for handler.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            $this->translator->trans(''),
-        ];
     }
 }

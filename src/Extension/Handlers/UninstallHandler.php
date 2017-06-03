@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-02 16:10
  */
@@ -11,9 +11,8 @@ namespace Notadd\Foundation\Extension\Handlers;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
-use Notadd\Foundation\Extension\Abstracts\Uninstaller;
 use Notadd\Foundation\Extension\ExtensionManager;
-use Notadd\Foundation\Passport\Abstracts\SetHandler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -21,7 +20,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * Class UninstallHandler.
  */
-class UninstallHandler extends SetHandler
+class UninstallHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Extension\ExtensionManager
@@ -49,8 +48,6 @@ class UninstallHandler extends SetHandler
 
     /**
      * Execute Handler.
-     *
-     * @return bool
      */
     public function execute()
     {
@@ -62,43 +59,43 @@ class UninstallHandler extends SetHandler
         ) {
             if ($closure instanceof Closure) {
                 if (!$this->settings->get('extension.' . $extension->getIdentification() . '.installed', false)) {
-                    $this->errors->push("模块[{$extension->getIdentification()}]尚未安装，无法进行卸载！");
-
-                    return false;
-                }
-
-                if ($closure()) {
-                    $output = new BufferedOutput();
-
-                    $provider = $extension->getEntry();
-                    $this->container->getProvider($provider) || $this->container->register($provider);
-                    if (method_exists($provider, 'migrations')) {
-                        $migrations = call_user_func([$provider, 'migrations']);
-                        foreach ((array)$migrations as $migration) {
-                            $migration = str_replace($this->container->basePath(), '', $migration);
-                            $input = new ArrayInput([
-                                '--path' => $migration,
-                                '--force' => true,
-                            ]);
-                            $this->getConsole()->find('migrate:rollback')->run($input, $output);
+                    $this->withCode(500)->withError("模块[{$extension->getIdentification()}]尚未安装，无法进行卸载！");
+                } else {
+                    if ($closure()) {
+                        $output = new BufferedOutput();
+                        $provider = $extension->getEntry();
+                        $this->container->getProvider($provider) || $this->container->register($provider);
+                        if (method_exists($provider, 'migrations')) {
+                            $migrations = call_user_func([$provider, 'migrations']);
+                            foreach ((array)$migrations as $migration) {
+                                $migration = str_replace($this->container->basePath(), '', $migration);
+                                $input = new ArrayInput([
+                                    '--path' => $migration,
+                                    '--force' => true,
+                                ]);
+                                $this->getConsole()->find('migrate:rollback')->run($input, $output);
+                            }
                         }
+                        $input = new ArrayInput([
+                            '--force' => true,
+                        ]);
+                        $this->getConsole()->find('vendor:publish')->run($input, $output);
+                        $log = explode(PHP_EOL, $output->fetch());
+                        $this->container->make('log')->info('uninstall extension:' . $extension->getIdentification(), $log);
+                        $this->settings->set('extension.' . $extension->getIdentification() . '.installed', false);
+                        $this->withCode(200)
+                            ->withData($log)
+                            ->withMessage('卸载插件[' . $extension->getIdentification() . ']成功！');
+                    } else {
+                        $this->withCode(500)->withError('');
                     }
-                    $input = new ArrayInput([
-                        '--force' => true,
-                    ]);
-                    $this->getConsole()->find('vendor:publish')->run($input, $output);
-                    $log = explode(PHP_EOL, $output->fetch());
-                    $this->container->make('log')->info('uninstall extension:' . $extension->getIdentification(), $log);
-                    $this->data = $log;
-                    $this->settings->set('extension.' . $extension->getIdentification() . '.installed', false);
-                    $this->messages->push('卸载插件[' . $extension->getIdentification() . ']成功！');
-
-                    return true;
                 }
+            } else {
+                $this->withCode(500)->withError('');
             }
+        } else {
+            $this->withCode(500)->withError('');
         }
-
-        return false;
     }
 
     /**

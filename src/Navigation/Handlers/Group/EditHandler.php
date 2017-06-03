@@ -2,73 +2,23 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-02-16 17:55
  */
 namespace Notadd\Foundation\Navigation\Handlers\Group;
 
-use Illuminate\Container\Container;
 use Notadd\Foundation\Navigation\Models\Group;
-use Notadd\Foundation\Passport\Abstracts\SetHandler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class EditHandler.
  */
-class EditHandler extends SetHandler
+class EditHandler extends Handler
 {
-    /**
-     * ArticleEditorHandler constructor.
-     *
-     * @param \Illuminate\Container\Container            $container
-     * @param \Notadd\Foundation\Navigation\Models\Group $group
-     *
-     * @internal param \Notadd\Content\Models\Article $article
-     */
-    public function __construct(
-        Container $container,
-        Group $group
-    ) {
-        parent::__construct($container);
-        $this->model = $group;
-    }
-
-    /**
-     * Http code.
-     *
-     * @return int
-     */
-    public function code()
-    {
-        return 200;
-    }
-
-    /**
-     * Data for handler.
-     *
-     * @return array
-     */
-    public function data()
-    {
-        return $this->model->newQuery()->get();
-    }
-
-    /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    public function errors()
-    {
-        return [
-            $this->translator->trans('content::article.update.fail'),
-        ];
-    }
-
     /**
      * Execute Handler.
      *
-     * @return bool
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -83,24 +33,14 @@ class EditHandler extends SetHandler
             'alias.unique' => '分组别名已被占用',
             'title.required' => '必须填写分组标题',
         ]);
-        $article = $this->model->newQuery()->find($this->request->input('id'));
-        $article->update([
-            'alias' => $this->request->input('alias'),
-            'title' => $this->request->input('title'),
-        ]);
-
-        return true;
-    }
-
-    /**
-     * Messages for handler.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            $this->translator->trans('content::article.update.success'),
-        ];
+        $article = Group::query()->find($this->request->input('id'));
+        if ($article && $article->update([
+                'alias' => $this->request->input('alias'),
+                'title' => $this->request->input('title'),
+            ])) {
+            $this->withCode(200)->withMessage('content::article.update.success');
+        } else {
+            $this->withCode(500)->withError('');
+        }
     }
 }

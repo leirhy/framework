@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-23 15:10
  */
@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Passport\Abstracts;
 use Exception;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class DataHandler.

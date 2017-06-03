@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-02 16:00
  */
@@ -12,12 +12,12 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Module\Abstracts\Uninstaller;
 use Notadd\Foundation\Module\ModuleManager;
-use Notadd\Foundation\Passport\Abstracts\SetHandler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 
 /**
  * Class UninstallHandler.
  */
-class UninstallHandler extends SetHandler
+class UninstallHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Module\ModuleManager
@@ -33,15 +33,11 @@ class UninstallHandler extends SetHandler
     public function __construct(Container $container, ModuleManager $manager)
     {
         parent::__construct($container);
-        $this->errors->push($this->translator->trans('卸载失败！'));
         $this->manager = $manager;
-        $this->messages->push($this->translator->trans('卸载成功！'));
     }
 
     /**
      * Execute Handler.
-     *
-     * @return bool
      */
     public function execute()
     {
@@ -60,8 +56,11 @@ class UninstallHandler extends SetHandler
                 $this->container->make('log')->info('uninstall data:', $this->data());
             }
         }
-
-        return $result;
+        if ($result) {
+            $this->withCode(200)->withMessage('');
+        } else {
+            $this->withCode(500)->withError('');
+        }
     }
 
     /**

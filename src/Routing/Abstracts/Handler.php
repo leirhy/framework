@@ -2,16 +2,18 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-23 14:21
  */
-namespace Notadd\Foundation\Passport\Abstracts;
+namespace Notadd\Foundation\Routing\Abstracts;
 
 use Exception;
 use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Model as IlluminateModel;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
+use Notadd\Foundation\Database\Model as NotaddModel;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
@@ -48,6 +50,11 @@ abstract class Handler
     protected $extra;
 
     /**
+     * @var \Notadd\Foundation\Flow\FlowManager
+     */
+    protected $flow;
+
+    /**
      * @var \Illuminate\Contracts\Logging\Log
      */
     protected $log;
@@ -78,6 +85,7 @@ abstract class Handler
         $this->data = new Collection();
         $this->errors = new Collection();
         $this->extra = new Collection();
+        $this->flow = $this->container->make('flow');
         $this->log = $this->container->make('log');
         $this->messages = new Collection();
         $this->request = $this->container->make('request');
@@ -212,6 +220,9 @@ abstract class Handler
      */
     protected function withData($data)
     {
+        if ($data instanceof IlluminateModel || $data instanceof NotaddModel) {
+            $data = $data->toArray();
+        }
         foreach ((array)$data as $key=>$value) {
             if (is_numeric($key)) {
                 $this->data->push($value);

@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-01-13 12:17
  */
@@ -33,6 +33,7 @@ return [
         Notadd\Foundation\Editor\EditorServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
         Notadd\Foundation\Extension\ExtensionServiceProvider::class,
+        Notadd\Foundation\Flow\FlowServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Notadd\Installer\InstallerServiceProvider::class,
         Notadd\Foundation\Image\ImageServiceProvider::class,

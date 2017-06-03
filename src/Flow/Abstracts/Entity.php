@@ -40,6 +40,36 @@ abstract class Entity extends FlowBuilder
     }
 
     /**
+     * Announce a transition.
+     */
+    abstract public function announce();
+
+    /**
+     * Enter a place.
+     */
+    abstract public function enter();
+
+    /**
+     * Entered a place.
+     */
+    abstract public function entered();
+
+    /**
+     * Guard a transition.
+     */
+    abstract public function guard();
+
+    /**
+     * Leave a place.
+     */
+    abstract public function leave();
+
+    /**
+     * Into a transition.
+     */
+    abstract public function transition();
+
+    /**
      * @return array
      */
     public function events()
@@ -56,13 +86,19 @@ abstract class Entity extends FlowBuilder
             $transitions = [];
         }
         foreach ($places as $place) {
+            $collection->put('flow.' . $name . '.enter', 'enter');
             $collection->put('flow.' . $name . '.enter.' . $place, 'enter' . ucfirst($place));
+            $collection->put('flow.' . $name . '.entered', 'entered');
             $collection->put('flow.' . $name . '.entered.' . $place, 'entered' . ucfirst($place));
+            $collection->put('flow.' . $name . '.leave', 'leave');
             $collection->put('flow.' . $name . '.leave.' . $place, 'leave' . ucfirst($place));
         }
         foreach ($transitions as $transition) {
+            $collection->put('flow.' . $name . '.announce', 'announce');
             $collection->put('flow.' . $name . '.announce.' . $transition, 'announce' . ucfirst($transition));
+            $collection->put('flow.' . $name . '.guard', 'guard');
             $collection->put('flow.' . $name . '.guard.' . $transition, 'guard' . ucfirst($transition));
+            $collection->put('flow.' . $name . '.transition', 'transition');
             $collection->put('flow.' . $name . '.transition.' . $transition, 'transition' . ucfirst($transition));
         }
 

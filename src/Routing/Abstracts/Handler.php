@@ -50,6 +50,11 @@ abstract class Handler
     protected $extra;
 
     /**
+     * @var \Notadd\Foundation\Flow\FlowManager
+     */
+    protected $flow;
+
+    /**
      * @var \Illuminate\Contracts\Logging\Log
      */
     protected $log;
@@ -80,6 +85,7 @@ abstract class Handler
         $this->data = new Collection();
         $this->errors = new Collection();
         $this->extra = new Collection();
+        $this->flow = $this->container->make('flow');
         $this->log = $this->container->make('log');
         $this->messages = new Collection();
         $this->request = $this->container->make('request');

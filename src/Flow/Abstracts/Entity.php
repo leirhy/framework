@@ -12,6 +12,7 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Flow\FlowBuilder;
 use Notadd\Foundation\Member\Member;
+use Symfony\Component\Workflow\Event\GuardEvent;
 use Symfony\Component\Workflow\Transition;
 
 /**
@@ -56,8 +57,10 @@ abstract class Entity extends FlowBuilder
 
     /**
      * Guard a transition.
+     *
+     * @param \Symfony\Component\Workflow\Event\GuardEvent $event
      */
-    abstract public function guard();
+    abstract public function guard(GuardEvent $event);
 
     /**
      * Leave a place.

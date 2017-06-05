@@ -15,7 +15,7 @@ use InvalidArgumentException;
 use Notadd\Foundation\Flow\Abstracts\Entity;
 use Notadd\Foundation\Flow\Contracts\SupportStrategy;
 use Symfony\Component\Workflow\Exception\InvalidDefinitionException;
-use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
+use Symfony\Component\Workflow\MarkingStore\MultipleStateMarkingStore;
 
 /**
  * Class FlowManager.
@@ -141,7 +141,7 @@ class FlowManager
             if (method_exists($definition, 'marking')) {
                 $definition->setMarking($definition->{'marking'}());
             } else {
-                $definition->setMarking(new SingleStateMarkingStore('currentState'));
+                $definition->setMarking(new MultipleStateMarkingStore('currentState'));
             }
             if (method_exists($definition, 'name')) {
                 $definition->setName($definition->{'name'}());

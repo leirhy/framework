@@ -192,16 +192,6 @@ abstract class Handler
     }
 
     /**
-     * @return $this
-     */
-    protected function success()
-    {
-        $this->code = 200;
-
-        return $this;
-    }
-
-    /**
      * @param int $code
      *
      * @return $this

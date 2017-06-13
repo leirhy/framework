@@ -41,7 +41,7 @@ class GetHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData([
+        $this->withCode(200)->withData([
             'debug' => $this->settings->get('debug.enabled', false),
         ])->withMessage('获取调试模式配置成功！');
     }

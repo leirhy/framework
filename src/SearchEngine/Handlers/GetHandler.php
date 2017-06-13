@@ -41,7 +41,7 @@ class GetHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData([
+        $this->withCode(200)->withData([
             'description' => $this->settings->get('seo.description', ''),
             'keyword' => $this->settings->get('seo.keyword', ''),
             'title' => $this->settings->get('seo.title', ''),

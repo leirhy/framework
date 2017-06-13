@@ -23,7 +23,7 @@ class FetchHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()
+        $this->withCode(200)
             ->withData((new Item())->structure($this->request->input('group')))
             ->withMessage('content::category.fetch.success');
     }

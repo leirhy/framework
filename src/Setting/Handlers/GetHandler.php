@@ -41,7 +41,7 @@ class GetHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData([
+        $this->withCode(200)->withData([
             'beian' => $this->settings->get('site.beian', ''),
             'company' => $this->settings->get('site.company', ''),
             'copyright' => $this->settings->get('site.copyright', ''),

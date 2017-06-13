@@ -40,6 +40,6 @@ class AllHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData($this->settings->all()->toArray())->withMessage('获取全局设置成功！');
+        $this->withCode(200)->withData($this->settings->all()->toArray())->withMessage('获取全局设置成功！');
     }
 }

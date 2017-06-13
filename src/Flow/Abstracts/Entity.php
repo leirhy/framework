@@ -12,6 +12,7 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Flow\FlowBuilder;
 use Notadd\Foundation\Member\Member;
+use Notadd\Foundation\Permission\PermissionManager;
 use Symfony\Component\Workflow\Event\GuardEvent;
 use Symfony\Component\Workflow\Transition;
 
@@ -20,6 +21,11 @@ use Symfony\Component\Workflow\Transition;
  */
 abstract class Entity extends FlowBuilder
 {
+    /**
+     * @var \Illuminate\Container\Container
+     */
+    protected $container;
+
     /**
      * @var mixed
      */
@@ -37,6 +43,7 @@ abstract class Entity extends FlowBuilder
      */
     public function __construct(Member $user = null)
     {
+        $this->container = Container::getInstance();
         $this->user = $user;
     }
 
@@ -136,5 +143,27 @@ abstract class Entity extends FlowBuilder
     public function setCurrentState($currentState)
     {
         $this->currentState = $currentState;
+    }
+
+    /**
+     * @param \Symfony\Component\Workflow\Event\GuardEvent $event
+     * @param bool                                         $permission
+     */
+    protected function block(GuardEvent $event, bool $permission) {
+        if ($permission) {
+            $event->setBlocked(false);
+        } else {
+            $event->setBlocked(true);
+        }
+    }
+
+    /**
+     * @param $permission
+     *
+     * @return bool
+     */
+    protected function permission($permission)
+    {
+        return $this->container->make(PermissionManager::class)->check($permission);
     }
 }

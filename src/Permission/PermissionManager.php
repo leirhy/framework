@@ -45,6 +45,16 @@ class PermissionManager
     }
 
     /**
+     * @param $permission
+     *
+     * @return bool
+     */
+    public function check($permission)
+    {
+        return true;
+    }
+
+    /**
      * @param array $attributes
      *
      * @return \Illuminate\Support\Collection|bool

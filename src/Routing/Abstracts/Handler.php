@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 use Notadd\Foundation\Database\Model as NotaddModel;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
+use Notadd\Foundation\Permission\PermissionManager;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
 /**
@@ -158,6 +159,16 @@ abstract class Handler
     protected function messages()
     {
         return $this->messages->toArray();
+    }
+
+    /**
+     * @param $permission
+     *
+     * @return bool
+     */
+    protected function permission($permission)
+    {
+        return $this->container->make(PermissionManager::class)->check($permission);
     }
 
     /**

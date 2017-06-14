@@ -48,6 +48,27 @@ abstract class Entity extends FlowBuilder
     }
 
     /**
+     * Definition of name for flow.
+     *
+     * @return string
+     */
+    abstract public function name();
+
+    /**
+     * Definition of places for flow.
+     *
+     * @return array
+     */
+    abstract public function places();
+
+    /**
+     * Definition of transitions for flow.
+     *
+     * @return array
+     */
+    abstract public function transitions();
+
+    /**
      * Announce a transition.
      */
     abstract public function announce();

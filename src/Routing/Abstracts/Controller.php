@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Routing\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Routing\Controller as IlluminateController;
+use Notadd\Foundation\Routing\Traits\Logable;
 use Notadd\Foundation\Routing\Traits\Settingable;
 use Notadd\Foundation\Routing\Traits\Viewable;
 use Notadd\Foundation\Validation\ValidatesRequests;
@@ -20,7 +21,7 @@ use Notadd\Foundation\Validation\ValidatesRequests;
  */
 abstract class Controller extends IlluminateController
 {
-    use Settingable, ValidatesRequests, Viewable;
+    use Logable, Settingable, ValidatesRequests, Viewable;
 
     /**
      * @var \Illuminate\Container\Container
@@ -53,11 +54,6 @@ abstract class Controller extends IlluminateController
     protected $session;
 
     /**
-     * @var \Illuminate\Contracts\View\Factory
-     */
-    protected $view;
-
-    /**
      * Controller constructor.
      */
     public function __construct()
@@ -66,7 +62,6 @@ abstract class Controller extends IlluminateController
         $this->events = $this->container->make('events');
         $this->redirector = $this->container->make('redirect');
         $this->request = $this->container->make('request');
-        $this->view = $this->container->make('view');
     }
 
     /**
@@ -115,17 +110,6 @@ abstract class Controller extends IlluminateController
     public function getContainer()
     {
         return Container::getInstance();
-    }
-
-    /**
-     * Get logger instance.
-     *
-     * @return \Psr\Log\LoggerInterface
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function getLogger()
-    {
-        return $this->container->make('log');
     }
 
     /**

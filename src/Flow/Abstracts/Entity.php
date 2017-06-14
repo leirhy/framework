@@ -11,8 +11,8 @@ namespace Notadd\Foundation\Flow\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Flow\FlowBuilder;
-use Notadd\Foundation\Member\Member;
 use Notadd\Foundation\Permission\PermissionManager;
+use Symfony\Component\Workflow\Event\Event;
 use Symfony\Component\Workflow\Event\GuardEvent;
 use Symfony\Component\Workflow\Transition;
 
@@ -38,13 +38,10 @@ abstract class Entity extends FlowBuilder
 
     /**
      * Entity constructor.
-     *
-     * @param \Notadd\Foundation\Member\Member|null $user
      */
-    public function __construct(Member $user = null)
+    public function __construct()
     {
         $this->container = Container::getInstance();
-        $this->user = $user;
     }
 
     /**
@@ -71,17 +68,25 @@ abstract class Entity extends FlowBuilder
     /**
      * Announce a transition.
      */
-    abstract public function announce();
+    public function announce()
+    {
+    }
 
     /**
      * Enter a place.
+     *
+     * @param \Symfony\Component\Workflow\Event\Event $event
      */
-    abstract public function enter();
+    public function enter(Event $event)
+    {
+    }
 
     /**
      * Entered a place.
      */
-    abstract public function entered();
+    public function entered()
+    {
+    }
 
     /**
      * Guard a transition.
@@ -93,12 +98,16 @@ abstract class Entity extends FlowBuilder
     /**
      * Leave a place.
      */
-    abstract public function leave();
+    public function leave()
+    {
+    }
 
     /**
      * Into a transition.
      */
-    abstract public function transition();
+    public function transition()
+    {
+    }
 
     /**
      * @return array

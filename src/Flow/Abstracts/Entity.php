@@ -27,16 +27,6 @@ abstract class Entity extends FlowBuilder
     protected $container;
 
     /**
-     * @var mixed
-     */
-    protected $currentState;
-
-    /**
-     * @var \Notadd\Foundation\Member\Member
-     */
-    protected $user;
-
-    /**
      * Entity constructor.
      */
     public function __construct()
@@ -143,36 +133,6 @@ abstract class Entity extends FlowBuilder
         }
 
         return $collection->toArray();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCurrentState()
-    {
-        return $this->currentState;
-    }
-
-    /**
-     * @return \Notadd\Foundation\Member\Member
-     */
-    public function getUser(): \Notadd\Foundation\Member\Member
-    {
-        if (is_null($this->user)) {
-            $auth = Container::getInstance()->make('auth');
-
-            return $auth->guard()->user();
-        }
-
-        return $this->user;
-    }
-
-    /**
-     * @param mixed $currentState
-     */
-    public function setCurrentState($currentState)
-    {
-        $this->currentState = $currentState;
     }
 
     /**

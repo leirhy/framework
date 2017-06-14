@@ -22,24 +22,4 @@ trait Settingable
     {
         return $this->container->make('setting');
     }
-
-    /**
-     * @param $key
-     * @param $default
-     *
-     * @return mixed
-     */
-    protected function get($key, $default)
-    {
-        return $this->setting()->get($key, $default);
-    }
-
-    /**
-     * @param $key
-     * @param $value
-     */
-    protected function set($key, $value)
-    {
-        $this->setting()->set($key, $value);
-    }
 }

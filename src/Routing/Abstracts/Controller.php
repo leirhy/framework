@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Routing\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Routing\Controller as IlluminateController;
+use Notadd\Foundation\Routing\Traits\Flowable;
 use Notadd\Foundation\Routing\Traits\Logable;
 use Notadd\Foundation\Routing\Traits\Settingable;
 use Notadd\Foundation\Routing\Traits\Viewable;
@@ -21,7 +22,7 @@ use Notadd\Foundation\Validation\ValidatesRequests;
  */
 abstract class Controller extends IlluminateController
 {
-    use Logable, Settingable, ValidatesRequests, Viewable;
+    use Flowable, Logable, Settingable, ValidatesRequests, Viewable;
 
     /**
      * @var \Illuminate\Container\Container

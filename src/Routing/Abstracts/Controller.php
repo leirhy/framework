@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Routing\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Routing\Controller as IlluminateController;
+use Notadd\Foundation\Routing\Traits\Settingable;
 use Notadd\Foundation\Routing\Traits\Viewable;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
@@ -19,7 +20,7 @@ use Notadd\Foundation\Validation\ValidatesRequests;
  */
 abstract class Controller extends IlluminateController
 {
-    use ValidatesRequests, Viewable;
+    use Settingable, ValidatesRequests, Viewable;
 
     /**
      * @var \Illuminate\Container\Container
@@ -147,16 +148,5 @@ abstract class Controller extends IlluminateController
     public function getSession()
     {
         return $this->container->make('session');
-    }
-
-    /**
-     * Get setting instance.
-     *
-     * @return \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function getSetting()
-    {
-        return $this->container->make('setting');
     }
 }

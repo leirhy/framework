@@ -11,7 +11,7 @@ namespace Notadd\Foundation\Routing\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Routing\Controller as IlluminateController;
-use Illuminate\Support\Str;
+use Notadd\Foundation\Routing\Traits\Viewable;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
 /**
@@ -19,7 +19,7 @@ use Notadd\Foundation\Validation\ValidatesRequests;
  */
 abstract class Controller extends IlluminateController
 {
-    use ValidatesRequests;
+    use ValidatesRequests, Viewable;
 
     /**
      * @var \Illuminate\Container\Container
@@ -158,34 +158,5 @@ abstract class Controller extends IlluminateController
     public function getSetting()
     {
         return $this->container->make('setting');
-    }
-
-    /**
-     * Share variable with view.
-     *
-     * @param      $key
-     * @param null $value
-     */
-    protected function share($key, $value = null)
-    {
-        $this->view->share($key, $value);
-    }
-
-    /**
-     * Share variable with view.
-     *
-     * @param       $template
-     * @param array $data
-     * @param array $mergeData
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    protected function view($template, array $data = [], $mergeData = [])
-    {
-        if (Str::contains($template, '::')) {
-            return $this->view->make($template, $data, $mergeData);
-        } else {
-            return $this->view->make('theme::' . $template, $data, $mergeData);
-        }
     }
 }

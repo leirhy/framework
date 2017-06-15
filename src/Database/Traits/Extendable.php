@@ -63,4 +63,23 @@ trait Extendable
 
         return $this->fillable;
     }
+
+    /**
+     * Handle dynamic method calls into the model.
+     *
+     * @param  string $method
+     * @param  array  $parameters
+     *
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        if (array_key_exists($method, static::$extendRelation)) {
+            $callback = static::$extendRelation[ $method ];
+
+            return $callback($this);
+        }
+
+        return parent::__call($method, $parameters);
+    }
 }

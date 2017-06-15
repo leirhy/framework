@@ -65,6 +65,16 @@ trait Extendable
     }
 
     /**
+     * @param $relation
+     *
+     * @return bool
+     */
+    public function hasExtendRelation($relation)
+    {
+        return array_key_exists($relation, static::$extendRelation);
+    }
+
+    /**
      * Handle dynamic method calls into the model.
      *
      * @param  string $method

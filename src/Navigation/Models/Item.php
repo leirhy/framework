@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Navigation\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Notadd\Foundation\Database\Model;
 
 /**
  * Class Item.

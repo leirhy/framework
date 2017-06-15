@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Flow\Abstracts;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Database\Model;
 use Notadd\Foundation\Flow\FlowBuilder;
 use Notadd\Foundation\Permission\PermissionManager;
 use Symfony\Component\Workflow\Event\Event;
@@ -31,7 +32,7 @@ abstract class Entity extends FlowBuilder
      */
     public function __construct()
     {
-        $this->container = Container::getInstance();
+        $this->container = $this->getContainer();
     }
 
     /**
@@ -100,6 +101,19 @@ abstract class Entity extends FlowBuilder
     }
 
     /**
+     * @param \Symfony\Component\Workflow\Event\GuardEvent $event
+     * @param bool                                         $permission
+     */
+    protected function block(GuardEvent $event, bool $permission)
+    {
+        if ($permission) {
+            $event->setBlocked(false);
+        } else {
+            $event->setBlocked(true);
+        }
+    }
+
+    /**
      * @return array
      */
     public function events()
@@ -136,24 +150,35 @@ abstract class Entity extends FlowBuilder
     }
 
     /**
-     * @param \Symfony\Component\Workflow\Event\GuardEvent $event
-     * @param bool                                         $permission
+     * @return \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
-    protected function block(GuardEvent $event, bool $permission) {
-        if ($permission) {
-            $event->setBlocked(false);
-        } else {
-            $event->setBlocked(true);
-        }
+    protected function getContainer()
+    {
+        return Container::getInstance();
     }
 
     /**
-     * @param $permission
+     * @param $identification
+     *
+     * @param $group
      *
      * @return bool
      */
-    protected function permission($permission)
+    protected function permission($identification, $group)
     {
-        return $this->container->make(PermissionManager::class)->check($permission);
+        if ($group instanceof Model) {
+            $group = $group->getAttribute('identification');
+        } else if ($group instanceof Collection) {
+            $group = $group->transform(function (Model $group) {
+                return $group->getAttribute('identification');
+            })->toArray();
+        }
+        foreach ((array)$group as $item) {
+            if ($this->container->make(PermissionManager::class)->check($identification, $item)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

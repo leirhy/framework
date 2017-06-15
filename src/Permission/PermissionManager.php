@@ -45,13 +45,25 @@ class PermissionManager
     }
 
     /**
-     * @param $permission
+     * @param $identification
+     * @param $group
      *
      * @return bool
      */
-    public function check($permission)
+    public function check($identification, $group)
     {
-        return true;
+        if (!$identification || !$group) {
+            return false;
+        }
+        $permissions = json_decode($this->container->make('setting')->get('permissions', json_encode([])), true);
+        if (array_key_exists($identification, $permissions)) {
+            $groups = $permissions[$identification];
+            if (in_array($group, $groups)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

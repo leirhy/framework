@@ -10,12 +10,15 @@ namespace Notadd\Foundation\Database;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Notadd\Foundation\Database\Traits\Extendable;
 
 /**
  * Class Model.
  */
 class Model extends EloquentModel
 {
+    use Extendable;
+
     /**
      * @var \Illuminate\Contracts\Container\Container|\Notadd\Foundation\Application
      */

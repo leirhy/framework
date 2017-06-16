@@ -13,12 +13,26 @@ use Notadd\Foundation\Module\Handlers\InstallHandler;
 use Notadd\Foundation\Module\Handlers\ModuleHandler;
 use Notadd\Foundation\Module\Handlers\UninstallHandler;
 use Notadd\Foundation\Module\Handlers\UpdateHandler;
+use Notadd\Foundation\Routing\Abstracts\Controller;
 
 /**
  * Class ModuleController.
  */
-class ModuleController
+class ModuleController extends Controller
 {
+    /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::module::module.manage' => [
+            'enable',
+            'handle',
+            'install',
+            'uninstall',
+            'update',
+        ],
+    ];
+
     /**
      * Enable handler.
      *

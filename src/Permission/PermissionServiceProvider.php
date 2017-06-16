@@ -9,12 +9,21 @@
 namespace Notadd\Foundation\Permission;
 
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
+use Notadd\Foundation\Permission\Commands\PermissionCommand;
 
 /**
  * Class PermissionServiceProvider.
  */
 class PermissionServiceProvider extends ServiceProvider
 {
+    /**
+     * Boot service.
+     */
+    public function boot()
+    {
+        $this->commands(PermissionCommand::class);
+    }
+
     /**
      * ServiceProvider register.
      */

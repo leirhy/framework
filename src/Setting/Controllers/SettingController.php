@@ -19,6 +19,14 @@ use Notadd\Foundation\Setting\Handlers\SetHandler;
 class SettingController extends Controller
 {
     /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::global::setting.get' => 'get',
+        'global::global::global::setting.set' => 'set',
+    ];
+
+    /**
      * All handler.
      *
      * @param \Notadd\Foundation\Setting\Handlers\AllHandler $handler
@@ -35,7 +43,9 @@ class SettingController extends Controller
      * Get handler.
      *
      * @param GetHandler $handler
+     *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
      */
     public function get(GetHandler $handler)
     {

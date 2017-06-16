@@ -19,11 +19,22 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class MailController extends Controller
 {
     /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::mail::mail.manage' => [
+            'get',
+            'set',
+        ],
+    ];
+
+    /**
      * Get handler.
      *
      * @param GetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
      */
     public function get(GetHandler $handler)
     {

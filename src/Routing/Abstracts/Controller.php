@@ -36,11 +36,6 @@ abstract class Controller extends IlluminateController
     protected $events;
 
     /**
-     * @var array
-     */
-    protected $middleware = [];
-
-    /**
      * @var \Illuminate\Routing\Redirector
      */
     protected $redirector;
@@ -49,6 +44,11 @@ abstract class Controller extends IlluminateController
      * @var \Illuminate\Http\Request
      */
     protected $request;
+
+    /**
+     * @var array
+     */
+    protected $permissions = [];
 
     /**
      * @var \Illuminate\Session\Store
@@ -64,6 +64,11 @@ abstract class Controller extends IlluminateController
         $this->events = $this->container->make('events');
         $this->redirector = $this->container->make('redirect');
         $this->request = $this->container->make('request');
+        if ($this->permissions) {
+            foreach ($this->permissions as $permission=>$methods) {
+                $this->middleware('permission:' . $permission)->only($methods);
+            }
+        }
     }
 
     /**

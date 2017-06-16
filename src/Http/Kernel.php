@@ -43,6 +43,7 @@ use Notadd\Foundation\Http\Middlewares\EnableCrossRequest;
 use Notadd\Foundation\Http\Middlewares\RedirectIfAuthenticated;
 use Notadd\Foundation\Http\Middlewares\ShareMessagesFromSession;
 use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
+use Notadd\Foundation\Permission\Middlewares\Permission;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 
@@ -114,6 +115,7 @@ class Kernel implements KernelContract
         'bindings'   => SubstituteBindings::class,
         'can'        => Authorize::class,
         'guest'      => RedirectIfAuthenticated::class,
+        'permission' => Permission::class,
         'scope'      => CheckForAnyScope::class,
         'scopes'     => CheckScopes::class,
         'throttle'   => ThrottleRequests::class,

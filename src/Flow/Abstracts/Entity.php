@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Flow\Abstracts;
 
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Database\Model;
 use Notadd\Foundation\Flow\FlowBuilder;
@@ -22,6 +23,11 @@ use Symfony\Component\Workflow\Transition;
  */
 abstract class Entity extends FlowBuilder
 {
+    /**
+     * @var \Illuminate\Contracts\Auth\Authenticatable
+     */
+    protected $authenticatable;
+
     /**
      * @var \Illuminate\Container\Container
      */
@@ -98,6 +104,23 @@ abstract class Entity extends FlowBuilder
      */
     public function transition()
     {
+    }
+
+    /**
+     * @param \Illuminate\Contracts\Auth\Authenticatable $authenticatable
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    public function authenticatable(Authenticatable $authenticatable = null)
+    {
+        if ($authenticatable) {
+            $this->authenticatable = $authenticatable;
+        }
+        if (is_null($this->authenticatable())) {
+            return $this->container->make('auth')->guard()->user();
+        } else {
+            return $this->authenticatable;
+        }
     }
 
     /**

@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\Permission\Middlewares;
 
 use Closure;
-use EasyWeChat\Support\Collection;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Http\Request;
 use Notadd\Foundation\Database\Model;
@@ -79,11 +78,8 @@ class Permission
      */
     protected function permission($identification, $groups)
     {
-        if ($groups instanceof Collection) {
-            $groups = $groups->toArray();
-        }
-        foreach ((array)$groups as $group) {
-            if ($group instanceof Model && $this->permission->check($identification, $group->getAttribute('identification'))) {
+        foreach (collect($groups)->toArray() as $group) {
+            if ($this->permission->check($identification, $group['identification'])) {
                 return true;
             }
         }

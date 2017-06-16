@@ -18,11 +18,22 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class DebugController extends Controller
 {
     /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::debug::debug.manage' => [
+            'get',
+            'set',
+        ],
+    ];
+
+    /**
      * Get handler.
      *
      * @param GetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
      */
     public function get(GetHandler $handler)
     {

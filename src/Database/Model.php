@@ -18,20 +18,4 @@ use Notadd\Foundation\Database\Traits\Extendable;
 class Model extends EloquentModel
 {
     use Extendable;
-
-    /**
-     * @var \Illuminate\Contracts\Container\Container|\Notadd\Foundation\Application
-     */
-    protected $container;
-
-    /**
-     * Model constructor.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->container = Container::getInstance();
-    }
 }

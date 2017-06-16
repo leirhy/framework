@@ -21,6 +21,19 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class ExtensionController extends Controller
 {
     /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::extension::extension.manage' => [
+            'enable',
+            'handle',
+            'install',
+            'uninstall',
+            'update',
+        ],
+    ];
+
+    /**
      * Enable handler.
      *
      * @param \Notadd\Foundation\Extension\Handlers\EnableHandler $handler

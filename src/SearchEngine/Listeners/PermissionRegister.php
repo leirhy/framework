@@ -29,7 +29,7 @@ class PermissionRegister extends AbstractPermissionRegister
         ]);
         $this->manager->extend([
             'default'        => false,
-            'description'    => '获取全局 SEO 配置项',
+            'description'    => '设置全局 SEO 配置项',
             'group'          => 'search-engine',
             'identification' => 'seo.set',
             'module'         => 'global',

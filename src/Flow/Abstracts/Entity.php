@@ -116,10 +116,10 @@ abstract class Entity extends FlowBuilder
         if ($authenticatable) {
             $this->authenticatable = $authenticatable;
         }
-        if (is_null($this->authenticatable())) {
-            return $this->container->make('auth')->guard()->user();
-        } else {
+        if ($this->authenticatable instanceof Authenticatable) {
             return $this->authenticatable;
+        } else {
+            return $this->container->make('auth')->guard()->user();
         }
     }
 

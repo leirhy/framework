@@ -39,7 +39,8 @@ class SetHandler extends Handler
      */
     public function execute()
     {
-        $this->settings->set('debug.enabled', $this->request->input('enabled'));
+        $this->settings->set('debug.enabled', $this->request->input('enabled', false));
+        $this->settings->set('debug.testing', $this->request->input('enabled', false));
         $this->withCode(200)->withMessage('修改设置成功！');
     }
 }

@@ -25,7 +25,7 @@ class GetHandler extends Handler
     /**
      * GetHandler constructor.
      *
-     * @param Container $container
+     * @param Container          $container
      * @param SettingsRepository $settings
      */
     public function __construct(Container $container, SettingsRepository $settings)
@@ -42,7 +42,8 @@ class GetHandler extends Handler
     protected function execute()
     {
         $this->withCode(200)->withData([
-            'debug' => $this->settings->get('debug.enabled', false),
+            'debug'   => $this->settings->get('debug.enabled', false),
+            'testing' => $this->settings->get('debug.testing', false),
         ])->withMessage('获取调试模式配置成功！');
     }
 }

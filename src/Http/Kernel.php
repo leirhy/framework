@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\Http;
 
 use Exception;
-use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -36,6 +35,7 @@ use Notadd\Foundation\Http\Bootstraps\RegisterFacades;
 use Notadd\Foundation\Http\Bootstraps\RegisterFlow;
 use Notadd\Foundation\Http\Bootstraps\RegisterPermission;
 use Notadd\Foundation\Http\Bootstraps\RegisterRouter;
+use Notadd\Foundation\Http\Middlewares\Authenticate;
 use Notadd\Foundation\Http\Middlewares\CheckForCloseMode;
 use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Http\Middlewares\CheckForMaintenanceMode;

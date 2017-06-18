@@ -7,7 +7,6 @@
  * @datetime 2017-05-29 16:18
  */
 namespace Notadd\Foundation\Flow;
-
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Collection;

@@ -10,8 +10,10 @@ namespace Notadd\Foundation\Flow\Traits;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 use Notadd\Foundation\Database\Model;
 use Notadd\Foundation\Permission\PermissionManager;
+use Symfony\Component\Workflow\Definition;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Component\Workflow\Event\GuardEvent;
 use Symfony\Component\Workflow\Transition;
@@ -21,6 +23,36 @@ use Symfony\Component\Workflow\Transition;
  */
 trait HasFlow
 {
+    /**
+     * @var
+     */
+    protected $initialPlace;
+
+    protected $marking;
+
+    /**
+     * @var string
+     */
+    protected $flowName = '';
+
+    /**
+     * @var array
+     */
+    protected $flowPlaces = [];
+
+    /**
+     * @var array
+     */
+    protected $flowTransitions = [];
+
+    /**
+     * @return \Symfony\Component\Workflow\Definition
+     */
+    public function buildFlow()
+    {
+        return new Definition($this->flowPlaces, $this->flowTransitions, $this->initialPlace);
+    }
+
     /**
      * Definition of name for flow.
      *
@@ -41,7 +73,6 @@ trait HasFlow
      * @return array
      */
     abstract public function transitions();
-
 
     /**
      * Announce a transition.
@@ -153,5 +184,107 @@ trait HasFlow
         }
 
         return false;
+    }
+
+    /**
+     * @param string $place
+     *
+     * @return $this
+     */
+    public function setInitialPlace($place)
+    {
+        $this->initialPlace = $place;
+
+        return $this;
+    }
+
+    /**
+     * @param string $place
+     *
+     * @return $this
+     */
+    public function addFlowPlace($place)
+    {
+        if (!preg_match('{^[\w\d_-]+$}', $place)) {
+            throw new InvalidArgumentException(sprintf('The place "%s" contains invalid characters.', $place));
+        }
+        if (!$this->flowPlaces) {
+            $this->initialPlace = $place;
+        }
+        $this->flowPlaces[$place] = $place;
+
+        return $this;
+    }
+
+    /**
+     * @param array $places
+     *
+     * @return $this
+     */
+    public function addFlowPlaces(array $places)
+    {
+        foreach ($places as $place) {
+            $this->addFlowPlace($place);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param \Symfony\Component\Workflow\Transition $transition
+     *
+     * @return $this
+     */
+    public function addFlowTransition(Transition $transition)
+    {
+        $this->flowTransitions[] = $transition;
+
+        return $this;
+    }
+
+    /**
+     * @param array $transitions
+     *
+     * @return $this
+     */
+    public function addFlowTransitions(array $transitions)
+    {
+        foreach ($transitions as $transition) {
+            $this->addFlowTransition($transition);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMarking()
+    {
+        return $this->marking;
+    }
+
+    /**
+     * @param mixed $marking
+     */
+    public function setMarking($marking)
+    {
+        $this->marking = $marking;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setFlowName(string $name)
+    {
+        $this->flowName = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFlowName(): string
+    {
+        return $this->flowName;
     }
 }

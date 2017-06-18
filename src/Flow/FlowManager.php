@@ -12,6 +12,7 @@ use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use Notadd\Foundation\Database\Model;
 use Notadd\Foundation\Flow\Abstracts\Entity;
 use Notadd\Foundation\Flow\Contracts\SupportStrategy;
 use Symfony\Component\Workflow\Exception\InvalidDefinitionException;
@@ -119,7 +120,26 @@ class FlowManager
         if (is_string($definition)) {
             $definition = $this->container->make($definition);
         }
-        if ($definition instanceof Entity || $definition instanceof FlowBuilder) {
+        if ($definition instanceof Model) {
+            if (method_exists($definition, 'name')) {
+                $definition->setFlowName($definition->{'name'}());
+            }
+            if (method_exists($definition, 'places')) {
+                $definition->addFlowPlaces($definition->{'places'}());
+            }
+            if (method_exists($definition, 'transitions')) {
+                $definition->addFlowTransitions($definition->{'transitions'}());
+            }
+            $events = $definition->registerFlowEvents();
+            foreach ((array)$events as $event => $handler) {
+                method_exists($definition, $handler) && $this->dispatcher->listen($event, [
+                    $definition,
+                    $handler,
+                ]);
+            }
+            $flow = new Flow($definition->buildFlow(), $definition->getMarking(), $definition->getFlowName());
+            $this->add($flow, get_class($definition));
+        } elseif ($definition instanceof Entity || $definition instanceof FlowBuilder) {
             if (method_exists($definition, 'entity')) {
                 $definition->setEntity($definition->{'entity'}());
             } else {

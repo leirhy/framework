@@ -26,6 +26,11 @@
             "Notadd\\Foundation\\Tests\\": "tests/"
         }
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.9-dev"
+        }
+    },
     "require": {
         "php": ">=7.0",
         "ext-mbstring": "*",

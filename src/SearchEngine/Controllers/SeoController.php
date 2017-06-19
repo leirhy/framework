@@ -18,11 +18,20 @@ use Notadd\Foundation\SearchEngine\Handlers\SetHandler;
 class SeoController extends ApiController
 {
     /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::search-engine::seo.get' => 'get',
+        'global::global::search-engine::seo.set' => 'set',
+    ];
+
+    /**
      * Get handler.
      *
      * @param GetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
      */
     public function get(GetHandler $handler)
     {

@@ -29,7 +29,7 @@ class PermissionRegister extends AbstractPermissionRegister
         ]);
         $this->manager->extend([
             'default'        => false,
-            'description'    => '获取全局配置项',
+            'description'    => '设置全局配置项',
             'group'          => 'global',
             'identification' => 'setting.set',
             'module'         => 'global',

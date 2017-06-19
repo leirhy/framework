@@ -42,7 +42,7 @@ class ExtensionHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData($this->manager->getExtensions()->transform(function (Extension $extension) {
+        $this->withCode(200)->withData($this->manager->getExtensions()->transform(function (Extension $extension) {
             return [
                 'author'         => $extension->getAuthor(),
                 'enabled'        => $extension->isEnabled(),

@@ -18,11 +18,22 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class AttachmentController extends Controller
 {
     /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::attachment::attachment.manage' => [
+            'get',
+            'set',
+        ],
+    ];
+
+    /**
      * Get handler.
      *
      * @param AttachmentGetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
      */
     public function get(AttachmentGetHandler $handler)
     {

@@ -42,7 +42,7 @@ class UEditorController extends Controller
     {
         parent::__construct();
         $this->image = $this->container->make('images');
-        $this->setting = $this->getSetting();
+        $this->setting = $this->setting();
         $this->config();
     }
 

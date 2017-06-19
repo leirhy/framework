@@ -41,7 +41,7 @@ class ModuleHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData($this->manager->getModules()->transform(function (Module $module) {
+        $this->withCode(200)->withData($this->manager->getModules()->transform(function (Module $module) {
             return [
                 'author' => $module->getAuthor(),
                 'enabled' => $module->isEnabled(),

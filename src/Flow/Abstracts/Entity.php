@@ -9,9 +9,13 @@
 namespace Notadd\Foundation\Flow\Abstracts;
 
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Database\Model;
 use Notadd\Foundation\Flow\FlowBuilder;
-use Notadd\Foundation\Member\Member;
+use Notadd\Foundation\Permission\PermissionManager;
+use Symfony\Component\Workflow\Event\Event;
+use Symfony\Component\Workflow\Event\GuardEvent;
 use Symfony\Component\Workflow\Transition;
 
 /**
@@ -20,54 +24,117 @@ use Symfony\Component\Workflow\Transition;
 abstract class Entity extends FlowBuilder
 {
     /**
-     * @var mixed
+     * @var \Illuminate\Contracts\Auth\Authenticatable
      */
-    protected $currentState;
+    protected $authenticatable;
 
     /**
-     * @var \Notadd\Foundation\Member\Member
+     * @var \Illuminate\Container\Container
      */
-    protected $user;
+    protected $container;
 
     /**
      * Entity constructor.
-     *
-     * @param \Notadd\Foundation\Member\Member|null $user
      */
-    public function __construct(Member $user = null)
+    public function __construct()
     {
-        $this->user = $user;
+        $this->container = $this->getContainer();
     }
+
+    /**
+     * Definition of name for flow.
+     *
+     * @return string
+     */
+    abstract public function name();
+
+    /**
+     * Definition of places for flow.
+     *
+     * @return array
+     */
+    abstract public function places();
+
+    /**
+     * Definition of transitions for flow.
+     *
+     * @return array
+     */
+    abstract public function transitions();
 
     /**
      * Announce a transition.
      */
-    abstract public function announce();
+    public function announce()
+    {
+    }
 
     /**
      * Enter a place.
+     *
+     * @param \Symfony\Component\Workflow\Event\Event $event
      */
-    abstract public function enter();
+    public function enter(Event $event)
+    {
+    }
 
     /**
      * Entered a place.
      */
-    abstract public function entered();
+    public function entered()
+    {
+    }
 
     /**
      * Guard a transition.
+     *
+     * @param \Symfony\Component\Workflow\Event\GuardEvent $event
      */
-    abstract public function guard();
+    abstract public function guard(GuardEvent $event);
 
     /**
      * Leave a place.
      */
-    abstract public function leave();
+    public function leave()
+    {
+    }
 
     /**
      * Into a transition.
      */
-    abstract public function transition();
+    public function transition()
+    {
+    }
+
+    /**
+     * @param \Illuminate\Contracts\Auth\Authenticatable $authenticatable
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    public function authenticatable(Authenticatable $authenticatable = null)
+    {
+        if ($authenticatable) {
+            $this->authenticatable = $authenticatable;
+        }
+        if ($this->authenticatable instanceof Authenticatable) {
+            return $this->authenticatable;
+        } else {
+            return $this->container->make('auth')->guard()->user();
+        }
+    }
+
+    /**
+     * @param \Symfony\Component\Workflow\Event\GuardEvent $event
+     * @param bool                                         $permission
+     */
+    protected function block(GuardEvent $event, bool $permission)
+    {
+        if ($permission) {
+            $event->setBlocked(false);
+        } else {
+            $event->setBlocked(true);
+        }
+    }
 
     /**
      * @return array
@@ -106,32 +173,35 @@ abstract class Entity extends FlowBuilder
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
-    public function getCurrentState()
+    protected function getContainer()
     {
-        return $this->currentState;
+        return Container::getInstance();
     }
 
     /**
-     * @return \Notadd\Foundation\Member\Member
+     * @param $identification
+     *
+     * @param $group
+     *
+     * @return bool
      */
-    public function getUser(): \Notadd\Foundation\Member\Member
+    protected function permission($identification, $group)
     {
-        if (is_null($this->user)) {
-            $auth = Container::getInstance()->make('auth');
-
-            return $auth->guard()->user();
+        if ($group instanceof Model) {
+            $group = $group->getAttribute('identification');
+        } else if ($group instanceof Collection) {
+            $group = $group->transform(function (Model $group) {
+                return $group->getAttribute('identification');
+            })->toArray();
+        }
+        foreach ((array)$group as $item) {
+            if ($this->container->make(PermissionManager::class)->check($identification, $item)) {
+                return true;
+            }
         }
 
-        return $this->user;
-    }
-
-    /**
-     * @param mixed $currentState
-     */
-    public function setCurrentState($currentState)
-    {
-        $this->currentState = $currentState;
+        return false;
     }
 }

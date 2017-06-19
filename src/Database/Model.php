@@ -10,25 +10,12 @@ namespace Notadd\Foundation\Database;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Notadd\Foundation\Database\Traits\Extendable;
 
 /**
  * Class Model.
  */
 class Model extends EloquentModel
 {
-    /**
-     * @var \Illuminate\Contracts\Container\Container|\Notadd\Foundation\Application
-     */
-    protected $container;
-
-    /**
-     * Model constructor.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->container = Container::getInstance();
-    }
+    use Extendable;
 }

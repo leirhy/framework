@@ -29,6 +29,9 @@ class VendorPublish extends EventSubscriber
         return RequestHandled::class;
     }
 
+    /**
+     * Event handler.
+     */
     public function handle()
     {
         if ($this->container->isInstalled()) {

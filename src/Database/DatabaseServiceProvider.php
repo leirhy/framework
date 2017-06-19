@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\Database;
 
 use Illuminate\Database\DatabaseServiceProvider as IlluminateDatabaseServiceProvider;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class DatabaseServiceProvider.

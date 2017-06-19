@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\Http;
 
 use Exception;
-use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -36,6 +35,7 @@ use Notadd\Foundation\Http\Bootstraps\RegisterFacades;
 use Notadd\Foundation\Http\Bootstraps\RegisterFlow;
 use Notadd\Foundation\Http\Bootstraps\RegisterPermission;
 use Notadd\Foundation\Http\Bootstraps\RegisterRouter;
+use Notadd\Foundation\Http\Middlewares\Authenticate;
 use Notadd\Foundation\Http\Middlewares\CheckForCloseMode;
 use Notadd\Foundation\Http\Events\RequestHandled;
 use Notadd\Foundation\Http\Middlewares\CheckForMaintenanceMode;
@@ -43,6 +43,7 @@ use Notadd\Foundation\Http\Middlewares\EnableCrossRequest;
 use Notadd\Foundation\Http\Middlewares\RedirectIfAuthenticated;
 use Notadd\Foundation\Http\Middlewares\ShareMessagesFromSession;
 use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
+use Notadd\Foundation\Permission\Middlewares\Permission;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 
@@ -114,6 +115,7 @@ class Kernel implements KernelContract
         'bindings'   => SubstituteBindings::class,
         'can'        => Authorize::class,
         'guest'      => RedirectIfAuthenticated::class,
+        'permission' => Permission::class,
         'scope'      => CheckForAnyScope::class,
         'scopes'     => CheckScopes::class,
         'throttle'   => ThrottleRequests::class,

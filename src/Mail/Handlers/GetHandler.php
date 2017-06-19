@@ -41,7 +41,7 @@ class GetHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData([
+        $this->withCode(200)->withData([
             'driver' => $this->settings->get('mail.driver', 'mail'),
             'encryption' => $this->settings->get('mail.encryption', 'none'),
             'port' => $this->settings->get('mail.port', '25'),

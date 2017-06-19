@@ -24,6 +24,6 @@ class FetchHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData(Group::query()->get()->toArray())->withMessage('content::category.fetch.success');
+        $this->withCode(200)->withData(Group::query()->get()->toArray())->withMessage('content::category.fetch.success');
     }
 }

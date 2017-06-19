@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 use Notadd\Foundation\Database\Model as NotaddModel;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
+use Notadd\Foundation\Permission\PermissionManager;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
 /**
@@ -161,6 +162,16 @@ abstract class Handler
     }
 
     /**
+     * @param $permission
+     *
+     * @return bool
+     */
+    protected function permission($permission)
+    {
+        return $this->container->make(PermissionManager::class)->check($permission);
+    }
+
+    /**
      * Make data to response with errors or messages.
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
@@ -189,16 +200,6 @@ abstract class Handler
         } catch (Exception $exception) {
             return $this->handleExceptions($response, $exception);
         }
-    }
-
-    /**
-     * @return $this
-     */
-    protected function success()
-    {
-        $this->code = 200;
-
-        return $this;
     }
 
     /**

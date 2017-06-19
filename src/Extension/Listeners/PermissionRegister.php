@@ -22,7 +22,7 @@ class PermissionRegister extends AbstractPermissionRegister
     {
         $this->manager->extend([
             'default'        => false,
-            'description'    => '全局模块管理权限',
+            'description'    => '全局插件管理权限',
             'group'          => 'extension',
             'identification' => 'extension.manage',
             'module'         => 'global',

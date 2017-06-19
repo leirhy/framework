@@ -2,14 +2,14 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-18 11:24
  */
 namespace Notadd\Foundation\Attachment\Handlers;
 
 use Illuminate\Container\Container;
-use Notadd\Foundation\Passport\Abstracts\Handler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
@@ -41,7 +41,7 @@ class AttachmentGetHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData([
+        $this->withCode(200)->withData([
             'canManagementImageExtension' => $this->settings->get('attachment.manager.image', '.png,.jpg,.jpeg,.gif,.bmp'),
             'canManagementFileExtension'  => $this->settings->get('attachment.manager.file', '.png,.jpg,.jpeg,.gif,.bmp,.flv,.swf,.mkv,.avi,.rm,.rmvb,.mpeg,.mpg,.ogg,.ogv,.mov,.wmv,.mp4,.webm,.mp3,.wav,.mid,.rar,.zip,.tar,.gz,.7z,.bz2,.cab,.iso,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.md,.xml'),
             'canUploadImageExtension'     => $this->settings->get('attachment.format.image', '.png,.jpg,.jpeg,.gif,.bmp'),

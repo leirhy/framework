@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author        TwilRoad <269044570@qq.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime      2017-05-25 16:24
  */
@@ -22,7 +22,7 @@ class PermissionRegister extends AbstractPermissionRegister
     {
         $this->manager->extend([
             'default'        => false,
-            'description'    => '全局模块管理权限',
+            'description'    => '全局插件管理权限',
             'group'          => 'extension',
             'identification' => 'extension.manage',
             'module'         => 'global',

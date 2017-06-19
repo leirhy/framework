@@ -2,14 +2,14 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-17 18:57
  */
 namespace Notadd\Foundation\SearchEngine\Handlers;
 
 use Illuminate\Container\Container;
-use Notadd\Foundation\Passport\Abstracts\Handler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
@@ -41,7 +41,7 @@ class GetHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData([
+        $this->withCode(200)->withData([
             'description' => $this->settings->get('seo.description', ''),
             'keyword' => $this->settings->get('seo.keyword', ''),
             'title' => $this->settings->get('seo.title', ''),

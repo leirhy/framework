@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-08 17:01
  */
@@ -18,6 +18,14 @@ use Notadd\Foundation\Setting\Handlers\SetHandler;
  */
 class SettingController extends Controller
 {
+    /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::global::setting.get' => 'get',
+        'global::global::global::setting.set' => 'set',
+    ];
+
     /**
      * All handler.
      *
@@ -35,7 +43,9 @@ class SettingController extends Controller
      * Get handler.
      *
      * @param GetHandler $handler
+     *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
      */
     public function get(GetHandler $handler)
     {

@@ -2,19 +2,28 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-05-04 12:41
  */
 namespace Notadd\Foundation\Permission;
 
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
+use Notadd\Foundation\Permission\Commands\PermissionCommand;
 
 /**
  * Class PermissionServiceProvider.
  */
 class PermissionServiceProvider extends ServiceProvider
 {
+    /**
+     * Boot service.
+     */
+    public function boot()
+    {
+        $this->commands(PermissionCommand::class);
+    }
+
     /**
      * ServiceProvider register.
      */

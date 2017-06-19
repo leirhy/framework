@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author        TwilRoad <269044570@qq.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime      2017-05-25 15:14
  */
@@ -29,7 +29,7 @@ class PermissionRegister extends AbstractPermissionRegister
         ]);
         $this->manager->extend([
             'default'        => false,
-            'description'    => '获取全局 SEO 配置项',
+            'description'    => '设置全局 SEO 配置项',
             'group'          => 'search-engine',
             'identification' => 'seo.set',
             'module'         => 'global',

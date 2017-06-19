@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-05-03 18:15
  */
@@ -42,6 +42,28 @@ class PermissionManager
         $this->container = $container;
         $this->group = $group;
         $this->permissions = new Collection();
+    }
+
+    /**
+     * @param $identification
+     * @param $group
+     *
+     * @return bool
+     */
+    public function check($identification, $group)
+    {
+        if (!$identification || !$group) {
+            return false;
+        }
+        $permissions = json_decode($this->container->make('setting')->get('permissions', json_encode([])), true);
+        if (array_key_exists($identification, $permissions)) {
+            $groups = $permissions[$identification];
+            if (in_array($group, $groups)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

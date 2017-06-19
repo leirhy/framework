@@ -2,14 +2,14 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-18 18:11
  */
 namespace Notadd\Foundation\Debug\Handlers;
 
 use Illuminate\Container\Container;
-use Notadd\Foundation\Passport\Abstracts\Handler;
+use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
@@ -25,7 +25,7 @@ class GetHandler extends Handler
     /**
      * GetHandler constructor.
      *
-     * @param Container $container
+     * @param Container          $container
      * @param SettingsRepository $settings
      */
     public function __construct(Container $container, SettingsRepository $settings)
@@ -41,8 +41,9 @@ class GetHandler extends Handler
      */
     protected function execute()
     {
-        $this->success()->withData([
-            'debug' => $this->settings->get('debug.enabled', false),
+        $this->withCode(200)->withData([
+            'debug'   => $this->settings->get('debug.enabled', false),
+            'testing' => $this->settings->get('debug.testing', false),
         ])->withMessage('获取调试模式配置成功！');
     }
 }

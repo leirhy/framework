@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-21 09:50
  */
@@ -17,12 +17,13 @@ use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Exception\HttpResponseException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Validation\ValidationException;
 use Notadd\Foundation\Configuration\Repository;
+use Notadd\Foundation\Permission\Exceptions\PermissionException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Debug\Exception\FlattenException;
@@ -80,7 +81,8 @@ class Handler implements ExceptionHandlerContract
         Redirector $redirector,
         ResponseFactory $response,
         ViewFactory $view
-    ) {
+    )
+    {
         $this->container = $container;
         $this->configuration = $configuration;
         $this->redirector = $redirector;
@@ -151,7 +153,7 @@ class Handler implements ExceptionHandlerContract
     {
         if ($exception instanceof ModelNotFoundException) {
             $exception = new NotFoundHttpException($exception->getMessage(), $exception);
-        } elseif ($exception instanceof AuthorizationException) {
+        } else if ($exception instanceof AuthorizationException) {
             $exception = new HttpException(403, $exception->getMessage());
         }
 
@@ -171,11 +173,13 @@ class Handler implements ExceptionHandlerContract
         $exception = $this->prepareException($exception);
         if ($exception instanceof HttpResponseException) {
             return $exception->getResponse();
-        } elseif ($exception instanceof AuthenticationException) {
+        } else if ($exception instanceof AuthenticationException) {
             return $this->unauthenticated($request, $exception);
-        } elseif ($exception instanceof ValidationException) {
+        } else if ($exception instanceof PermissionException) {
+            return $this->permissionDenied($request, $exception);
+        } else if ($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
-        } elseif ($exception instanceof ClientException) {
+        } else if ($exception instanceof ClientException) {
             if ($request->expectsJson()) {
                 return $this->response->json(['error' => $exception->getMessage()], $exception->getCode());
             }
@@ -313,6 +317,26 @@ class Handler implements ExceptionHandlerContract
     {
         if ($request->expectsJson()) {
             return $this->response->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        return $this->redirector->guest('login');
+    }
+
+    /**
+     * Convert an permission exception into an permission denied response.
+     *
+     * @param \Illuminate\Http\Request                                     $request
+     * @param \Notadd\Foundation\Permission\Exceptions\PermissionException $exception
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    protected function permissionDenied($request, PermissionException $exception)
+    {
+        if ($request->expectsJson()) {
+            return $this->response->json([
+                'code' => 406,
+                'message' => 'Permission Denied.',
+            ], 406);
         }
 
         return $this->redirector->guest('login');

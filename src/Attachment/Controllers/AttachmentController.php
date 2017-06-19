@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-02 15:55
  */
@@ -18,11 +18,22 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class AttachmentController extends Controller
 {
     /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::attachment::attachment.manage' => [
+            'get',
+            'set',
+        ],
+    ];
+
+    /**
      * Get handler.
      *
      * @param AttachmentGetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
      */
     public function get(AttachmentGetHandler $handler)
     {

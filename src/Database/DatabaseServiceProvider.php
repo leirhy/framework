@@ -2,14 +2,13 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-21 20:58
  */
 namespace Notadd\Foundation\Database;
 
 use Illuminate\Database\DatabaseServiceProvider as IlluminateDatabaseServiceProvider;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class DatabaseServiceProvider.

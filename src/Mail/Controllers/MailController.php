@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-18 18:03
  */
@@ -19,11 +19,22 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class MailController extends Controller
 {
     /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::mail::mail.manage' => [
+            'get',
+            'set',
+        ],
+    ];
+
+    /**
      * Get handler.
      *
      * @param GetHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @throws \Exception
      */
     public function get(GetHandler $handler)
     {

@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-02-10 16:50
  */
@@ -42,7 +42,7 @@ class UEditorController extends Controller
     {
         parent::__construct();
         $this->image = $this->container->make('images');
-        $this->setting = $this->getSetting();
+        $this->setting = $this->setting();
         $this->config();
     }
 

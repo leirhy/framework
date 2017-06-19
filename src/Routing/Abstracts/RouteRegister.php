@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-21 15:30
  */
@@ -29,12 +29,12 @@ abstract class RouteRegister extends EventSubscriber
      *
      * @param \Illuminate\Container\Container $container
      * @param \Illuminate\Events\Dispatcher   $events
-     * @param \Illuminate\Routing\Router      $router
+     * @param \Illuminate\Routing\Router      $request
      */
-    public function __construct(Container $container, Dispatcher $events, Router $router)
+    public function __construct(Container $container, Dispatcher $events, Router $request)
     {
         parent::__construct($container, $events);
-        $this->router = $router;
+        $this->router = $request;
     }
 
     /**

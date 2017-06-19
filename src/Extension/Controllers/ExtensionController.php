@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-02-22 17:50
  */
@@ -20,6 +20,19 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
  */
 class ExtensionController extends Controller
 {
+    /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::extension::extension.manage' => [
+            'enable',
+            'handle',
+            'install',
+            'uninstall',
+            'update',
+        ],
+    ];
+
     /**
      * Enable handler.
      *

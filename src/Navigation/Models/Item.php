@@ -2,13 +2,13 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-02-16 17:06
  */
 namespace Notadd\Foundation\Navigation\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Notadd\Foundation\Database\Model;
 
 /**
  * Class Item.

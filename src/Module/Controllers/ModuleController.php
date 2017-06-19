@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-02-18 19:03
  */
@@ -13,12 +13,26 @@ use Notadd\Foundation\Module\Handlers\InstallHandler;
 use Notadd\Foundation\Module\Handlers\ModuleHandler;
 use Notadd\Foundation\Module\Handlers\UninstallHandler;
 use Notadd\Foundation\Module\Handlers\UpdateHandler;
+use Notadd\Foundation\Routing\Abstracts\Controller;
 
 /**
  * Class ModuleController.
  */
-class ModuleController
+class ModuleController extends Controller
 {
+    /**
+     * @var array
+     */
+    protected $permissions = [
+        'global::global::module::module.manage' => [
+            'enable',
+            'handle',
+            'install',
+            'uninstall',
+            'update',
+        ],
+    ];
+
     /**
      * Enable handler.
      *

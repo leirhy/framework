@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-21 15:24
  */
@@ -11,7 +11,11 @@ namespace Notadd\Foundation\Routing\Abstracts;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Routing\Controller as IlluminateController;
-use Illuminate\Support\Str;
+use Notadd\Foundation\Routing\Traits\Flowable;
+use Notadd\Foundation\Routing\Traits\Logable;
+use Notadd\Foundation\Routing\Traits\Permissionable;
+use Notadd\Foundation\Routing\Traits\Settingable;
+use Notadd\Foundation\Routing\Traits\Viewable;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
 /**
@@ -19,7 +23,7 @@ use Notadd\Foundation\Validation\ValidatesRequests;
  */
 abstract class Controller extends IlluminateController
 {
-    use ValidatesRequests;
+    use Flowable, Logable, Permissionable, Settingable, ValidatesRequests, Viewable;
 
     /**
      * @var \Illuminate\Container\Container
@@ -32,11 +36,6 @@ abstract class Controller extends IlluminateController
     protected $events;
 
     /**
-     * @var array
-     */
-    protected $middleware = [];
-
-    /**
      * @var \Illuminate\Routing\Redirector
      */
     protected $redirector;
@@ -47,14 +46,14 @@ abstract class Controller extends IlluminateController
     protected $request;
 
     /**
+     * @var array
+     */
+    protected $permissions = [];
+
+    /**
      * @var \Illuminate\Session\Store
      */
     protected $session;
-
-    /**
-     * @var \Illuminate\Contracts\View\Factory
-     */
-    protected $view;
 
     /**
      * Controller constructor.
@@ -65,7 +64,11 @@ abstract class Controller extends IlluminateController
         $this->events = $this->container->make('events');
         $this->redirector = $this->container->make('redirect');
         $this->request = $this->container->make('request');
-        $this->view = $this->container->make('view');
+        if ($this->permissions) {
+            foreach ($this->permissions as $permission=>$methods) {
+                $this->middleware('permission:' . $permission)->only($methods);
+            }
+        }
     }
 
     /**
@@ -117,17 +120,6 @@ abstract class Controller extends IlluminateController
     }
 
     /**
-     * Get logger instance.
-     *
-     * @return \Psr\Log\LoggerInterface
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function getLogger()
-    {
-        return $this->container->make('log');
-    }
-
-    /**
      * Get mailer instance.
      *
      * @return \Illuminate\Mail\Mailer
@@ -147,45 +139,5 @@ abstract class Controller extends IlluminateController
     public function getSession()
     {
         return $this->container->make('session');
-    }
-
-    /**
-     * Get setting instance.
-     *
-     * @return \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function getSetting()
-    {
-        return $this->container->make('setting');
-    }
-
-    /**
-     * Share variable with view.
-     *
-     * @param      $key
-     * @param null $value
-     */
-    protected function share($key, $value = null)
-    {
-        $this->view->share($key, $value);
-    }
-
-    /**
-     * Share variable with view.
-     *
-     * @param       $template
-     * @param array $data
-     * @param array $mergeData
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    protected function view($template, array $data = [], $mergeData = [])
-    {
-        if (Str::contains($template, '::')) {
-            return $this->view->make($template, $data, $mergeData);
-        } else {
-            return $this->view->make('theme::' . $template, $data, $mergeData);
-        }
     }
 }

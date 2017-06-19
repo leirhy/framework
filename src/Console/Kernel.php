@@ -2,7 +2,7 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-20 20:03
  */
@@ -23,6 +23,8 @@ use Notadd\Foundation\Http\Bootstraps\HandleExceptions;
 use Notadd\Foundation\Http\Bootstraps\LoadConfiguration;
 use Notadd\Foundation\Http\Bootstraps\LoadSetting;
 use Notadd\Foundation\Http\Bootstraps\RegisterFacades;
+use Notadd\Foundation\Http\Bootstraps\RegisterFlow;
+use Notadd\Foundation\Http\Bootstraps\RegisterPermission;
 use Notadd\Foundation\Http\Bootstraps\RegisterRouter;
 use Notadd\Foundation\Http\Bootstraps\SetRequestForConsole;
 use Notadd\Foundation\Console\Application as Artisan;
@@ -75,6 +77,8 @@ class Kernel implements KernelContract
         LoadProviders::class,
         LoadSetting::class,
         RegisterRouter::class,
+        RegisterPermission::class,
+        RegisterFlow::class,
     ];
 
     /**

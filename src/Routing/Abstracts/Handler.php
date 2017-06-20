@@ -99,6 +99,14 @@ abstract class Handler
     }
 
     /**
+     * Begin transaction for database.
+     */
+    protected function beginTransaction()
+    {
+        $this->container->make('db')->beginTransaction();
+    }
+
+    /**
      * Http code.
      *
      * @return int
@@ -106,6 +114,14 @@ abstract class Handler
     protected function code()
     {
         return $this->code;
+    }
+
+    /**
+     * commit transaction for database.
+     */
+    protected function commitTransaction()
+    {
+        $this->container->make('db')->commit();
     }
 
     /**
@@ -174,6 +190,14 @@ abstract class Handler
     protected function permission($permission)
     {
         return $this->container->make(PermissionManager::class)->check($permission);
+    }
+
+    /**
+     * Rollback transaction for database.
+     */
+    protected function rollBackTransaction()
+    {
+        $this->container->make('db')->rollBack();
     }
 
     /**

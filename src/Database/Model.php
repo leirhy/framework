@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Database;
 
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Notadd\Foundation\Database\Traits\Extendable;
 

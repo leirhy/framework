@@ -10,10 +10,9 @@ namespace Notadd\Foundation\Routing\Abstracts;
 
 use Exception;
 use Illuminate\Container\Container;
-use Illuminate\Database\Eloquent\Model as IlluminateModel;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
-use Notadd\Foundation\Database\Model as NotaddModel;
 use Notadd\Foundation\Passport\Responses\ApiResponse;
 use Notadd\Foundation\Permission\PermissionManager;
 use Notadd\Foundation\Validation\ValidatesRequests;
@@ -227,7 +226,7 @@ abstract class Handler
      */
     protected function withData($data)
     {
-        if ($data instanceof IlluminateModel || $data instanceof NotaddModel) {
+        if ($data instanceof Arrayable) {
             $data = $data->toArray();
         }
         foreach ((array)$data as $key=>$value) {

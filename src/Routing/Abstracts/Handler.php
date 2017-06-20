@@ -41,6 +41,11 @@ abstract class Handler
     protected $data;
 
     /**
+     * @var \Illuminate\Database\ConnectionInterface
+     */
+    protected $database;
+
+    /**
      * @var array
      */
     protected $errors;
@@ -84,6 +89,7 @@ abstract class Handler
     {
         $this->container = $container;
         $this->data = new Collection();
+        $this->database = $this->container->make('db');
         $this->errors = new Collection();
         $this->extra = new Collection();
         $this->flow = $this->container->make('flow');

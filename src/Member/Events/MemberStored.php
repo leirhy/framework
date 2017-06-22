@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Member\Events;
 
-use Illuminate\Container\Container;
 use Notadd\Foundation\Member\Abstracts\Driver;
 use Notadd\Foundation\Member\Member;
 
@@ -18,11 +17,6 @@ use Notadd\Foundation\Member\Member;
 class MemberStored
 {
     /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
-
-    /**
      * @var \Notadd\Foundation\Member\Member
      */
     protected $member;
@@ -30,12 +24,12 @@ class MemberStored
     /**
      * MemberUpdated constructor.
      *
-     * @param \Illuminate\Container\Container  $container
      * @param \Notadd\Foundation\Member\Member $member
+     *
+     * @internal param \Illuminate\Container\Container $container
      */
-    public function __construct(Container $container, Member $member)
+    public function __construct(Member $member)
     {
-        $this->container = $container;
         $this->member = $member;
     }
 }

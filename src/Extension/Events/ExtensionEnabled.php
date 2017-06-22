@@ -18,16 +18,6 @@ use Notadd\Foundation\Extension\ExtensionManager;
 class ExtensionEnabled
 {
     /**
-     * @var \Illuminate\Container\Container|\Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
-     */
-    protected $container;
-
-    /**
-     * @var \Notadd\Foundation\Extension\Extension
-     */
-    protected $extension;
-
-    /**
      * @var \Notadd\Foundation\Extension\ExtensionManager
      */
     protected $manager;
@@ -35,14 +25,13 @@ class ExtensionEnabled
     /**
      * ExtensionEnabled constructor.
      *
-     * @param \Illuminate\Container\Container|\Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $container
-     * @param \Notadd\Foundation\Extension\ExtensionManager                                                               $manager
-     * @param \Notadd\Foundation\Extension\Extension                                                                      $extension
+     * @param \Notadd\Foundation\Extension\Extension $extension
+     *
+     * @internal param \Illuminate\Container\Container|\Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $container
+     * @internal param \Notadd\Foundation\Extension\ExtensionManager $manager
      */
-    public function __construct(Container $container, ExtensionManager $manager, Extension $extension)
+    public function __construct(Extension $extension)
     {
-        $this->container = $container;
         $this->extension = $extension;
-        $this->manager = $manager;
     }
 }

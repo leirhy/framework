@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Permission\Events;
 
-use Illuminate\Container\Container;
 use Notadd\Foundation\Permission\PermissionTypeManager;
 
 /**
@@ -17,11 +16,6 @@ use Notadd\Foundation\Permission\PermissionTypeManager;
 class PermissionTypeRegister
 {
     /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
-
-    /**
      * @var \Notadd\Foundation\Permission\PermissionTypeManager
      */
     private $type;
@@ -29,12 +23,12 @@ class PermissionTypeRegister
     /**
      * PermissionRegister constructor.
      *
-     * @param \Illuminate\Container\Container                     $container
      * @param \Notadd\Foundation\Permission\PermissionTypeManager $type
+     *
+     * @internal param \Illuminate\Container\Container $container
      */
-    public function __construct(Container $container, PermissionTypeManager $type)
+    public function __construct(PermissionTypeManager $type)
     {
-        $this->container = $container;
         $this->type = $type;
     }
 }

@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Routing\Events;
 
-use Illuminate\Container\Container;
 use Illuminate\Routing\Router;
 
 /**
@@ -17,11 +16,6 @@ use Illuminate\Routing\Router;
 class RouteRegister
 {
     /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
-
-    /**
      * @var \Illuminate\Routing\Router
      */
     protected $router;
@@ -29,12 +23,12 @@ class RouteRegister
     /**
      * RouteRegister constructor.
      *
-     * @param \Illuminate\Contracts\Foundation\Application|\Illuminate\Container\Container $container
-     * @param \Illuminate\Routing\Router                                                   $router
+     * @param \Illuminate\Routing\Router $router
+     *
+     * @internal param \Illuminate\Container\Container|\Illuminate\Contracts\Foundation\Application $container
      */
-    public function __construct(Container $container, Router $router)
+    public function __construct(Router $router)
     {
-        $this->container = $container;
         $this->router = $router;
     }
 }

@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Http\Events;
 
-use Illuminate\Container\Container;
 use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
 
 /**
@@ -17,11 +16,6 @@ use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
 class CsrfTokenRegister
 {
     /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
-
-    /**
      * @var \Notadd\Foundation\Http\Middlewares\VerifyCsrfToken
      */
     protected $verifier;
@@ -29,12 +23,12 @@ class CsrfTokenRegister
     /**
      * CsrfTokenRegister constructor.
      *
-     * @param \Illuminate\Container\Container                     $container
      * @param \Notadd\Foundation\Http\Middlewares\VerifyCsrfToken $verifier
+     *
+     * @internal param \Illuminate\Container\Container $container
      */
-    public function __construct(Container $container, VerifyCsrfToken $verifier)
+    public function __construct(VerifyCsrfToken $verifier)
     {
-        $this->container = $container;
         $this->verifier = $verifier;
     }
 

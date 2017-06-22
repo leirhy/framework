@@ -17,11 +17,6 @@ use Notadd\Foundation\Flow\FlowManager;
 class FlowRegister
 {
     /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
-
-    /**
      * @var \Notadd\Foundation\Flow\FlowManager
      */
     protected $flow;
@@ -29,12 +24,10 @@ class FlowRegister
     /**
      * FlowRegister constructor.
      *
-     * @param \Illuminate\Container\Container     $container
      * @param \Notadd\Foundation\Flow\FlowManager $flow
      */
-    public function __construct(Container $container, FlowManager $flow)
+    public function __construct(FlowManager $flow)
     {
-        $this->container = $container;
         $this->flow = $flow;
     }
 }

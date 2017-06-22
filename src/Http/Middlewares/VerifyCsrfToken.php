@@ -67,7 +67,7 @@ class VerifyCsrfToken
      */
     public function handle($request, Closure $next)
     {
-        $this->events->fire(new CsrfTokenRegister($this->app, $this));
+        $this->events->fire(new CsrfTokenRegister($this));
         if ($this->isReading($request) || $this->runningUnitTests() || $this->shouldPassThrough($request) || $this->tokensMatch($request)) {
             return $this->addCookieToResponse($request, $next($request));
         }

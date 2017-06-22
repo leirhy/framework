@@ -75,7 +75,7 @@ class Kernel implements KernelContract
         LoadSetting::class,
         RegisterRouter::class,
         RegisterPermission::class,
-        // RegisterFlow::class,
+        RegisterFlow::class,
     ];
 
     /**

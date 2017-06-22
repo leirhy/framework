@@ -6,7 +6,7 @@
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-06-18 15:53
  */
-namespace Notadd\Foundation\Flow\Traits;
+namespace Notadd\Foundation\Database\Traits;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
@@ -24,11 +24,9 @@ use Symfony\Component\Workflow\Transition;
 trait HasFlow
 {
     /**
-     * @var
+     * @var string
      */
     protected $initialPlace;
-
-    protected $marking;
 
     /**
      * @var string
@@ -261,7 +259,7 @@ trait HasFlow
      */
     public function getMarking()
     {
-        return $this->marking;
+        return $this->getAttribute('flow_marking');
     }
 
     /**
@@ -269,7 +267,7 @@ trait HasFlow
      */
     public function setMarking($marking)
     {
-        $this->marking = $marking;
+        $this->setAttribute('flow_marketing', $marking);
     }
 
     /**

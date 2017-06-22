@@ -30,7 +30,7 @@ class RegisterFacades
         Facade::clearResolvedInstances();
         Facade::setFacadeApplication($application);
         $aliasLoader = AliasLoader::getInstance($application->make('config')->get('app.aliases', []));
-        $application->make('events')->fire(new FacadeRegister($application, $aliasLoader));
+        $application->make('events')->dispatch(new FacadeRegister($aliasLoader));
         $aliasLoader->register();
     }
 }

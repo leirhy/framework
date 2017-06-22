@@ -29,10 +29,10 @@ class RegisterPermission
     public function bootstrap(Application $application)
     {
         if ($application->isInstalled()) {
-            $application->make('events')->fire(new PermissionModuleRegister($application['permission.module']));
-            $application->make('events')->fire(new PermissionGroupRegister($application['permission']));
-            $application->make('events')->fire(new PermissionRegister($application['permission']));
-            $application->make('events')->fire(new PermissionTypeRegister($application['permission.type']));
+            $application->make('events')->dispatch(new PermissionModuleRegister($application['permission.module']));
+            $application->make('events')->dispatch(new PermissionGroupRegister($application['permission']));
+            $application->make('events')->dispatch(new PermissionRegister($application['permission']));
+            $application->make('events')->dispatch(new PermissionTypeRegister($application['permission.type']));
         }
     }
 }

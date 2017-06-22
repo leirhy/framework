@@ -31,7 +31,7 @@ class RegisterRouter
                     require $application->getCachedRoutesPath();
                 });
             } else {
-                $application->make('events')->fire(new RouteRegister($application['router']));
+                $application->make('events')->dispatch(new RouteRegister($application['router']));
                 $application->booted(function () use ($application) {
                     $application['router']->getRoutes()->refreshNameLookups();
                 });

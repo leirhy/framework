@@ -22,20 +22,15 @@ class FacadeRegister
     protected $aliasLoader;
 
     /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
-
-    /**
      * FacadeRegister constructor.
      *
-     * @param \Illuminate\Contracts\Foundation\Application|\Illuminate\Container\Container $container
-     * @param \Notadd\Foundation\AliasLoader                                               $aliasLoader
+     * @param \Notadd\Foundation\AliasLoader $aliasLoader
+     *
+     * @internal param \Illuminate\Container\Container|\Illuminate\Contracts\Foundation\Application $container
      */
-    public function __construct(Container $container, AliasLoader $aliasLoader)
+    public function __construct(AliasLoader $aliasLoader)
     {
         $this->aliasLoader = $aliasLoader;
-        $this->container = $container;
     }
 
     /**

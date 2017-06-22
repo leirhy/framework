@@ -25,6 +25,6 @@ class RegisterFlow
      */
     public function bootstrap(Application $application)
     {
-        $application->make('events')->fire(new FlowRegister($application, $application['flow']));
+        $application->make('events')->dispatch(new FlowRegister($application['flow']));
     }
 }

@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\ViewServiceProvider;
 use Notadd\Foundation\Http\Bootstraps\LoadEnvironmentVariables;
 use Notadd\Foundation\Event\EventServiceProvider;
+use Notadd\Foundation\Http\Events\BootstrapBooted;
 use Notadd\Foundation\Routing\RoutingServiceProvider;
 use Notadd\Foundation\Translation\Events\LocaleUpdated;
 use RuntimeException;
@@ -182,6 +183,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             $this->make($bootstrapper)->bootstrap($this);
             $this['events']->dispatch('bootstrapped: ' . $bootstrapper, [$this]);
         }
+        $this['events']->dispatch(new BootstrapBooted());
     }
 
     /**

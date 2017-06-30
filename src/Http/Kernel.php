@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Laravel\Passport\Http\Middleware\CheckForAnyScope;
 use Laravel\Passport\Http\Middleware\CheckScopes;
+use Notadd\Foundation\Http\Bootstraps\LoadExtension;
+use Notadd\Foundation\Http\Bootstraps\LoadModule;
 use Notadd\Foundation\Http\Bootstraps\LoadProviders;
 use Notadd\Foundation\Http\Bootstraps\ConfigureLogging;
 use Notadd\Foundation\Http\Bootstraps\LoadEnvironmentVariables;
@@ -71,6 +73,8 @@ class Kernel implements KernelContract
         ConfigureLogging::class,
         HandleExceptions::class,
         LoadProviders::class,
+        LoadModule::class,
+        LoadExtension::class,
         RegisterFacades::class,
         LoadSetting::class,
         RegisterRouter::class,

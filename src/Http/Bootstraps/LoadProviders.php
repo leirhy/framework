@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Http\Bootstraps;
 
 use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Http\Events\ProviderLoaded;
 
 /**
  * Class BootProviders.
@@ -26,5 +27,6 @@ class LoadProviders
     {
         $application->registerConfiguredProviders();
         $application->boot();
+        $application->make('events')->dispatch(new ProviderLoaded());
     }
 }

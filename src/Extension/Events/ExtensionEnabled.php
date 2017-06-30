@@ -8,9 +8,7 @@
  */
 namespace Notadd\Foundation\Extension\Events;
 
-use Illuminate\Container\Container;
 use Notadd\Foundation\Extension\Extension;
-use Notadd\Foundation\Extension\ExtensionManager;
 
 /**
  * Class ExtensionEnabled.

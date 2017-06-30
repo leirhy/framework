@@ -51,12 +51,6 @@ class ExtensionServiceProvider extends ServiceProvider
         $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-        $this->app->make(ExtensionManager::class)->getExtensions()->each(function (Extension $extension) {
-            $path = $extension->getDirectory();
-            if ($this->files->isDirectory($path) && is_string($extension->getEntry())) {
-                $extension->isEnabled() && $this->app->register($extension->getEntry());
-            }
-        });
         $this->commands([
             ListCommand::class,
             ListUnloadedCommand::class,

@@ -50,12 +50,6 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-        $this->app->make(ModuleManager::class)->getEnabledModules()->each(function (Module $module) {
-            $path = $module->getDirectory();
-            if ($this->files->isDirectory($path) && is_string($module->getEntry())) {
-                $this->app->register($module->getEntry());
-            }
-        });
         $this->commands([
             GenerateCommand::class,
             ListCommand::class,

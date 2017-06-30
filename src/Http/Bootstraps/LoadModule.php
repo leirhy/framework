@@ -8,9 +8,11 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Application;
 use Notadd\Foundation\Module\Module;
+use Notadd\Foundation\Module\ModuleLoaded;
 use Notadd\Foundation\Module\ModuleManager;
 
 /**
@@ -18,6 +20,11 @@ use Notadd\Foundation\Module\ModuleManager;
  */
 class LoadModule
 {
+    /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    private $events;
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
@@ -31,11 +38,13 @@ class LoadModule
     /**
      * LoadModule constructor.
      *
+     * @param \Illuminate\Events\Dispatcher           $events
      * @param \Illuminate\Filesystem\Filesystem       $files
      * @param \Notadd\Foundation\Module\ModuleManager $manager
      */
-    public function __construct(Filesystem $files, ModuleManager $manager)
+    public function __construct(Dispatcher $events, Filesystem $files, ModuleManager $manager)
     {
+        $this->events = $events;
         $this->files = $files;
         $this->manager = $manager;
     }
@@ -53,5 +62,6 @@ class LoadModule
                 }
             });
         }
+        $this->events->dispatch(new ModuleLoaded());
     }
 }

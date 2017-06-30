@@ -8,8 +8,10 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Application;
+use Notadd\Foundation\Extension\Events\ExtensionLoaded;
 use Notadd\Foundation\Extension\Extension;
 use Notadd\Foundation\Extension\ExtensionManager;
 
@@ -18,6 +20,11 @@ use Notadd\Foundation\Extension\ExtensionManager;
  */
 class LoadExtension
 {
+    /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    private $events;
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
@@ -31,11 +38,13 @@ class LoadExtension
     /**
      * LoadExtension constructor.
      *
+     * @param \Illuminate\Events\Dispatcher                 $events
      * @param \Illuminate\Filesystem\Filesystem             $files
      * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      */
-    public function __construct(Filesystem $files, ExtensionManager $manager)
+    public function __construct(Dispatcher $events, Filesystem $files, ExtensionManager $manager)
     {
+        $this->events = $events;
         $this->files = $files;
         $this->manager = $manager;
     }
@@ -51,5 +60,6 @@ class LoadExtension
                 $extension->isEnabled() && $application->register($extension->getEntry());
             }
         });
+        $this->events->dispatch(new ExtensionLoaded());
     }
 }

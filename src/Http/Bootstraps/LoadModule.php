@@ -56,9 +56,9 @@ class LoadModule
     {
         if ($application->isInstalled()) {
             $this->manager->getEnabledModules()->each(function (Module $module) use ($application) {
-                $path = $module->getDirectory();
-                if ($this->files->isDirectory($path) && is_string($module->getEntry())) {
-                    $application->register($module->getEntry());
+                $path = $module->directory();
+                if ($this->files->isDirectory($path) && is_string($module->provider())) {
+                    $application->register($module->provider());
                 }
             });
         }

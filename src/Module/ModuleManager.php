@@ -92,7 +92,7 @@ class ModuleManager
         $list = new Collection();
         if ($this->getModules()->isNotEmpty()) {
             $this->getModules()->each(function (Module $module) use ($list) {
-                $module->isEnabled() && $list->put($module->getIdentification(), $module);
+                $module->enabled() && $list->put($module->identification(), $module);
             });
         }
 
@@ -109,7 +109,7 @@ class ModuleManager
         $list = new Collection();
         if ($this->getModules()->isNotEmpty()) {
             $this->modules->each(function (Module $module) use ($list) {
-                $module->isInstalled() && $list->put($module->getIdentification(), $module);
+                $module->installed() && $list->put($module->identification(), $module);
             });
         }
 
@@ -142,24 +142,14 @@ class ModuleManager
                             }
                             $authors = Arr::get($package, 'authors');
                             $description = Arr::get($package, 'description');
-                            if (class_exists($provider)) {
+                            if (class_exists($provider) && class_exists($definition = call_user_func([$provider, 'definition']))) {
                                 $module = new Module($identification);
                                 $module->setAuthor($authors);
+                                $module->setContainer($this->container);
+                                $module->setDefinition($this->container->make($definition));
                                 $module->setDescription($description);
                                 $module->setDirectory($directory);
-                                $module->setEnabled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.enabled', false) : false);
-                                $module->setInstalled($this->container->isInstalled() ? $this->container->make('setting')->get('module.' . $identification . '.installed', false) : false);
-                                $module->setEntry($provider);
-                                if (method_exists($provider, 'alias')) {
-                                    $module->setAlias(call_user_func([$provider, 'alias']));
-                                } else {
-                                    $module->setAlias([$identification]);
-                                }
-                                method_exists($provider, 'description') && $module->setDescription(call_user_func([$provider, 'description']));
-                                method_exists($provider, 'name') && $module->setName(call_user_func([$provider, 'name']));
-                                method_exists($provider, 'script') && $module->setScript(call_user_func([$provider, 'script']));
-                                method_exists($provider, 'stylesheet') && $module->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                                method_exists($provider, 'version') && $module->setVersion(call_user_func([$provider, 'version']));
+                                $module->setProvider($provider);
                                 $this->modules->put($identification, $module);
                             } else {
                                 $this->unloaded->put($identification, [
@@ -189,7 +179,7 @@ class ModuleManager
         $list = new Collection();
         if ($this->getModules()->isNotEmpty()) {
             $this->modules->each(function (Module $module) use ($list) {
-                $module->isInstalled() || $list->put($module->getIdentification(), $module);
+                $module->installed() || $list->put($module->identification(), $module);
             });
         }
 

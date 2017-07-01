@@ -8,70 +8,24 @@
  */
 namespace Notadd\Foundation\Module;
 
+use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
+use Notadd\Foundation\Module\Abstracts\Definition;
+
 /**
  * Class Module.
  */
 class Module
 {
     /**
-     * @var array
+     * @var \Illuminate\Support\Collection
      */
-    protected $alias;
+    protected $data;
 
     /**
-     * @var string|array
+     * @var \Illuminate\Container\Container
      */
-    protected $author;
-
-    /**
-     * @var bool
-     */
-    protected $enabled;
-
-    /**
-     * @var string
-     */
-    protected $description;
-
-    /**
-     * @var string
-     */
-    protected $directory;
-
-    /**
-     * @var string
-     */
-    protected $entry;
-
-    /**
-     * @var string
-     */
-    protected $identification;
-
-    /**
-     * @var bool
-     */
-    protected $installed = false;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string|array
-     */
-    protected $script;
-
-    /**
-     * @var array
-     */
-    protected $stylesheet;
-
-    /**
-     * @var string
-     */
-    protected $version;
+    protected $container;
 
     /**
      * Module constructor.
@@ -80,35 +34,10 @@ class Module
      */
     public function __construct($name = null)
     {
-        $this->identification = $name;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAlias(): array
-    {
-        return $this->alias;
-    }
-
-    /**
-     * Author of module.
-     *
-     * @return string|array
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Description of module.
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
+        $this->data = new Collection();
+        if (is_string($name)) {
+            $this->data->put('identification', $name);
+        }
     }
 
     /**
@@ -116,97 +45,67 @@ class Module
      *
      * @return string
      */
-    public function getDirectory()
+    public function directory()
     {
-        return $this->directory;
+        return $this->data->get('directory', '');
     }
 
     /**
-     * Entry of module.
+     * Status of enabled for module.
      *
-     * @return string
+     * @return mixed
      */
-    public function getEntry()
+    public function enabled()
     {
-        return $this->entry;
+        if (!$this->data->has('enabled')) {
+            $this->data->put('enabled', $this->container->make('setting')->get('module.' . $this->data->get('identification') . '.enabled', false));
+        }
+
+        return $this->data->get('enabled', false);
     }
 
     /**
-     * Identification of module.
+     * Data of module.
      *
-     * @return string
+     * @return \Illuminate\Support\Collection
      */
-    public function getIdentification()
+    public function getData()
     {
-        return $this->identification;
+        return $this->data;
     }
 
     /**
-     * Name of module.
+     * Identification for module.
      *
-     * @return string
+     * @return mixed
      */
-    public function getName(): string
+    public function identification()
     {
-        return $this->name;
+        return $this->data->get('identification', '');
     }
 
     /**
-     * Script of module.
+     * Status of installed for module.
      *
-     * @return string|array
+     * @return mixed
      */
-    public function getScript()
+    public function installed()
     {
-        return $this->script;
+        if (!$this->data->has('installed')) {
+            $this->data->put('installed', $this->container->make('setting')->get('module.' . $this->data->get('identification') . '.installed', false));
+        }
+
+        return $this->data->get('installed', false);
     }
 
     /**
-     * Stylesheet of module.
+     * Provider for module.
      *
-     * @return array
+     * @return mixed
      */
-    public function getStylesheet()
+    public function provider()
     {
-        return $this->stylesheet;
-    }
-
-    /**
-     * Version of module.
-     *
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        return $this->version;
-    }
-
-    /**
-     * Enabled of module.
-     *
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * Module install status.
-     *
-     * @return bool
-     */
-    public function isInstalled()
-    {
-        return $this->installed;
-    }
-
-    /**
-     * @param array $alias
-     */
-    public function setAlias(array $alias)
-    {
-        $this->alias = $alias;
+        return $this->data->get('provider', '');
     }
 
     /**
@@ -216,13 +115,52 @@ class Module
      */
     public function setAuthor($author)
     {
-        $author = collect($author)->transform(function($value) {
-            if(is_array($value))
+        $this->data->put('author', collect($author)->transform(function ($value) {
+            if (is_array($value))
                 return implode(' <', $value) . '>';
-            return $value;
-        });
 
-        $this->author = $author->toArray();
+            return $value;
+        })->toArray());
+    }
+
+    /**
+     * Set instance for container.
+     *
+     * @param \Illuminate\Container\Container $container
+     */
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * Set module's definition.
+     *
+     * @param \Notadd\Foundation\Module\Abstracts\Definition $definition
+     */
+    public function setDefinition(Definition $definition)
+    {
+        $this->data->put('definition', $definition);
+    }
+
+    /**
+     * Set module's description.
+     *
+     * @param string $description
+     */
+    public function setDescription(string $description)
+    {
+        $this->data->put('description', $description);
+    }
+
+    /**
+     * Set module's directory.
+     *
+     * @param string $directory
+     */
+    public function setDirectory(string $directory)
+    {
+        $this->data->put('directory', $directory);
     }
 
     /**
@@ -232,37 +170,7 @@ class Module
      */
     public function setEnabled(bool $enabled)
     {
-        $this->enabled = $enabled;
-    }
-
-    /**
-     * Set module's description.
-     *
-     * @param mixed $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * Set module's directory.
-     *
-     * @param string $directory
-     */
-    public function setDirectory($directory)
-    {
-        $this->directory = $directory;
-    }
-
-    /**
-     * Set module's entry.
-     *
-     * @param string $entry
-     */
-    public function setEntry(string $entry)
-    {
-        $this->entry = $entry;
+        $this->data->put('enabled', $enabled);
     }
 
     /**
@@ -272,7 +180,7 @@ class Module
      */
     public function setIdentification($identification)
     {
-        $this->identification = $identification;
+        $this->data->put('identification', $identification);
     }
 
     /**
@@ -282,46 +190,16 @@ class Module
      */
     public function setInstalled(bool $installed)
     {
-        $this->installed = $installed;
+        $this->data->put('installed', $installed);
     }
 
     /**
-     * Set module's name.
+     * Set module's provider.
      *
-     * @param string $name
+     * @param string $provider
      */
-    public function setName(string $name)
+    public function setProvider(string $provider)
     {
-        $this->name = $name;
-    }
-
-    /**
-     * Set module's script.
-     *
-     * @param string|array $script
-     */
-    public function setScript($script)
-    {
-        $this->script = $script;
-    }
-
-    /**
-     * Set module's stylesheet.
-     *
-     * @param array $stylesheet
-     */
-    public function setStylesheet(array $stylesheet)
-    {
-        $this->stylesheet = $stylesheet;
-    }
-
-    /**
-     * Set module's version.
-     *
-     * @param string $version
-     */
-    public function setVersion(string $version)
-    {
-        $this->version = $version;
+        $this->data->put('provider', $provider);
     }
 }

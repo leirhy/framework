@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Module\Abstracts;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
+use ReflectionClass;
 
 /**
  * Class Module.
@@ -51,11 +52,14 @@ abstract class Module extends ServiceProvider
     abstract public function boot();
 
     /**
-     * Description of module
-     *
      * @return string
      */
-    abstract public static function description();
+    public static function definition()
+    {
+        $reflection = new ReflectionClass(static::class);
+
+        return $reflection->getNamespaceName() . '\\' . 'Definition';
+    }
 
     /**
      * Install for module.
@@ -73,16 +77,13 @@ abstract class Module extends ServiceProvider
         parent::loadMigrationsFrom($paths);
     }
 
-    public static function migrations() {
+    /**
+     * @return array
+     */
+    public static function migrations()
+    {
         return static::$migrations->toArray();
     }
-
-    /**
-     * Name of module.
-     *
-     * @return string
-     */
-    abstract public static function name();
 
     /**
      * Register module extra providers.
@@ -97,11 +98,4 @@ abstract class Module extends ServiceProvider
      * @return string
      */
     abstract public static function uninstall();
-
-    /**
-     * Version of module.
-     *
-     * @return string
-     */
-    abstract public static function version();
 }

@@ -69,6 +69,40 @@ abstract class Definition
     abstract public function requires();
 
     /**
+     * Resolve definition.
+     *
+     * @param \Illuminate\Support\Collection $data
+     */
+    public function resolve(Collection $data)
+    {
+        $entries = new Collection();
+        $scripts = new Collection();
+        $stylesheets = new Collection();
+        $entryTypes = collect($this->entries());
+        $entryTypes->each(function ($data, $type) use ($entries) {
+            foreach ($data as $key => $entry) {
+                $entry['type'] = $type;
+                $entries->put($key, $entry);
+            }
+        });
+        $data->put('entries', $entries->toArray());
+        $entries->each(function ($attributes, $entry) use ($scripts, $stylesheets) {
+            $scripts->push([
+                'entry'   => $entry,
+                'scripts' => $attributes['scripts'],
+                'type'    => $attributes['type'],
+            ]);
+            $stylesheets->push([
+                'entry'       => $entry,
+                'stylesheets' => $attributes['stylesheets'],
+                'type'        => $attributes['type'],
+            ]);
+        });
+        $data->put('scripts', $scripts->toArray());
+        $data->put('stylesheets', $stylesheets->toArray());
+    }
+
+    /**
      * Version of module.
      *
      * @return string

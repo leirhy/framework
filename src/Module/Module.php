@@ -41,6 +41,26 @@ class Module
     }
 
     /**
+     * Data of module.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function data()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Definition for mall.
+     *
+     * @return \Notadd\Foundation\Module\Abstracts\Definition
+     */
+    public function definition()
+    {
+        return $this->data->get('definition');
+    }
+
+    /**
      * Directory of module.
      *
      * @return string
@@ -64,14 +84,11 @@ class Module
         return $this->data->get('enabled', false);
     }
 
-    /**
-     * Data of module.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getData()
+    public function entries($type = '')
     {
-        return $this->data;
+        return collect($this->data->get('entries'))->transform(function ($data, $entry) {
+            return $entry;
+        })->toArray();
     }
 
     /**
@@ -106,6 +123,50 @@ class Module
     public function provider()
     {
         return $this->data->get('provider', '');
+    }
+
+    /**
+     * Scripts for module.
+     *
+     * @param string $type
+     *
+     * @return array
+     */
+    public function scripts(string $type = '')
+    {
+        if (!$this->data->has('scripts')) {
+            $this->definition()->resolve($this->data);
+        }
+
+        return collect($this->data->get('scripts', []))->transform(function ($attributes) use ($type) {
+            if ($type && $attributes['type'] == $type) {
+                return $attributes['scripts'];
+            } else {
+                return $attributes;
+            }
+        })->toArray();
+    }
+
+    /**
+     * Stylesheets for module.
+     *
+     * @param string $type
+     *
+     * @return array
+     */
+    public function stylesheets(string $type = '')
+    {
+        if (!$this->data->has('stylesheets')) {
+            $this->definition()->resolve($this->data);
+        }
+
+        return collect($this->data->get('stylesheets', []))->transform(function ($attributes) use ($type) {
+            if ($type && $attributes['type'] == $type) {
+                return $attributes['stylesheets'];
+            } else {
+                return $attributes;
+            }
+        })->toArray();
     }
 
     /**

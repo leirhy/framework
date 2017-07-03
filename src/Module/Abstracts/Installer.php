@@ -96,12 +96,11 @@ abstract class Installer
      */
     public final function install()
     {
-        if ($this->settings->get('module.' . $this->module->getIdentification() . '.installed', false)) {
+        if ($this->settings->get('module.' . $this->module->identification() . '.installed', false)) {
             $this->info->put('errors', '模块标识[]已经被占用，如需继续安装，请卸载同标识插件！');
 
             return false;
         }
-
         $requires = collect($this->require());
         $noInstalled = new Collection();
         $requires->each(function ($require) use ($noInstalled) {
@@ -109,16 +108,13 @@ abstract class Installer
                 $noInstalled->push($require);
             }
         });
-
         if ($noInstalled->isNotEmpty()) {
             $this->info->put('errors', '依赖的模块[' . $noInstalled->implode(',') . ']尚未安装！');
 
             return false;
         }
-
         $provider = $this->module->getEntry();
         $this->container->getProvider($provider) || $this->container->register($provider);
-
         if ($this->handle()) {
             $input = new ArrayInput([
                 '--force' => true,
@@ -127,10 +123,10 @@ abstract class Installer
             $this->getConsole()->find('migrate')->run($input, $output);
             $this->getConsole()->find('vendor:publish')->run($input, $output);
             $log = explode(PHP_EOL, $output->fetch());
-            $this->container->make('log')->info('install module:' . $this->module->getIdentification(), $log);
+            $this->container->make('log')->info('install module:' . $this->module->identification(), $log);
             $this->info->put('data', $log);
-            $this->info->put('messages', '安装模块[' . $this->module->getIdentification() . ']成功！');
-            $this->settings->set('module.' . $this->module->getIdentification() . '.installed', true);
+            $this->info->put('messages', '安装模块[' . $this->module->identification() . ']成功！');
+            $this->settings->set('module.' . $this->module->identification() . '.installed', true);
 
             return true;
         }

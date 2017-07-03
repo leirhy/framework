@@ -102,22 +102,21 @@ abstract class Uninstaller
      */
     public function uninstall()
     {
-        if (!$this->settings->get('module.' . $this->module->getIdentification() . '.installed', false)) {
-            $this->info->put('errors', "模块[{$this->module->getIdentification()}]尚未安装，无法进行卸载！");
+        if (!$this->settings->get('module.' . $this->module->identification() . '.installed', false)) {
+            $this->info->put('errors', "模块[{$this->module->identification()}]尚未安装，无法进行卸载！");
 
             return false;
         }
         if ($this->handle()) {
             $output = new BufferedOutput();
-
-            $provider = $this->module->getEntry();
+            $provider = $this->module->provider();
             $this->container->getProvider($provider) || $this->container->register($provider);
             if (method_exists($provider, 'migrations')) {
                 $migrations = call_user_func([$provider, 'migrations']);
                 foreach ((array)$migrations as $migration) {
                     $migration = str_replace($this->container->basePath(), '', $migration);
                     $input = new ArrayInput([
-                        '--path' => $migration,
+                        '--path'  => $migration,
                         '--force' => true,
                     ]);
                     $this->getConsole()->find('migrate:rollback')->run($input, $output);
@@ -128,10 +127,11 @@ abstract class Uninstaller
             ]);
             $this->getConsole()->find('vendor:publish')->run($input, $output);
             $log = explode(PHP_EOL, $output->fetch());
-            $this->container->make('log')->info('uninstall module:' . $this->module->getIdentification(), $log);
+            $this->container->make('log')->info('uninstall module:' . $this->module->identification(), $log);
             $this->info->put('data', $log);
-            $this->settings->set('module.' . $this->module->getIdentification() . '.installed', false);
-            $this->info->put('messages', '卸载模块[' . $this->module->getIdentification() . ']成功！');
+            $this->settings->set('module.' . $this->module->identification() . '.installed', false);
+            $this->info->put('messages', '卸载模块[' . $this->module->identification() . ']成功！');
+
             return true;
         }
 

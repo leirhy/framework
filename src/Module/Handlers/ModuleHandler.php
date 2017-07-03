@@ -29,7 +29,8 @@ class ModuleHandler extends Handler
      * @param \Illuminate\Container\Container         $container
      * @param \Notadd\Foundation\Module\ModuleManager $manager
      */
-    public function __construct(Container $container, ModuleManager $manager) {
+    public function __construct(Container $container, ModuleManager $manager)
+    {
         parent::__construct($container);
         $this->manager = $manager;
     }
@@ -43,11 +44,11 @@ class ModuleHandler extends Handler
     {
         $this->withCode(200)->withData($this->manager->getModules()->transform(function (Module $module) {
             return [
-                'author' => $module->getAuthor(),
-                'enabled' => $module->isEnabled(),
-                'description' => $module->getDescription(),
-                'identification' => $module->getIdentification(),
-                'name' => $module->getName(),
+                'author'         => $module->author(),
+                'enabled'        => $module->enabled(),
+                'description'    => $module->description(),
+                'identification' => $module->identification(),
+                'name'           => $module->name(),
             ];
         })->toArray())->withMessage('获取模块列表成功！');
     }

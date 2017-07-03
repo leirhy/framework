@@ -85,7 +85,6 @@ abstract class Definition
                 $entries->put($key, $entry);
             }
         });
-        $data->put('entries', $entries->toArray());
         $entries->each(function ($attributes, $entry) use ($scripts, $stylesheets) {
             $scripts->push([
                 'entry'   => $entry,
@@ -98,6 +97,8 @@ abstract class Definition
                 'type'        => $attributes['type'],
             ]);
         });
+        $data->put('entries', $entries->toArray());
+        $data->put('name', $this->name());
         $data->put('scripts', $scripts->toArray());
         $data->put('stylesheets', $stylesheets->toArray());
     }

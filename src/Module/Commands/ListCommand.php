@@ -53,12 +53,12 @@ class ListCommand extends Command
         $this->info('Modules list:');
         $modules->each(function (Module $module, $path) use ($list) {
             $list->push([
-                $module->getIdentification(),
-                collect($module->getAuthor())->first(),
-                $module->getDescription(),
+                $module->identification(),
+                collect($module->author())->first(),
+                $module->description(),
                 $path,
-                $module->getEntry(),
-                'Normal'
+                $module->provider(),
+                'Normal',
             ]);
         });
         $this->table($this->headers, $list->toArray());

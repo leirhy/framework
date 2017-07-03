@@ -41,6 +41,16 @@ class Module
     }
 
     /**
+     * Author of module.
+     *
+     * @return array
+     */
+    public function author()
+    {
+        return $this->data->get('author');
+    }
+
+    /**
      * Data of module.
      *
      * @return \Illuminate\Support\Collection
@@ -48,6 +58,16 @@ class Module
     public function data()
     {
         return $this->data;
+    }
+
+    /**
+     * Description of module.
+     *
+     * @return string
+     */
+    public function description()
+    {
+        return $this->data->get('description');
     }
 
     /**
@@ -113,6 +133,20 @@ class Module
         }
 
         return $this->data->get('installed', false);
+    }
+
+    /**
+     * Name of module.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        if (!$this->data->has('name')) {
+            $this->definition()->resolve($this->data);
+        }
+
+        return $this->data->get('name');
     }
 
     /**

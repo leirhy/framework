@@ -101,6 +101,7 @@ abstract class Installer
 
             return false;
         }
+        $this->container->make('db')->beginTransaction();
         $requires = collect($this->require());
         $noInstalled = new Collection();
         $requires->each(function ($require) use ($noInstalled) {
@@ -109,6 +110,7 @@ abstract class Installer
             }
         });
         if ($noInstalled->isNotEmpty()) {
+            $this->container->make('db')->rollBack();
             $this->info->put('errors', '依赖的模块[' . $noInstalled->implode(',') . ']尚未安装！');
 
             return false;
@@ -127,9 +129,11 @@ abstract class Installer
             $this->info->put('data', $log);
             $this->info->put('messages', '安装模块[' . $this->module->identification() . ']成功！');
             $this->settings->set('module.' . $this->module->identification() . '.installed', true);
+            $this->container->make('db')->commit();
 
             return true;
         }
+        $this->container->make('db')->rollBack();
 
         return false;
     }

@@ -16,7 +16,7 @@ trait Logable
     /**
      * @return \Psr\Log\LoggerInterface
      */
-    protected function log()
+    protected function logger()
     {
         return $this->container->make('log');
     }

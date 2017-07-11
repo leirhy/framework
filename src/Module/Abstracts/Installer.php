@@ -113,7 +113,7 @@ abstract class Installer
 
             return false;
         }
-        $provider = $this->module->getEntry();
+        $provider = $this->module->provider();
         $this->container->getProvider($provider) || $this->container->register($provider);
         if ($this->handle()) {
             $input = new ArrayInput([

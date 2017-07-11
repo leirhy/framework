@@ -43,7 +43,7 @@ class InstallHandler extends Handler
     {
         $result = false;
         $module = $this->manager->get($this->request->input('identification'));
-        if ($module && method_exists($provider = $module->getEntry(), 'install')) {
+        if ($module && method_exists($provider = $module->provider(), 'install')) {
             if (($installer = $this->container->make(call_user_func([$provider, 'install']))) instanceof Installer) {
                 $installer->setModule($module);
                 if ($installer->install()) {

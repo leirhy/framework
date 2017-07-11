@@ -68,7 +68,7 @@ class UninstallHandler extends Handler
                         if (method_exists($provider, 'migrations')) {
                             $migrations = call_user_func([$provider, 'migrations']);
                             foreach ((array)$migrations as $migration) {
-                                $migration = str_replace($this->container->basePath(), '', $migration);
+                                $migration = str_replace($this->container->basePath() . DIRECTORY_SEPARATOR, '', $migration);
                                 $input = new ArrayInput([
                                     '--path' => $migration,
                                     '--force' => true,

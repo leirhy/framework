@@ -28,7 +28,7 @@ class Rule extends IlluminateRule
      */
     public static function numeric()
     {
-        return 'required';
+        return 'numeric';
     }
 
     /**

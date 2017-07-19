@@ -40,10 +40,15 @@ trait HasSetters
             } else if (is_string($rule)) {
                 switch ($rule) {
                     case 'null':
-                        is_null($value) && parent::setAttribute($key, $default);
+                        if (is_null($value)) {
+                            parent::setAttribute($key, $default);
+                        } else {
+                            parent::setAttribute($key, $value);
+                        }
                         break;
                     default:
                         parent::setAttribute($key, $value);
+                        break;
                 }
             } else {
                 parent::setAttribute($key, $value);

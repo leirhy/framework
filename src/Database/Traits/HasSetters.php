@@ -21,18 +21,23 @@ trait HasSetters
     /**
      * Set a given attribute on the model.
      *
-     * @param  string  $key
+     * @param  string $key
      * @param  mixed  $value
+     *
      * @return $this
      */
     public function setAttribute($key, $value)
     {
         if (isset($this->setters[$key])) {
-            $rule = $this->setters[$key][0];
-            $default = $this->setters[$key][1];
+            if (is_string($attributes = $this->setters[$key])) {
+                list($rule, $default) = explode('|', $attributes);
+            } else {
+                $rule = $attributes[0];
+                $default = $attributes[1];
+            }
             if ($rule instanceof \Closure && $rule($value)) {
                 parent::setAttribute($key, $default);
-            } elseif (is_string($rule)) {
+            } else if (is_string($rule)) {
                 switch ($rule) {
                     case 'null':
                         is_null($value) && parent::setAttribute($key, $default);

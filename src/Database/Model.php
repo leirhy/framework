@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Database;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Notadd\Foundation\Database\Traits\Extendable;
 use Notadd\Foundation\Database\Traits\HasSetters;
@@ -18,4 +19,15 @@ use Notadd\Foundation\Database\Traits\HasSetters;
 class Model extends EloquentModel
 {
     use Extendable, HasSetters;
+
+    /**
+     * Create a new Eloquent Collection instance.
+     *
+     * @param  array  $models
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function newCollection(array $models = [])
+    {
+        return (new Collection($models))->keyBy('id');
+    }
 }

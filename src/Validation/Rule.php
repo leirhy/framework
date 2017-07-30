@@ -24,6 +24,16 @@ class Rule extends IlluminateRule
     }
 
     /**
+     * @param $format
+     *
+     * @return string
+     */
+    public static function dateFormat($format)
+    {
+        return 'date_format:' . $format;
+    }
+
+    /**
      * @return string
      */
     public static function image()

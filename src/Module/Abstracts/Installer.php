@@ -6,6 +6,7 @@
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-10 14:12
  */
+
 namespace Notadd\Foundation\Module\Abstracts;
 
 use Illuminate\Container\Container;
@@ -97,7 +98,7 @@ abstract class Installer
     public final function install()
     {
         if ($this->settings->get('module.' . $this->module->identification() . '.installed', false)) {
-            $this->info->put('errors', '模块标识[]已经被占用，如需继续安装，请卸载同标识插件！');
+            $this->info->put('errors', '模块标识[' . $this->module->identification() . ']已经被占用，如需继续安装，请卸载同标识插件！');
 
             return false;
         }
@@ -124,6 +125,10 @@ abstract class Installer
             $output = new BufferedOutput();
             $this->getConsole()->find('migrate')->run($input, $output);
             $this->getConsole()->find('vendor:publish')->run($input, $output);
+            method_exists($this, 'post') && call_user_func([
+                $this,
+                'post',
+            ]);
             $log = explode(PHP_EOL, $output->fetch());
             $this->container->make('log')->info('install module:' . $this->module->identification(), $log);
             $this->info->put('data', $log);
@@ -141,7 +146,7 @@ abstract class Installer
     /**
      * @return array
      */
-    abstract public function require ();
+    abstract public function require();
 
     /**
      * @param \Notadd\Foundation\Module\Module $module

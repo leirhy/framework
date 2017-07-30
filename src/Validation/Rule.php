@@ -24,6 +24,16 @@ class Rule extends IlluminateRule
     }
 
     /**
+     * @param $format
+     *
+     * @return string
+     */
+    public static function dateFormat($format)
+    {
+        return 'date_format:' . $format;
+    }
+
+    /**
      * @return string
      */
     public static function image()
@@ -40,10 +50,28 @@ class Rule extends IlluminateRule
     }
 
     /**
+     * @param $regex
+     *
+     * @return string
+     */
+    public static function regex($regex)
+    {
+        return 'regex:' . $regex;
+    }
+
+    /**
      * @return string
      */
     public static function required()
     {
         return 'required';
+    }
+
+    /**
+     * @return string
+     */
+    public static function url()
+    {
+        return 'url';
     }
 }

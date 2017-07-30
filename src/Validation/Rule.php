@@ -46,4 +46,12 @@ class Rule extends IlluminateRule
     {
         return 'required';
     }
+
+    /**
+     * @return string
+     */
+    public static function url()
+    {
+        return 'url';
+    }
 }

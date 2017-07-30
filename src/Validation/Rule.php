@@ -50,6 +50,16 @@ class Rule extends IlluminateRule
     }
 
     /**
+     * @param $regex
+     *
+     * @return string
+     */
+    public static function regex($regex)
+    {
+        return 'regex:' . $regex;
+    }
+
+    /**
      * @return string
      */
     public static function required()

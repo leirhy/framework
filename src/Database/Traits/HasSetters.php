@@ -43,6 +43,13 @@ trait HasSetters
                 parent::setAttribute($key, $default instanceof Closure ? $default($value) : $default);
             } else if (is_string($rule)) {
                 switch ($rule) {
+                    case 'empty':
+                        if (empty($value)) {
+                            parent::setAttribute($key, $default instanceof Closure ? $default($value) : $default);
+                        } else {
+                            parent::setAttribute($key, $format instanceof Closure ? $format($value) : $value);
+                        }
+                        break;
                     case 'null':
                         if (is_null($value)) {
                             parent::setAttribute($key, $default instanceof Closure ? $default($value) : $default);

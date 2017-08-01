@@ -8,7 +8,11 @@
  */
 namespace Notadd\Foundation\Module\Abstracts;
 
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Database\Model;
+use Notadd\Foundation\Permission\PermissionManager;
 
 /**
  * Class Definition.
@@ -48,20 +52,6 @@ abstract class Definition
     abstract public function description();
 
     /**
-     * Entries for module.
-     *
-     * @return array
-     */
-    abstract public function entries();
-
-    /**
-     * Name of module.
-     *
-     * @return string
-     */
-    abstract public function name();
-
-    /**
      * Requires of module.
      *
      * @return array
@@ -85,23 +75,64 @@ abstract class Definition
                 $entries->put($key, $entry);
             }
         });
-        $entries->each(function ($attributes, $entry) use ($scripts, $stylesheets) {
-            $scripts->push([
-                'entry'   => $entry,
-                'scripts' => $attributes['scripts'],
-                'type'    => $attributes['type'],
-            ]);
-            $stylesheets->push([
-                'entry'       => $entry,
-                'stylesheets' => $attributes['stylesheets'],
-                'type'        => $attributes['type'],
-            ]);
+        $entries->each(function ($attributes, $entry) use ($entries, $scripts, $stylesheets) {
+            if ($this->checkPermission($attributes['permissions'])) {
+                $scripts->put($entry, [
+                    'entry'   => $entry,
+                    'scripts' => $attributes['scripts'],
+                    'type'    => $attributes['type'],
+                ]);
+                $stylesheets->put($entry, [
+                    'entry'       => $entry,
+                    'stylesheets' => $attributes['stylesheets'],
+                    'type'        => $attributes['type'],
+                ]);
+            } else {
+                $entries->offsetUnset($entry);
+            }
         });
         $data->put('entries', $entries->toArray());
         $data->put('name', $this->name());
         $data->put('scripts', $scripts->toArray());
         $data->put('stylesheets', $stylesheets->toArray());
     }
+
+    /**
+     * Entries for module.
+     *
+     * @return array
+     */
+    abstract public function entries();
+
+    /**
+     * @param $identification
+     *
+     * @return bool
+     */
+    protected function checkPermission($identification)
+    {
+        if (!$identification) {
+            return true;
+        }
+        $user = Container::getInstance()->make(Factory::class)->guard('api')->user();
+        if ((!$user instanceof Model) || (!$user->hasExtendRelation('groups'))) {
+            return false;
+        }
+        foreach (collect($user->load('groups')->getAttribute('groups'))->toArray() as $group) {
+            if (Container::getInstance()->make(PermissionManager::class)->check($identification, $group['identification'])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Name of module.
+     *
+     * @return string
+     */
+    abstract public function name();
 
     /**
      * Version of module.

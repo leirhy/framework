@@ -1,0 +1,17 @@
+*
+!.gitignore
+!app.php
+!auth.php
+!broadcasting.php
+!cache.php
+!compile.php
+!database.php
+!extension.php
+!filesystems.php
+!image.php
+!mail.php
+!module.php
+!queue.php
+!services.php
+!session.php
+!view.php

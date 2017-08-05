@@ -9,13 +9,13 @@
 namespace Notadd\Foundation\Database;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Notadd\Foundation\Database\Traits\Extendable;
 use Notadd\Foundation\Database\Traits\HasSetters;
+use Notadd\Foundation\Database\Traits\MacroRelation;
 
 /**
  * Class Model.
  */
 class Model extends EloquentModel
 {
-    use Extendable, HasSetters;
+    use HasSetters, MacroRelation;
 }

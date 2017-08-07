@@ -12,6 +12,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Http\Request;
 use Notadd\Foundation\Database\Model;
+use Notadd\Foundation\Member\Member;
 use Notadd\Foundation\Permission\Exceptions\PermissionException;
 use Notadd\Foundation\Permission\PermissionManager;
 
@@ -59,7 +60,7 @@ class Permission
             $user = $this->auth->guard()->user();
         }
         if ($user instanceof Model) {
-            if ($user->hasExtendRelation('groups')) {
+            if (Member::hasMacro('groups')) {
                 $user->load('groups')->getAttribute('groups');
                 if (!$this->permission($identification, $user->load('groups')->getAttribute('groups'))) {
                     throw new PermissionException('Permission deny!');

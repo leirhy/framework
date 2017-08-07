@@ -12,6 +12,7 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Database\Model;
+use Notadd\Foundation\Member\Member;
 use Notadd\Foundation\Permission\PermissionManager;
 
 /**
@@ -115,7 +116,7 @@ abstract class Definition
             return true;
         }
         $user = Container::getInstance()->make(Factory::class)->guard('api')->user();
-        if ((!$user instanceof Model) || (!$user->hasExtendRelation('groups'))) {
+        if ((!$user instanceof Model) || (!Member::hasMacro('groups'))) {
             return false;
         }
         foreach (collect($user->load('groups')->getAttribute('groups'))->toArray() as $group) {

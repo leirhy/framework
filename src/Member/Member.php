@@ -36,6 +36,11 @@ class Member extends Authenticatable
     ];
 
     /**
+     * @var string
+     */
+    protected $table = 'members';
+
+    /**
      * Get member instance for passport.
      *
      * @param $name

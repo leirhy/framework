@@ -247,7 +247,17 @@ abstract class Handler
         if ($data instanceof Arrayable) {
             $data = $data->toArray();
         }
-        $this->data = $this->data->merge($data);
+        foreach ((array)$data as $key=>$value) {
+            if (is_numeric($key)) {
+                if ($this->data->has($key)) {
+                    $this->data->push($value);
+                } else {
+                    $this->data->put($key, $value);
+                }
+            } else {
+                $this->data->put($key, $value);
+            }
+        }
 
         return $this;
     }

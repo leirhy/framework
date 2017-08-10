@@ -101,39 +101,11 @@ abstract class Handler
     }
 
     /**
-     * Http code.
-     *
-     * @return int
-     */
-    protected function code()
-    {
-        return $this->code;
-    }
-
-    /**
      * commit transaction for database.
      */
     protected function commitTransaction()
     {
         $this->container->make('db')->commit();
-    }
-
-    /**
-     * @return array
-     */
-    public function data()
-    {
-        return $this->data->toArray();
-    }
-
-    /**
-     * Errors for handler.
-     *
-     * @return array
-     */
-    protected function errors()
-    {
-        return $this->errors->toArray();
     }
 
     /**
@@ -167,16 +139,6 @@ abstract class Handler
     }
 
     /**
-     * Messages for handler.
-     *
-     * @return array
-     */
-    protected function messages()
-    {
-        return $this->messages->toArray();
-    }
-
-    /**
      * @param $permission
      *
      * @return bool
@@ -206,13 +168,13 @@ abstract class Handler
         try {
             $this->execute();
             if ($this->code !== 200) {
-                $messages = $this->errors();
+                $messages = $this->errors->toArray();
             } else {
-                $messages = $this->messages();
+                $messages = $this->messages->toArray();
             }
             $response = $response->withParams([
-                'code'    => $this->code(),
-                'data'    => $this->data(),
+                'code'    => $this->code,
+                'data'    => $this->data->toArray(),
                 'message' => $messages,
             ]);
             if ($this->extra->count()) {

@@ -238,18 +238,19 @@ abstract class Handler
     }
 
     /**
-     * @param $data
+     * @param      $data
+     * @param bool $override
      *
      * @return $this
      */
-    protected function withData($data)
+    protected function withData($data, $override = false)
     {
         if ($data instanceof Arrayable) {
             $data = $data->toArray();
         }
         foreach ((array)$data as $key=>$value) {
             if (is_numeric($key)) {
-                if ($this->data->has($key)) {
+                if ($this->data->has($key) && $override) {
                     $this->data->push($value);
                 } else {
                     $this->data->put($key, $value);

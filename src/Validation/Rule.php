@@ -18,6 +18,14 @@ class Rule extends IlluminateRule
     /**
      * @return string
      */
+    public static function array()
+    {
+        return 'array';
+    }
+
+    /**
+     * @return string
+     */
     public static function boolean()
     {
         return 'boolean';

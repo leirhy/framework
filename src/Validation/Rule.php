@@ -44,6 +44,14 @@ class Rule extends IlluminateRule
     /**
      * @return string
      */
+    public static function email()
+    {
+        return 'email';
+    }
+
+    /**
+     * @return string
+     */
     public static function image()
     {
         return 'image';

@@ -80,10 +80,10 @@ class InstallHandler extends Handler
                     }
                 }
             } else {
-                $this->withCode(500)->withError('');
+                $this->withCode(500)->withError('安装插件成功！');
             }
         } else {
-            $this->withCode(500)->withError('');
+            $this->withCode(500)->withError('安装插件失败！');
         }
     }
 

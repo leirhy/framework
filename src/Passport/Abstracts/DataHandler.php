@@ -76,13 +76,13 @@ abstract class DataHandler extends Handler
         try {
             $data = $this->data();
             if (empty($data)) {
-                $messages = $this->errors();
+                $messages = $this->errors->toArray();
             } else {
-                $messages = $this->messages();
+                $messages = $this->messages->toArray();
             }
 
             return $response->withParams([
-                'code'    => $this->code(),
+                'code'    => $this->code,
                 'data'    => $data,
                 'message' => $messages,
             ]);

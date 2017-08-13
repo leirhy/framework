@@ -53,13 +53,13 @@ class UninstallHandler extends Handler
                     $this->code = 500;
                 }
                 $this->parseInfo($uninstaller->info());
-                $this->container->make('log')->info('uninstall data:', $this->data());
+                $this->container->make('log')->info('uninstall data:', $this->data->toArray());
             }
         }
         if ($result) {
-            $this->withCode(200)->withMessage('');
+            $this->withCode(200)->withMessage('卸载模块成功！');
         } else {
-            $this->withCode(500)->withError('');
+            $this->withCode(500)->withError('卸载模块失败！');
         }
     }
 

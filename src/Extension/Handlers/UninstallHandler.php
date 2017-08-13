@@ -87,14 +87,14 @@ class UninstallHandler extends Handler
                             ->withData($log)
                             ->withMessage('卸载插件[' . $extension->getIdentification() . ']成功！');
                     } else {
-                        $this->withCode(500)->withError('');
+                        $this->withCode(500)->withError('卸载插件失败！');
                     }
                 }
             } else {
-                $this->withCode(500)->withError('');
+                $this->withCode(500)->withError('卸载插件失败！');
             }
         } else {
-            $this->withCode(500)->withError('');
+            $this->withCode(500)->withError('卸载插件失败！');
         }
     }
 

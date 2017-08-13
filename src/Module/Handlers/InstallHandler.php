@@ -52,13 +52,13 @@ class InstallHandler extends Handler
                     $this->code = 500;
                 }
                 $this->parseInfo($installer->info());
-                $this->container->make('log')->info('install data:', $this->data());
+                $this->container->make('log')->info('install data:', $this->data->toArray());
             }
         }
         if ($result) {
-            $this->withCode(200)->withMessage('');
+            $this->withCode(200)->withMessage('安装模块成功！');
         } else {
-            $this->withCode(500)->withError('');
+            $this->withCode(500)->withError('安装模块失败！');
         }
     }
 

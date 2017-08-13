@@ -28,13 +28,13 @@ abstract class SetHandler extends DataHandler
         try {
             $result = $this->execute();
             if ($result) {
-                $messages = $this->messages();
+                $messages = $this->messages->toArray();
             } else {
-                $messages = $this->errors();
+                $messages = $this->errors->toArray();
             }
 
             return $response->withParams([
-                'code' => $this->code(),
+                'code' => $this->code,
                 'data' => $this->data(),
                 'message' => $messages,
             ]);

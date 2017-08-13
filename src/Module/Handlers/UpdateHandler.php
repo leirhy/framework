@@ -45,9 +45,9 @@ class UpdateHandler extends Handler
                 'update',
             ])
         ) {
-            $this->withCode(200)->withMessage('');
+            $this->withCode(200)->withMessage('升级模块成功！');
         } else {
-            $this->withCode(500)->withError('');
+            $this->withCode(500)->withError('升级模块失败！');
         }
     }
 }

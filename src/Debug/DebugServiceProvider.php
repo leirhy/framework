@@ -13,7 +13,6 @@ use Notadd\Foundation\Debug\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Debug\Listeners\PermissionGroupRegister;
 use Notadd\Foundation\Debug\Listeners\PermissionRegister;
 use Notadd\Foundation\Debug\Listeners\RouteRegister;
-use Notadd\Foundation\Debug\Listeners\VendorPublish;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**

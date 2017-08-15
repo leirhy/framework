@@ -25,6 +25,7 @@ class PublishHandler extends Handler
     {
         $this->container->make(Kernel::class)->call('vendor:publish', [
             '--force' => true,
+            '--tag'   => 'public',
         ]);
         $this->withCode(200)->withMessage('发布资源成功！');
     }

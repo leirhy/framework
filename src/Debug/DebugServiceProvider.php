@@ -30,6 +30,5 @@ class DebugServiceProvider extends ServiceProvider
         $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(VendorPublish::class);
     }
 }

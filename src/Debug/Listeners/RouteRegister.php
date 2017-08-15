@@ -23,6 +23,7 @@ class RouteRegister extends AbstractRouteRegister
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/debug'], function () {
             $this->router->post('get', DebugController::class . '@get');
+            $this->router->post('publish', DebugController::class . '@publish');
             $this->router->post('set', DebugController::class . '@set');
         });
     }

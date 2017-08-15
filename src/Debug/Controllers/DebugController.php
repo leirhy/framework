@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Debug\Controllers;
 
 use Notadd\Foundation\Debug\Handlers\GetHandler;
+use Notadd\Foundation\Debug\Handlers\PublishHandler;
 use Notadd\Foundation\Debug\Handlers\SetHandler;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 
@@ -38,7 +39,17 @@ class DebugController extends Controller
     public function get(GetHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
-    }   
+    }
+
+    /**
+     * @param \Notadd\Foundation\Debug\Handlers\PublishHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function publish(PublishHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
     
     /**
      * set handler.

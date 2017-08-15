@@ -137,6 +137,13 @@ abstract class Definition
     abstract public function name();
 
     /**
+     * Setting data definition.
+     *
+     * @return array
+     */
+    abstract public function settings();
+
+    /**
      * Version of module.
      *
      * @return string

@@ -204,6 +204,18 @@ class Module
     }
 
     /**
+     * @return string
+     */
+    public function version()
+    {
+        if (!$this->data()->has('version')) {
+            $this->definition()->resolve($this->data);
+        }
+
+        return $this->data->get('version');
+    }
+
+    /**
      * Set module's author.
      *
      * @param string|array $author

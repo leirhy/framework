@@ -96,6 +96,7 @@ abstract class Definition
         $data->put('name', $this->name());
         $data->put('scripts', $scripts->toArray());
         $data->put('stylesheets', $stylesheets->toArray());
+        $data->put('version', $this->version());
     }
 
     /**

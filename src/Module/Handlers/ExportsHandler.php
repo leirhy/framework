@@ -63,8 +63,8 @@ class ExportsHandler extends Handler
             'modules.array'    => '模块数据必须为数组',
             'modules.required' => '模块数据必须填写',
         ]);
-        $data = collect();
-        collect($this->request->input('modules'))->each(function ($identification) use ($data) {
+        $output = collect();
+        collect($this->request->input('modules'))->each(function ($identification) use ($output) {
             $module = $this->module->get($identification);
             $exports = collect();
             if ($module instanceof Module) {
@@ -72,17 +72,19 @@ class ExportsHandler extends Handler
                 $exports->put('version', $module->version());
                 $exports->put('time', Carbon::now());
                 $exports->put('secret', false);
-                $exports->put('data', []);
-                $exports->put('settings', collect($module->definition()->settings())->map(function ($default, $key) {
+                $data = collect($module->definition()->exports());
+                $data->count() && $exports->put('data', $data);
+                $settings = collect($module->definition()->settings());
+                $settings->count() && $exports->put('settings', $settings->map(function ($default, $key) {
                     return $this->setting->get($key, $default);
                 }));
-                $data->put($identification, $exports);
+                $output->put($identification, $exports);
             }
         });
-        $data = $this->container->make(Yaml::class)->dump($data->toArray(), 4);
+        $output = $this->container->make(Yaml::class)->dump($output->toArray(), 4);
         $this->withCode(200)->withData([
-            'content' => $data,
-            'file'    => 'Notadd export ' . Carbon::now()->format('Y-m-d H:i:s') . '.yaml',
+            'content' => $output,
+            'file'    => 'Notadd module export ' . Carbon::now()->format('Y-m-d H:i:s') . '.yaml',
         ])->withMessage('导出数据成功！');
     }
 }

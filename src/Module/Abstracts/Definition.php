@@ -137,16 +137,38 @@ abstract class Definition
     abstract public function name();
 
     /**
-     * Setting data definition.
-     *
-     * @return array
-     */
-    abstract public function settings();
-
-    /**
      * Version of module.
      *
      * @return string
      */
     abstract public function version();
+
+    /**
+     * Imports data into module.
+     *
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function imports(array $data)
+    {
+        return true;
+    }
+
+    /**
+     * Exports data from module.
+     *
+     * @return array
+     */
+    public function exports()
+    {
+        return [];
+    }
+
+    /**
+     * Setting data definition.
+     *
+     * @return array
+     */
+    abstract public function settings();
 }

@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Module\Controllers;
 
+use Notadd\Foundation\Module\Handlers\DomainHandler;
 use Notadd\Foundation\Module\Handlers\EnableHandler;
 use Notadd\Foundation\Module\Handlers\InstallHandler;
 use Notadd\Foundation\Module\Handlers\ModuleHandler;
@@ -42,6 +43,16 @@ class ModuleController extends Controller
      * @throws \Exception
      */
     public function enable(EnableHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
+    /**
+     * @param \Notadd\Foundation\Module\Handlers\DomainHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function domain(DomainHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

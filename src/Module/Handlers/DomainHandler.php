@@ -60,9 +60,9 @@ class DomainHandler extends Handler
             $alias = 'module.' . $identification . '.domain.alias';
             $enabled = 'module.' . $identification . '.domain.enabled';
             $host = 'module.' . $identification . '.domain.host';
-            $this->request->has('alias') && $this->setting->set($alias, $this->request->input('alias', ''));
-            $this->request->has('enabled') && $this->setting->set($enabled, $this->request->input('enabled', false));
-            $this->request->has('host') && $this->setting->set($host, $this->request->input('host', ''));
+            $this->setting->set($alias, $this->request->input('alias', ''));
+            $this->setting->set($enabled, $this->request->input('enabled', false));
+            $this->setting->set($host, $this->request->input('host', ''));
             $this->withCode(200)->withMessage('更新模块域名信息成功！');
         } else {
             $this->withCode('500')->withError('更新模块域名信息失败！');

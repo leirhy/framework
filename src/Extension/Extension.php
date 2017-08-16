@@ -8,288 +8,86 @@
  */
 namespace Notadd\Foundation\Extension;
 
+use ArrayAccess;
+use Illuminate\Contracts\Support\Arrayable;
+use JsonSerializable;
+use Notadd\Foundation\Extension\Traits\HasAttributes;
+
 /**
  * Class Extension.
  */
-class Extension
+class Extension implements Arrayable, ArrayAccess, JsonSerializable
 {
-    /**
-     * @var string|array
-     */
-    protected $author;
-
-    /**
-     * @var string
-     */
-    protected $description;
-
-    /**
-     * @var string
-     */
-    protected $directory;
-
-    /**
-     * @var bool
-     */
-    protected $enabled = false;
-
-    /**
-     * @var string
-     */
-    protected $entry;
-
-    /**
-     * @var string
-     */
-    protected $identification;
-
-    /**
-     * @var bool
-     */
-    protected $installed = false;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string
-     */
-    protected $path;
-
-    /**
-     * @var string
-     */
-    protected $script;
-
-    /**
-     * @var array
-     */
-    protected $stylesheet;
-
-    /**
-     * @var string
-     */
-    protected $version;
+    use HasAttributes;
 
     /**
      * Extension constructor.
      *
-     * @param string $identification
+     * @param array $attributes
      */
-    public function __construct($identification)
+    public function __construct(array $attributes)
     {
-        $this->identification = $identification;
-    }
-
-    /**
-     * @return array|string
-     */
-    public function getAuthor()
-    {
-        return $this->author;
+        $this->attributes = $attributes;
     }
 
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function identification()
     {
-        return $this->description;
+        return $this->attributes['identification'];
     }
 
     /**
-     * Get directory of extension.
-     *
-     * @return string
+     * @return bool
      */
-    public function getDirectory(): string
+    public function isEnabled()
     {
-        return $this->directory;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEntry(): string
-    {
-        return $this->entry;
+        return boolval($this->attributes['enabled']);
     }
 
     /**
      * @return string
      */
-    public function getIdentification(): string
+    public function provider()
     {
-        return $this->identification;
+        return $this->attributes['provider'];
     }
 
     /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    /**
-     * Script of module.
-     *
-     * @return string
-     */
-    public function getScript()
-    {
-        return $this->script;
-    }
-
-    /**
-     * Stylesheet of module.
-     *
      * @return array
      */
-    public function getStylesheet()
+    public function scripts()
     {
-        return $this->stylesheet;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        return $this->version;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isInstalled(): bool
-    {
-        return $this->installed;
-    }
-
-    /**
-     * @param array|string $author
-     */
-    public function setAuthor($author)
-    {
-        $author = collect($author)->transform(function($value) {
-            if(is_array($value))
-                return implode(' <', $value) . '>';
-            return $value;
+        $data = collect();
+        collect(data_get($this->attributes, 'assets.scripts'))->each(function ($script) use ($data) {
+            $data->put($this->attributes['identification'], asset($script));
         });
 
-        $this->author = $author->toArray();
+        return $data->toArray();
     }
 
     /**
-     * @param string $description
+     * @return array
      */
-    public function setDescription(string $description)
+    public function stylesheets()
     {
-        $this->description = $description;
+        $data = collect();
+        collect(data_get($this->attributes, 'assets.stylesheets'))->each(function ($stylesheet) use ($data) {
+            $data->put($this->attributes['identification'], asset($stylesheet));
+        });
+
+        return $data->toArray();
     }
 
     /**
-     * Set directory of extension.
-     *
-     * @param string $directory
+     * @return bool
      */
-    public function setDirectory(string $directory)
+    public function validate()
     {
-        $this->directory = $directory;
-    }
-
-    /**
-     * @param string $entry
-     */
-    public function setEntry(string $entry)
-    {
-        $this->entry = $entry;
-    }
-
-    /**
-     * @param bool $enabled
-     */
-    public function setEnabled(bool $enabled)
-    {
-        $this->enabled = $enabled;
-    }
-
-    /**
-     * @param bool $installed
-     */
-    public function setInstalled(bool $installed)
-    {
-        $this->installed = $installed;
-    }
-
-    /**
-     * @param string $identification
-     */
-    public function setIdentification(string $identification)
-    {
-        $this->identification = $identification;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @param string $path
-     */
-    public function setPath(string $path)
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * Set module's script.
-     *
-     * @param string $script
-     */
-    public function setScript($script)
-    {
-        $this->script = $script;
-    }
-
-    /**
-     * Set module's stylesheet.
-     *
-     * @param array $stylesheet
-     */
-    public function setStylesheet(array $stylesheet)
-    {
-        $this->stylesheet = $stylesheet;
-    }
-
-    /**
-     * @param string $version
-     */
-    public function setVersion(string $version)
-    {
-        $this->version = $version;
+        return $this->offsetExists('name')
+            && $this->offsetExists('identification')
+            && $this->offsetExists('description')
+            && $this->offsetExists('author');
     }
 }

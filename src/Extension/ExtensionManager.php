@@ -11,9 +11,9 @@ namespace Notadd\Foundation\Extension;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Configuration\Repository as ConfigurationRepository;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ExtensionManager.
@@ -63,9 +63,9 @@ class ExtensionManager
         $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;
-        $this->extensions = new Collection();
+        $this->extensions = collect();
         $this->files = $files;
-        $this->unloaded = new Collection();
+        $this->unloaded = collect();
     }
 
     /**
@@ -78,16 +78,6 @@ class ExtensionManager
     public function get($name)
     {
         return $this->extensions->get($name);
-    }
-
-    /**
-     * Path for extension.
-     *
-     * @return string
-     */
-    public function getExtensionPath()
-    {
-        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('extension.directory');
     }
 
     /**
@@ -120,42 +110,36 @@ class ExtensionManager
                 collect($this->files->directories($this->getExtensionPath()))->each(function ($vendor) {
                     collect($this->files->directories($vendor))->each(function ($directory) {
                         if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                            $package = new Collection(json_decode($this->files->get($file), true));
-                            $identification = Arr::get($package, 'name');
-                            $type = Arr::get($package, 'type');
-                            if ($type == 'notadd-extension' && $identification) {
-                                $provider = '';
-                                if ($entries = data_get($package, 'autoload.psr-4')) {
-                                    foreach ($entries as $namespace => $entry) {
-                                        $provider = $namespace . 'Extension';
-                                    }
-                                }
-                                if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
+                            $package = collect(json_decode($this->files->get($file), true));
+                            $configurations = $this->loadConfigurations($directory);
+                            if ($package->get('type') == 'notadd-extension'
+                                && $package->get('name') == $configurations->get('identification')
+                                && ($extension = new Extension($configurations->toArray()))->validate()) {
+                                $autoload = collect([
+                                    $directory,
+                                    'vendor',
+                                    'autoload.php',
+                                ])->implode(DIRECTORY_SEPARATOR);
+                                if ($this->files->exists($autoload)) {
                                     $this->files->requireOnce($autoload);
                                 }
-                                $authors = Arr::get($package, 'authors');
-                                $description = Arr::get($package, 'description');
+                                $extension->offsetExists('provider')
+                                || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($extension) {
+                                    $extension->offsetSet('provider', $namespace . 'Extension');
+                                });
+                                $provider = $extension->offsetGet('provider');
                                 if (class_exists($provider)) {
-                                    $extension = new Extension($identification);
-                                    $extension->setAuthor($authors);
-                                    $extension->setDescription($description);
-                                    $extension->setDirectory($directory);
-                                    $extension->setEnabled($this->container->isInstalled() ? $this->container->make('setting')->get('extension.' . $identification . '.enabled', false) : false);
-                                    $extension->setInstalled($this->container->isInstalled() ? $this->container->make('setting')->get('extension.' . $identification . '.installed', false) : false);
-                                    $extension->setEntry($provider);
-                                    method_exists($provider, 'description') && $extension->setDescription(call_user_func([$provider, 'description']));
-                                    method_exists($provider, 'name') && $extension->setName(call_user_func([$provider, 'name']));
-                                    method_exists($provider, 'script') && $extension->setScript(call_user_func([$provider, 'script']));
-                                    method_exists($provider, 'stylesheet') && $extension->setStylesheet(call_user_func([$provider, 'stylesheet']));
-                                    method_exists($provider, 'version') && $extension->setVersion(call_user_func([$provider, 'version']));
-                                    $this->extensions->put($identification, $extension);
+                                    $extension->offsetSet('directory', $directory);
+                                    $extension->offsetSet('enabled', $this->container->make('setting')->get('extension.' . $extension->offsetGet('identification') . '.enabled', false));
+                                    $extension->offsetSet('installed', $this->container->make('setting')->get('extension.' . $extension->offsetGet('identification') . '.installed', false));
+                                    $this->extensions->put($configurations->get('identification'), $extension);
                                 } else {
-                                    $this->unloaded->put($identification, [
-                                        'authors'        => $authors,
-                                        'description'    => $description,
-                                        'directory'      => $directory,
-                                        'identification' => $identification,
-                                        'provider'       => $provider,
+                                    $this->unloaded->put($configurations->get('identification'), [
+                                        'author'         => $extension->offsetGet('author'),
+                                        'description'    => $extension->offsetGet('description'),
+                                        'directory'      => $extension->offsetGet('directory'),
+                                        'identification' => $extension->offsetGet('identification'),
+                                        'provider'       => $extension->offsetGet('provider'),
                                     ]);
                                 }
                             }
@@ -166,6 +150,44 @@ class ExtensionManager
         }
 
         return $this->extensions;
+    }
+
+    /**
+     * Path for extension.
+     *
+     * @return string
+     */
+    public function getExtensionPath()
+    {
+        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('extension.directory');
+    }
+
+    /**
+     * @param string $directory
+     *
+     * @return \Illuminate\Support\Collection
+     * @throws \Exception
+     */
+    protected function loadConfigurations(string $directory)
+    {
+        if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
+            return collect(Yaml::parse(file_get_contents($file)));
+        } else {
+            if ($this->files->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
+                $configurations = collect();
+                collect($this->files->files($directory))->each(function ($file) use ($configurations) {
+                    if ($this->files->isReadable($file)) {
+                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
+                            $configurations->put($key, $data);
+                        });
+                    }
+                });
+
+                return $configurations;
+            } else {
+                throw new \Exception('Load Extension fail: ' . $directory);
+            }
+        }
     }
 
     /**

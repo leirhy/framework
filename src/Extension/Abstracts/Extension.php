@@ -18,14 +18,14 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 abstract class Extension extends ServiceProvider
 {
     /**
-     * @var \Illuminate\Events\Dispatcher
-     */
-    protected $events;
-
-    /**
      * @var \Illuminate\Support\Collection
      */
     protected static $migrations;
+
+    /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    protected $events;
 
     /**
      * @var \Illuminate\Routing\Router
@@ -46,23 +46,31 @@ abstract class Extension extends ServiceProvider
     }
 
     /**
-     * Boot extension.
-     */
-    abstract public function boot();
-
-    /**
-     * Description of extension
-     *
-     * @return string
-     */
-    abstract public static function description();
-
-    /**
      * Installer for extension.
      *
      * @return string
      */
     abstract public static function install();
+
+    /**
+     * @return array
+     */
+    public static function migrations()
+    {
+        return static::$migrations->toArray();
+    }
+
+    /**
+     * Uninstall for extension.
+     *
+     * @return string
+     */
+    abstract public static function uninstall();
+
+    /**
+     * Boot extension.
+     */
+    abstract public function boot();
 
     /**
      * @param array|string $paths
@@ -74,38 +82,9 @@ abstract class Extension extends ServiceProvider
     }
 
     /**
-     * @return array
-     */
-    public static function migrations()
-    {
-        return static::$migrations->toArray();
-    }
-
-    /**
-     * Name of extension.
-     *
-     * @return string
-     */
-    abstract public static function name();
-
-    /**
      * Register extension extra providers.
      */
     public function register()
     {
     }
-
-    /**
-     * Uninstall for extension.
-     *
-     * @return string
-     */
-    abstract public static function uninstall();
-
-    /**
-     * Version of extension.
-     *
-     * @return string
-     */
-    abstract public static function version();
 }

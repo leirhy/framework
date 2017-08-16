@@ -62,13 +62,6 @@ abstract class Module extends ServiceProvider
     }
 
     /**
-     * Install for module.
-     *
-     * @return string
-     */
-    abstract public static function install();
-
-    /**
      * @param array|string $paths
      */
     public function loadMigrationsFrom($paths)
@@ -91,11 +84,4 @@ abstract class Module extends ServiceProvider
     public function register()
     {
     }
-
-    /**
-     * Uninstall for module.
-     *
-     * @return string
-     */
-    abstract public static function uninstall();
 }

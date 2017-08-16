@@ -8,305 +8,94 @@
  */
 namespace Notadd\Foundation\Module;
 
-use Illuminate\Container\Container;
-use Illuminate\Support\Collection;
-use Notadd\Foundation\Module\Abstracts\Definition;
+use ArrayAccess;
+use Illuminate\Contracts\Support\Arrayable;
+use JsonSerializable;
+use Notadd\Foundation\Extension\Traits\HasAttributes;
 
 /**
  * Class Module.
  */
-class Module
+class Module implements Arrayable, ArrayAccess, JsonSerializable
 {
-    /**
-     * @var \Illuminate\Support\Collection
-     */
-    protected $data;
-
-    /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
+    use HasAttributes;
 
     /**
      * Module constructor.
      *
-     * @param string $name
+     * @param array $attributes
      */
-    public function __construct($name = null)
+    public function __construct(array $attributes)
     {
-        $this->data = new Collection();
-        if (is_string($name)) {
-            $this->data->put('identification', $name);
-        }
+        $this->attributes = $attributes;
     }
 
     /**
-     * Author of module.
-     *
-     * @return array
-     */
-    public function author()
-    {
-        return $this->data->get('author');
-    }
-
-    /**
-     * Data of module.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function data()
-    {
-        return $this->data;
-    }
-
-    /**
-     * Description of module.
-     *
      * @return string
-     */
-    public function description()
-    {
-        return $this->data->get('description');
-    }
-
-    /**
-     * Definition for mall.
-     *
-     * @return \Notadd\Foundation\Module\Abstracts\Definition
-     */
-    public function definition()
-    {
-        return $this->data->get('definition');
-    }
-
-    /**
-     * Directory of module.
-     *
-     * @return string
-     */
-    public function directory()
-    {
-        return $this->data->get('directory', '');
-    }
-
-    /**
-     * Status of enabled for module.
-     *
-     * @return mixed
-     */
-    public function enabled()
-    {
-        if (!$this->data->has('enabled')) {
-            $this->data->put('enabled', $this->container->make('setting')->get('module.' . $this->data->get('identification') . '.enabled', false));
-        }
-
-        return $this->data->get('enabled', false);
-    }
-
-    public function entries($type = '')
-    {
-        return collect($this->data->get('entries'))->transform(function ($data, $entry) {
-            return $entry;
-        })->toArray();
-    }
-
-    /**
-     * Identification for module.
-     *
-     * @return mixed
      */
     public function identification()
     {
-        return $this->data->get('identification', '');
+        return $this->attributes['identification'];
     }
 
     /**
-     * Status of installed for module.
-     *
-     * @return mixed
+     * @return bool
      */
-    public function installed()
+    public function isEnabled()
     {
-        if (!$this->data->has('installed')) {
-            $this->data->put('installed', $this->container->make('setting')->get('module.' . $this->data->get('identification') . '.installed', false));
-        }
-
-        return $this->data->get('installed', false);
+        return boolval($this->attributes['enabled']);
     }
 
     /**
-     * Name of module.
-     *
+     * @return bool
+     */
+    public function isInstalled()
+    {
+        return boolval($this->attributes['installed']);
+    }
+
+    /**
      * @return string
-     */
-    public function name()
-    {
-        if (!$this->data->has('name')) {
-            $this->definition()->resolve($this->data);
-        }
-
-        return $this->data->get('name');
-    }
-
-    /**
-     * Provider for module.
-     *
-     * @return mixed
      */
     public function provider()
     {
-        return $this->data->get('provider', '');
+        return $this->attributes['provider'];
     }
 
     /**
-     * Scripts for module.
-     *
-     * @param string $type
-     *
      * @return array
      */
-    public function scripts(string $type = '')
+    public function scripts()
     {
-        if (!$this->data->has('scripts')) {
-            $this->definition()->resolve($this->data);
-        }
+        $data = collect();
+        collect(data_get($this->attributes, 'assets.scripts'))->each(function ($script) use ($data) {
+            $data->put($this->attributes['identification'], asset($script));
+        });
 
-        return collect($this->data->get('scripts', []))->transform(function ($attributes) use ($type) {
-            if ($type && $attributes['type'] == $type) {
-                return $attributes['scripts'];
-            } else {
-                return $attributes;
-            }
-        })->toArray();
+        return $data->toArray();
     }
 
     /**
-     * Stylesheets for module.
-     *
-     * @param string $type
-     *
      * @return array
      */
-    public function stylesheets(string $type = '')
+    public function stylesheets()
     {
-        if (!$this->data->has('stylesheets')) {
-            $this->definition()->resolve($this->data);
-        }
+        $data = collect();
+        collect(data_get($this->attributes, 'assets.stylesheets'))->each(function ($stylesheet) use ($data) {
+            $data->put($this->attributes['identification'], asset($stylesheet));
+        });
 
-        return collect($this->data->get('stylesheets', []))->transform(function ($attributes) use ($type) {
-            if ($type && $attributes['type'] == $type) {
-                return $attributes['stylesheets'];
-            } else {
-                return $attributes;
-            }
-        })->toArray();
+        return $data->toArray();
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function version()
+    public function validate()
     {
-        if (!$this->data()->has('version')) {
-            $this->definition()->resolve($this->data);
-        }
-
-        return $this->data->get('version');
-    }
-
-    /**
-     * Set module's author.
-     *
-     * @param string|array $author
-     */
-    public function setAuthor($author)
-    {
-        $this->data->put('author', collect($author)->transform(function ($value) {
-            if (is_array($value))
-                return implode(' <', $value) . '>';
-
-            return $value;
-        })->toArray());
-    }
-
-    /**
-     * Set instance for container.
-     *
-     * @param \Illuminate\Container\Container $container
-     */
-    public function setContainer(Container $container)
-    {
-        $this->container = $container;
-    }
-
-    /**
-     * Set module's definition.
-     *
-     * @param \Notadd\Foundation\Module\Abstracts\Definition $definition
-     */
-    public function setDefinition(Definition $definition)
-    {
-        $this->data->put('definition', $definition);
-    }
-
-    /**
-     * Set module's description.
-     *
-     * @param string $description
-     */
-    public function setDescription(string $description)
-    {
-        $this->data->put('description', $description);
-    }
-
-    /**
-     * Set module's directory.
-     *
-     * @param string $directory
-     */
-    public function setDirectory(string $directory)
-    {
-        $this->data->put('directory', $directory);
-    }
-
-    /**
-     * Set module's enabled.
-     *
-     * @param bool $enabled
-     */
-    public function setEnabled(bool $enabled)
-    {
-        $this->data->put('enabled', $enabled);
-    }
-
-    /**
-     * Set module's identification.
-     *
-     * @param string $identification
-     */
-    public function setIdentification($identification)
-    {
-        $this->data->put('identification', $identification);
-    }
-
-    /**
-     * Set module's install status.
-     *
-     * @param bool $installed
-     */
-    public function setInstalled(bool $installed)
-    {
-        $this->data->put('installed', $installed);
-    }
-
-    /**
-     * Set module's provider.
-     *
-     * @param string $provider
-     */
-    public function setProvider(string $provider)
-    {
-        $this->data->put('provider', $provider);
+        return $this->offsetExists('name')
+            && $this->offsetExists('identification')
+            && $this->offsetExists('description')
+            && $this->offsetExists('author');
     }
 }

@@ -44,11 +44,11 @@ class ModuleHandler extends Handler
     {
         $this->withCode(200)->withData($this->manager->getModules()->transform(function (Module $module) {
             return [
-                'author'         => $module->author(),
-                'enabled'        => $module->enabled(),
-                'description'    => $module->description(),
+                'author'         => $module->offsetGet('author'),
+                'enabled'        => $module->offsetGet('enabled'),
+                'description'    => $module->offsetGet('description'),
                 'identification' => $module->identification(),
-                'name'           => $module->name(),
+                'name'           => $module->offsetGet('name'),
             ];
         })->toArray())->withMessage('获取模块列表成功！');
     }

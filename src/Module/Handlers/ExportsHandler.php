@@ -68,8 +68,8 @@ class ExportsHandler extends Handler
             $module = $this->module->get($identification);
             $exports = collect();
             if ($module instanceof Module) {
-                $exports->put('name', $module->name());
-                $exports->put('version', $module->version());
+                $exports->put('name', $module->offsetGet('name'));
+                $exports->put('version', $module->offsetGet('version'));
                 $exports->put('time', Carbon::now());
                 $exports->put('secret', false);
                 $data = collect($module->definition()->exports());

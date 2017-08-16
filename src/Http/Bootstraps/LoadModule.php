@@ -56,10 +56,18 @@ class LoadModule
     {
         if ($application->isInstalled()) {
             $this->manager->getEnabledModules()->each(function (Module $module) use ($application) {
-                $path = $module->directory();
-                if ($this->files->isDirectory($path) && is_string($module->provider())) {
-                    $application->register($module->provider());
-                }
+                collect($module->offsetGet('events'))->each(function ($data, $key) {
+                    switch ($key) {
+                        case 'subscribes':
+                            collect($data)->each(function ($subscriber) {
+                                if (class_exists($subscriber)) {
+                                    $this->events->subscribe($subscriber);
+                                }
+                            });
+                            break;
+                    }
+                });
+                $application->register($module->provider());
             });
         }
         $this->events->dispatch(new ModuleLoaded());

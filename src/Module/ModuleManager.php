@@ -11,9 +11,8 @@ namespace Notadd\Foundation\Module;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Notadd\Foundation\Configuration\Repository as ConfigurationRepository;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ModuleManager.
@@ -66,8 +65,8 @@ class ModuleManager
         $this->container = $container;
         $this->events = $events;
         $this->files = $files;
-        $this->modules = new Collection();
-        $this->unloaded = new Collection();
+        $this->modules = collect();
+        $this->unloaded = collect();
     }
 
     /**
@@ -89,10 +88,10 @@ class ModuleManager
      */
     public function getEnabledModules()
     {
-        $list = new Collection();
+        $list = collect();
         if ($this->getModules()->isNotEmpty()) {
             $this->getModules()->each(function (Module $module) use ($list) {
-                $module->enabled() && $list->put($module->identification(), $module);
+                $module->offsetGet('enabled') && $list->put($module->identification(), $module);
             });
         }
 
@@ -106,14 +105,42 @@ class ModuleManager
      */
     public function getInstalledModules()
     {
-        $list = new Collection();
+        $list = collect();
         if ($this->getModules()->isNotEmpty()) {
             $this->modules->each(function (Module $module) use ($list) {
-                $module->installed() && $list->put($module->identification(), $module);
+                $module->offsetGet('installed') && $list->put($module->identification(), $module);
             });
         }
 
         return $list;
+    }
+
+    /**
+     * @param string $directory
+     *
+     * @return \Illuminate\Support\Collection
+     * @throws \Exception
+     */
+    protected function loadConfigurations(string $directory)
+    {
+        if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
+            return collect(Yaml::parse(file_get_contents($file)));
+        } else {
+            if ($this->files->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
+                $configurations = collect();
+                collect($this->files->files($directory))->each(function ($file) use ($configurations) {
+                    if ($this->files->isReadable($file)) {
+                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
+                            $configurations->put($key, $data);
+                        });
+                    }
+                });
+
+                return $configurations;
+            } else {
+                throw new \Exception('Load Module fail: ' . $directory);
+            }
+        }
     }
 
     /**
@@ -127,37 +154,36 @@ class ModuleManager
             if ($this->files->isDirectory($this->getModulePath())) {
                 collect($this->files->directories($this->getModulePath()))->each(function ($directory) {
                     if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                        $package = new Collection(json_decode($this->files->get($file), true));
-                        $identification = Arr::get($package, 'name');
-                        $type = Arr::get($package, 'type');
-                        if ($type == 'notadd-module' && $identification) {
-                            $provider = '';
-                            if ($entries = data_get($package, 'autoload.psr-4')) {
-                                foreach ($entries as $namespace => $entry) {
-                                    $provider = $namespace . 'ModuleServiceProvider';
-                                }
-                            }
-                            if ($this->files->exists($autoload = $directory . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
+                        $configurations = $this->loadConfigurations($directory);
+                        $package = collect(json_decode($this->files->get($file), true));
+                        if ($package->get('type') == 'notadd-module'
+                            && $configurations->get('identification') == $package->get('name')
+                            && ($module = new Module($configurations->toArray()))->validate()) {
+                            $autoload = collect([
+                                $directory,
+                                'vendor',
+                                'autoload.php',
+                            ])->implode(DIRECTORY_SEPARATOR);
+                            if ($this->files->exists($autoload)) {
                                 $this->files->requireOnce($autoload);
                             }
-                            $authors = Arr::get($package, 'authors');
-                            $description = Arr::get($package, 'description');
-                            if (class_exists($provider) && class_exists($definition = call_user_func([$provider, 'definition']))) {
-                                $module = new Module($identification);
-                                $module->setAuthor($authors);
-                                $module->setContainer($this->container);
-                                $module->setDefinition($this->container->make($definition));
-                                $module->setDescription($description);
-                                $module->setDirectory($directory);
-                                $module->setProvider($provider);
-                                $this->modules->put($identification, $module);
+                            $module->offsetExists('provider')
+                            || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
+                                $module->offsetSet('provider', $namespace . 'ModuleServiceProvider');
+                            });
+                            $module->offsetSet('directory', $directory);
+                            $provider = $module->offsetGet('provider');
+                            if (class_exists($provider)) {
+                                $module->offsetSet('enabled', $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.enabled', false));
+                                $module->offsetSet('installed', $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.installed', false));
+                                $this->modules->put($configurations->get('identification'), $module);
                             } else {
-                                $this->unloaded->put($identification, [
-                                    'authors'        => $authors,
-                                    'description'    => $description,
-                                    'directory'      => $directory,
-                                    'identification' => $identification,
-                                    'provider'       => $provider,
+                                $this->unloaded->put($configurations->get('identification'), [
+                                    'author'         => $module->offsetGet('author'),
+                                    'description'    => $module->offsetGet('description'),
+                                    'directory'      => $module->offsetGet('directory'),
+                                    'identification' => $module->offsetGet('identification'),
+                                    'provider'       => $module->offsetGet('provider'),
                                 ]);
                             }
                         }
@@ -176,10 +202,10 @@ class ModuleManager
      */
     public function getNotInstalledModules()
     {
-        $list = new Collection();
+        $list = collect();
         if ($this->getModules()->isNotEmpty()) {
             $this->modules->each(function (Module $module) use ($list) {
-                $module->installed() || $list->put($module->identification(), $module);
+                $module->offsetGet('installed') || $list->put($module->identification(), $module);
             });
         }
 

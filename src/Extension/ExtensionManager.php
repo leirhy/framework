@@ -127,9 +127,9 @@ class ExtensionManager
                                 || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($extension) {
                                     $extension->offsetSet('provider', $namespace . 'Extension');
                                 });
+                                $extension->offsetSet('directory', $directory);
                                 $provider = $extension->offsetGet('provider');
                                 if (class_exists($provider)) {
-                                    $extension->offsetSet('directory', $directory);
                                     $extension->offsetSet('enabled', $this->container->make('setting')->get('extension.' . $extension->offsetGet('identification') . '.enabled', false));
                                     $extension->offsetSet('installed', $this->container->make('setting')->get('extension.' . $extension->offsetGet('identification') . '.installed', false));
                                     $this->extensions->put($configurations->get('identification'), $extension);

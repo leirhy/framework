@@ -23,7 +23,7 @@ class LoadExtension
     /**
      * @var \Illuminate\Events\Dispatcher
      */
-    private $events;
+    protected $events;
 
     /**
      * @var \Illuminate\Filesystem\Filesystem
@@ -55,10 +55,18 @@ class LoadExtension
     public function bootstrap(Application $application)
     {
         $this->manager->getExtensions()->each(function (Extension $extension) use ($application) {
-            $path = $extension->getDirectory();
-            if ($this->files->isDirectory($path) && is_string($extension->getEntry())) {
-                $extension->isEnabled() && $application->register($extension->getEntry());
-            }
+            collect($extension->offsetGet('events'))->each(function ($data, $key) {
+                switch ($key) {
+                    case 'subscribes':
+                        collect($data)->each(function ($subscriber) {
+                            if (class_exists($subscriber)) {
+                                $this->events->subscribe($subscriber);
+                            }
+                        });
+                        break;
+                }
+            });
+            $extension->isEnabled() && $application->register($extension->provider());
         });
         $this->events->dispatch(new ExtensionLoaded());
     }

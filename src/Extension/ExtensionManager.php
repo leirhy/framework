@@ -200,7 +200,7 @@ class ExtensionManager
         $list = new Collection();
         if ($this->getExtensions()->isNotEmpty()) {
             $this->extensions->each(function (Extension $extension) use ($list) {
-                $extension->isInstalled() && $list->put($extension->getIdentification(), $extension);
+                $extension->isInstalled() && $list->put($extension->identification(), $extension);
             });
         }
 
@@ -217,7 +217,7 @@ class ExtensionManager
         $list = new Collection();
         if ($this->getExtensions()->isNotEmpty()) {
             $this->extensions->each(function (Extension $extension) use ($list) {
-                $extension->isInstalled() || $list->put($extension->getIdentification(), $extension);
+                $extension->isInstalled() || $list->put($extension->identification(), $extension);
             });
         }
 

@@ -47,6 +47,14 @@ class Extension implements Arrayable, ArrayAccess, JsonSerializable
     }
 
     /**
+     * @return bool
+     */
+    public function isInstalled()
+    {
+        return boolval($this->attributes['installed']);
+    }
+
+    /**
      * @return string
      */
     public function provider()

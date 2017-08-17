@@ -8,9 +8,7 @@
  */
 namespace Notadd\Foundation\Module;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Module\Commands\GenerateCommand;
 use Notadd\Foundation\Module\Commands\ListCommand;
@@ -25,22 +23,6 @@ use Notadd\Foundation\Module\Listeners\RouteRegister;
  */
 class ModuleServiceProvider extends ServiceProvider
 {
-    /**
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $files;
-
-    /**
-     * ModuleServiceProvider constructor.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     */
-    public function __construct(Application $app)
-    {
-        parent::__construct($app);
-        $this->files = $app->make(Filesystem::class);
-    }
-
     /**
      * Boot service provider.
      */

@@ -18,10 +18,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ViewServiceProvider;
+use Notadd\Foundation\Database\DatabaseServiceProvider;
 use Notadd\Foundation\Http\Bootstraps\LoadEnvironmentVariables;
 use Notadd\Foundation\Event\EventServiceProvider;
 use Notadd\Foundation\Http\Events\BootstrapBooted;
+use Notadd\Foundation\Module\ModuleServiceProvider;
 use Notadd\Foundation\Routing\RoutingServiceProvider;
+use Notadd\Foundation\Setting\SettingServiceProvider;
 use Notadd\Foundation\Translation\Events\LocaleUpdated;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
@@ -166,6 +169,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         $this->register(new FilesystemServiceProvider($this));
         $this->register(new RoutingServiceProvider($this));
         $this->register(new ViewServiceProvider($this));
+        $this->register(new DatabaseServiceProvider($this));
+        $this->register(new ModuleServiceProvider($this));
+        $this->register(new SettingServiceProvider($this));
     }
 
     /**

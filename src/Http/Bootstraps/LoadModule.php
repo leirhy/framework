@@ -69,7 +69,9 @@ class LoadModule
                             break;
                     }
                 });
-                $application->register($module->provider());
+                $providers = $application->make('config')->get('app.providers');
+                $providers[] = $module->provider();
+                $application->make('config')->set('app.providers', $providers);
             });
         }
         $this->events->dispatch(new ModuleLoaded());

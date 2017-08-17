@@ -38,6 +38,11 @@ class ExtensionManager
     /**
      * @var \Illuminate\Support\Collection
      */
+    protected $excepts;
+
+    /**
+     * @var \Illuminate\Support\Collection
+     */
     protected $extensions;
 
     /**
@@ -63,6 +68,7 @@ class ExtensionManager
         $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;
+        $this->excepts = collect();
         $this->extensions = collect();
         $this->files = $files;
         $this->unloaded = collect();
@@ -252,5 +258,23 @@ class ExtensionManager
     public function getVendorPath()
     {
         return $this->container->basePath() . DIRECTORY_SEPARATOR . 'vendor';
+    }
+
+    /**
+     * @return array
+     */
+    public function getExcepts()
+    {
+        return $this->excepts->toArray();
+    }
+
+    /**
+     * @param $excepts
+     */
+    public function registerExcept($excepts)
+    {
+        foreach ((array)$excepts as $except) {
+            $this->excepts->push($except);
+        }
     }
 }

@@ -14,6 +14,7 @@ use Notadd\Foundation\Application;
 use Notadd\Foundation\Extension\Events\ExtensionLoaded;
 use Notadd\Foundation\Extension\Extension;
 use Notadd\Foundation\Extension\ExtensionManager;
+use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
 
 /**
  * Class LoadExtension.
@@ -55,7 +56,8 @@ class LoadExtension
     public function bootstrap(Application $application)
     {
         $this->manager->getExtensions()->each(function (Extension $extension) use ($application) {
-            collect($extension->offsetGet('events'))->each(function ($data, $key) {
+            $this->manager->registerExcept($extension->get('csrf', []));
+            collect($extension->get('events', []))->each(function ($data, $key) {
                 switch ($key) {
                     case 'subscribes':
                         collect($data)->each(function ($subscriber) {

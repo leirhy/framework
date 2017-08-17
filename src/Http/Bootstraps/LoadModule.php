@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Http\Bootstraps;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleLoaded;
 use Notadd\Foundation\Module\ModuleManager;
@@ -23,7 +24,7 @@ class LoadModule
     /**
      * @var \Illuminate\Events\Dispatcher
      */
-    private $events;
+    protected $events;
 
     /**
      * @var \Illuminate\Filesystem\Filesystem
@@ -38,9 +39,9 @@ class LoadModule
     /**
      * LoadModule constructor.
      *
-     * @param \Illuminate\Events\Dispatcher           $events
-     * @param \Illuminate\Filesystem\Filesystem       $files
-     * @param \Notadd\Foundation\Module\ModuleManager $manager
+     * @param \Illuminate\Events\Dispatcher                       $events
+     * @param \Illuminate\Filesystem\Filesystem                   $files
+     * @param \Notadd\Foundation\Module\ModuleManager             $manager
      */
     public function __construct(Dispatcher $events, Filesystem $files, ModuleManager $manager)
     {
@@ -56,7 +57,8 @@ class LoadModule
     {
         if ($application->isInstalled()) {
             $this->manager->getEnabledModules()->each(function (Module $module) use ($application) {
-                collect($module->offsetGet('events'))->each(function ($data, $key) {
+                $this->manager->registerExcept($module->get('csrf', []));
+                collect($module->get('events', []))->each(function ($data, $key) {
                     switch ($key) {
                         case 'subscribes':
                             collect($data)->each(function ($subscriber) {

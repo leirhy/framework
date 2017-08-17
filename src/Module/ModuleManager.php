@@ -27,6 +27,11 @@ class ModuleManager
     protected $container;
 
     /**
+     * @var \Illuminate\Support\Collection
+     */
+    protected $excepts;
+
+    /**
      * @var \Illuminate\Events\Dispatcher
      */
     protected $events;
@@ -64,6 +69,7 @@ class ModuleManager
         $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;
+        $this->excepts = collect();
         $this->files = $files;
         $this->modules = collect();
         $this->unloaded = collect();
@@ -96,51 +102,6 @@ class ModuleManager
         }
 
         return $list;
-    }
-
-    /**
-     * Modules of installed.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getInstalledModules()
-    {
-        $list = collect();
-        if ($this->getModules()->isNotEmpty()) {
-            $this->modules->each(function (Module $module) use ($list) {
-                $module->offsetGet('installed') && $list->put($module->identification(), $module);
-            });
-        }
-
-        return $list;
-    }
-
-    /**
-     * @param string $directory
-     *
-     * @return \Illuminate\Support\Collection
-     * @throws \Exception
-     */
-    protected function loadConfigurations(string $directory)
-    {
-        if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
-            return collect(Yaml::parse(file_get_contents($file)));
-        } else {
-            if ($this->files->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
-                $configurations = collect();
-                collect($this->files->files($directory))->each(function ($file) use ($configurations) {
-                    if ($this->files->isReadable($file)) {
-                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
-                            $configurations->put($key, $data);
-                        });
-                    }
-                });
-
-                return $configurations;
-            } else {
-                throw new \Exception('Load Module fail: ' . $directory);
-            }
-        }
     }
 
     /**
@@ -196,6 +157,61 @@ class ModuleManager
     }
 
     /**
+     * Module path.
+     *
+     * @return string
+     */
+    public function getModulePath(): string
+    {
+        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('module.directory');
+    }
+
+    /**
+     * @param string $directory
+     *
+     * @return \Illuminate\Support\Collection
+     * @throws \Exception
+     */
+    protected function loadConfigurations(string $directory)
+    {
+        if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
+            return collect(Yaml::parse(file_get_contents($file)));
+        } else {
+            if ($this->files->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
+                $configurations = collect();
+                collect($this->files->files($directory))->each(function ($file) use ($configurations) {
+                    if ($this->files->isReadable($file)) {
+                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
+                            $configurations->put($key, $data);
+                        });
+                    }
+                });
+
+                return $configurations;
+            } else {
+                throw new \Exception('Load Module fail: ' . $directory);
+            }
+        }
+    }
+
+    /**
+     * Modules of installed.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getInstalledModules()
+    {
+        $list = collect();
+        if ($this->getModules()->isNotEmpty()) {
+            $this->modules->each(function (Module $module) use ($list) {
+                $module->offsetGet('installed') && $list->put($module->identification(), $module);
+            });
+        }
+
+        return $list;
+    }
+
+    /**
      * Modules of not-installed.
      *
      * @return \Illuminate\Support\Collection
@@ -233,12 +249,20 @@ class ModuleManager
     }
 
     /**
-     * Module path.
-     *
-     * @return string
+     * @return array
      */
-    public function getModulePath(): string
+    public function getExcepts()
     {
-        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('module.directory');
+        return $this->excepts->toArray();
+    }
+
+    /**
+     * @param $excepts
+     */
+    public function registerExcept($excepts)
+    {
+        foreach ((array)$excepts as $except) {
+            $this->excepts->push($except);
+        }
     }
 }

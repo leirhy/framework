@@ -30,6 +30,21 @@ trait HasAttributes
     }
 
     /**
+     * @param string $offset
+     * @param null   $default
+     *
+     * @return null
+     */
+    public function get(string $offset, $default = null)
+    {
+        if (isset($this->attributes[$offset])) {
+            return $this->attributes[$offset];
+        } else {
+            return $default;
+        }
+    }
+
+    /**
      * Whether a offset exists.
      *
      * @param mixed $offset

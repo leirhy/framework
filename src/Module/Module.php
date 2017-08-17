@@ -9,9 +9,14 @@
 namespace Notadd\Foundation\Module;
 
 use ArrayAccess;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
+use Notadd\Foundation\Database\Model;
 use Notadd\Foundation\Extension\Traits\HasAttributes;
+use Notadd\Foundation\Member\Member;
+use Notadd\Foundation\Permission\PermissionManager;
 
 /**
  * Class Module.
@@ -63,26 +68,54 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     }
 
     /**
+     * @param string $entry
+     *
      * @return array
      */
-    public function scripts()
+    public function scripts($entry)
     {
         $data = collect();
-        collect(data_get($this->attributes, 'assets.scripts'))->each(function ($script) use ($data) {
-            $data->put($this->attributes['identification'], asset($script));
+        $exists = collect(data_get($this->attributes, 'assets.' . $entry));
+        $exists->isNotEmpty() && $exists->each(function ($definitions, $identification) use ($data) {
+            if (isset($definitions['permissions']) && $definitions['permissions']) {
+                if ($this->checkPermission($definitions['permissions'])) {
+                    $scripts = $definitions['scripts'];
+                } else {
+                    $scripts = [];
+                }
+            } else {
+                $scripts = $definitions['scripts'];
+            }
+            collect((array)$scripts)->each(function ($script) use ($data, $identification) {
+                $data->put($identification, $script);
+            });
         });
 
         return $data->toArray();
     }
 
     /**
+     * @param $entry
+     *
      * @return array
      */
-    public function stylesheets()
+    public function stylesheets($entry)
     {
         $data = collect();
-        collect(data_get($this->attributes, 'assets.stylesheets'))->each(function ($stylesheet) use ($data) {
-            $data->put($this->attributes['identification'], asset($stylesheet));
+        $exists = collect(data_get($this->attributes, 'assets.' . $entry));
+        $exists->isNotEmpty() && $exists->each(function ($definitions, $identification) use ($data) {
+            if (isset($definitions['permissions']) && $definitions['permissions']) {
+                if ($this->checkPermission($definitions['permissions'])) {
+                    $scripts = $definitions['stylesheets'];
+                } else {
+                    $scripts = [];
+                }
+            } else {
+                $scripts = $definitions['stylesheets'];
+            }
+            collect((array)$scripts)->each(function ($script) use ($data, $identification) {
+                $data->put($identification, $script);
+            });
         });
 
         return $data->toArray();
@@ -97,5 +130,28 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
             && $this->offsetExists('identification')
             && $this->offsetExists('description')
             && $this->offsetExists('author');
+    }
+
+    /**
+     * @param $identification
+     *
+     * @return bool
+     */
+    protected function checkPermission($identification)
+    {
+        if (!$identification) {
+            return true;
+        }
+        $user = Container::getInstance()->make(Factory::class)->guard('api')->user();
+        if ((!$user instanceof Model) || (!Member::hasMacro('groups'))) {
+            return false;
+        }
+        foreach (collect($user->load('groups')->getAttribute('groups'))->toArray() as $group) {
+            if (Container::getInstance()->make(PermissionManager::class)->check($identification, $group['identification'])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

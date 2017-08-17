@@ -62,9 +62,9 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return string
      */
-    public function provider()
+    public function service()
     {
-        return $this->attributes['provider'];
+        return $this->attributes['service'];
     }
 
     /**
@@ -92,6 +92,29 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
         });
 
         return $data->toArray();
+    }
+
+    /**
+     * @param $identification
+     *
+     * @return bool
+     */
+    protected function checkPermission($identification)
+    {
+        if (!$identification) {
+            return true;
+        }
+        $user = Container::getInstance()->make(Factory::class)->guard('api')->user();
+        if ((!$user instanceof Model) || (!Member::hasMacro('groups'))) {
+            return false;
+        }
+        foreach (collect($user->load('groups')->getAttribute('groups'))->toArray() as $group) {
+            if (Container::getInstance()->make(PermissionManager::class)->check($identification, $group['identification'])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -130,28 +153,5 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
             && $this->offsetExists('identification')
             && $this->offsetExists('description')
             && $this->offsetExists('author');
-    }
-
-    /**
-     * @param $identification
-     *
-     * @return bool
-     */
-    protected function checkPermission($identification)
-    {
-        if (!$identification) {
-            return true;
-        }
-        $user = Container::getInstance()->make(Factory::class)->guard('api')->user();
-        if ((!$user instanceof Model) || (!Member::hasMacro('groups'))) {
-            return false;
-        }
-        foreach (collect($user->load('groups')->getAttribute('groups'))->toArray() as $group) {
-            if (Container::getInstance()->make(PermissionManager::class)->check($identification, $group['identification'])) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

@@ -44,7 +44,7 @@ class UninstallHandler extends Handler
         set_time_limit(0);
         $result = false;
         $module = $this->manager->get($this->request->input('identification'));
-        if ($module && method_exists($provider = $module->provider(), 'uninstall')) {
+        if ($module && method_exists($provider = $module->service(), 'uninstall')) {
             if (($uninstaller = $this->container->make(call_user_func([$provider, 'uninstall']))) instanceof Uninstaller) {
                 $uninstaller->setModule($module);
                 if ($uninstaller->uninstall()) {

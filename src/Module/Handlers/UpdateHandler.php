@@ -40,7 +40,7 @@ class UpdateHandler extends Handler
     public function execute()
     {
         $module = $this->manager->get($this->request->input('name'));
-        if ($module && method_exists($provider = $module->provider(), 'update') && call_user_func([
+        if ($module && method_exists($provider = $module->service(), 'update') && call_user_func([
                 $provider,
                 'update',
             ])

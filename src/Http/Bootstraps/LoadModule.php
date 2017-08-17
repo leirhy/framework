@@ -69,9 +69,12 @@ class LoadModule
                             break;
                     }
                 });
-                $providers = $application->make('config')->get('app.providers');
-                $providers[] = $module->provider();
-                $application->make('config')->set('app.providers', $providers);
+                $providers = collect($application->make('config')->get('app.providers'));
+                $providers->push($module->service());
+                collect($module->get('providers', []))->each(function ($provider) use ($providers) {
+                    $providers->push($provider);
+                });
+                $application->make('config')->set('app.providers', $providers->toArray());
             });
         }
         $this->events->dispatch(new ModuleLoaded());

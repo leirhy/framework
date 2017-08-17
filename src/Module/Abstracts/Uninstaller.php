@@ -109,7 +109,7 @@ abstract class Uninstaller
         }
         if ($this->handle()) {
             $output = new BufferedOutput();
-            $provider = $this->module->provider();
+            $provider = $this->module->service();
             $this->container->getProvider($provider) || $this->container->register($provider);
             if (method_exists($provider, 'migrations')) {
                 $migrations = call_user_func([$provider, 'migrations']);

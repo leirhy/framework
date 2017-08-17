@@ -128,12 +128,13 @@ class ModuleManager
                             if ($this->files->exists($autoload)) {
                                 $this->files->requireOnce($autoload);
                             }
-                            $module->offsetExists('provider')
-                            || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
-                                $module->offsetSet('provider', $namespace . 'ModuleServiceProvider');
-                            });
+                            if (!$module->offsetExists('service')) {
+                                collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
+                                    $module->offsetSet('service', $namespace . 'ModuleServiceProvider');
+                                });
+                            }
                             $module->offsetSet('directory', $directory);
-                            $provider = $module->offsetGet('provider');
+                            $provider = $module->offsetGet('service');
                             if (class_exists($provider)) {
                                 $module->offsetSet('enabled', $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.enabled', false));
                                 $module->offsetSet('installed', $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.installed', false));

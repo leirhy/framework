@@ -57,7 +57,7 @@ class ListCommand extends Command
                 collect($module->author())->first(),
                 $module->description(),
                 $path,
-                $module->provider(),
+                $module->service(),
                 'Normal',
             ]);
         });

@@ -10,8 +10,7 @@ namespace Notadd\Foundation\Setting\Controllers;
 
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Setting\Handlers\AllHandler;
-use Notadd\Foundation\Setting\Handlers\GetHandler;
-use Notadd\Foundation\Setting\Handlers\SetHandler;
+use Notadd\Foundation\Setting\Handlers\HandlerHandler;
 
 /**
  * Class SettingController.
@@ -22,7 +21,6 @@ class SettingController extends Controller
      * @var array
      */
     protected $permissions = [
-        'global::global::global::setting.get' => 'get',
         'global::global::global::setting.set' => 'set',
     ];
 
@@ -40,27 +38,14 @@ class SettingController extends Controller
     }
 
     /**
-     * Get handler.
-     *
-     * @param GetHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function get(GetHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
      * Set handler.
      *
-     * @param \Notadd\Foundation\Setting\Handlers\SetHandler $handler
+     * @param \Notadd\Foundation\Setting\Handlers\HandlerHandler $handler
      *
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse
      * @throws \Exception
      */
-    public function set(SetHandler $handler)
+    public function handler(HandlerHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

@@ -22,8 +22,7 @@ class RouterRegister extends AbstractRouteRegister
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/seo'], function () {
-            $this->router->post('get', SeoController::class . '@get');
-            $this->router->post('set', SeoController::class . '@set');
+            $this->router->post('set', SeoController::class . '@handler');
         });
     }
 }

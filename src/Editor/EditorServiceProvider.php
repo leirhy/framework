@@ -23,7 +23,6 @@ class EditorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
     }
 }

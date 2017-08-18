@@ -13,7 +13,6 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Extension\Commands\ListCommand;
 use Notadd\Foundation\Extension\Commands\ListUnloadedCommand;
-use Notadd\Foundation\Extension\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Extension\Listeners\PermissionGroupRegister;
 use Notadd\Foundation\Extension\Listeners\PermissionRegister;
 use Notadd\Foundation\Extension\Listeners\RouteRegister;
@@ -47,7 +46,6 @@ class ExtensionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);

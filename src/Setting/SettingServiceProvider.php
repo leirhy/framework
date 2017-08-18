@@ -10,7 +10,6 @@ namespace Notadd\Foundation\Setting;
 
 use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
-use Notadd\Foundation\Setting\Listeners\CsrfTokenRegister;
 use Notadd\Foundation\Setting\Listeners\PermissionGroupRegister;
 use Notadd\Foundation\Setting\Listeners\PermissionRegister;
 use Notadd\Foundation\Setting\Listeners\RouteRegister;
@@ -25,7 +24,6 @@ class SettingServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->make(Dispatcher::class)->subscribe(CsrfTokenRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
         $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);

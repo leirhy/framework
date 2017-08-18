@@ -15,7 +15,7 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 /**
  * Class SetHandler.
  */
-class SetHandler extends Handler
+class HandlerHandler extends Handler
 {
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
@@ -41,10 +41,9 @@ class SetHandler extends Handler
      */
     public function execute()
     {
-        $this->settings->set('seo.description', $this->request->get('description'));
-        $this->settings->set('seo.keyword', $this->request->get('keyword'));
-        $this->settings->set('seo.title', $this->request->get('title'));
+        $this->settings->set('seo.description', $this->request->input('description.value', ''));
+        $this->settings->set('seo.keyword', $this->request->input('keyword.value', ''));
+        $this->settings->set('seo.title', $this->request->input('title.value', ''));
         $this->withCode(200)->withMessage('修改设置成功！');
-        return true;
     }
 }

@@ -23,10 +23,12 @@ class PublishHandler extends Handler
      */
     protected function execute()
     {
-        $this->container->make(Kernel::class)->call('vendor:publish', [
+        $console = $this->container->make(Kernel::class);
+        $console->call('vendor:publish', [
             '--force' => true,
             '--tag'   => 'public',
         ]);
+        $this->container->make('log')->info('Publish Assets:', (array)$console->output());
         $this->withCode(200)->withMessage('发布资源成功！');
     }
 }

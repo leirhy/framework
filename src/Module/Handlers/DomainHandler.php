@@ -57,7 +57,10 @@ class DomainHandler extends Handler
         ]);
         $identification = $this->request->input('identification');
         if ($this->module->has($identification) && $this->module->getInstalledModules()->has($identification)
-            || $this->module->has($identification) && $identification != 'notadd/notadd') {
+            || in_array($identification, [
+                'notadd/administration',
+                'notadd/api',
+            ])) {
             $alias = 'module.' . $identification . '.domain.alias';
             $enabled = 'module.' . $identification . '.domain.enabled';
             $host = 'module.' . $identification . '.domain.host';

@@ -56,13 +56,17 @@ class DomainHandler extends Handler
             'identification.required' => '模块标识必须填写',
         ]);
         $identification = $this->request->input('identification');
-        if ($this->module->has($identification) && $this->module->getInstalledModules()->has($identification) || $identification = 'notadd/notadd') {
+        if ($this->module->has($identification) && $this->module->getInstalledModules()->has($identification)
+            || $this->module->has($identification) && $identification != 'notadd/notadd') {
             $alias = 'module.' . $identification . '.domain.alias';
             $enabled = 'module.' . $identification . '.domain.enabled';
             $host = 'module.' . $identification . '.domain.host';
             $this->setting->set($alias, $this->request->input('alias', ''));
             $this->setting->set($enabled, $this->request->input('enabled', false));
             $this->setting->set($host, $this->request->input('host', ''));
+            if ($this->request->input('default', false)) {
+                $this->setting->set('module.default', $identification);
+            }
             $this->withCode(200)->withMessage('更新模块域名信息成功！');
         } else {
             $this->withCode('500')->withError('更新模块域名信息失败！');

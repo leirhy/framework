@@ -15,6 +15,9 @@ use Illuminate\Routing\Redirector;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Http\Listeners\CheckPublicPath;
 use Notadd\Foundation\Http\Middlewares\CrossPreflight;
+use Notadd\Foundation\Module\Module;
+use Notadd\Foundation\Module\ModuleManager;
+use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -39,8 +42,17 @@ class HttpServiceProvider extends ServiceProvider
         $this->loadViewsFrom(realpath(__DIR__ . '/../../resources/errors'), 'error');
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../../databases/migrations'));
         if ($this->app->isInstalled()) {
-            $this->app->make('router')->get('/', function () {
-                echo 'Notadd 已经安装成功！';
+            $this->app->make('router')->get('/', function (ModuleManager $module, SettingsRepository $setting) {
+                if ($default = $setting->get('module.default')) {
+                    $module = $module->get($default);
+                    if ($module instanceof Module && $module->offsetExists('entry')) {
+                        return $this->app->make('redirect')->to($module->get('entry'));
+                    } else {
+                        echo '模块入口未定义！';
+                    }
+                } else {
+                    echo 'Notadd 已经安装成功！';
+                }
             });
         }
     }

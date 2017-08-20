@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Extension\Controllers;
 use Notadd\Foundation\Extension\Handlers\EnableHandler;
 use Notadd\Foundation\Extension\Handlers\ExportsHandler;
 use Notadd\Foundation\Extension\Handlers\ExtensionHandler;
+use Notadd\Foundation\Extension\Handlers\ImportsHandler;
 use Notadd\Foundation\Extension\Handlers\InstallHandler;
 use Notadd\Foundation\Extension\Handlers\UninstallHandler;
 use Notadd\Foundation\Extension\Handlers\UpdateHandler;
@@ -66,6 +67,16 @@ class ExtensionController extends Controller
      * @throws \Exception
      */
     public function handle(ExtensionHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
+    /**
+     * @param \Notadd\Foundation\Extension\Handlers\ImportsHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function imports(ImportsHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

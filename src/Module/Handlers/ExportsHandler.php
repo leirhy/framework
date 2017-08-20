@@ -72,9 +72,12 @@ class ExportsHandler extends Handler
                 $exports->put('version', $module->offsetGet('version'));
                 $exports->put('time', Carbon::now());
                 $exports->put('secret', false);
-                $data = collect($module->definition()->exports());
-                $data->count() && $exports->put('data', $data);
-                $settings = collect($module->definition()->settings());
+                if ($module->offsetExists('exports')) {
+                    $handler = $this->container->make($module->get('exports'));
+                    $data = collect($handler->exports());
+                    $data->count() && $exports->put('data', $data);
+                }
+                $settings = collect($module->get('settings', []));
                 $settings->count() && $exports->put('settings', $settings->map(function ($default, $key) {
                     return $this->setting->get($key, $default);
                 }));

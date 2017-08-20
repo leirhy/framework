@@ -52,9 +52,27 @@ class Rule extends IlluminateRule
     /**
      * @return string
      */
+    public static function file()
+    {
+        return 'file';
+    }
+
+    /**
+     * @return string
+     */
     public static function image()
     {
         return 'image';
+    }
+
+    /**
+     * @param array $mimeTypes
+     *
+     * @return string
+     */
+    public static function mimetypes(array $mimeTypes)
+    {
+        return 'mimetypes:' . implode(',', $mimeTypes);
     }
 
     /**

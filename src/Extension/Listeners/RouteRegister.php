@@ -23,6 +23,7 @@ class RouteRegister extends AbstractRouteRegister
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api'], function () {
             $this->router->post('extension/enable', ExtensionController::class . '@enable');
+            $this->router->post('extension/exports', ExtensionController::class . '@exports');
             $this->router->post('extension/install', ExtensionController::class . '@install');
             $this->router->post('extension/uninstall', ExtensionController::class . '@uninstall');
             $this->router->post('extension/update', ExtensionController::class . '@update');

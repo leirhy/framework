@@ -4,15 +4,15 @@
  *
  * @author TwilRoad <269044570@qq.com>
  * @copyright (c) 2017, notadd.com
- * @datetime 2017-08-15 17:03
+ * @datetime 2017-08-20 21:43
  */
 
-namespace Notadd\Foundation\Module\Handlers;
+namespace Notadd\Foundation\Extension\Handlers;
 
 use Carbon\Carbon;
 use Illuminate\Container\Container;
-use Notadd\Foundation\Module\Module;
-use Notadd\Foundation\Module\ModuleManager;
+use Notadd\Foundation\Extension\Extension;
+use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Notadd\Foundation\Validation\Rule;
@@ -24,9 +24,9 @@ use Symfony\Component\Yaml\Yaml;
 class ExportsHandler extends Handler
 {
     /**
-     * @var \Notadd\Foundation\Module\ModuleManager
+     * @var \Notadd\Foundation\Extension\ExtensionManager
      */
-    protected $module;
+    protected $extension;
 
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
@@ -37,13 +37,13 @@ class ExportsHandler extends Handler
      * ExportsHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
-     * @param \Notadd\Foundation\Module\ModuleManager                 $module
+     * @param \Notadd\Foundation\Extension\ExtensionManager           $extension
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $setting
      */
-    public function __construct(Container $container, ModuleManager $module, SettingsRepository $setting)
+    public function __construct(Container $container, ExtensionManager $extension, SettingsRepository $setting)
     {
         parent::__construct($container);
-        $this->module = $module;
+        $this->extension = $extension;
         $this->setting = $setting;
     }
 
@@ -55,29 +55,24 @@ class ExportsHandler extends Handler
     protected function execute()
     {
         $this->validate($this->request, [
-            'modules' => [
+            'extensions' => [
                 Rule::array(),
                 Rule::required(),
             ],
         ], [
-            'modules.array'    => '模块数据必须为数组',
-            'modules.required' => '模块数据必须填写',
+            'extensions.array'    => '插件数据必须为数组',
+            'extensions.required' => '插件数据必须填写',
         ]);
         $output = collect();
-        collect($this->request->input('modules'))->each(function ($identification) use ($output) {
-            $module = $this->module->get($identification);
+        collect($this->request->input('extensions'))->each(function ($identification) use ($output) {
+            $extension = $this->extension->get($identification);
             $exports = collect();
-            if ($module instanceof Module) {
-                $exports->put('name', $module->offsetGet('name'));
-                $exports->put('version', $module->offsetGet('version'));
+            if ($extension instanceof Extension) {
+                $exports->put('name', $extension->offsetGet('name'));
+                $exports->put('version', $extension->offsetGet('version'));
                 $exports->put('time', Carbon::now());
                 $exports->put('secret', false);
-                if ($module->offsetExists('exports')) {
-                    $handler = $this->container->make($module->get('exports'));
-                    $data = collect($handler->exports());
-                    $data->count() && $exports->put('data', $data);
-                }
-                $settings = collect($module->get('settings', []));
+                $settings = collect($extension->get('settings', []));
                 $settings->count() && $exports->put('settings', $settings->map(function ($default, $key) {
                     return $this->setting->get($key, $default);
                 }));
@@ -87,7 +82,7 @@ class ExportsHandler extends Handler
         $output = Yaml::dump($output->toArray(), 8);
         $this->withCode(200)->withData([
             'content' => $output,
-            'file'    => 'Notadd module export ' . Carbon::now()->format('Y-m-d H:i:s') . '.yaml',
+            'file'    => 'Notadd extension export ' . Carbon::now()->format('Y-m-d H:i:s') . '.yaml',
         ])->withMessage('导出数据成功！');
     }
 }

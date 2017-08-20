@@ -60,6 +60,7 @@ class DomainHandler extends Handler
             || in_array($identification, [
                 'notadd/administration',
                 'notadd/api',
+                'notadd/notadd',
             ])) {
             $alias = 'module.' . $identification . '.domain.alias';
             $enabled = 'module.' . $identification . '.domain.enabled';

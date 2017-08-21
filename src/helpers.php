@@ -6,6 +6,7 @@
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-10-20 20:40
  */
+
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
@@ -320,7 +321,8 @@ if (!function_exists('cookie')) {
         $domain = null,
         $secure = false,
         $httpOnly = true
-    ) {
+    )
+    {
         $cookie = app(CookieFactory::class);
         if (is_null($name)) {
             return $cookie;
@@ -517,7 +519,7 @@ if (!function_exists('factory')) {
         $arguments = func_get_args();
         if (isset($arguments[1]) && is_string($arguments[1])) {
             return $factory->of($arguments[0], $arguments[1])->times(isset($arguments[2]) ? $arguments[2] : 1);
-        } elseif (isset($arguments[1])) {
+        } else if (isset($arguments[1])) {
             return $factory->of($arguments[0])->times($arguments[1]);
         } else {
             return $factory->of($arguments[0]);
@@ -618,6 +620,13 @@ if (!function_exists('public_path')) {
     function public_path($path = '')
     {
         return app()->make('path.public') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+    }
+}
+
+if (!function_exists('static_path')) {
+    function static_path($path = '')
+    {
+        return app()->make('path.static') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
 

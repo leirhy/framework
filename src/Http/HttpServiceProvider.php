@@ -14,6 +14,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Routing\Redirector;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Http\Listeners\CheckPublicPath;
+use Notadd\Foundation\Http\Middlewares\AssetsPublish;
 use Notadd\Foundation\Http\Middlewares\CrossPreflight;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
@@ -35,6 +36,7 @@ class HttpServiceProvider extends ServiceProvider
         });
         $this->app->make(Dispatcher::class)->subscribe(CheckPublicPath::class);
         $this->app->make('request')->getMethod() == 'OPTIONS' && $this->app->make(KernelContract::class)->prependMiddleware(CrossPreflight::class);
+        $this->app->make(KernelContract::class)->prependMiddleware(AssetsPublish::class);
         $this->app->resolving(FormRequest::class, function (FormRequest $request, $app) {
             $this->initializeRequest($request, $app['request']);
             $request->setContainer($app)->setRedirector($this->app->make(Redirector::class));

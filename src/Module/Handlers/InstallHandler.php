@@ -10,8 +10,11 @@ namespace Notadd\Foundation\Module\Handlers;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
-use Notadd\Foundation\Module\Abstracts\Installer;
+use League\Flysystem\Adapter\Local as LocalAdapter;
+use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\MountManager;
 use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
@@ -23,6 +26,11 @@ use Symfony\Component\Console\Output\BufferedOutput;
  */
 class InstallHandler extends Handler
 {
+    /**
+     * @var Filesystem
+     */
+    protected $file;
+
     /**
      * @var \Notadd\Foundation\Module\ModuleManager
      */
@@ -40,11 +48,16 @@ class InstallHandler extends Handler
      * @param \Notadd\Foundation\Module\ModuleManager                 $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $setting
      */
-    public function __construct(Container $container, ModuleManager $manager, SettingsRepository $setting)
-    {
+    public function __construct(
+        Container $container,
+        Filesystem $file,
+        ModuleManager $manager,
+        SettingsRepository $setting
+    ) {
         parent::__construct($container);
         $this->manager = $manager;
         $this->setting = $setting;
+        $this->file = $file;
     }
 
     /**
@@ -66,11 +79,15 @@ class InstallHandler extends Handler
             });
             // Has Migration.
             $module->offsetExists('migrations') && $collection->put('migrations', $module->get('migrations'));
+            $module->offsetExists('publishes') && $collection->put('publishes', $module->get('publishes'));
             // Query Collection.
             if ($collection->count() && $collection->every(function ($instance, $key) use ($module, $output) {
                     switch ($key) {
                         case 'migrations':
-                            if (is_array($instance) && collect($instance)->every(function ($path) use ($module, $output) {
+                            if (is_array($instance) && collect($instance)->every(function ($path) use (
+                                    $module,
+                                    $output
+                                ) {
                                     $path = $module->get('directory') . DIRECTORY_SEPARATOR . $path;
                                     $migration = str_replace($this->container->basePath(), '', $path);
                                     $migration = trim($migration, DIRECTORY_SEPARATOR);
@@ -87,12 +104,28 @@ class InstallHandler extends Handler
                                 return false;
                             }
                             break;
-                        case 'uninstall':
-                            if ($instance instanceof Installer && $instance->install()) {
+                        case 'publishes':
+                            if (is_array($instance) && collect($instance)->every(function ($from, $to) use (
+                                    $module,
+                                    $output
+                                ) {
+                                    $from = $module->get('directory') . DIRECTORY_SEPARATOR . $from;
+                                    $to = $this->container->basePath() . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . $to;
+                                    if ($this->file->isFile($from)) {
+                                        $this->publishFile($from, $to);
+                                    } else if ($this->file->isDirectory($from)) {
+                                        $this->publishDirectory($from, $to);
+                                    }
+
+                                    return true;
+                                })) {
                                 return true;
                             } else {
                                 return false;
                             }
+                            break;
+                        case 'install':
+                            return true;
                             break;
                         default:
                             return false;
@@ -103,7 +136,8 @@ class InstallHandler extends Handler
             }
         }
         if ($result) {
-            $this->container->make('log')->info('Install Module ' . $this->request->input('identification') . ':', explode(PHP_EOL, $output->fetch()));
+            $this->container->make('log')->info('Install Module ' . $this->request->input('identification') . ':',
+                explode(PHP_EOL, $output->fetch()));
             $this->setting->set('module.' . $module->identification() . '.installed', true);
             $this->withCode(200)->withMessage('安装模块成功！');
         } else {
@@ -125,9 +159,50 @@ class InstallHandler extends Handler
         return $kernel->getArtisan();
     }
 
-    protected function parseInfo(Collection $data) {
-        $data->has('data') && $this->data = collect($data->get('data'));
-        $data->has('errors') && $this->errors = collect($data->get('errors'));
-        $data->has('messages') && $this->messages = collect($data->get('messages'));
+    /**
+     * Publish the file to the given path.
+     *
+     * @param string $from
+     * @param string $to
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function publishFile($from, $to)
+    {
+        $this->createParentDirectory(dirname($to));
+        $this->file->copy($from, $to);
+    }
+
+    /**
+     * Create the directory to house the published files if needed.
+     *
+     * @param $directory
+     */
+    protected function createParentDirectory($directory)
+    {
+        if (!$this->file->isDirectory($directory)) {
+            $this->file->makeDirectory($directory, 0755, true);
+        }
+    }
+
+    /**
+     * Publish the directory to the given directory.
+     *
+     * @param $from
+     * @param $to
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function publishDirectory($from, $to)
+    {
+        $manager = new MountManager([
+            'from' => new Flysystem(new LocalAdapter($from)),
+            'to'   => new Flysystem(new LocalAdapter($to)),
+        ]);
+        foreach ($manager->listContents('from://', true) as $file) {
+            if ($file['type'] === 'file') {
+                $manager->put('to://' . $file['path'], $manager->read('from://' . $file['path']));
+            }
+        }
     }
 }

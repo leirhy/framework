@@ -37,11 +37,7 @@ trait HasAttributes
      */
     public function get(string $offset, $default = null)
     {
-        if (isset($this->attributes[$offset])) {
-            return $this->attributes[$offset];
-        } else {
-            return $default;
-        }
+        return data_get($this->attributes, $offset, $default);
     }
 
     /**

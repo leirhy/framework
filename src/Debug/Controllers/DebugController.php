@@ -40,16 +40,6 @@ class DebugController extends Controller
     {
         return $handler->toResponse()->generateHttpResponse();
     }
-
-    /**
-     * @param \Notadd\Foundation\Debug\Handlers\PublishHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     */
-    public function publish(PublishHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
     
     /**
      * set handler.

@@ -59,13 +59,17 @@ class ModuleManager
     /**
      * ModuleManager constructor.
      *
-     * @param \Illuminate\Container\Container             $container
+     * @param \Illuminate\Container\Container $container
      * @param \Notadd\Foundation\Configuration\Repository $configuration
-     * @param \Illuminate\Events\Dispatcher               $events
-     * @param \Illuminate\Filesystem\Filesystem           $files
+     * @param \Illuminate\Events\Dispatcher $events
+     * @param \Illuminate\Filesystem\Filesystem $files
      */
-    public function __construct(Container $container, ConfigurationRepository $configuration, Dispatcher $events, Filesystem $files)
-    {
+    public function __construct(
+        Container $container,
+        ConfigurationRepository $configuration,
+        Dispatcher $events,
+        Filesystem $files
+    ) {
         $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;
@@ -129,23 +133,29 @@ class ModuleManager
                                 $this->files->requireOnce($autoload);
                             }
                             if (!$module->offsetExists('service')) {
-                                collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
+                                collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use (
+                                    $module
+                                ) {
                                     $module->offsetSet('service', $namespace . 'ModuleServiceProvider');
                                 });
                             }
                             $module->offsetSet('directory', $directory);
                             $provider = $module->offsetGet('service');
                             if (class_exists($provider)) {
-                                $module->offsetSet('enabled', $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.enabled', false));
-                                $module->offsetSet('installed', $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.installed', false));
+                                $module->offsetSet('enabled',
+                                    $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.enabled',
+                                        false));
+                                $module->offsetSet('installed',
+                                    $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.installed',
+                                        false));
                                 $this->modules->put($configurations->get('identification'), $module);
                             } else {
                                 $this->unloaded->put($configurations->get('identification'), [
-                                    'author'         => $module->offsetGet('author'),
-                                    'description'    => $module->offsetGet('description'),
-                                    'directory'      => $module->offsetGet('directory'),
-                                    'identification' => $module->offsetGet('identification'),
-                                    'provider'       => $module->offsetGet('provider'),
+                                    'author'         => $module->get('author'),
+                                    'description'    => $module->get('description'),
+                                    'directory'      => $module->get('directory'),
+                                    'identification' => $module->get('identification'),
+                                    'service'        => $module->get('service'),
                                 ]);
                             }
                         }
@@ -182,7 +192,8 @@ class ModuleManager
                 $configurations = collect();
                 collect($this->files->files($directory))->each(function ($file) use ($configurations) {
                     if ($this->files->isReadable($file)) {
-                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
+                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations
+                        ) {
                             $configurations->put($key, $data);
                         });
                     }

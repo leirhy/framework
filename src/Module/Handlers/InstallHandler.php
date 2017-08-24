@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\MountManager;
+use Notadd\Foundation\Module\Contracts\Installer;
 use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
@@ -69,20 +70,28 @@ class InstallHandler extends Handler
         $module = $this->manager->get($this->request->input('identification'));
         $output = new BufferedOutput();
         $result = false;
+        $this->beginTransaction();
         if ($module) {
             $collection = collect();
+            // Has Migration.
+            $module->offsetExists('migrations') && $collection->put('migrations', $module->get('migrations'));
+            $module->offsetExists('publishes') && $collection->put('publishes', $module->get('publishes'));
             // Has Installer.
             $module->offsetExists('installer') && tap($collection, function (Collection $collection) use ($module) {
                 if (class_exists($installer = $module->get('installer'))) {
                     $collection->put('installer', $this->container->make($installer));
                 }
             });
-            // Has Migration.
-            $module->offsetExists('migrations') && $collection->put('migrations', $module->get('migrations'));
-            $module->offsetExists('publishes') && $collection->put('publishes', $module->get('publishes'));
             // Query Collection.
             if ($collection->count() && $collection->every(function ($instance, $key) use ($module, $output) {
                     switch ($key) {
+                        case 'installer':
+                            if ($instance instanceof Installer && $instance->install()) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                            break;
                         case 'migrations':
                             if (is_array($instance) && collect($instance)->every(function ($path) use (
                                     $module,
@@ -124,9 +133,6 @@ class InstallHandler extends Handler
                                 return false;
                             }
                             break;
-                        case 'install':
-                            return true;
-                            break;
                         default:
                             return false;
                             break;
@@ -139,8 +145,10 @@ class InstallHandler extends Handler
             $this->container->make('log')->info('Install Module ' . $this->request->input('identification') . ':',
                 explode(PHP_EOL, $output->fetch()));
             $this->setting->set('module.' . $module->identification() . '.installed', true);
+            $this->commitTransaction();
             $this->withCode(200)->withMessage('安装模块成功！');
         } else {
+            $this->rollBackTransaction();
             $this->withCode(500)->withError('安装模块失败！');
         }
     }

@@ -166,7 +166,7 @@ abstract class AbstractUpload
     protected function getFilePath()
     {
         $fullName = $this->fullName;
-        $rootPath = public_path();
+        $rootPath = static_path();
         $fullName = ltrim($fullName, '/');
 
         return $rootPath . '/' . $fullName;

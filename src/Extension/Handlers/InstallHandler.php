@@ -53,14 +53,14 @@ class InstallHandler extends Handler
     {
         $extension = $this->manager->get($this->request->input('identification'));
         if ($extension
-            && method_exists($provider = $extension->getEntry(), 'install')
+            && method_exists($provider = $extension->provider(), 'install')
             && $closure = call_user_func([
                 $provider,
                 'install',
             ])
         ) {
             if ($closure instanceof Closure) {
-                if ($this->settings->get('extension.' . $extension->getIdentification() . '.installed', false)) {
+                if ($this->settings->get('extension.' . $extension->identification() . '.installed', false)) {
                     $this->withCode(500)->withError('模块标识[]已经被占用，如需继续安装，请卸载同标识插件！');
                 } else {
                     $this->container->getProvider($provider) || $this->container->register($provider);
@@ -72,11 +72,11 @@ class InstallHandler extends Handler
                         $this->getConsole()->find('migrate')->run($input, $output);
                         $this->getConsole()->find('vendor:publish')->run($input, $output);
                         $log = explode(PHP_EOL, $output->fetch());
-                        $this->container->make('log')->info('install module:' . $extension->getIdentification(), $log);
-                        $this->settings->set('extension.' . $extension->getIdentification() . '.installed', true);
+                        $this->container->make('log')->info('install module:' . $extension->identification(), $log);
+                        $this->settings->set('extension.' . $extension->identification() . '.installed', true);
                         $this->withCode(200)
                             ->withData($log)
-                            ->withMessage('安装插件[' . $extension->getIdentification() . ']成功！');
+                            ->withMessage('安装插件[' . $extension->identification() . ']成功！');
                     }
                 }
             } else {

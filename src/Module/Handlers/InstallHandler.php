@@ -75,6 +75,7 @@ class InstallHandler extends Handler
             $collection = collect();
             // Has Migration.
             $module->offsetExists('migrations') && $collection->put('migrations', $module->get('migrations'));
+            // Has Publishes.
             $module->offsetExists('publishes') && $collection->put('publishes', $module->get('publishes'));
             // Has Installer.
             $module->offsetExists('installer') && tap($collection, function (Collection $collection) use ($module) {

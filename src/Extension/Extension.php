@@ -31,6 +31,17 @@ class Extension implements Arrayable, ArrayAccess, JsonSerializable
     }
 
     /**
+     * @param string $offset
+     * @param null   $default
+     *
+     * @return null
+     */
+    public function get(string $offset, $default = null)
+    {
+        return data_get($this->attributes, $offset, $default);
+    }
+
+    /**
      * @return string
      */
     public function identification()

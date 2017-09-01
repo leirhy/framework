@@ -11,6 +11,10 @@ namespace Notadd\Foundation\Extension\Handlers;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
+use League\Flysystem\Adapter\Local as LocalAdapter;
+use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\MountManager;
 use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
@@ -23,6 +27,11 @@ use Symfony\Component\Console\Output\BufferedOutput;
 class InstallHandler extends Handler
 {
     /**
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $file;
+
+    /**
      * @var \Notadd\Foundation\Extension\ExtensionManager
      */
     protected $manager;
@@ -30,20 +39,22 @@ class InstallHandler extends Handler
     /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
-    protected $settings;
+    protected $setting;
 
     /**
      * InstallHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
+     * @param \Illuminate\Filesystem\Filesystem                       $file
      * @param \Notadd\Foundation\Extension\ExtensionManager           $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
-    public function __construct(Container $container, ExtensionManager $manager, SettingsRepository $settings)
+    public function __construct(Container $container, Filesystem $file, ExtensionManager $manager, SettingsRepository $settings)
     {
         parent::__construct($container);
+        $this->file = $file;
         $this->manager = $manager;
-        $this->settings = $settings;
+        $this->setting = $settings;
     }
 
     /**
@@ -51,39 +62,85 @@ class InstallHandler extends Handler
      */
     public function execute()
     {
+        set_time_limit(0);
         $extension = $this->manager->get($this->request->input('identification'));
-        if ($extension
-            && method_exists($provider = $extension->provider(), 'install')
-            && $closure = call_user_func([
-                $provider,
-                'install',
-            ])
-        ) {
-            if ($closure instanceof Closure) {
-                if ($this->settings->get('extension.' . $extension->identification() . '.installed', false)) {
-                    $this->withCode(500)->withError('模块标识[]已经被占用，如需继续安装，请卸载同标识插件！');
-                } else {
-                    $this->container->getProvider($provider) || $this->container->register($provider);
-                    if ($closure()) {
-                        $input = new ArrayInput([
-                            '--force' => true,
-                        ]);
-                        $output = new BufferedOutput();
-                        $this->getConsole()->find('migrate')->run($input, $output);
-                        $this->getConsole()->find('vendor:publish')->run($input, $output);
-                        $log = explode(PHP_EOL, $output->fetch());
-                        $this->container->make('log')->info('install module:' . $extension->identification(), $log);
-                        $this->settings->set('extension.' . $extension->identification() . '.installed', true);
-                        $this->withCode(200)
-                            ->withData($log)
-                            ->withMessage('安装插件[' . $extension->identification() . ']成功！');
+        $output = new BufferedOutput();
+        $result = false;
+        $this->beginTransaction();
+        if ($extension) {
+            $collection = collect();
+            // Has Migration.
+            $extension->offsetExists('migrations') && $collection->put('migrations', $extension->get('migrations'));
+            // Has Publishes.
+            $extension->offsetExists('publishes') && $collection->put('publishes', $extension->get('publishes'));
+            if (method_exists($provider = $extension->provider(), 'install')
+                && $closure = call_user_func([
+                    $provider,
+                    'install',
+                ])) {
+                if ($closure instanceof Closure && !$this->setting->get('extension.' . $extension->identification() . '.installed', false) && $closure()) {
+                    if ($collection->count() && $collection->every(function ($instance, $key) use ($extension, $output) {
+                            switch ($key) {
+                                case 'migrations':
+                                    if (is_array($instance) && collect($instance)->every(function ($path) use (
+                                            $extension,
+                                            $output
+                                        ) {
+                                            $path = $extension->get('directory') . DIRECTORY_SEPARATOR . $path;
+                                            $migration = str_replace($this->container->basePath(), '', $path);
+                                            $migration = trim($migration, DIRECTORY_SEPARATOR);
+                                            $input = new ArrayInput([
+                                                '--path'  => $migration,
+                                                '--force' => true,
+                                            ]);
+                                            $this->getConsole()->find('migrate')->run($input, $output);
+
+                                            return true;
+                                        })) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                    break;
+                                case 'publishes':
+                                    if (is_array($instance) && collect($instance)->every(function ($from, $to) use (
+                                            $extension,
+                                            $output
+                                        ) {
+                                            $from = $extension->get('directory') . DIRECTORY_SEPARATOR . $from;
+                                            $to = $this->container->basePath() . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . $to;
+                                            if ($this->file->isFile($from)) {
+                                                $this->publishFile($from, $to);
+                                            } else if ($this->file->isDirectory($from)) {
+                                                $this->publishDirectory($from, $to);
+                                            }
+
+                                            return true;
+                                        })) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                    break;
+                                default:
+                                    return false;
+                                    break;
+                            }
+                        })) {
+                        $result = true;
                     }
                 }
-            } else {
-                $this->withCode(500)->withError('安装插件成功！');
             }
+        }
+        if ($result) {
+            $this->container->make('log')->info('Install Extension ' . $this->request->input('identification') . ':',
+                explode(PHP_EOL, $output->fetch()));
+            $this->setting->set('extension.' . $extension->identification() . '.installed', true);
+            $this->commitTransaction();
+            $this->withCode(200)->withMessage('安装模块成功！');
         } else {
-            $this->withCode(500)->withError('安装插件失败！');
+            $this->rollBackTransaction();
+            $this->withCode(500)->withError('安装模块失败！');
         }
     }
 
@@ -99,5 +156,52 @@ class InstallHandler extends Handler
         $kernel->bootstrap();
 
         return $kernel->getArtisan();
+    }
+
+    /**
+     * Publish the file to the given path.
+     *
+     * @param string $from
+     * @param string $to
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function publishFile($from, $to)
+    {
+        $this->createParentDirectory(dirname($to));
+        $this->file->copy($from, $to);
+    }
+
+    /**
+     * Create the directory to house the published files if needed.
+     *
+     * @param $directory
+     */
+    protected function createParentDirectory($directory)
+    {
+        if (!$this->file->isDirectory($directory)) {
+            $this->file->makeDirectory($directory, 0755, true);
+        }
+    }
+
+    /**
+     * Publish the directory to the given directory.
+     *
+     * @param $from
+     * @param $to
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function publishDirectory($from, $to)
+    {
+        $manager = new MountManager([
+            'from' => new Flysystem(new LocalAdapter($from)),
+            'to'   => new Flysystem(new LocalAdapter($to)),
+        ]);
+        foreach ($manager->listContents('from://', true) as $file) {
+            if ($file['type'] === 'file') {
+                $manager->put('to://' . $file['path'], $manager->read('from://' . $file['path']));
+            }
+        }
     }
 }

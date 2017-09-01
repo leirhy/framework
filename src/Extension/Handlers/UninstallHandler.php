@@ -6,6 +6,7 @@
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-03-02 16:10
  */
+
 namespace Notadd\Foundation\Extension\Handlers;
 
 use Closure;
@@ -35,8 +36,8 @@ class UninstallHandler extends Handler
     /**
      * UninstallHandler constructor.
      *
-     * @param \Illuminate\Container\Container                         $container
-     * @param \Notadd\Foundation\Extension\ExtensionManager           $manager
+     * @param \Illuminate\Container\Container $container
+     * @param \Notadd\Foundation\Extension\ExtensionManager $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
      */
     public function __construct(Container $container, ExtensionManager $manager, SettingsRepository $settings)
@@ -51,48 +52,53 @@ class UninstallHandler extends Handler
      */
     public function execute()
     {
+        set_time_limit(0);
         $extension = $this->manager->get($this->request->input('identification'));
-        if ($extension && method_exists($provider = $extension->getEntry(), 'uninstall') && $closure = call_user_func([
-                $provider,
-                'uninstall',
-            ])
-        ) {
-            if ($closure instanceof Closure) {
-                if (!$this->settings->get('extension.' . $extension->getIdentification() . '.installed', false)) {
-                    $this->withCode(500)->withError("模块[{$extension->getIdentification()}]尚未安装，无法进行卸载！");
-                } else {
-                    if ($closure()) {
-                        $output = new BufferedOutput();
-                        $provider = $extension->getEntry();
-                        $this->container->getProvider($provider) || $this->container->register($provider);
-                        if (method_exists($provider, 'migrations')) {
-                            $migrations = call_user_func([$provider, 'migrations']);
-                            foreach ((array)$migrations as $migration) {
-                                $migration = str_replace($this->container->basePath() . DIRECTORY_SEPARATOR, '', $migration);
-                                $input = new ArrayInput([
-                                    '--path' => $migration,
-                                    '--force' => true,
-                                ]);
-                                $this->getConsole()->find('migrate:rollback')->run($input, $output);
+        $output = new BufferedOutput();
+        $result = false;
+        if ($extension) {
+            $collection = collect();
+            // Has Migrations.
+            $extension->offsetExists('migrations') && $collection->put('migrations', $extension->get('migrations'));
+            if (method_exists($provider = $extension->provider(), 'uninstall') && $closure = call_user_func([
+                    $provider,
+                    'uninstall',
+                ])) {
+                if ($closure instanceof Closure && $this->settings->get('extension.' . $extension->identification() . '.installed', false) && $closure()) {
+                    if ($collection->count() && $collection->every(function ($instance, $key) use ($extension, $output) {
+                            switch ($key) {
+                                case 'migrations':
+                                    if (is_array($instance) && collect($instance)->every(function ($path) use ($extension, $output) {
+                                            $path = $extension->get('directory') . DIRECTORY_SEPARATOR . $path;
+                                            $migration = str_replace($this->container->basePath(), '', $path);
+                                            $migration = trim($migration, DIRECTORY_SEPARATOR);
+                                            $input = new ArrayInput([
+                                                '--path' => $migration,
+                                                '--force' => true,
+                                            ]);
+                                            $this->getConsole()->find('migrate:rollback')->run($input, $output);
+
+                                            return true;
+                                        })) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                    break;
+                                default:
+                                    return false;
+                                    break;
                             }
-                        }
-                        $input = new ArrayInput([
-                            '--force' => true,
-                        ]);
-                        $this->getConsole()->find('vendor:publish')->run($input, $output);
-                        $log = explode(PHP_EOL, $output->fetch());
-                        $this->container->make('log')->info('uninstall extension:' . $extension->getIdentification(), $log);
-                        $this->settings->set('extension.' . $extension->getIdentification() . '.installed', false);
-                        $this->withCode(200)
-                            ->withData($log)
-                            ->withMessage('卸载插件[' . $extension->getIdentification() . ']成功！');
-                    } else {
-                        $this->withCode(500)->withError('卸载插件失败！');
+                        })) {
+                        $result = true;
                     }
                 }
-            } else {
-                $this->withCode(500)->withError('卸载插件失败！');
             }
+        }
+        if ($result) {
+            $this->container->make('log')->info('Uninstall Module ' . $this->request->input('identification') . ':', explode(PHP_EOL, $output->fetch()));
+            $this->settings->set('extension.' . $extension->identification() . '.installed', false);
+            $this->withCode(200)->withMessage('卸载插件[' . $extension->identification() . ']成功！');
         } else {
             $this->withCode(500)->withError('卸载插件失败！');
         }
@@ -104,7 +110,7 @@ class UninstallHandler extends Handler
      * @return \Illuminate\Contracts\Console\Kernel|\Notadd\Foundation\Console\Application
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function getConsole()
+    protected function getConsole()
     {
         $kernel = $this->container->make(Kernel::class);
         $kernel->bootstrap();

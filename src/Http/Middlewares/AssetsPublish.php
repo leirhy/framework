@@ -51,7 +51,7 @@ class AssetsPublish
      */
     public function handle($request, Closure $next)
     {
-        if ($request->is('assets*')) {
+        if ($request->is('assets*') || $request->is('uploads*')) {
             if (file_exists($file = $this->container->staticPath() . DIRECTORY_SEPARATOR . $request->path())) {
                 $headers = [];
                 switch (pathinfo($file, PATHINFO_EXTENSION)) {

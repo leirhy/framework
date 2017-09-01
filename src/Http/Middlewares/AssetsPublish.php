@@ -11,7 +11,6 @@ namespace Notadd\Foundation\Http\Middlewares;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Filesystem\Filesystem;
 
 /**
  * Class AssetsPublish.

@@ -79,12 +79,12 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
         $exists->isNotEmpty() && $exists->each(function ($definitions, $identification) use ($data) {
             if (isset($definitions['permissions']) && $definitions['permissions']) {
                 if ($this->checkPermission($definitions['permissions'])) {
-                    $scripts = $definitions['scripts'];
+                    $scripts = asset($definitions['scripts']);
                 } else {
                     $scripts = [];
                 }
             } else {
-                $scripts = $definitions['scripts'];
+                $scripts = asset($definitions['scripts']);
             }
             collect((array)$scripts)->each(function ($script) use ($data, $identification) {
                 $data->put($identification, $script);
@@ -129,12 +129,12 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
         $exists->isNotEmpty() && $exists->each(function ($definitions, $identification) use ($data) {
             if (isset($definitions['permissions']) && $definitions['permissions']) {
                 if ($this->checkPermission($definitions['permissions'])) {
-                    $scripts = $definitions['stylesheets'];
+                    $scripts = asset($definitions['stylesheets']);
                 } else {
                     $scripts = [];
                 }
             } else {
-                $scripts = $definitions['stylesheets'];
+                $scripts = asset($definitions['stylesheets']);
             }
             collect((array)$scripts)->each(function ($script) use ($data, $identification) {
                 $data->put($identification, $script);

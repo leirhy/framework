@@ -59,6 +59,7 @@ class ItemObserver
             if ($thumbImage instanceof UploadedFile) {
                 $hash = hash_file('md5', $thumbImage->getPathname(), false);
                 $dictionary = $this->pathSplit($hash, '12', Collection::make([
+                    static_path(),
                     'uploads',
                 ]))->implode(DIRECTORY_SEPARATOR);
                 $file = Str::substr($hash, 12, 20) . '.' . $thumbImage->getClientOriginalExtension();
@@ -108,6 +109,7 @@ class ItemObserver
             if ($thumbImage instanceof UploadedFile) {
                 $hash = hash_file('md5', $thumbImage->getPathname(), false);
                 $dictionary = $this->pathSplit($hash, '12', Collection::make([
+                    static_path(),
                     'uploads',
                 ]))->implode(DIRECTORY_SEPARATOR);
                 $file = Str::substr($hash, 12, 20) . '.' . $thumbImage->getClientOriginalExtension();

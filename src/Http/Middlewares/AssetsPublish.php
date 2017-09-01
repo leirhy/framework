@@ -51,25 +51,21 @@ class AssetsPublish
      */
     public function handle($request, Closure $next)
     {
-        if ($request->is('assets*') || $request->is('uploads*')) {
-            if (file_exists($file = $this->container->staticPath() . DIRECTORY_SEPARATOR . $request->path())) {
-                $headers = [];
-                switch (pathinfo($file, PATHINFO_EXTENSION)) {
-                    case 'css':
-                        $headers['Content-Type'] = 'text/css';
-                        break;
-                    case 'js':
-                        $headers['Content-Type'] = 'application/json';
-                        break;
-                    default:
-                        $headers['Content-Type'] = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file);
-                        break;
-                }
-
-                return $this->response->make(file_get_contents($file), 200, $headers);
-            } else {
-                return $this->response->make('404 not found', 404);
+        if (file_exists($file = $this->container->staticPath() . DIRECTORY_SEPARATOR . $request->path())) {
+            $headers = [];
+            switch (pathinfo($file, PATHINFO_EXTENSION)) {
+                case 'css':
+                    $headers['Content-Type'] = 'text/css';
+                    break;
+                case 'js':
+                    $headers['Content-Type'] = 'application/json';
+                    break;
+                default:
+                    $headers['Content-Type'] = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file);
+                    break;
             }
+
+            return $this->response->make(file_get_contents($file), 200, $headers);
         } else {
             return $next($request);
         }

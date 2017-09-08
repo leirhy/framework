@@ -61,7 +61,6 @@ class ConsoleServiceProvider extends ServiceProvider
         'MigrateReset'    => 'command.migrate.reset',
         'MigrateRollback' => 'command.migrate.rollback',
         'MigrateStatus'   => 'command.migrate.status',
-        'Optimize'        => 'command.optimize',
         'RouteCache'      => 'command.route.cache',
         'RouteClear'      => 'command.route.clear',
         'RouteList'       => 'command.route.list',
@@ -294,16 +293,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.migrate.status', function ($app) {
             return new MigrateStatusCommand($app['migrator']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerOptimizeCommand()
-    {
-        $this->app->singleton('command.optimize', function ($app) {
-            return new Commands\OptimizeCommand($app['composer']);
         });
     }
 

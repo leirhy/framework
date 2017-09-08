@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Http\Middlewares;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Support\Str;
 
 /**
  * Class AssetsPublish.
@@ -50,7 +51,7 @@ class AssetsPublish
      */
     public function handle($request, Closure $next)
     {
-        if (file_exists($file = $this->container->staticPath() . DIRECTORY_SEPARATOR . $request->path())) {
+        if (file_exists($file = $this->container->staticPath() . DIRECTORY_SEPARATOR . $request->path()) && !Str::endsWith('/', $request->path())) {
             $headers = [];
             switch (pathinfo($file, PATHINFO_EXTENSION)) {
                 case 'css':

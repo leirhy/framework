@@ -1231,4 +1231,14 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         return $this->basePath . DIRECTORY_SEPARATOR . 'statics';
     }
+
+    /**
+     * Get the path to the cached packages.php file.
+     *
+     * @return string
+     */
+    public function getCachedPackagesPath()
+    {
+        return '';
+    }
 }

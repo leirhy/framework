@@ -52,7 +52,7 @@ class ConfigCacheCommand extends Command
     /**
      * Command handler.
      */
-    public function fire()
+    public function handle()
     {
         $this->call('config:clear');
         $config = $this->getFreshConfiguration();

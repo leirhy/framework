@@ -45,7 +45,7 @@ class RouteClearCommand extends Command
     /**
      * Command handler.
      */
-    public function fire()
+    public function handle()
     {
         $this->files->delete($this->laravel->getCachedRoutesPath());
         $this->info('Route cache cleared!');

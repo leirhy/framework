@@ -51,7 +51,7 @@ class VendorPublishCommand extends Command
     /**
      * Command handler.
      */
-    public function fire()
+    public function handle()
     {
         $tags = $this->option('tag');
         $tags = $tags ?: [null];

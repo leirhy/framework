@@ -60,7 +60,7 @@ class AppNameCommand extends Command
     /**
      * Command handler.
      */
-    public function fire()
+    public function handle()
     {
         $this->currentRoot = trim($this->laravel->getNamespace(), '\\');
         $this->setBootstrapNamespaces();

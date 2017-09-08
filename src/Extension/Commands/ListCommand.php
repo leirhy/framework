@@ -48,7 +48,7 @@ class ListCommand extends Command
      * @return bool
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function fire(ExtensionManager $manager)
+    public function handle(ExtensionManager $manager)
     {
         $extensions = $manager->getExtensions();
         $list = new Collection();

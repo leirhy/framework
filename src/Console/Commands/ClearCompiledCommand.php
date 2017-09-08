@@ -28,7 +28,7 @@ class ClearCompiledCommand extends Command
     /**
      * Command handler.
      */
-    public function fire()
+    public function handle()
     {
         $compiledPath = $this->laravel->getCachedCompilePath();
         $servicesPath = $this->laravel->getCachedServicesPath();

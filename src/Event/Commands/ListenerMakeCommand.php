@@ -39,14 +39,14 @@ class ListenerMakeCommand extends GeneratorCommand
      * @return bool
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function fire()
+    public function handle()
     {
         if (!$this->option('event')) {
             $this->error('Missing required option: --event');
 
             return false;
         }
-        parent::fire();
+        parent::handle();
 
         return true;
     }

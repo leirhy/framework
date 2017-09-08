@@ -31,7 +31,7 @@ class GenerateCommand extends Command
      *
      * @return bool
      */
-    public function fire(): bool
+    public function handle(): bool
     {
         return true;
     }

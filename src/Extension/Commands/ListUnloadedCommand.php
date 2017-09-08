@@ -43,7 +43,7 @@ class ListUnloadedCommand extends Command
      *
      * @return bool
      */
-    public function fire(ExtensionManager $manager)
+    public function handle(ExtensionManager $manager)
     {
         $extensions = $manager->getUnloadedExtensions();
         $list = new Collection();

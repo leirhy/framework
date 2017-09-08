@@ -39,7 +39,7 @@ class PermissionCommand extends Command
      *
      * @return bool
      */
-    public function fire()
+    public function handle()
     {
         $data = new Collection();
         $this->container->make('permission')->permissions()->each(function (Permission $permission, $identification) use ($data) {

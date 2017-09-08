@@ -102,11 +102,11 @@ abstract class Command extends SymfonyCommand
     {
         $this->input = $input;
         $this->output = $output;
-        if (!method_exists($this, 'fire')) {
-            throw new Exception('Method fire do not exits!', 404);
+        if (!method_exists($this, 'handle')) {
+            throw new Exception('Method handle do not exits!', 404);
         }
 
-        return $this->container->call([$this, 'fire']);
+        return $this->container->call([$this, 'handle']);
     }
 
     /**

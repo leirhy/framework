@@ -37,7 +37,7 @@ class KeyGenerateCommand extends Command
      *
      * @return bool
      */
-    public function fire()
+    public function handle()
     {
         $key = $this->generateRandomKey();
         if ($this->option('show')) {

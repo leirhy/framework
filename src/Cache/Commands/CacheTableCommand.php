@@ -21,7 +21,7 @@ class CacheTableCommand extends IlluminateCacheTableCommand
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function fire()
+    public function handle()
     {
         $fullPath = $this->createBaseMigration();
         $stub = $this->files->get($this->getStubPath());

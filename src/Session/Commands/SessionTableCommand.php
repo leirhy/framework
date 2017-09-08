@@ -21,7 +21,7 @@ class SessionTableCommand extends IlluminateSessionTableCommand
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function fire()
+    public function handle()
     {
         $fullPath = $this->createBaseMigration();
         $stub = $this->files->get($this->getStub());

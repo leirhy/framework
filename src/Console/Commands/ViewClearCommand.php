@@ -46,7 +46,7 @@ class ViewClearCommand extends Command
     /**
      * Command handler.
      */
-    public function fire()
+    public function handle()
     {
         $path = $this->laravel['config']['view.compiled'];
         if (!$path) {

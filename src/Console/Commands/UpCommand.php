@@ -27,7 +27,7 @@ class UpCommand extends Command
     /**
      * Command handler.
      */
-    public function fire()
+    public function handle()
     {
         @unlink($this->laravel->storagePath() . '/bootstraps/down');
         $this->info('Application is now live.');

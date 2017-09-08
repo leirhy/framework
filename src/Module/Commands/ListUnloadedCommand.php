@@ -43,7 +43,7 @@ class ListUnloadedCommand extends Command
      *
      * @return bool
      */
-    public function fire(ModuleManager $manager)
+    public function handle(ModuleManager $manager)
     {
         $modules = $manager->getUnloadedModules();
         $list = new Collection();

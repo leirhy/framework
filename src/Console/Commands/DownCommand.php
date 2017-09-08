@@ -30,7 +30,7 @@ class DownCommand extends Command
     /**
      * Command handler.
      */
-    public function fire()
+    public function handle()
     {
         file_put_contents($this->laravel->storagePath() . '/bootstraps/down',
             json_encode($this->getDownFilePayload(), JSON_PRETTY_PRINT));

@@ -58,7 +58,7 @@ class RouteCacheCommand extends Command
      * @throws \Exception
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function fire()
+    public function handle()
     {
         $this->call('route:clear');
         $routes = $this->getFreshApplicationRoutes();

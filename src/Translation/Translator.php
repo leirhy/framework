@@ -8,10 +8,10 @@
  */
 namespace Notadd\Foundation\Translation;
 
+use Illuminate\Contracts\Translation\Loader;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Translation\LoaderInterface;
 use Illuminate\Translation\Translator as IlluminateTranslator;
 
 /**
@@ -27,11 +27,11 @@ class Translator extends IlluminateTranslator
     /**
      * Translator constructor.
      *
-     * @param \Illuminate\Translation\LoaderInterface $loader
-     * @param string                                  $locale
-     * @param \Illuminate\Filesystem\Filesystem       $files
+     * @param \Illuminate\Contracts\Translation\Loader $loader
+     * @param string                                   $locale
+     * @param \Illuminate\Filesystem\Filesystem        $files
      */
-    public function __construct(LoaderInterface $loader, $locale, Filesystem $files)
+    public function __construct(Loader $loader, $locale, Filesystem $files)
     {
         parent::__construct($loader, $locale);
         $this->files = $files;

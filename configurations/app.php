@@ -47,7 +47,7 @@ return [
         Notadd\Foundation\Permission\PermissionServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Notadd\Foundation\Queue\QueueServiceProvider::class,
-        Illuminate\Redis\RedisServiceProvider::class,
+        Notadd\Foundation\Redis\RedisServiceProvider::class,
         Notadd\Foundation\SearchEngine\SearchEngineServiceProvider::class,
         Notadd\Foundation\Session\SessionServiceProvider::class,
         Notadd\Foundation\Theme\ThemeServiceProvider::class,

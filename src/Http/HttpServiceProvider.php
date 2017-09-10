@@ -55,7 +55,7 @@ class HttpServiceProvider extends ServiceProvider
                 } else {
                     echo 'Notadd 已经安装成功！';
                 }
-            });
+            })->middleware('web');
         }
     }
 

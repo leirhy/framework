@@ -25,6 +25,11 @@ class OrderHandler extends Handler
     protected $module;
 
     /**
+     * @var bool
+     */
+    protected $onlyValues = true;
+
+    /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
     protected $settings;
@@ -60,7 +65,7 @@ class OrderHandler extends Handler
             'identification.required' => '模块表示必须填写',
             'order.numeric'           => '匹配排序必须为数值',
             'order.required'          => '匹配排序必须填写',
-        ], [], true);
+        ]);
         $this->settings->set('module.' . $identification . '.seo.order', $order);
         $this->withCode(200)->withMessage('设置模块匹配排序成功！');
     }

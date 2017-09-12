@@ -65,6 +65,7 @@ class ModuleHandler extends Handler
             'name'           => '全局',
             'order'          => 99999,
         ]);
+        $modules->forget('notadd/administration');
         $this->withCode(200)->withData($modules->sortBy('order'))->withMessage('获取模块列表成功！');
     }
 }

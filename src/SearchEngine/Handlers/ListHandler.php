@@ -8,7 +8,11 @@
  */
 namespace Notadd\Foundation\SearchEngine\Handlers;
 
+use Illuminate\Container\Container;
+use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Routing\Abstracts\Handler;
+use Notadd\Foundation\SearchEngine\Models\Rule as SeoRule;
+use Notadd\Foundation\Validation\Rule;
 
 /**
  * Class ListHandler.
@@ -16,12 +20,45 @@ use Notadd\Foundation\Routing\Abstracts\Handler;
 class ListHandler extends Handler
 {
     /**
+     * @var bool
+     */
+    protected $onlyValues = true;
+
+    /**
+     * @var \Notadd\Foundation\Module\ModuleManager
+     */
+    protected $module;
+
+    /**
+     * ListHandler constructor.
+     *
+     * @param \Illuminate\Container\Container         $container
+     * @param \Notadd\Foundation\Module\ModuleManager $module
+     */
+    public function __construct(Container $container, ModuleManager $module)
+    {
+        parent::__construct($container);
+        $this->module = $module;
+    }
+
+    /**
      * Execute Handler.
      *
      * @throws \Exception
      */
     protected function execute()
     {
-        // TODO: Implement execute() method.
+        list($identification) = $this->validate($this->request, [
+            'identification' => Rule::required(),
+        ], [
+            'identification.required' => '模块标识必须填写',
+        ]);
+        if ($this->module->has($identification)) {
+            $builder = SeoRule::query();
+            $builder->where('module', $identification);
+            $this->withCode(200)->withData($builder->get())->withMessage('获取数据成功！');
+        } else {
+            $this->withCode(500)->withError('模块不存在！');
+        }
     }
 }

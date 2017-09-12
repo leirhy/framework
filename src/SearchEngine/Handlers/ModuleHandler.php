@@ -56,14 +56,15 @@ class ModuleHandler extends Handler
                 'alias'          => $this->setting->get('module.' . $module->identification() . '.domain.alias', ''),
                 'identification' => $module->identification(),
                 'name'           => $module->get('name'),
-                'order'          => 0,
+                'order'          => intval($this->setting->get('module.' . $module->identification() . '.seo.order', 0)),
             ]);
         });
         $modules->put('global', [
             'alias'          => '/',
             'identification' => 'global',
             'name'           => '全局',
+            'order'          => 99999,
         ]);
-        $this->withCode(200)->withData($modules)->withMessage('获取模块列表成功！');
+        $this->withCode(200)->withData($modules->sortBy('order'))->withMessage('获取模块列表成功！');
     }
 }

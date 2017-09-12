@@ -9,7 +9,7 @@
 namespace Notadd\Foundation\SearchEngine\Controllers;
 
 use Notadd\Foundation\Routing\Abstracts\ApiController;
-use Notadd\Foundation\SearchEngine\Handlers\HandlerHandler;
+use Notadd\Foundation\SearchEngine\Handlers\CreateHandler;
 use Notadd\Foundation\SearchEngine\Handlers\ListHandler;
 use Notadd\Foundation\SearchEngine\Handlers\ModuleHandler;
 
@@ -24,6 +24,16 @@ class SeoController extends ApiController
     protected $permissions = [
         'global::global::search-engine::seo.set' => 'set',
     ];
+
+    /**
+     * @param \Notadd\Foundation\SearchEngine\Handlers\CreateHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function create(CreateHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
 
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\ListHandler $handler

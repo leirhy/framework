@@ -10,6 +10,7 @@ namespace Notadd\Foundation\SearchEngine\Controllers;
 
 use Notadd\Foundation\Routing\Abstracts\ApiController;
 use Notadd\Foundation\SearchEngine\Handlers\HandlerHandler;
+use Notadd\Foundation\SearchEngine\Handlers\ListHandler;
 
 /**
  * Class SeoController.
@@ -24,14 +25,11 @@ class SeoController extends ApiController
     ];
 
     /**
-     * Api handler.
+     * @param \Notadd\Foundation\SearchEngine\Handlers\ListHandler $handler
      *
-     * @param \Notadd\Foundation\SearchEngine\Handlers\HandlerHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
-     * @throws \Exception
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
-    public function handler(HandlerHandler $handler)
+    public function list(ListHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

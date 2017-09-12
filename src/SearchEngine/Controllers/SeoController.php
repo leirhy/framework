@@ -13,6 +13,7 @@ use Notadd\Foundation\SearchEngine\Handlers\CreateHandler;
 use Notadd\Foundation\SearchEngine\Handlers\EditHandler;
 use Notadd\Foundation\SearchEngine\Handlers\ListHandler;
 use Notadd\Foundation\SearchEngine\Handlers\ModuleHandler;
+use Notadd\Foundation\SearchEngine\Handlers\OrderHandler;
 use Notadd\Foundation\SearchEngine\Handlers\RemoveHandler;
 use Notadd\Foundation\SearchEngine\Handlers\TemplateHandler;
 
@@ -64,6 +65,16 @@ class SeoController extends ApiController
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function module(ModuleHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
+    /**
+     * @param \Notadd\Foundation\SearchEngine\Handlers\OrderHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function order(OrderHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

@@ -25,6 +25,7 @@ class RouterRegister extends AbstractRouteRegister
             $this->router->post('/', SeoController::class . '@list');
             $this->router->post('create', SeoController::class . '@create');
             $this->router->post('edit', SeoController::class . '@edit');
+            $this->router->post('order', SeoController::class . '@order');
             $this->router->post('module', SeoController::class . '@module');
             $this->router->post('remove', SeoController::class . '@remove');
             $this->router->post('template', SeoController::class . '@template');

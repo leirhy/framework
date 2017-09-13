@@ -71,7 +71,6 @@ class ConsoleServiceProvider extends ServiceProvider
         'CacheTable'    => 'command.cache.table',
         'MigrateMake'   => 'command.migrate.make',
         'SeederMake'    => 'command.seeder.make',
-        'Serve'         => 'command.serve',
         'VendorPublish' => 'command.vendor.publish',
     ];
 
@@ -315,16 +314,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.route.list', function ($app) {
             return new RouteListCommand($app['router']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerServeCommand()
-    {
-        $this->app->singleton('command.serve', function () {
-            return new Commands\ServeCommand();
         });
     }
 

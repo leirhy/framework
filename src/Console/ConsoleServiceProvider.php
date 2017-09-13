@@ -16,8 +16,6 @@ use Illuminate\Database\Console\Migrations\StatusCommand as MigrateStatusCommand
 use Illuminate\Database\Console\Migrations\InstallCommand as MigrateInstallCommand;
 use Illuminate\Database\Console\Migrations\RefreshCommand as MigrateRefreshCommand;
 use Illuminate\Database\Console\Migrations\RollbackCommand as MigrateRollbackCommand;
-use Illuminate\Queue\Console\FailedTableCommand;
-use Illuminate\Queue\Console\TableCommand;
 use Notadd\Foundation\Cache\Commands\CacheTableCommand;
 use Notadd\Foundation\Console\Commands\AppNameCommand;
 use Notadd\Foundation\Console\Commands\ClearCompiledCommand;
@@ -75,8 +73,6 @@ class ConsoleServiceProvider extends ServiceProvider
         'CacheTable'        => 'command.cache.table',
         'MailMake'          => 'command.mail.make',
         'MigrateMake'       => 'command.migrate.make',
-        'QueueFailedTable'  => 'command.queue.failed-table',
-        'QueueTable'        => 'command.queue.table',
         'SeederMake'        => 'command.seeder.make',
         'SessionTable'      => 'command.session.table',
         'Serve'             => 'command.serve',
@@ -293,26 +289,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.migrate.status', function ($app) {
             return new MigrateStatusCommand($app['migrator']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerQueueFailedTableCommand()
-    {
-        $this->app->singleton('command.queue.failed-table', function ($app) {
-            return new FailedTableCommand($app['files'], $app['composer']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerQueueTableCommand()
-    {
-        $this->app->singleton('command.queue.table', function ($app) {
-            return new TableCommand($app['files'], $app['composer']);
         });
     }
 

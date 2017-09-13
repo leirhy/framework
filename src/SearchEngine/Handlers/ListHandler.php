@@ -55,6 +55,7 @@ class ListHandler extends Handler
         ]);
         if ($this->module->has($identification)) {
             $builder = SeoRule::query();
+            $builder->orderBy('order', 'asc');
             $builder->where('module', $identification);
             $this->withCode(200)->withData($builder->get())->withMessage('获取数据成功！');
         } else {

@@ -16,7 +16,6 @@ use Illuminate\Database\Console\Migrations\StatusCommand as MigrateStatusCommand
 use Illuminate\Database\Console\Migrations\InstallCommand as MigrateInstallCommand;
 use Illuminate\Database\Console\Migrations\RefreshCommand as MigrateRefreshCommand;
 use Illuminate\Database\Console\Migrations\RollbackCommand as MigrateRollbackCommand;
-use Notadd\Foundation\Cache\Commands\CacheTableCommand;
 use Notadd\Foundation\Console\Commands\AppNameCommand;
 use Notadd\Foundation\Console\Commands\ClearCompiledCommand;
 use Notadd\Foundation\Console\Commands\ConfigCacheCommand;
@@ -68,7 +67,6 @@ class ConsoleServiceProvider extends ServiceProvider
      * @var array
      */
     protected $devCommands = [
-        'CacheTable'    => 'command.cache.table',
         'MigrateMake'   => 'command.migrate.make',
         'SeederMake'    => 'command.seeder.make',
         'VendorPublish' => 'command.vendor.publish',
@@ -107,16 +105,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.app.name', function ($app) {
             return new AppNameCommand($app['composer'], $app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerCacheTableCommand()
-    {
-        $this->app->singleton('command.cache.table', function ($app) {
-            return new CacheTableCommand($app['files'], $app['composer']);
         });
     }
 

@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Routing\Abstracts;
 
+use Closure;
 use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Support\Arrayable;
@@ -154,6 +155,15 @@ abstract class Handler
     protected function rollBackTransaction()
     {
         $this->container->make('db')->rollBack();
+    }
+
+    /**
+     * @param \Closure $closure
+     * @param int      $attempts
+     */
+    protected function transaction(Closure $closure, $attempts = 1)
+    {
+        $this->container->make('db')->transaction($closure, $attempts);
     }
 
     /**

@@ -30,7 +30,6 @@ use Notadd\Foundation\Mail\Commands\MailMakeCommand;
 use Notadd\Foundation\Routing\Commands\RouteCacheCommand;
 use Notadd\Foundation\Routing\Commands\RouteClearCommand;
 use Notadd\Foundation\Routing\Commands\RouteListCommand;
-use Notadd\Foundation\Session\Commands\SessionTableCommand;
 
 /**
  * Class ArtisanServiceProvider.
@@ -70,13 +69,12 @@ class ConsoleServiceProvider extends ServiceProvider
      * @var array
      */
     protected $devCommands = [
-        'CacheTable'        => 'command.cache.table',
-        'MailMake'          => 'command.mail.make',
-        'MigrateMake'       => 'command.migrate.make',
-        'SeederMake'        => 'command.seeder.make',
-        'SessionTable'      => 'command.session.table',
-        'Serve'             => 'command.serve',
-        'VendorPublish'     => 'command.vendor.publish',
+        'CacheTable'    => 'command.cache.table',
+        'MailMake'      => 'command.mail.make',
+        'MigrateMake'   => 'command.migrate.make',
+        'SeederMake'    => 'command.seeder.make',
+        'Serve'         => 'command.serve',
+        'VendorPublish' => 'command.vendor.publish',
     ];
 
     /**
@@ -299,16 +297,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.seeder.make', function ($app) {
             return new SeederMakeCommand($app['files'], $app['composer']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
-    protected function registerSessionTableCommand()
-    {
-        $this->app->singleton('command.session.table', function ($app) {
-            return new SessionTableCommand($app['files'], $app['composer']);
         });
     }
 

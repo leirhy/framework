@@ -16,6 +16,7 @@ use Notadd\Foundation\SearchEngine\Handlers\ListHandler;
 use Notadd\Foundation\SearchEngine\Handlers\ModuleHandler;
 use Notadd\Foundation\SearchEngine\Handlers\OrderHandler;
 use Notadd\Foundation\SearchEngine\Handlers\RemoveHandler;
+use Notadd\Foundation\SearchEngine\Handlers\SeoHandler;
 use Notadd\Foundation\SearchEngine\Handlers\TemplateHandler;
 
 /**
@@ -96,6 +97,16 @@ class SeoController extends ApiController
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function remove(RemoveHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
+
+    /**
+     * @param \Notadd\Foundation\SearchEngine\Handlers\SeoHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function seo(SeoHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

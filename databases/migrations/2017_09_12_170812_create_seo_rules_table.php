@@ -24,7 +24,7 @@ class CreateSeoRulesTable extends Migration
             $table->increments('id');
             $table->string('module')->comment('模块');
             $table->string('path')->comment('路径');
-            $table->text('template')->nullable()->default('')->comment('模板');
+            $table->text('template')->nullable()->comment('模板');
             $table->tinyInteger('order')->nullable()->default(0)->comment('排序');
             $table->tinyInteger('open')->nullable()->default(0)->comment('是否开启');
             $table->timestamps();

@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\SearchEngine\Controllers;
 
 use Notadd\Foundation\Routing\Abstracts\ApiController;
+use Notadd\Foundation\SearchEngine\Handlers\BatchHandler;
 use Notadd\Foundation\SearchEngine\Handlers\CreateHandler;
 use Notadd\Foundation\SearchEngine\Handlers\EditHandler;
 use Notadd\Foundation\SearchEngine\Handlers\ListHandler;
@@ -28,6 +29,16 @@ class SeoController extends ApiController
     protected $permissions = [
         'global::global::search-engine::seo.set' => 'set',
     ];
+
+    /**
+     * @param \Notadd\Foundation\SearchEngine\Handlers\BatchHandler $handler
+     *
+     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     */
+    public function batch(BatchHandler $handler)
+    {
+        return $handler->toResponse()->generateHttpResponse();
+    }
 
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\CreateHandler $handler

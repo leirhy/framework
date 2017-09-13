@@ -58,13 +58,14 @@ class SeoHandler extends Handler
         ], [
             'id.numeric'      => '规则 ID 必须为数值',
             'id.required'     => '规则 ID 必须填写',
-            'module.required' => '模块名称必须填写',
+            'module.required' => '模块标识必须填写',
         ]);
         $module = Str::replaceFirst('-', '/', $module);
-        if ($this->module->has($module)) {
+        if ($this->module->has($module) || $module == 'global') {
             $rule = SearchEngineRule::query()->where('module', $module)->where('id', $id)->first();
             if ($rule instanceof SearchEngineRule) {
                 $this->withCode(200)->withData($rule)->withExtra([
+                    'module'    => $module == 'global' ? '全局' : $this->module->get($module)->get('name'),
                     'templates' => [
                         [
                             'name' => '默认模板',

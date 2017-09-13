@@ -55,11 +55,13 @@ class ListHandler extends Handler
             'identification.required' => '模块标识必须填写',
         ]);
         $identification = Str::replaceFirst('-', '/', $identification);
-        if ($this->module->has($identification)) {
+        if ($this->module->has($identification) || $identification == 'global') {
             $builder = SeoRule::query();
             $builder->orderBy('order', 'asc');
             $builder->where('module', $identification);
-            $this->withCode(200)->withData($builder->get())->withMessage('获取数据成功！');
+            $this->withCode(200)->withData($builder->get())->withExtra([
+                'module' => $identification == 'global' ? '全局' : $this->module->get($identification)->get('name'),
+            ])->withMessage('获取数据成功！');
         } else {
             $this->withCode(500)->withError('模块不存在！');
         }

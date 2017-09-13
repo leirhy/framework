@@ -18,6 +18,14 @@ class Rule extends Model
     /**
      * @var array
      */
+    protected $casts = [
+        'open'  => 'boolean',
+        'order' => 'integer',
+    ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'module',
         'open',

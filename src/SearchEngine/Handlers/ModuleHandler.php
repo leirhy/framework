@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\SearchEngine\Handlers;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Str;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Routing\Abstracts\Handler;
@@ -54,7 +55,7 @@ class ModuleHandler extends Handler
         $this->module->getEnabledModules()->each(function (Module $module) use ($modules) {
             $modules->put($module->identification(), [
                 'alias'          => $this->setting->get('module.' . $module->identification() . '.domain.alias', ''),
-                'identification' => $module->identification(),
+                'identification' => Str::replaceFirst('/', '-', $module->identification()),
                 'name'           => $module->get('name'),
                 'order'          => intval($this->setting->get('module.' . $module->identification() . '.seo.order', 0)),
             ]);

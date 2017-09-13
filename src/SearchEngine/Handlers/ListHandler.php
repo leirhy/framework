@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\SearchEngine\Handlers;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Str;
 use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Routing\Abstracts\Handler;
 use Notadd\Foundation\SearchEngine\Models\Rule as SeoRule;
@@ -53,6 +54,7 @@ class ListHandler extends Handler
         ], [
             'identification.required' => '模块标识必须填写',
         ]);
+        $identification = Str::replaceFirst('-', '/', $identification);
         if ($this->module->has($identification)) {
             $builder = SeoRule::query();
             $builder->orderBy('order', 'asc');

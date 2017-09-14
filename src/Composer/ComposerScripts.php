@@ -41,12 +41,4 @@ class ComposerScripts
         require_once $event->getComposer()->getConfig()->get('vendor-dir') . '/autoload.php';
         static::clearCompiled();
     }
-
-    /**
-     * Clear compiled files for Notadd.
-     */
-    protected static function clearCompiled()
-    {
-        file_exists($servicesPath = (new Application(getcwd()))->getCachedCompilePath()) && @unlink($servicesPath);
-    }
 }

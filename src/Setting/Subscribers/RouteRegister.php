@@ -6,7 +6,7 @@
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-08 17:02
  */
-namespace Notadd\Foundation\Setting\Listeners;
+namespace Notadd\Foundation\Setting\Subscribers;
 
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 use Notadd\Foundation\Setting\Controllers\SettingController;

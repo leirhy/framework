@@ -6,7 +6,7 @@
  * @copyright (c) 2017, notadd.com
  * @datetime      2017-05-25 15:14
  */
-namespace Notadd\Foundation\Setting\Listeners;
+namespace Notadd\Foundation\Setting\Subscribers;
 
 use Notadd\Foundation\Permission\Abstracts\PermissionRegister as AbstractPermissionRegister;
 

@@ -8,13 +8,13 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
+use Exception;
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Filesystem\Filesystem;
-use Notadd\Foundation\Configuration\Loaders\FileLoader;
+use SplFileInfo;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class LoadConfiguration.
@@ -30,8 +30,12 @@ class LoadConfiguration
      */
     public function bootstrap(Application $application)
     {
-        $loader = new FileLoader(new Filesystem(), $application['path'] . DIRECTORY_SEPARATOR . 'configurations');
-        $application->instance('config', $configuration = new Repository($loader, $application->environment()));
+        $items = [];
+        if (file_exists($cached = $application->getCachedConfigPath())) {
+            $items = Yaml::parse(file_get_contents($cached));
+            $loadedFromCache = true;
+        }
+        $application->instance('config', $configuration = new Repository($items));
         if (!isset($loadedFromCache)) {
             $this->loadConfigurationFiles($application, $configuration);
         }
@@ -44,12 +48,19 @@ class LoadConfiguration
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
      * @param \Illuminate\Contracts\Config\Repository                                     $repository
      *
-     * @return void
+     * @throws \Exception
      */
     protected function loadConfigurationFiles(Application $application, RepositoryContract $repository)
     {
+        $files = $this->getConfigurationFiles($application);
+        if (!isset($files['app'])) {
+            throw new Exception('Unable to load the "app" configuration file.');
+        }
         foreach ($this->getConfigurationFiles($application) as $key => $path) {
-            $repository->set($key, require $path);
+            $values = Yaml::parse(file_get_contents($path));
+            $values = is_array($values) ? $values : [];
+            array_walk_recursive($values, [$this, 'parseValues']);
+            $repository->set($key, $values);
         }
     }
 
@@ -64,9 +75,9 @@ class LoadConfiguration
     {
         $files = [];
         $configPath = realpath($app->configPath());
-        foreach (Finder::create()->files()->name('*.php')->in($configPath) as $file) {
-            $nesting = $this->getConfigurationNesting($file, $configPath);
-            $files[$nesting . basename($file->getRealPath(), '.php')] = $file->getRealPath();
+        foreach (Finder::create()->files()->name('*.yaml')->in($configPath) as $file) {
+            $directory = $this->getNestedDirectory($file, $configPath);
+            $files[$directory . basename($file->getRealPath(), '.yaml')] = $file->getRealPath();
         }
 
         return $files;
@@ -75,18 +86,42 @@ class LoadConfiguration
     /**
      * Get the configuration file nesting path.
      *
-     * @param \Symfony\Component\Finder\SplFileInfo $file
-     * @param string                                $configPath
+     * @param \SplFileInfo $file
+     * @param string       $configPath
      *
      * @return string
      */
-    protected function getConfigurationNesting(SplFileInfo $file, $configPath)
+    protected function getNestedDirectory(SplFileInfo $file, $configPath)
     {
-        $directory = dirname($file->getRealPath());
-        if ($tree = trim(str_replace($configPath, '', $directory), DIRECTORY_SEPARATOR)) {
-            $tree = str_replace(DIRECTORY_SEPARATOR, '.', $tree) . '.';
+        $directory = $file->getPath();
+        if ($nested = trim(str_replace($configPath, '', $directory), DIRECTORY_SEPARATOR)) {
+            $nested = str_replace(DIRECTORY_SEPARATOR, '.', $nested) . '.';
         }
 
-        return $tree;
+        return $nested;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return bool
+     */
+    protected function parseValues(&$value)
+    {
+        if (!is_string($value)) {
+            return true;
+        }
+        preg_match_all('/%([a-zA-Z_]+)(?::(.*))?%/', $value, $matches);
+        if (empty(array_shift($matches))) {
+            return true;
+        }
+        $function = current(array_shift($matches));
+        if (!function_exists($function)) {
+            return true;
+        }
+        $args = current(array_shift($matches));
+        $value = call_user_func_array($function, explode(',', $args));
+
+        return true;
     }
 }

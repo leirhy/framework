@@ -9,9 +9,9 @@
 namespace Notadd\Foundation\Module;
 
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use Notadd\Foundation\Configuration\Repository as ConfigurationRepository;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -52,24 +52,19 @@ class ModuleManager
     protected $unloaded;
 
     /**
-     * @var \Notadd\Foundation\Configuration\Repository
+     * @var \Illuminate\Contracts\Config\Repository
      */
     private $configuration;
 
     /**
      * ModuleManager constructor.
      *
-     * @param \Illuminate\Container\Container $container
-     * @param \Notadd\Foundation\Configuration\Repository $configuration
-     * @param \Illuminate\Events\Dispatcher $events
-     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param \Illuminate\Container\Container         $container
+     * @param \Illuminate\Contracts\Config\Repository $configuration
+     * @param \Illuminate\Events\Dispatcher           $events
+     * @param \Illuminate\Filesystem\Filesystem       $files
      */
-    public function __construct(
-        Container $container,
-        ConfigurationRepository $configuration,
-        Dispatcher $events,
-        Filesystem $files
-    ) {
+    public function __construct(Container $container, Repository $configuration, Dispatcher $events, Filesystem $files) {
         $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;

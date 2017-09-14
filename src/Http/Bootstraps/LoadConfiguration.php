@@ -8,11 +8,11 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
+use Illuminate\Config\Repository;
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Configuration\Loaders\FileLoader;
-use Notadd\Foundation\Configuration\Repository;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 

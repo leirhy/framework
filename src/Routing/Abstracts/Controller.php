@@ -87,7 +87,7 @@ abstract class Controller extends IlluminateController
     /**
      * Get configuration instance.
      *
-     * @return \Notadd\Foundation\Configuration\Repository
+     * @return \Illuminate\Contracts\Config\Repository
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getConfig()

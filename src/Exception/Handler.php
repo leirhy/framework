@@ -12,6 +12,7 @@ use Exception;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -22,7 +23,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Validation\ValidationException;
-use Notadd\Foundation\Configuration\Repository;
 use Notadd\Foundation\Permission\Exceptions\PermissionException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application as ConsoleApplication;
@@ -39,7 +39,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class Handler implements ExceptionHandlerContract
 {
     /**
-     * @var \Notadd\Foundation\Configuration\Repository
+     * @var \Illuminate\Contracts\Config\Repository
      */
     protected $configuration;
 
@@ -69,19 +69,15 @@ class Handler implements ExceptionHandlerContract
     protected $view;
 
     /**
-     * @param \Illuminate\Contracts\Container\Container                $container
-     * @param \Notadd\Foundation\Configuration\Repository              $configuration
-     * @param \Illuminate\Routing\Redirector                           $redirector
-     * @param \Illuminate\Contracts\Routing\ResponseFactory            $response
-     * @param \Illuminate\Contracts\View\Factory|\Illuminate\View\View $view
+     * Handler constructor.
+     *
+     * @param \Illuminate\Contracts\Container\Container     $container
+     * @param \Illuminate\Contracts\Config\Repository       $configuration
+     * @param \Illuminate\Routing\Redirector                $redirector
+     * @param \Illuminate\Contracts\Routing\ResponseFactory $response
+     * @param \Illuminate\Contracts\View\Factory            $view
      */
-    public function __construct(
-        Container $container,
-        Repository $configuration,
-        Redirector $redirector,
-        ResponseFactory $response,
-        ViewFactory $view
-    )
+    public function __construct(Container $container, Repository $configuration, Redirector $redirector, ResponseFactory $response, ViewFactory $view)
     {
         $this->container = $container;
         $this->configuration = $configuration;

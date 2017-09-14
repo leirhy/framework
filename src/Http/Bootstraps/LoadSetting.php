@@ -8,8 +8,8 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
-use Notadd\Foundation\Configuration\Repository as ConfigRepository;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
@@ -27,7 +27,7 @@ class LoadSetting
     public function bootstrap(Application $application)
     {
         if ($application->isInstalled()) {
-            $config = $application->make(ConfigRepository::class);
+            $config = $application->make(Repository::class);
             $setting = $application->make(SettingsRepository::class);
             date_default_timezone_set($setting->get('setting.timezone', $config['app.timezone']));
             $config->set('app.debug', $setting->get('setting.debug', true));

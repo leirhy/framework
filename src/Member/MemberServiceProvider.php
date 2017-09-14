@@ -16,6 +16,22 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 class MemberServiceProvider extends ServiceProvider
 {
     /**
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'member',
+            'member.manager',
+        ];
+    }
+
+    /**
      * Register for service provider.
      */
     public function register()

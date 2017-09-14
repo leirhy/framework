@@ -15,8 +15,4 @@ use Illuminate\Validation\ValidationServiceProvider as IlluminateValidationServi
  */
 class ValidationServiceProvider extends IlluminateValidationServiceProvider
 {
-    /**
-     * @var bool
-     */
-    protected $defer = true;
 }

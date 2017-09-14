@@ -8,9 +8,6 @@
  */
 namespace Notadd\Foundation\Editor;
 
-use Illuminate\Events\Dispatcher;
-use Notadd\Foundation\Editor\Listeners\CsrfTokenRegister;
-use Notadd\Foundation\Editor\Listeners\RouteRegister;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
@@ -19,10 +16,7 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 class EditorServiceProvider extends ServiceProvider
 {
     /**
-     * Boot service provider.
+     * @var bool
      */
-    public function boot()
-    {
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-    }
+    protected $defer = true;
 }

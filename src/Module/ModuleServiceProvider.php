@@ -8,14 +8,7 @@
  */
 namespace Notadd\Foundation\Module;
 
-use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
-use Notadd\Foundation\Module\Commands\GenerateCommand;
-use Notadd\Foundation\Module\Commands\ListCommand;
-use Notadd\Foundation\Module\Commands\ListUnloadedCommand;
-use Notadd\Foundation\Module\Listeners\PermissionGroupRegister;
-use Notadd\Foundation\Module\Listeners\PermissionRegister;
-use Notadd\Foundation\Module\Listeners\RouteRegister;
 
 /**
  * Class ModuleServiceProvider.
@@ -23,18 +16,16 @@ use Notadd\Foundation\Module\Listeners\RouteRegister;
 class ModuleServiceProvider extends ServiceProvider
 {
     /**
-     * Boot service provider.
+     * @var bool
      */
-    public function boot()
+    protected $defer = true;
+
+    /**
+     * @return array
+     */
+    public function provides()
     {
-        $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-        $this->commands([
-            GenerateCommand::class,
-            ListCommand::class,
-            ListUnloadedCommand::class,
-        ]);
+        return ['module'];
     }
 
     /**

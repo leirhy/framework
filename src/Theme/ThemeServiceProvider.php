@@ -16,10 +16,16 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 class ThemeServiceProvider extends ServiceProvider
 {
     /**
-     * Boot service provider.
+     * @var bool
      */
-    public function boot()
+    protected $defer = true;
+
+    /**
+     * @return array
+     */
+    public function provides()
     {
+        return ['theme'];
     }
 
     /**

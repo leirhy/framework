@@ -8,38 +8,14 @@
  */
 namespace Notadd\Foundation\Mail;
 
-use Illuminate\Events\Dispatcher;
 use Illuminate\Mail\MailServiceProvider as IlluminateMailServiceProvider;
 use Illuminate\Mail\Markdown;
-use Notadd\Foundation\Mail\Listeners\PermissionGroupRegister;
-use Notadd\Foundation\Mail\Listeners\PermissionRegister;
-use Notadd\Foundation\Mail\Listeners\RouterRegister;
 
 /**
  * Class MailServiceProvider.
  */
 class MailServiceProvider extends IlluminateMailServiceProvider
 {
-    /**
-     * @var \Notadd\Foundation\Application
-     */
-    protected $app;
-
-    /**
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
-     * Boot service provider.
-     */
-    public function boot()
-    {
-        $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouterRegister::class);
-    }
-
     /**
      * Register the Markdown renderer instance.
      */

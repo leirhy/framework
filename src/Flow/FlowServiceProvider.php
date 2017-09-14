@@ -16,6 +16,19 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 class FlowServiceProvider extends ServiceProvider
 {
     /**
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
+     * @return array
+     */
+    public function provides()
+    {
+        return ['flow'];
+    }
+
+    /**
      * Register service to provider.
      */
     public function register()

@@ -9,9 +9,9 @@
 namespace Notadd\Foundation\Debug;
 
 use Illuminate\Events\Dispatcher;
-use Notadd\Foundation\Debug\Listeners\PermissionGroupRegister;
-use Notadd\Foundation\Debug\Listeners\PermissionRegister;
-use Notadd\Foundation\Debug\Listeners\RouteRegister;
+use Notadd\Foundation\Debug\Subscribers\PermissionGroupRegister;
+use Notadd\Foundation\Debug\Subscribers\PermissionRegister;
+use Notadd\Foundation\Debug\Subscribers\RouteRegister;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
@@ -20,12 +20,7 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 class DebugServiceProvider extends ServiceProvider
 {
     /**
-     * Boot service provider.
+     * @var bool
      */
-    public function boot()
-    {
-        $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-    }
+    protected $defer = true;
 }

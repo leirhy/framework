@@ -8,25 +8,11 @@
  */
 namespace Notadd\Foundation\Redis;
 
-use Illuminate\Events\Dispatcher;
 use Illuminate\Redis\RedisServiceProvider as IlluminateRedisServiceProvider;
-use Notadd\Foundation\Redis\Listeners\RouteRegister;
 
 /**
  * Class RedisServiceProvider.
  */
 class RedisServiceProvider extends IlluminateRedisServiceProvider
 {
-    /**
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
-     * Boot service provider.
-     */
-    public function boot()
-    {
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-    }
 }

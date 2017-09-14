@@ -9,19 +9,10 @@
 namespace Notadd\Foundation\Auth;
 
 use Illuminate\Auth\AuthServiceProvider as IlluminateAuthServiceProvider;
-use Illuminate\Events\Dispatcher;
-use Notadd\Foundation\Auth\Listeners\RouteRegister;
 
 /**
  * Class AuthServiceProvider.
  */
 class AuthServiceProvider extends IlluminateAuthServiceProvider
 {
-    /**
-     * Boot service provider.
-     */
-    public function boot()
-    {
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
-    }
 }

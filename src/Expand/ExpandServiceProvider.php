@@ -15,4 +15,8 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
  */
 class ExpandServiceProvider extends ServiceProvider
 {
+    /**
+     * @var bool
+     */
+    protected $defer = true;
 }

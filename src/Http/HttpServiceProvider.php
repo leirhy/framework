@@ -10,10 +10,8 @@ namespace Notadd\Foundation\Http;
 
 use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
-use Illuminate\Events\Dispatcher;
 use Illuminate\Routing\Redirector;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
-use Notadd\Foundation\Http\Listeners\CheckPublicPath;
 use Notadd\Foundation\Http\Middlewares\AssetsPublish;
 use Notadd\Foundation\Http\Middlewares\CrossPreflight;
 use Notadd\Foundation\Module\Module;
@@ -34,7 +32,6 @@ class HttpServiceProvider extends ServiceProvider
         $this->app->afterResolving(ValidatesWhenResolved::class, function (ValidatesWhenResolved $resolved) {
             $resolved->validate();
         });
-        $this->app->make(Dispatcher::class)->subscribe(CheckPublicPath::class);
         $this->app->make('request')->getMethod() == 'OPTIONS' && $this->app->make(KernelContract::class)->prependMiddleware(CrossPreflight::class);
         $this->app->make(KernelContract::class)->prependMiddleware(AssetsPublish::class);
         $this->app->resolving(FormRequest::class, function (FormRequest $request, $app) {

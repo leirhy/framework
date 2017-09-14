@@ -17,6 +17,19 @@ use Symfony\Component\Yaml\Yaml;
 class YamlServiceProvider extends ServiceProvider
 {
     /**
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
+     * @return array
+     */
+    public function provides()
+    {
+        return ['yaml'];
+    }
+
+    /**
      * Register instance.
      */
     public function register() {

@@ -10,9 +10,9 @@ namespace Notadd\Foundation\SearchEngine;
 
 use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
-use Notadd\Foundation\SearchEngine\Listeners\PermissionGroupRegister;
-use Notadd\Foundation\SearchEngine\Listeners\PermissionRegister;
-use Notadd\Foundation\SearchEngine\Listeners\RouterRegister;
+use Notadd\Foundation\SearchEngine\Subscribers\PermissionGroupRegister;
+use Notadd\Foundation\SearchEngine\Subscribers\PermissionRegister;
+use Notadd\Foundation\SearchEngine\Subscribers\RouterRegister;
 
 /**
  * Class SearchEngineServiceProvider.
@@ -20,13 +20,16 @@ use Notadd\Foundation\SearchEngine\Listeners\RouterRegister;
 class SearchEngineServiceProvider extends ServiceProvider
 {
     /**
-     * Boot service provider.
+     * @var bool
      */
-    public function boot()
+    protected $defer = true;
+
+    /**
+     * @return array
+     */
+    public function provides()
     {
-        $this->app->make(Dispatcher::class)->subscribe(PermissionGroupRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouterRegister::class);
+        return ['searchengine.optimization'];
     }
 
     /**

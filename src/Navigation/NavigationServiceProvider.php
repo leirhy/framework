@@ -8,10 +8,7 @@
  */
 namespace Notadd\Foundation\Navigation;
 
-use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
-use Notadd\Foundation\Navigation\Listeners\PermissionRegister;
-use Notadd\Foundation\Navigation\Listeners\RouteRegister;
 use Notadd\Foundation\Navigation\Models\Item;
 use Notadd\Foundation\Navigation\Observers\ItemObserver;
 
@@ -26,7 +23,5 @@ class NavigationServiceProvider extends ServiceProvider
     public function boot()
     {
         Item::observe(ItemObserver::class);
-        $this->app->make(Dispatcher::class)->subscribe(PermissionRegister::class);
-        $this->app->make(Dispatcher::class)->subscribe(RouteRegister::class);
     }
 }

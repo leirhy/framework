@@ -17,11 +17,21 @@ use Notadd\Foundation\Permission\Commands\PermissionCommand;
 class PermissionServiceProvider extends ServiceProvider
 {
     /**
-     * Boot service.
+     * @var bool
      */
-    public function boot()
+    protected $defer = true;
+
+    /**
+     * @return array
+     */
+    public function provides()
     {
-        $this->commands(PermissionCommand::class);
+        return [
+            'permission',
+            'permission.group',
+            'permission.module',
+            'permission.type',
+        ];
     }
 
     /**

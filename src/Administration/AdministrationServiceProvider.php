@@ -8,8 +8,6 @@
  */
 namespace Notadd\Foundation\Administration;
 
-use Illuminate\Events\Dispatcher;
-use Notadd\Foundation\Administration\Listeners\RouteMatched;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
@@ -18,12 +16,9 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 class AdministrationServiceProvider extends ServiceProvider
 {
     /**
-     * Boot service provider.
+     * @var bool
      */
-    public function boot()
-    {
-        $this->app->make(Dispatcher::class)->subscribe(RouteMatched::class);
-    }
+    protected $defer = true;
 
     /**
      * Register for service provider.

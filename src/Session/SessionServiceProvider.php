@@ -15,11 +15,4 @@ use Illuminate\Session\SessionServiceProvider as IlluminateSessionServiceProvide
  */
 class SessionServiceProvider extends IlluminateSessionServiceProvider
 {
-    /**
-     * Register for service provider.
-     */
-    public function register()
-    {
-        parent::register();
-    }
 }

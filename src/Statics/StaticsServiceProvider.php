@@ -16,11 +16,4 @@ use Notadd\Foundation\Http\Abstracts\ServiceProvider;
  */
 class StaticsServiceProvider extends ServiceProvider
 {
-    /**
-     * Boot service provider.
-     */
-    public function boot()
-    {
-
-    }
 }

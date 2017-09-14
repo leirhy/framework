@@ -30,6 +30,7 @@ return [
         Illuminate\Cookie\CookieServiceProvider::class,
         Notadd\Foundation\Debug\DebugServiceProvider::class,
         Notadd\Foundation\Editor\EditorServiceProvider::class,
+        Notadd\Foundation\Expand\ExpandServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
         Notadd\Foundation\Extension\ExtensionServiceProvider::class,
         Notadd\Foundation\Flow\FlowServiceProvider::class,

@@ -10,43 +10,43 @@ cipher: 'AES-256-CBC'
 log: %env:APP_LOG,daily%
 log_level: %env:APP_LOG_LEVEL,debug%
 providers:
-    - Notadd\Foundation\Attachment\AttachmentServiceProvider
-    - Notadd\Foundation\Auth\AuthServiceProvider
+    - Illuminate\Auth\AuthServiceProvider
+    - Illuminate\Auth\Passwords\PasswordResetServiceProvider
     - Illuminate\Broadcasting\BroadcastServiceProvider
-    - Notadd\Foundation\Bus\BusServiceProvider
-    - Notadd\Foundation\Cache\CacheServiceProvider
+    - Illuminate\Bus\BusServiceProvider
+    - Illuminate\Cache\CacheServiceProvider
+    - Illuminate\Cookie\CookieServiceProvider
+    - Illuminate\Encryption\EncryptionServiceProvider
+    - Illuminate\Hashing\HashServiceProvider
+    - Illuminate\Pagination\PaginationServiceProvider
+    - Illuminate\Pipeline\PipelineServiceProvider
+    - Illuminate\Queue\QueueServiceProvider
+    - Illuminate\Redis\RedisServiceProvider
+    - Illuminate\Session\SessionServiceProvider
+    - Illuminate\Validation\ValidationServiceProvider
+    - Notadd\Foundation\Attachment\AttachmentServiceProvider
     - Notadd\Foundation\Composer\ComposerServiceProvider
     - Notadd\Foundation\Console\ConsoleServiceProvider
-    - Illuminate\Cookie\CookieServiceProvider
+    - Notadd\Foundation\Database\MigrationServiceProvider
     - Notadd\Foundation\Debug\DebugServiceProvider
     - Notadd\Foundation\Editor\EditorServiceProvider
     - Notadd\Foundation\Expand\ExpandServiceProvider
-    - Illuminate\Encryption\EncryptionServiceProvider
     - Notadd\Foundation\Extension\ExtensionServiceProvider
     - Notadd\Foundation\Flow\FlowServiceProvider
-    - Illuminate\Hashing\HashServiceProvider
-    - Notadd\Installer\InstallerServiceProvider
     - Notadd\Foundation\Image\ImageServiceProvider
     - Notadd\Foundation\Mail\MailServiceProvider
     - Notadd\Foundation\Member\MemberServiceProvider
-    - Notadd\Foundation\Database\MigrationServiceProvider
     - Notadd\Foundation\Navigation\NavigationServiceProvider
     - Notadd\Foundation\Notification\NotificationServiceProvider
-    - Illuminate\Pagination\PaginationServiceProvider
     - Notadd\Foundation\Passport\PassportServiceProvider
-    - Illuminate\Auth\Passwords\PasswordResetServiceProvider
     - Notadd\Foundation\Permission\PermissionServiceProvider
-    - Illuminate\Pipeline\PipelineServiceProvider
-    - Notadd\Foundation\Queue\QueueServiceProvider
-    - Notadd\Foundation\Redis\RedisServiceProvider
     - Notadd\Foundation\SearchEngine\SearchEngineServiceProvider
-    - Notadd\Foundation\Session\SessionServiceProvider
     - Notadd\Foundation\Theme\ThemeServiceProvider
     - Notadd\Foundation\Translation\TranslationServiceProvider
-    - Notadd\Foundation\Validation\ValidationServiceProvider
     - Notadd\Foundation\Yaml\YamlServiceProvider
     - Notadd\Foundation\Http\HttpServiceProvider
     - Notadd\Foundation\Administration\AdministrationServiceProvider
+    - Notadd\Installer\InstallerServiceProvider
 aliases:
     App: Illuminate\Support\Facades\App
     Artisan: Illuminate\Support\Facades\Artisan

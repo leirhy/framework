@@ -290,15 +290,16 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     protected function bindPathsInContainer()
     {
         $this->instance('path', $this->path());
-        $this->instance('path.base', $this->basePath());
-        $this->instance('path.lang', $this->langPath());
+        $this->instance('path.bootstrap', $this->bootstrapPath());
         $this->instance('path.config', $this->configPath());
+        $this->instance('path.base', $this->basePath());
+        $this->instance('path.database', $this->databasePath());
+        $this->instance('path.framework', $this->frameworkPath());
+        $this->instance('path.lang', $this->langPath());
         $this->instance('path.public', $this->publicPath());
+        $this->instance('path.resources', $this->resourcePath());
         $this->instance('path.static', $this->staticPath());
         $this->instance('path.storage', $this->storagePath());
-        $this->instance('path.database', $this->databasePath());
-        $this->instance('path.resources', $this->resourcePath());
-        $this->instance('path.bootstrap', $this->bootstrapPath());
     }
 
     /**
@@ -1275,5 +1276,17 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function getCachedPackagesPath()
     {
         return '';
+    }
+
+    /**
+     * Get the path to the application framework files.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function frameworkPath($path = '')
+    {
+        return __DIR__ . '/../../framework' . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }

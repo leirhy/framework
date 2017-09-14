@@ -41,4 +41,17 @@ class ComposerScripts
         require_once $event->getComposer()->getConfig()->get('vendor-dir') . '/autoload.php';
         static::clearCompiled();
     }
+
+    /**
+     * Clear the cached Laravel bootstrapping files.
+     *
+     * @return void
+     */
+    protected static function clearCompiled()
+    {
+        $notadd = new Application(getcwd());
+        if (file_exists($servicesPath = $notadd->getCachedServicesPath())) {
+            @unlink($servicesPath);
+        }
+    }
 }

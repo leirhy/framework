@@ -41,6 +41,7 @@
         "illuminate/broadcasting": "5.5.*",
         "illuminate/bus": "5.5.*",
         "illuminate/cache": "5.5.*",
+        "illuminate/config": "5.5.*",
         "illuminate/console": "5.5.*",
         "illuminate/container": "5.5.*",
         "illuminate/contracts": "5.5.*",

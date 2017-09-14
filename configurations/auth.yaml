@@ -11,7 +11,7 @@ guards:
 providers:
     users:
         driver: eloquent
-        model: \Notadd\Foundation\Member\Member::class
+        model: \Notadd\Foundation\Member\Member
 passwords:
     users:
         provider: users

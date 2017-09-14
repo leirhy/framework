@@ -16,6 +16,7 @@ use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Http\Bootstraps\LoadDetect;
 use Notadd\Foundation\Http\Bootstraps\LoadExtension;
 use Notadd\Foundation\Http\Bootstraps\LoadModule;
 use Notadd\Foundation\Http\Bootstraps\LoadProviders;
@@ -80,6 +81,7 @@ class Kernel implements KernelContract
         LoadProviders::class,
         LoadExtension::class,
         LoadSetting::class,
+        LoadDetect::class,
         RegisterRouter::class,
         RegisterPermission::class,
         RegisterFlow::class,

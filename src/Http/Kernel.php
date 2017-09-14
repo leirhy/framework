@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Laravel\Passport\Http\Middleware\CheckForAnyScope;
 use Laravel\Passport\Http\Middleware\CheckScopes;
+use Notadd\Foundation\Http\Bootstraps\LoadDetect;
 use Notadd\Foundation\Http\Bootstraps\LoadExtension;
 use Notadd\Foundation\Http\Bootstraps\LoadModule;
 use Notadd\Foundation\Http\Bootstraps\LoadProviders;
@@ -77,6 +78,7 @@ class Kernel implements KernelContract
         LoadExtension::class,
         RegisterFacades::class,
         LoadSetting::class,
+        LoadDetect::class,
         RegisterRouter::class,
         RegisterPermission::class,
         RegisterFlow::class,

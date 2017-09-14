@@ -21,6 +21,14 @@ class AdministrationServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
+     * @return array
+     */
+    public function provides()
+    {
+        return ['administration'];
+    }
+
+    /**
      * Register for service provider.
      */
     public function register()

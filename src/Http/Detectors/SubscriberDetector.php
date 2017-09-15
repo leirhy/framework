@@ -11,7 +11,11 @@ namespace Notadd\Foundation\Http\Detectors;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use Notadd\Foundation\Extension\Extension;
+use Notadd\Foundation\Extension\ExtensionManager;
 use Notadd\Foundation\Http\Contracts\Detector;
+use Notadd\Foundation\Module\Module;
+use Notadd\Foundation\Module\ModuleManager;
 
 /**
  * Class SubscriberDetector.
@@ -92,6 +96,22 @@ class SubscriberDetector implements Detector
                 'path'      => $location,
             ]);
         });
+        if ($this->container->isInstalled()) {
+            $this->container->make(ModuleManager::class)->getEnabledModules()->each(function (Module $module) use ($paths) {
+                $location = realpath($module->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Subscribers');
+                $this->file->isDirectory($location) && $paths->push([
+                    'namespace' => $module->get('namespace') . 'Subscribers',
+                    'path'      => $location,
+                ]);
+            });
+            $this->container->make(ExtensionManager::class)->getEnabledExtensions()->each(function (Extension $extension) use ($paths) {
+                $location = realpath($extension->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Subscribers');
+                $this->file->isDirectory($location) && $paths->push([
+                    'namespace' => $extension->get('namespace') . 'Subscribers',
+                    'path'      => $location,
+                ]);
+            });
+        }
 
         return $paths->toArray();
     }

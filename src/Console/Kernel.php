@@ -12,8 +12,8 @@ use Closure;
 use Exception;
 use Illuminate\Console\Events\ArtisanStarting;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Notadd\Foundation\Http\Bootstraps\LoadDetect;
@@ -41,26 +41,36 @@ use Throwable;
 class Kernel implements KernelContract
 {
     /**
+     * The application implementation.
+     *
      * @var \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
      */
     protected $app;
 
     /**
+     * The event dispatcher implementation.
+     *
      * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $events;
 
     /**
+     * The Artisan application instance.
+     *
      * @var \Notadd\Foundation\Console\Application
      */
     protected $artisan;
 
     /**
+     * The Artisan commands provided by the application.
+     *
      * @var array
      */
     protected $commands = [];
 
     /**
+     * Indicates if the Closure commands have been loaded.
+     *
      * @var bool
      */
     protected $commandsLoaded = false;
@@ -110,7 +120,10 @@ class Kernel implements KernelContract
      */
     protected function defineConsoleSchedule()
     {
-        $this->app->instance(Schedule::class, $schedule = new Schedule($this->app[Cache::class]));
+        $this->app->singleton(Schedule::class, function ($app) {
+            return new Schedule;
+        });
+        $schedule = $this->app->make(Schedule::class);
         $this->schedule($schedule);
     }
 
@@ -213,11 +226,12 @@ class Kernel implements KernelContract
      *
      * @param string $command
      * @param array  $parameters
+     * @param  \Symfony\Component\Console\Output\OutputInterface  $outputBuffer
      *
      * @return int
      * @throws \Exception
      */
-    public function call($command, array $parameters = [])
+    public function call($command, array $parameters = [], $outputBuffer = null)
     {
         $this->bootstrap();
         if (!$this->commandsLoaded) {
@@ -225,7 +239,7 @@ class Kernel implements KernelContract
             $this->commandsLoaded = true;
         }
 
-        return $this->getArtisan()->call($command, $parameters);
+        return $this->getArtisan()->call($command, $parameters, $outputBuffer);
     }
 
     /**
@@ -328,7 +342,7 @@ class Kernel implements KernelContract
      */
     protected function reportException(Exception $e)
     {
-        $this->app['Illuminate\Contracts\Debug\ExceptionHandler']->report($e);
+        $this->app[ExceptionHandler::class]->report($e);
     }
 
     /**
@@ -341,6 +355,6 @@ class Kernel implements KernelContract
      */
     protected function renderException($output, Exception $e)
     {
-        $this->app['Illuminate\Contracts\Debug\ExceptionHandler']->renderForConsole($output, $e);
+        $this->app[ExceptionHandler::class]->renderForConsole($output, $e);
     }
 }

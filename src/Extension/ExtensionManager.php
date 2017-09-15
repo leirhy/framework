@@ -131,6 +131,7 @@ class ExtensionManager
                                 }
                                 $extension->offsetExists('provider')
                                 || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($extension) {
+                                    $extension->offsetSet('namespace', $namespace);
                                     $extension->offsetSet('provider', $namespace . 'Extension');
                                 });
                                 $extension->offsetSet('directory', $directory);

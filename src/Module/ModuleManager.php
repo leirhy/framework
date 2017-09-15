@@ -128,9 +128,8 @@ class ModuleManager
                                 $this->files->requireOnce($autoload);
                             }
                             if (!$module->offsetExists('service')) {
-                                collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use (
-                                    $module
-                                ) {
+                                collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
+                                    $module->offsetSet('namespace', $namespace);
                                     $module->offsetSet('service', $namespace . 'ModuleServiceProvider');
                                 });
                             }

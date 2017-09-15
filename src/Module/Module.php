@@ -59,6 +59,32 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
         return boolval($this->attributes['installed']);
     }
 
+    public function menus()
+    {
+        return collect($this->get('menus', []))->mapWithKeys(function ($definition, $identification) {
+            $identification = $this->identification() . '/' . $identification;
+            $definition['identification'] = $identification;
+            isset($definition['children']) && $definition['children'] = collect($definition['children'])->map(function ($definition, $index) use ($identification) {
+                $definition['identification'] = $identification . '/';
+            });
+
+            return $definition;
+        });
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function pages()
+    {
+        return collect($this->get('pages', []))->map(function ($definition, $identification) {
+            $definition['initialization']['identification'] = $identification;
+            unset($definition['initialization']['tabs']);
+
+            return $definition['initialization'];
+        })->groupBy('target');
+    }
+
     /**
      * @return string
      */

@@ -58,6 +58,11 @@ class SubscriberDetector implements Detector
     public function detect(string $path, string $namespace)
     {
         $classes = collect();
+        collect($this->file->files($path))->each(function ($file) use ($classes, $namespace) {
+            $class = '';
+            $this->file->extension($file) == 'php' && $class = $namespace . '\\' . $this->file->name($file);
+            class_exists($class) && $classes->push($class);
+        });
 
         return $classes->toArray();
     }
@@ -83,7 +88,7 @@ class SubscriberDetector implements Detector
         collect($this->file->directories($this->container->frameworkPath('src')))->each(function ($directory) use ($paths) {
             $location = realpath($directory . DIRECTORY_SEPARATOR . 'Subscribers');
             $this->file->isDirectory($location) && $paths->push([
-                'namespace' => '\\Notadd\\Foundation\\' . $this->file->name($location) . '\\Subscribers',
+                'namespace' => '\\Notadd\\Foundation\\' . $this->file->name($directory) . '\\Subscribers',
                 'path'      => $location,
             ]);
         });

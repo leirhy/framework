@@ -13,12 +13,13 @@ use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Detector;
 //use Notadd\Foundation\Http\Detectors\ListenerDetector;
+use Notadd\Foundation\Http\Detectors\CommandDetector;
 use Notadd\Foundation\Http\Detectors\SubscriberDetector;
 
 /**
  * Class LoadDetect.
  */
-class LoadDetect
+class LoadDetection
 {
     /**
      * @var \Illuminate\Container\Container
@@ -30,6 +31,7 @@ class LoadDetect
      */
     protected $detectors = [
 //        ListenerDetector::class,
+        CommandDetector::class,
         SubscriberDetector::class,
     ];
 

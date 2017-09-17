@@ -65,7 +65,15 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
             $identification = $this->identification() . '/' . $identification;
             $definition['identification'] = $identification;
             isset($definition['children']) && $definition['children'] = collect($definition['children'])->map(function ($definition, $index) use ($identification) {
-                $definition['identification'] = $identification . '/';
+                $definition['identification'] = $identification . '/' . $index;
+                $prefix = $identification . '/' . $index;
+                isset($definition['children']) && $definition['children'] = collect($definition['children'])->map(function ($definition, $index) use ($prefix) {
+                    $definition['identification'] = $prefix . '/' . $index;
+
+                    return $definition;
+                });
+
+                return $definition;
             });
 
             return $definition;

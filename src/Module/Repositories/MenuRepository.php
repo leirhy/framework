@@ -23,21 +23,24 @@ class MenuRepository extends Collection
     /**
      * MenuRepository constructor.
      *
-     * @param \Illuminate\Support\Collection $items
+     * @param mixed $items
      */
-    public function __construct(Collection $items)
+    public function __construct($items)
     {
-        $this->init($items);
+        parent::__construct($items);
+        $this->initialize();
     }
 
     /**
-     * @param \Illuminate\Support\Collection $collection
+     * Initialize.
      */
-    protected function init(Collection $collection)
+    protected function initialize()
     {
-        $collection->each(function ($definition, $module) {
+        collect($this->items)->each(function ($definition, $module) {
+            unset($this->items[$module]);
             $this->parse($definition, $module);
         });
+        dd($this->items);
     }
 
     /**

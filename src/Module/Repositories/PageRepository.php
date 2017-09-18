@@ -18,19 +18,21 @@ class PageRepository extends Collection
     /**
      * PageRepository constructor.
      *
-     * @param \Illuminate\Support\Collection $items
+     * @param mixed $items
      */
-    public function __construct(Collection $items)
+    public function __construct($items)
     {
-        $this->init($items);
+        parent::__construct($items);
+        $this->initialize();
     }
 
     /**
-     * @param \Illuminate\Support\Collection $collection
+     * Initialize.
      */
-    protected function init(Collection $collection)
+    protected function initialize()
     {
-        $collection->each(function ($items, $module) {
+        collect($this->items)->each(function ($items, $module) {
+            unset($this->items[$module]);
             collect($items)->each(function ($definition, $identification) use ($module) {
                 $this->items[$module . '/' . $identification] = $definition;
             });

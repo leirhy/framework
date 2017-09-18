@@ -4,19 +4,19 @@
  *
  * @author TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime 2017-09-18 17:36
+ * @datetime 2017-09-18 17:50
  */
-namespace Notadd\Foundation\Module\Repositories;
+namespace Notadd\Foundation\Extension\Repositories;
 
 use Illuminate\Support\Collection;
 
 /**
- * Class ModuleRepository.
+ * Class ExtensionRepository.
  */
-class ModuleRepository extends Collection
+class ExtensionRepository extends Collection
 {
     /**
-     * ModuleRepository constructor.
+     * ExtensionRepository constructor.
      *
      * @param array $items
      */

@@ -67,7 +67,8 @@ class ModuleManager
      * @param \Illuminate\Events\Dispatcher           $events
      * @param \Illuminate\Filesystem\Filesystem       $files
      */
-    public function __construct(Container $container, Repository $configuration, Dispatcher $events, Filesystem $files) {
+    public function __construct(Container $container, Repository $configuration, Dispatcher $events, Filesystem $files)
+    {
         $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;

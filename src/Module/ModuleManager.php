@@ -12,6 +12,7 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use Notadd\Foundation\Module\Repositories\MenuRepository;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -186,8 +187,7 @@ class ModuleManager
                 $configurations = collect();
                 collect($this->files->files($directory))->each(function ($file) use ($configurations) {
                     if ($this->files->isReadable($file)) {
-                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations
-                        ) {
+                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
                             $configurations->put($key, $data);
                         });
                     }
@@ -260,6 +260,19 @@ class ModuleManager
     public function getExcepts()
     {
         return $this->excepts->toArray();
+    }
+
+    /**
+     * @return \Notadd\Foundation\Module\Repositories\MenuRepository
+     */
+    public function menus()
+    {
+        $collection = collect();
+        $this->getEnabledModules()->each(function (Module $module) use ($collection) {
+            $collection->put($module->identification(), $module->get('menus', []));
+        });
+
+        return new MenuRepository($collection->toArray());
     }
 
     /**

@@ -15,6 +15,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 use Notadd\Foundation\Database\Model;
 use Notadd\Foundation\Extension\Traits\HasAttributes;
+use Notadd\Foundation\Module\Repositories\MenuRepository;
 use Notadd\Foundation\Member\Member;
 use Notadd\Foundation\Permission\PermissionManager;
 
@@ -57,27 +58,6 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     public function isInstalled()
     {
         return boolval($this->attributes['installed']);
-    }
-
-    public function menus()
-    {
-        return collect($this->get('menus', []))->mapWithKeys(function ($definition, $identification) {
-            $identification = $this->identification() . '/' . $identification;
-            $definition['identification'] = $identification;
-            isset($definition['children']) && $definition['children'] = collect($definition['children'])->map(function ($definition, $index) use ($identification) {
-                $definition['identification'] = $identification . '/' . $index;
-                $prefix = $identification . '/' . $index;
-                isset($definition['children']) && $definition['children'] = collect($definition['children'])->map(function ($definition, $index) use ($prefix) {
-                    $definition['identification'] = $prefix . '/' . $index;
-
-                    return $definition;
-                });
-
-                return $definition;
-            });
-
-            return $definition;
-        });
     }
 
     /**

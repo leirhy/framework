@@ -12,6 +12,7 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use Notadd\Foundation\Module\Repositories\AssetsRepository;
 use Notadd\Foundation\Module\Repositories\MenuRepository;
 use Notadd\Foundation\Module\Repositories\PageRepository;
 use Symfony\Component\Yaml\Yaml;
@@ -287,6 +288,19 @@ class ModuleManager
         });
 
         return new PageRepository($collection);
+    }
+
+    /**
+     * @return \Notadd\Foundation\Module\Repositories\AssetsRepository
+     */
+    public function assets()
+    {
+        $collection = collect();
+        $this->getEnabledModules()->each(function (Module $module) use ($collection) {
+            $collection->put($module->identification(), $module->get('assets', []));
+        });
+
+        return new AssetsRepository($collection);
     }
 
     /**

@@ -40,7 +40,6 @@ class MenuRepository extends Collection
             unset($this->items[$module]);
             $this->parse($definition, $module);
         });
-        dd($this->items);
     }
 
     /**

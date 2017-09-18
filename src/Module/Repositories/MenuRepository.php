@@ -8,16 +8,13 @@
  */
 namespace Notadd\Foundation\Module\Repositories;
 
-use ArrayAccess;
-use Notadd\Foundation\Http\Supports\ArrayAccessAble;
+use Illuminate\Support\Collection;
 
 /**
  * Class MenuRepository.
  */
-class MenuRepository implements ArrayAccess
+class MenuRepository extends Collection
 {
-    use ArrayAccessAble;
-
     /**
      * @var array
      */
@@ -26,19 +23,19 @@ class MenuRepository implements ArrayAccess
     /**
      * MenuRepository constructor.
      *
-     * @param array $items
+     * @param \Illuminate\Support\Collection $items
      */
-    public function __construct($items = [])
+    public function __construct(Collection $items)
     {
-        $this->items = $this->init($items);
+        $this->init($items);
     }
 
     /**
-     * @param array $items
+     * @param \Illuminate\Support\Collection $collection
      */
-    protected function init(array $items)
+    protected function init(Collection $collection)
     {
-        collect($items)->each(function ($definition, $module) {
+        $collection->each(function ($definition, $module) {
             $this->parse($definition, $module);
         });
     }

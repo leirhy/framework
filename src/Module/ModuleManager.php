@@ -13,6 +13,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Module\Repositories\MenuRepository;
+use Notadd\Foundation\Module\Repositories\PageRepository;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -272,7 +273,20 @@ class ModuleManager
             $collection->put($module->identification(), $module->get('menus', []));
         });
 
-        return new MenuRepository($collection->toArray());
+        return new MenuRepository($collection);
+    }
+
+    /**
+     * @return \Notadd\Foundation\Module\Repositories\PageRepository
+     */
+    public function pages()
+    {
+        $collection = collect();
+        $this->getEnabledModules()->each(function (Module $module) use ($collection) {
+            $collection->put($module->identification(), $module->get('pages', []));
+        });
+
+        return new PageRepository($collection);
     }
 
     /**

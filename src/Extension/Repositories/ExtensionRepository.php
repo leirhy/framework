@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Extension\Repositories;
 
+use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 
 /**
@@ -16,20 +17,32 @@ use Illuminate\Support\Collection;
 class ExtensionRepository extends Collection
 {
     /**
+     * @var \Illuminate\Container\Container
+     */
+    protected $container;
+
+    /**
+     * @var bool
+     */
+    protected $initialized = false;
+
+    /**
      * ExtensionRepository constructor.
      *
-     * @param array $items
+     * @param \Illuminate\Container\Container $container
+     * @param array                           $items
      */
-    public function __construct($items = [])
+    public function __construct(Container $container, $items = [])
     {
         parent::__construct($items);
-        $this->initialize();
+        $this->container = $container;
     }
 
     /**
      * Initialize.
      */
-    protected function initialize()
+    public function initialize()
     {
+        $this->initialized = true;
     }
 }

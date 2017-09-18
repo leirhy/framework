@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Module\Repositories;
 
+use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 
 /**
@@ -16,20 +17,31 @@ use Illuminate\Support\Collection;
 class ModuleRepository extends Collection
 {
     /**
+     * @var \Illuminate\Container\Container
+     */
+    protected $container;
+
+    /**
+     * @var bool
+     */
+    protected $initialized = false;
+
+    /**
      * ModuleRepository constructor.
      *
      * @param mixed $items
      */
-    public function __construct($items)
+    public function __construct(Container $container, $items = [])
     {
         parent::__construct($items);
-        $this->initialize();
+        $this->container = $container;
     }
 
     /**
      * Initialize.
      */
-    protected function initialize()
+    public function initialize()
     {
+        $this->initialized = true;
     }
 }

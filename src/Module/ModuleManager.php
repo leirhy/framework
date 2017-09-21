@@ -10,12 +10,11 @@ namespace Notadd\Foundation\Module;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Module\Repositories\AssetsRepository;
 use Notadd\Foundation\Module\Repositories\MenuRepository;
+use Notadd\Foundation\Module\Repositories\ModuleRepository;
 use Notadd\Foundation\Module\Repositories\PageRepository;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ModuleManager.
@@ -35,24 +34,9 @@ class ModuleManager
     protected $excepts;
 
     /**
-     * @var \Illuminate\Events\Dispatcher
-     */
-    protected $events;
-
-    /**
      * @var \Illuminate\Filesystem\Filesystem
      */
-    protected $files;
-
-    /**
-     * @var \Illuminate\Support\Collection
-     */
-    protected $modules;
-
-    /**
-     * @var \Illuminate\Support\Collection
-     */
-    protected $unloaded;
+    protected $file;
 
     /**
      * @var \Illuminate\Contracts\Config\Repository
@@ -60,22 +44,35 @@ class ModuleManager
     private $configuration;
 
     /**
+     * @var \Notadd\Foundation\Module\Repositories\ModuleRepository
+     */
+    protected $repository;
+
+    /**
      * ModuleManager constructor.
      *
      * @param \Illuminate\Container\Container         $container
      * @param \Illuminate\Contracts\Config\Repository $configuration
-     * @param \Illuminate\Events\Dispatcher           $events
      * @param \Illuminate\Filesystem\Filesystem       $files
      */
-    public function __construct(Container $container, Repository $configuration, Dispatcher $events, Filesystem $files)
+    public function __construct(Container $container, Repository $configuration, Filesystem $files)
     {
         $this->configuration = $configuration;
         $this->container = $container;
-        $this->events = $events;
         $this->excepts = collect();
-        $this->files = $files;
-        $this->modules = collect();
-        $this->unloaded = collect();
+        $this->file = $files;
+    }
+
+    /**
+     * @return \Notadd\Foundation\Module\Repositories\ModuleRepository
+     */
+    public function modules()
+    {
+        if (!$this->repository instanceof ModuleRepository) {
+            $this->repository = new ModuleRepository($this->container, $this->file, collect($this->file->directories($this->getModulePath())));
+        }
+
+        return $this->repository;
     }
 
     /**
@@ -87,82 +84,7 @@ class ModuleManager
      */
     public function get($name)
     {
-        return $this->modules->get($name);
-    }
-
-    /**
-     * Modules of enabled.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getEnabledModules()
-    {
-        $list = collect();
-        if ($this->getModules()->isNotEmpty()) {
-            $this->getModules()->each(function (Module $module) use ($list) {
-                $module->offsetGet('enabled') && $list->put($module->identification(), $module);
-            });
-        }
-
-        return $list;
-    }
-
-    /**
-     * Modules of list.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getModules()
-    {
-        if ($this->modules->isEmpty()) {
-            if ($this->files->isDirectory($this->getModulePath())) {
-                collect($this->files->directories($this->getModulePath()))->each(function ($directory) {
-                    if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                        $configurations = $this->loadConfigurations($directory);
-                        $package = collect(json_decode($this->files->get($file), true));
-                        if ($package->get('type') == 'notadd-module'
-                            && $configurations->get('identification') == $package->get('name')
-                            && ($module = new Module($configurations->toArray()))->validate()) {
-                            $autoload = collect([
-                                $directory,
-                                'vendor',
-                                'autoload.php',
-                            ])->implode(DIRECTORY_SEPARATOR);
-                            if ($this->files->exists($autoload)) {
-                                $this->files->requireOnce($autoload);
-                            }
-                            if (!$module->offsetExists('service')) {
-                                collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
-                                    $module->offsetSet('namespace', $namespace);
-                                    $module->offsetSet('service', $namespace . 'ModuleServiceProvider');
-                                });
-                            }
-                            $module->offsetSet('directory', $directory);
-                            $provider = $module->offsetGet('service');
-                            if (class_exists($provider)) {
-                                $module->offsetSet('enabled',
-                                    $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.enabled',
-                                        false));
-                                $module->offsetSet('installed',
-                                    $this->container->make('setting')->get('module.' . $module->offsetGet('identification') . '.installed',
-                                        false));
-                                $this->modules->put($configurations->get('identification'), $module);
-                            } else {
-                                $this->unloaded->put($configurations->get('identification'), [
-                                    'author'         => $module->get('author'),
-                                    'description'    => $module->get('description'),
-                                    'directory'      => $module->get('directory'),
-                                    'identification' => $module->get('identification'),
-                                    'service'        => $module->get('service'),
-                                ]);
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        return $this->modules;
+        return $this->repository->get($name);
     }
 
     /**
@@ -176,76 +98,6 @@ class ModuleManager
     }
 
     /**
-     * @param string $directory
-     *
-     * @return \Illuminate\Support\Collection
-     * @throws \Exception
-     */
-    protected function loadConfigurations(string $directory)
-    {
-        if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
-            return collect(Yaml::parse(file_get_contents($file)));
-        } else {
-            if ($this->files->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
-                $configurations = collect();
-                collect($this->files->files($directory))->each(function ($file) use ($configurations) {
-                    if ($this->files->isReadable($file)) {
-                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
-                            $configurations->put($key, $data);
-                        });
-                    }
-                });
-
-                return $configurations;
-            } else {
-                throw new \Exception('Load Module fail: ' . $directory);
-            }
-        }
-    }
-
-    /**
-     * Modules of installed.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getInstalledModules()
-    {
-        $list = collect();
-        if ($this->getModules()->isNotEmpty()) {
-            $this->modules->each(function (Module $module) use ($list) {
-                $module->offsetGet('installed') && $list->put($module->identification(), $module);
-            });
-        }
-
-        return $list;
-    }
-
-    /**
-     * Modules of not-installed.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getNotInstalledModules()
-    {
-        $list = collect();
-        if ($this->getModules()->isNotEmpty()) {
-            $this->modules->each(function (Module $module) use ($list) {
-                $module->offsetGet('installed') || $list->put($module->identification(), $module);
-            });
-        }
-
-        return $list;
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function getUnloadedModules()
-    {
-        return $this->unloaded;
-    }
-
-    /**
      * Check for module exist.
      *
      * @param $name
@@ -254,7 +106,7 @@ class ModuleManager
      */
     public function has($name)
     {
-        return $this->modules->has($name);
+        return $this->repository->has($name);
     }
 
     /**
@@ -271,7 +123,7 @@ class ModuleManager
     public function menus()
     {
         $collection = collect();
-        $this->getEnabledModules()->each(function (Module $module) use ($collection) {
+        $this->repository->enabled()->each(function (Module $module) use ($collection) {
             $collection->put($module->identification(), $module->get('menus', []));
         });
 
@@ -284,7 +136,7 @@ class ModuleManager
     public function pages()
     {
         $collection = collect();
-        $this->getEnabledModules()->each(function (Module $module) use ($collection) {
+        $this->repository->enabled()->each(function (Module $module) use ($collection) {
             $collection->put($module->identification(), $module->get('pages', []));
         });
 
@@ -297,7 +149,7 @@ class ModuleManager
     public function assets()
     {
         $collection = collect();
-        $this->getEnabledModules()->each(function (Module $module) use ($collection) {
+        $this->repository->enabled()->each(function (Module $module) use ($collection) {
             $collection->put($module->identification(), $module->get('assets', []));
         });
 
@@ -311,6 +163,22 @@ class ModuleManager
     {
         foreach ((array)$excepts as $except) {
             $this->excepts->push($except);
+        }
+    }
+
+    /**
+     * @param       $method
+     * @param array $arguments
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function __call($method, array $arguments)
+    {
+        try {
+            return $this->repository->{$method}($arguments);
+        } catch (\Exception $exception) {
+            throw $exception;
         }
     }
 }

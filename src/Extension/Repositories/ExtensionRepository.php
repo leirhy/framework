@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\Extension\Repositories;
 
 use Illuminate\Container\Container;
-use Illuminate\Support\Collection;
 use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
@@ -44,6 +43,8 @@ class ExtensionRepository extends Repository
      */
     public function initialize()
     {
-        $this->initialized = true;
+        if (!$this->initialized) {
+            $this->initialized = true;
+        }
     }
 }

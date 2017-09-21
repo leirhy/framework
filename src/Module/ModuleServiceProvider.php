@@ -34,7 +34,7 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('module', function ($app) {
-            return new ModuleManager($app, $app['config'], $app['events'], $app['files']);
+            return new ModuleManager($app, $app['config'], $app['files']);
         });
     }
 }

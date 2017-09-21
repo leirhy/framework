@@ -18,26 +18,22 @@ use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 abstract class Repository extends Collection
 {
     /**
-     * Repository constructor.
-     *
-     * @param mixed $items
-     */
-    public function __construct($items)
-    {
-        parent::__construct($items);
-        $this->initialize();
-    }
-
-    /**
      * Initialize.
      */
-    abstract protected function initialize();
+    abstract public function initialize();
 
     /**
-     * @return \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     * @param string $key
+     * @param string $default
+     *
+     * @return mixed|\Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
-    protected function setting()
+    protected function setting($key = '', $default = '')
     {
-        return Container::getInstance()->make(SettingsRepository::class);
+        if ($key) {
+            return Container::getInstance()->make(SettingsRepository::class)->get($key, $default);
+        } else {
+            return Container::getInstance()->make(SettingsRepository::class);
+        }
     }
 }

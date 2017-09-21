@@ -42,7 +42,7 @@ class ModuleHandler extends Handler
      */
     protected function execute()
     {
-        $this->withCode(200)->withData($this->manager->getModules()->transform(function (Module $module) {
+        $this->withCode(200)->withData($this->manager->repository()->transform(function (Module $module) {
             return [
                 'author'         => $module->offsetGet('author'),
                 'enabled'        => $module->offsetGet('enabled'),

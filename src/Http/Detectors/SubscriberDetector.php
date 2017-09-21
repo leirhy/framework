@@ -97,7 +97,7 @@ class SubscriberDetector implements Detector
             ]);
         });
         if ($this->container->isInstalled()) {
-            $this->container->make(ModuleManager::class)->modules()->enabled()->each(function (Module $module) use ($paths) {
+            $this->container->make(ModuleManager::class)->repository()->enabled()->each(function (Module $module) use ($paths) {
                 $location = realpath($module->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Subscribers');
                 $this->file->isDirectory($location) && $paths->push([
                     'namespace' => $module->get('namespace') . 'Subscribers',

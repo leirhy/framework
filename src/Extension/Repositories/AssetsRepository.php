@@ -18,7 +18,7 @@ class AssetsRepository extends Repository
     /**
      * Initialize.
      */
-    protected function initialize()
+    public function initialize()
     {
     }
 }

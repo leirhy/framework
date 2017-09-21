@@ -56,7 +56,7 @@ class DomainHandler extends Handler
             'identification.required' => '模块标识必须填写',
         ]);
         $identification = $this->request->input('identification');
-        if ($this->module->has($identification) && $this->module->getInstalledModules()->has($identification)
+        if ($this->module->has($identification) && $this->module->repository()->installed()->has($identification)
             || in_array($identification, [
                 'notadd/administration',
                 'notadd/api',

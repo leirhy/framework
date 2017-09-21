@@ -8,23 +8,13 @@
  */
 namespace Notadd\Foundation\Module\Repositories;
 
-use Illuminate\Support\Collection;
+use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
  * Class AssetsRepository.
  */
-class AssetsRepository extends Collection
+class AssetsRepository extends Repository
 {
-    /**
-     * AssetsRepository constructor.
-     *
-     * @param array $items
-     */
-    public function __construct($items = [])
-    {
-        parent::__construct($items);
-    }
-
     /**
      * Initialize.
      */

@@ -8,28 +8,17 @@
  */
 namespace Notadd\Foundation\Module\Repositories;
 
-use Illuminate\Support\Collection;
+use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
  * Class MenuRepository.
  */
-class MenuRepository extends Collection
+class MenuRepository extends Repository
 {
     /**
      * @var array
      */
     protected $structures = [];
-
-    /**
-     * MenuRepository constructor.
-     *
-     * @param mixed $items
-     */
-    public function __construct($items)
-    {
-        parent::__construct($items);
-        $this->initialize();
-    }
 
     /**
      * Initialize.

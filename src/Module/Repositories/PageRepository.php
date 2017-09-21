@@ -8,12 +8,12 @@
  */
 namespace Notadd\Foundation\Module\Repositories;
 
-use Illuminate\Support\Collection;
+use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
  * Class PageRepository.
  */
-class PageRepository extends Collection
+class PageRepository extends Repository
 {
     /**
      * PageRepository constructor.
@@ -34,7 +34,16 @@ class PageRepository extends Collection
         collect($this->items)->each(function ($items, $module) {
             unset($this->items[$module]);
             collect($items)->each(function ($definition, $identification) use ($module) {
-                $this->items[$module . '/' . $identification] = $definition;
+                $key = $module . '/' . $identification;
+                $this->items[$key] = $definition;
+                collect(data_get($definition, 'tabs'))->each(function ($definition, $tab) use ($key) {
+                    $key = $key . '.tabs.' . $tab . '.fields';
+                    data_set($this->items, $key, collect(data_get($definition, 'fields'))->map(function ($definition) {
+                        $definition['value'] = $this->setting()->get($definition['key'], '');
+
+                        return $definition;
+                    })->toArray());
+                });
             });
         });
     }

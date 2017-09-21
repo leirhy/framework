@@ -9,12 +9,12 @@
 namespace Notadd\Foundation\Module\Repositories;
 
 use Illuminate\Container\Container;
-use Illuminate\Support\Collection;
+use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
  * Class ModuleRepository.
  */
-class ModuleRepository extends Collection
+class ModuleRepository extends Repository
 {
     /**
      * @var \Illuminate\Container\Container
@@ -29,7 +29,8 @@ class ModuleRepository extends Collection
     /**
      * ModuleRepository constructor.
      *
-     * @param mixed $items
+     * @param \Illuminate\Container\Container $container
+     * @param mixed                           $items
      */
     public function __construct(Container $container, $items = [])
     {

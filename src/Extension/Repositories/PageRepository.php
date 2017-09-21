@@ -8,24 +8,13 @@
  */
 namespace Notadd\Foundation\Extension\Repositories;
 
-use Illuminate\Support\Collection;
+use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
  * Class PageRepository.
  */
-class PageRepository extends Collection
+class PageRepository extends Repository
 {
-    /**
-     * PageRepository constructor.
-     *
-     * @param mixed $items
-     */
-    public function __construct($items)
-    {
-        parent::__construct($items);
-        $this->initialize();
-    }
-
     /**
      * Initialize.
      */

@@ -10,11 +10,12 @@ namespace Notadd\Foundation\Extension\Repositories;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
  * Class ExtensionRepository.
  */
-class ExtensionRepository extends Collection
+class ExtensionRepository extends Repository
 {
     /**
      * @var \Illuminate\Container\Container

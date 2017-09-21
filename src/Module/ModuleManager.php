@@ -41,7 +41,7 @@ class ModuleManager
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configuration;
+    protected $configuration;
 
     /**
      * @var \Notadd\Foundation\Module\Repositories\ModuleRepository
@@ -127,8 +127,10 @@ class ModuleManager
         $this->repository->enabled()->each(function (Module $module) use ($collection) {
             $collection->put($module->identification(), $module->get('menus', []));
         });
+        $repository = new MenuRepository($collection);
+        $repository->initialize();
 
-        return new MenuRepository($collection);
+        return $repository;
     }
 
     /**
@@ -140,8 +142,10 @@ class ModuleManager
         $this->repository->enabled()->each(function (Module $module) use ($collection) {
             $collection->put($module->identification(), $module->get('pages', []));
         });
+        $repository = new PageRepository($collection);
+        $repository->initialize();
 
-        return new PageRepository($collection);
+        return $repository;
     }
 
     /**
@@ -153,8 +157,10 @@ class ModuleManager
         $this->repository->enabled()->each(function (Module $module) use ($collection) {
             $collection->put($module->identification(), $module->get('assets', []));
         });
+        $repository = new AssetsRepository($collection);
+        $repository->initialize();
 
-        return new AssetsRepository($collection);
+        return $repository;
     }
 
     /**
@@ -164,22 +170,6 @@ class ModuleManager
     {
         foreach ((array)$excepts as $except) {
             $this->excepts->push($except);
-        }
-    }
-
-    /**
-     * @param       $method
-     * @param array $arguments
-     *
-     * @return mixed
-     * @throws \Exception
-     */
-    public function __call($method, array $arguments)
-    {
-        try {
-            return $this->repository->{$method}($arguments);
-        } catch (\Exception $exception) {
-            throw $exception;
         }
     }
 }

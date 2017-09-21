@@ -23,7 +23,7 @@ class MenuRepository extends Repository
     /**
      * Initialize.
      */
-    protected function initialize()
+    public function initialize()
     {
         collect($this->items)->each(function ($definition, $module) {
             unset($this->items[$module]);

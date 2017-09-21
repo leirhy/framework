@@ -16,20 +16,9 @@ use Notadd\Foundation\Http\Abstracts\Repository;
 class PageRepository extends Repository
 {
     /**
-     * PageRepository constructor.
-     *
-     * @param mixed $items
-     */
-    public function __construct($items)
-    {
-        parent::__construct($items);
-        $this->initialize();
-    }
-
-    /**
      * Initialize.
      */
-    protected function initialize()
+    public function initialize()
     {
         collect($this->items)->each(function ($items, $module) {
             unset($this->items[$module]);

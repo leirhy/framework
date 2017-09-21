@@ -52,7 +52,7 @@ class ModuleHandler extends Handler
     protected function execute()
     {
         $modules = collect();
-        $this->module->modules()->enabled()->each(function (Module $module) use ($modules) {
+        $this->module->repository()->enabled()->each(function (Module $module) use ($modules) {
             $modules->put($module->identification(), [
                 'alias'          => $this->setting->get('module.' . $module->identification() . '.domain.alias', ''),
                 'identification' => Str::replaceFirst('/', '-', $module->identification()),

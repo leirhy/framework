@@ -55,7 +55,7 @@ class LoadModule
     public function bootstrap(Application $application)
     {
         if ($application->isInstalled()) {
-            $this->manager->modules()->enabled()->each(function (Module $module) use ($application) {
+            $this->manager->repository()->enabled()->each(function (Module $module) use ($application) {
                 $this->manager->registerExcept($module->get('csrf', []));
                 collect($module->get('events', []))->each(function ($data, $key) {
                     switch ($key) {

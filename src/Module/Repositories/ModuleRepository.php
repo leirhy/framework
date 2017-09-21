@@ -10,14 +10,15 @@ namespace Notadd\Foundation\Module\Repositories;
 
 use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
-use Notadd\Foundation\Http\Abstracts\Repository;
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Module\Module;
+use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ModuleRepository.
  */
-class ModuleRepository extends Repository
+class ModuleRepository extends Collection
 {
     /**
      * @var \Illuminate\Container\Container
@@ -35,16 +36,20 @@ class ModuleRepository extends Repository
     protected $initialized = false;
 
     /**
+     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
+     */
+    protected $setting;
+
+    /**
      * ModuleRepository constructor.
      *
-     * @param \Illuminate\Container\Container   $container
-     * @param \Illuminate\Filesystem\Filesystem $file
      * @param mixed                             $items
      */
-    public function __construct(Container $container, Filesystem $file, $items = [])
+    public function __construct($items = [])
     {
-        $this->container = $container;
-        $this->file = $file;
+        $this->container = Container::getInstance();
+        $this->file = $this->container->make(Filesystem::class);
+        $this->setting = $this->container->make(SettingsRepository::class);
         parent::__construct($items);
     }
 
@@ -81,9 +86,9 @@ class ModuleRepository extends Repository
                         $provider = $module->offsetGet('service');
                         $module->offsetSet('initialized', boolval(class_exists($provider) ?: false));
                         $key = 'module.' . $module->offsetGet('identification') . '.enabled';
-                        $module->offsetSet('enabled', boolval($this->setting()->get($key, false)));
+                        $module->offsetSet('enabled', boolval($this->setting->get($key, false)));
                         $key = 'module.' . $module->offsetGet('identification') . '.installed';
-                        $module->offsetSet('installed', boolval($this->setting()->get($key, false)));
+                        $module->offsetSet('installed', boolval($this->setting->get($key, false)));
                     }
                     $this->items[$configurations->get('identification')] = $module;
                 }

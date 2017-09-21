@@ -66,10 +66,11 @@ class ModuleManager
     /**
      * @return \Notadd\Foundation\Module\Repositories\ModuleRepository
      */
-    public function modules()
+    public function repository()
     {
         if (!$this->repository instanceof ModuleRepository) {
-            $this->repository = new ModuleRepository($this->container, $this->file, collect($this->file->directories($this->getModulePath())));
+            $this->repository = new ModuleRepository(collect($this->file->directories($this->getModulePath())));
+            $this->repository->initialize();
         }
 
         return $this->repository;

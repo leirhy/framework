@@ -6,11 +6,13 @@
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-09-19 10:53
  */
-namespace Notadd\Foundation\Expand;
+namespace Notadd\Foundation\Extension\Abstracts;
+
+use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
  * Class Expand.
  */
-class Expand
+abstract class Extension extends ServiceProvider
 {
 }

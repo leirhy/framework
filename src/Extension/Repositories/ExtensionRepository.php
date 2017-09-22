@@ -6,7 +6,7 @@
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-09-19 10:54
  */
-namespace Notadd\Foundation\Expand\Repositories;
+namespace Notadd\Foundation\Extension\Repositories;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 /**
  * Class ExpandRepository.
  */
-class ExpandRepository extends Collection
+class ExtensionRepository extends Collection
 {
     /**
      * @var \Illuminate\Container\Container

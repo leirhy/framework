@@ -20,14 +20,14 @@ use Notadd\Foundation\Validation\Rule;
 class DomainHandler extends Handler
 {
     /**
+     * @var \Notadd\Foundation\Module\ModuleManager
+     */
+    protected $module;
+
+    /**
      * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
      */
     protected $setting;
-
-    /**
-     * @var \Notadd\Foundation\Module\ModuleManager
-     */
-    private $module;
 
     /**
      * DomainHandler constructor.
@@ -56,7 +56,8 @@ class DomainHandler extends Handler
             'identification.required' => '模块标识必须填写',
         ]);
         $identification = $this->request->input('identification');
-        if ($this->module->has($identification) && $this->module->repository()->installed()->has($identification)
+        if ($this->module->has($identification)
+            && $this->module->repository()->installed()->has($identification)
             || in_array($identification, [
                 'notadd/administration',
                 'notadd/api',

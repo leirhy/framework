@@ -6,7 +6,6 @@
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-08-15 17:03
  */
-
 namespace Notadd\Foundation\Module\Handlers;
 
 use Carbon\Carbon;

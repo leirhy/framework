@@ -6,7 +6,6 @@
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-08-20 18:13
  */
-
 namespace Notadd\Foundation\Module\Handlers;
 
 use Illuminate\Container\Container;
@@ -58,10 +57,10 @@ class ImportsHandler extends Handler
                 Rule::required(),
             ],
         ], [
-            'file.file'      => '文件必须成功上传',
-            'file.required'  => '文件必须上传',
+            'file.file'     => '文件必须成功上传',
+            'file.required' => '文件必须上传',
         ]);
-        $configurations  = Yaml::parse(file_get_contents($this->request->file('file')->getRealPath()));
+        $configurations = Yaml::parse(file_get_contents($this->request->file('file')->getRealPath()));
         $configurations = collect($configurations);
         if ($configurations->count()) {
             $configurations->each(function ($data, $identification) {

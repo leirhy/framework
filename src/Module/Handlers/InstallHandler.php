@@ -46,15 +46,11 @@ class InstallHandler extends Handler
      * InstallHandler constructor.
      *
      * @param \Illuminate\Container\Container                         $container
+     * @param \Illuminate\Filesystem\Filesystem                       $file
      * @param \Notadd\Foundation\Module\ModuleManager                 $manager
      * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $setting
      */
-    public function __construct(
-        Container $container,
-        Filesystem $file,
-        ModuleManager $manager,
-        SettingsRepository $setting
-    ) {
+    public function __construct(Container $container, Filesystem $file, ModuleManager $manager, SettingsRepository $setting) {
         parent::__construct($container);
         $this->manager = $manager;
         $this->setting = $setting;

@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Module\Commands;
 
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Console\Abstracts\Command;
+use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
 
 /**
@@ -45,7 +46,9 @@ class ListUnloadedCommand extends Command
      */
     public function handle(ModuleManager $manager)
     {
-        $modules = $manager->getUnloadedModules();
+        $modules = $manager->repository()->filter(function (Module $module) {
+            return $module->get('loaded') == false;
+        });
         $list = new Collection();
         $this->info('Modules list:');
         $modules->each(function (array $module) use ($list) {

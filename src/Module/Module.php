@@ -12,6 +12,7 @@ use ArrayAccess;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
 use JsonSerializable;
 use Notadd\Foundation\Database\Model;
 use Notadd\Foundation\Http\Traits\HasAttributes;
@@ -38,7 +39,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return string
      */
-    public function identification()
+    public function identification(): string
     {
         return $this->attributes['identification'];
     }
@@ -46,7 +47,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return bool
      */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return boolval($this->attributes['enabled']);
     }
@@ -54,7 +55,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return bool
      */
-    public function isInstalled()
+    public function isInstalled(): bool
     {
         return boolval($this->attributes['installed']);
     }
@@ -62,7 +63,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function pages()
+    public function pages(): Collection
     {
         return collect($this->get('pages', []))->map(function ($definition, $identification) {
             $definition['initialization']['identification'] = $identification;
@@ -75,7 +76,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return string
      */
-    public function service()
+    public function service(): string
     {
         return $this->attributes['service'];
     }
@@ -85,7 +86,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
      *
      * @return array
      */
-    public function scripts($entry)
+    public function scripts($entry): array
     {
         $data = collect();
         $exists = collect(data_get($this->attributes, 'assets.' . $entry));
@@ -112,7 +113,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
      *
      * @return bool
      */
-    protected function checkPermission($identification)
+    protected function checkPermission($identification): bool
     {
         if (!$identification) {
             return true;
@@ -135,7 +136,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
      *
      * @return array
      */
-    public function stylesheets($entry)
+    public function stylesheets($entry): array
     {
         $data = collect();
         $exists = collect(data_get($this->attributes, 'assets.' . $entry));
@@ -160,7 +161,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         return $this->offsetExists('name')
             && $this->offsetExists('identification')

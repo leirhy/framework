@@ -48,7 +48,7 @@ class ListCommand extends Command
      */
     public function handle(ModuleManager $manager): bool
     {
-        $modules = $manager->getModules();
+        $modules = $manager->repository();
         $list = new Collection();
         $this->info('Modules list:');
         $modules->each(function (Module $module, $path) use ($list) {

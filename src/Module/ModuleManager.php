@@ -39,11 +39,6 @@ class ModuleManager
     protected $file;
 
     /**
-     * @var \Illuminate\Contracts\Config\Repository
-     */
-    protected $configuration;
-
-    /**
      * @var \Notadd\Foundation\Module\Repositories\ModuleRepository
      */
     protected $repository;
@@ -52,12 +47,10 @@ class ModuleManager
      * ModuleManager constructor.
      *
      * @param \Illuminate\Container\Container         $container
-     * @param \Illuminate\Contracts\Config\Repository $configuration
      * @param \Illuminate\Filesystem\Filesystem       $files
      */
-    public function __construct(Container $container, Repository $configuration, Filesystem $files)
+    public function __construct(Container $container, Filesystem $files)
     {
-        $this->configuration = $configuration;
         $this->container = $container;
         $this->excepts = collect();
         $this->file = $files;
@@ -66,7 +59,7 @@ class ModuleManager
     /**
      * @return \Notadd\Foundation\Module\Repositories\ModuleRepository
      */
-    public function repository()
+    public function repository(): ModuleRepository
     {
         if (!$this->repository instanceof ModuleRepository) {
             $this->repository = new ModuleRepository(collect($this->file->directories($this->getModulePath())));
@@ -83,7 +76,7 @@ class ModuleManager
      *
      * @return \Notadd\Foundation\Module\Module
      */
-    public function get($name)
+    public function get($name): Module
     {
         return $this->repository->get($name);
     }
@@ -95,7 +88,7 @@ class ModuleManager
      */
     public function getModulePath(): string
     {
-        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('module.directory');
+        return $this->container->modulePath();
     }
 
     /**
@@ -105,7 +98,7 @@ class ModuleManager
      *
      * @return bool
      */
-    public function has($name)
+    public function has($name): bool
     {
         return $this->repository->has($name);
     }
@@ -121,7 +114,7 @@ class ModuleManager
     /**
      * @return \Notadd\Foundation\Module\Repositories\MenuRepository
      */
-    public function menus()
+    public function menus(): MenuRepository
     {
         $collection = collect();
         $this->repository->enabled()->each(function (Module $module) use ($collection) {
@@ -136,7 +129,7 @@ class ModuleManager
     /**
      * @return \Notadd\Foundation\Module\Repositories\PageRepository
      */
-    public function pages()
+    public function pages(): PageRepository
     {
         $collection = collect();
         $this->repository->enabled()->each(function (Module $module) use ($collection) {
@@ -151,7 +144,7 @@ class ModuleManager
     /**
      * @return \Notadd\Foundation\Module\Repositories\AssetsRepository
      */
-    public function assets()
+    public function assets(): AssetsRepository
     {
         $collection = collect();
         $this->repository->enabled()->each(function (Module $module) use ($collection) {

@@ -9,35 +9,13 @@
 namespace Notadd\Foundation\Extension\Repositories;
 
 use Illuminate\Container\Container;
-use Illuminate\Support\Collection;
+use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
  * Class ExpandRepository.
  */
-class ExtensionRepository extends Collection
+class ExtensionRepository extends Repository
 {
-    /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
-
-    /**
-     * @var bool
-     */
-    protected $initialized = false;
-
-    /**
-     * ExtensionRepository constructor.
-     *
-     * @param \Illuminate\Container\Container $container
-     * @param array                           $items
-     */
-    public function __construct(Container $container, $items = [])
-    {
-        parent::__construct($items);
-        $this->container = $container;
-    }
-
     /**
      * Initialize.
      */

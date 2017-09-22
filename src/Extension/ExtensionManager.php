@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Extension;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use Notadd\Foundation\Extension\Repositories\ExtensionRepository;
 
 /**
  * Class ExtensionManager.
@@ -18,7 +19,7 @@ use Illuminate\Filesystem\Filesystem;
 class ExtensionManager
 {
     /**
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
 
@@ -33,6 +34,11 @@ class ExtensionManager
     protected $file;
 
     /**
+     * @var \Notadd\Foundation\Extension\Repositories\ExtensionRepository
+     */
+    protected $repository;
+
+    /**
      * ExtensionManager constructor.
      *
      * @param \Illuminate\Container\Container   $container
@@ -44,5 +50,22 @@ class ExtensionManager
         $this->container = $container;
         $this->event = $event;
         $this->file = $file;
+    }
+
+    public function repository()
+    {
+        if (!$this->repository instanceof ExtensionRepository) {
+            $this->repository = new ExtensionRepository(collect($this->file->directories($this->getExtensionPath())));
+        }
+
+        return $this->repository;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getExtensionPath(): string
+    {
+        return $this->container->extensionPath();
     }
 }

@@ -17,7 +17,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Notadd\Foundation\Http\Bootstraps\LoadDetection;
-use Notadd\Foundation\Http\Bootstraps\LoadExtension;
+use Notadd\Foundation\Http\Bootstraps\LoadAddon;
 use Notadd\Foundation\Http\Bootstraps\LoadModule;
 use Notadd\Foundation\Http\Bootstraps\LoadProviders;
 use Notadd\Foundation\Http\Bootstraps\ConfigureLogging;
@@ -89,7 +89,7 @@ class Kernel implements KernelContract
         SetRequestForConsole::class,
         LoadModule::class,
         LoadProviders::class,
-        LoadExtension::class,
+        LoadAddon::class,
         LoadSetting::class,
         LoadDetection::class,
         RegisterRouter::class,

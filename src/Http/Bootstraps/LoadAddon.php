@@ -14,12 +14,11 @@ use Notadd\Foundation\Application;
 use Notadd\Foundation\Addon\Events\AddonLoaded;
 use Notadd\Foundation\Addon\Addon;
 use Notadd\Foundation\Addon\AddonManager;
-use Notadd\Foundation\Http\Middlewares\VerifyCsrfToken;
 
 /**
  * Class LoadExtension.
  */
-class LoadExtension
+class LoadAddon
 {
     /**
      * @var \Illuminate\Events\Dispatcher
@@ -55,7 +54,7 @@ class LoadExtension
      */
     public function bootstrap(Application $application)
     {
-        $this->manager->getExtensions()->each(function (Addon $extension) use ($application) {
+        $this->manager->repository()->enabled()->each(function (Addon $extension) use ($application) {
             $this->manager->registerExcept($extension->get('csrf', []));
             collect($extension->get('events', []))->each(function ($data, $key) {
                 switch ($key) {
@@ -68,7 +67,7 @@ class LoadExtension
                         break;
                 }
             });
-            $extension->isEnabled() && $application->register($extension->provider());
+            $application->register($extension->provider());
         });
         $this->events->dispatch(new AddonLoaded());
     }

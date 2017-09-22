@@ -18,7 +18,7 @@ use Notadd\Foundation\Http\Traits\HasAttributes;
  */
 class Addon implements Arrayable, ArrayAccess, JsonSerializable
 {
-    use Notadd\Foundation\Http\Traits\HasAttributes;
+    use HasAttributes;
 
     /**
      * Extension constructor.

@@ -14,6 +14,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Addon\Addon;
+use Notadd\Foundation\Addon\Repositories\AddonRepository;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -44,7 +45,9 @@ class AddonManager
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
-    protected $files;
+    protected $file;
+
+    protected $repository;
 
     /**
      * @var \Illuminate\Support\Collection
@@ -64,7 +67,7 @@ class AddonManager
         $this->events = $events;
         $this->excepts = collect();
         $this->extensions = collect();
-        $this->files = $files;
+        $this->file = $files;
         $this->unloaded = collect();
     }
 
@@ -99,6 +102,27 @@ class AddonManager
     }
 
     /**
+     * @return \Notadd\Foundation\Addon\Repositories\AddonRepository
+     */
+    public function repository(): AddonRepository
+    {
+        if (!$this->repository instanceof AddonRepository) {
+            $collection = collect();
+            if ($this->container->isInstalled()) {
+                collect($this->file->directories($this->getExtensionPath()))->each(function ($vendor) use ($collection) {
+                    collect($this->file->directories($vendor))->each(function ($directory) use ($collection) {
+                        $collection->push($directory);
+                    });
+                });
+            }
+            $this->repository = new AddonRepository($collection);
+            $this->repository->initialize();
+        }
+
+        return $this->repository;
+    }
+
+    /**
      * Extension list.
      *
      * @return \Illuminate\Support\Collection
@@ -106,11 +130,11 @@ class AddonManager
     public function getExtensions(): Collection
     {
         if ($this->extensions->isEmpty() && $this->container->isInstalled()) {
-            if ($this->files->isDirectory($this->getExtensionPath())) {
-                collect($this->files->directories($this->getExtensionPath()))->each(function ($vendor) {
-                    collect($this->files->directories($vendor))->each(function ($directory) {
-                        if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                            $package = collect(json_decode($this->files->get($file), true));
+            if ($this->file->isDirectory($this->getExtensionPath())) {
+                collect($this->file->directories($this->getExtensionPath()))->each(function ($vendor) {
+                    collect($this->file->directories($vendor))->each(function ($directory) {
+                        if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                            $package = collect(json_decode($this->file->get($file), true));
                             $configurations = $this->loadConfigurations($directory);
                             if ($package->get('type') == 'notadd-extension'
                                 && $package->get('name') == $configurations->get('identification')
@@ -120,8 +144,8 @@ class AddonManager
                                     'vendor',
                                     'autoload.php',
                                 ])->implode(DIRECTORY_SEPARATOR);
-                                if ($this->files->exists($autoload)) {
-                                    $this->files->requireOnce($autoload);
+                                if ($this->file->exists($autoload)) {
+                                    $this->file->requireOnce($autoload);
                                 }
                                 $extension->offsetExists('provider')
                                 || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($extension) {
@@ -173,13 +197,13 @@ class AddonManager
      */
     protected function loadConfigurations(string $directory): Collection
     {
-        if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
+        if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
             return collect(Yaml::parse(file_get_contents($file)));
         } else {
-            if ($this->files->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
+            if ($this->file->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
                 $configurations = collect();
-                collect($this->files->files($directory))->each(function ($file) use ($configurations) {
-                    if ($this->files->isReadable($file)) {
+                collect($this->file->files($directory))->each(function ($file) use ($configurations) {
+                    if ($this->file->isReadable($file)) {
                         collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
                             $configurations->put($key, $data);
                         });

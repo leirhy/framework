@@ -22,11 +22,6 @@ use Symfony\Component\Yaml\Yaml;
 class AddonManager
 {
     /**
-     * @var \Illuminate\Contracts\Config\Repository
-     */
-    protected $configuration;
-
-    /**
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
      */
     protected $container;
@@ -59,14 +54,12 @@ class AddonManager
     /**
      * ExtensionManager constructor.
      *
-     * @param \Illuminate\Container\Container         $container
-     * @param \Illuminate\Contracts\Config\Repository $configuration
-     * @param \Illuminate\Events\Dispatcher           $events
-     * @param \Illuminate\Filesystem\Filesystem       $files
+     * @param \Illuminate\Container\Container   $container
+     * @param \Illuminate\Events\Dispatcher     $events
+     * @param \Illuminate\Filesystem\Filesystem $files
      */
-    public function __construct(Container $container, Repository $configuration, Dispatcher $events, Filesystem $files)
+    public function __construct(Container $container, Dispatcher $events, Filesystem $files)
     {
-        $this->configuration = $configuration;
         $this->container = $container;
         $this->events = $events;
         $this->excepts = collect();
@@ -82,7 +75,7 @@ class AddonManager
      *
      * @return \Notadd\Foundation\Addon\Addon
      */
-    public function get($name)
+    public function get($name): Addon
     {
         return $this->extensions->get($name);
     }
@@ -92,7 +85,7 @@ class AddonManager
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getEnabledExtensions()
+    public function getEnabledExtensions(): Collection
     {
         $list = new Collection();
         if ($this->getExtensions()->isEmpty()) {
@@ -110,7 +103,7 @@ class AddonManager
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getExtensions()
+    public function getExtensions(): Collection
     {
         if ($this->extensions->isEmpty() && $this->container->isInstalled()) {
             if ($this->files->isDirectory($this->getExtensionPath())) {
@@ -138,8 +131,10 @@ class AddonManager
                                 $extension->offsetSet('directory', $directory);
                                 $provider = $extension->offsetGet('provider');
                                 if (class_exists($provider)) {
-                                    $extension->offsetSet('enabled', $this->container->make('setting')->get('extension.' . $extension->offsetGet('identification') . '.enabled', false));
-                                    $extension->offsetSet('installed', $this->container->make('setting')->get('extension.' . $extension->offsetGet('identification') . '.installed', false));
+                                    $extension->offsetSet('enabled',
+                                        $this->container->make('setting')->get('extension.' . $extension->offsetGet('identification') . '.enabled', false));
+                                    $extension->offsetSet('installed',
+                                        $this->container->make('setting')->get('extension.' . $extension->offsetGet('identification') . '.installed', false));
                                     $this->extensions->put($configurations->get('identification'), $extension);
                                 } else {
                                     $this->unloaded->put($configurations->get('identification'), [
@@ -165,9 +160,9 @@ class AddonManager
      *
      * @return string
      */
-    public function getExtensionPath()
+    public function getExtensionPath(): string
     {
-        return $this->container->basePath() . DIRECTORY_SEPARATOR . $this->configuration->get('extension.directory');
+        return $this->container->addonPath();
     }
 
     /**
@@ -176,7 +171,7 @@ class AddonManager
      * @return \Illuminate\Support\Collection
      * @throws \Exception
      */
-    protected function loadConfigurations(string $directory)
+    protected function loadConfigurations(string $directory): Collection
     {
         if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
             return collect(Yaml::parse(file_get_contents($file)));
@@ -203,7 +198,7 @@ class AddonManager
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getInstalledExtensions()
+    public function getInstalledExtensions(): Collection
     {
         $list = new Collection();
         if ($this->getExtensions()->isNotEmpty()) {
@@ -220,7 +215,7 @@ class AddonManager
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getNotInstalledExtensions()
+    public function getNotInstalledExtensions(): Collection
     {
         $list = new Collection();
         if ($this->getExtensions()->isNotEmpty()) {
@@ -235,7 +230,7 @@ class AddonManager
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function getUnloadedExtensions()
+    public function getUnloadedExtensions(): Collection
     {
         return $this->unloaded;
     }
@@ -247,7 +242,7 @@ class AddonManager
      *
      * @return bool
      */
-    public function has($name)
+    public function has($name): bool
     {
         return $this->extensions->has($name);
     }
@@ -257,7 +252,7 @@ class AddonManager
      *
      * @return string
      */
-    public function getVendorPath()
+    public function getVendorPath(): string
     {
         return $this->container->basePath() . DIRECTORY_SEPARATOR . 'vendor';
     }

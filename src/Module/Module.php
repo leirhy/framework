@@ -14,8 +14,7 @@ use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 use Notadd\Foundation\Database\Model;
-use Notadd\Foundation\Addon\Traits\HasAttributes;
-use Notadd\Foundation\Module\Repositories\MenuRepository;
+use Notadd\Foundation\Http\Traits\HasAttributes;
 use Notadd\Foundation\Member\Member;
 use Notadd\Foundation\Permission\PermissionManager;
 
@@ -24,7 +23,7 @@ use Notadd\Foundation\Permission\PermissionManager;
  */
 class Module implements Arrayable, ArrayAccess, JsonSerializable
 {
-    use Notadd\Foundation\Addon\Traits\HasAttributes;
+    use HasAttributes;
 
     /**
      * Module constructor.

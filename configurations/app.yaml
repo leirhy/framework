@@ -24,14 +24,14 @@ providers:
     - Illuminate\Redis\RedisServiceProvider
     - Illuminate\Session\SessionServiceProvider
     - Illuminate\Validation\ValidationServiceProvider
-    - Notadd\Foundation\Addon\ExtensionServiceProvider
+    - Notadd\Foundation\Addon\AddonServiceProvider
     - Notadd\Foundation\Attachment\AttachmentServiceProvider
     - Notadd\Foundation\Composer\ComposerServiceProvider
     - Notadd\Foundation\Console\ConsoleServiceProvider
     - Notadd\Foundation\Database\MigrationServiceProvider
     - Notadd\Foundation\Debug\DebugServiceProvider
     - Notadd\Foundation\Editor\EditorServiceProvider
-    - Notadd\Foundation\Extension\ExpandServiceProvider
+    - Notadd\Foundation\Extension\ExtensionServiceProvider
     - Notadd\Foundation\Flow\FlowServiceProvider
     - Notadd\Foundation\Image\ImageServiceProvider
     - Notadd\Foundation\Mail\MailServiceProvider

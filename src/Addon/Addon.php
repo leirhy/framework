@@ -11,14 +11,14 @@ namespace Notadd\Foundation\Addon;
 use ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
-use Notadd\Foundation\Addon\Traits\HasAttributes;
+use Notadd\Foundation\Http\Traits\HasAttributes;
 
 /**
  * Class Extension.
  */
 class Addon implements Arrayable, ArrayAccess, JsonSerializable
 {
-    use HasAttributes;
+    use Notadd\Foundation\Http\Traits\HasAttributes;
 
     /**
      * Extension constructor.

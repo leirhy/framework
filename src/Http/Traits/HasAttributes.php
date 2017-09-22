@@ -7,7 +7,7 @@
  * @datetime 2017-08-16 12:04
  */
 
-namespace Notadd\Foundation\Addon\Traits;
+namespace Notadd\Foundation\Http\Traits;
 
 /**
  * Trait HasAttributes.

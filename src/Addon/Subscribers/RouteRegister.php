@@ -21,14 +21,14 @@ class RouteRegister extends AbstractRouteRegister
      */
     public function handle()
     {
-        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api'], function () {
-            $this->router->post('extension/enable', AddonController::class . '@enable');
-            $this->router->post('extension/exports', AddonController::class . '@exports');
-            $this->router->post('extension/imports', AddonController::class . '@imports');
-            $this->router->post('extension/install', AddonController::class . '@install');
-            $this->router->post('extension/uninstall', AddonController::class . '@uninstall');
-            $this->router->post('extension/update', AddonController::class . '@update');
-            $this->router->post('extension', AddonController::class . '@handle');
+        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/administration'], function () {
+            $this->router->post('addon/enable', AddonController::class . '@enable');
+            $this->router->post('addon/exports', AddonController::class . '@exports');
+            $this->router->post('addon/imports', AddonController::class . '@imports');
+            $this->router->post('addon/install', AddonController::class . '@install');
+            $this->router->post('addon/uninstall', AddonController::class . '@uninstall');
+            $this->router->post('addon/update', AddonController::class . '@update');
+            $this->router->post('addon', AddonController::class . '@handle');
         });
     }
 }

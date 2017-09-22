@@ -1078,6 +1078,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $data = [
             'administration'            => [\Notadd\Foundation\Administration\Administration::class],
+            'addon'                     => [\Notadd\Foundation\Addon\AddonManager::class],
             'app'                       => [
                 \Illuminate\Contracts\Container\Container::class,
                 \Illuminate\Contracts\Foundation\Application::class,
@@ -1114,7 +1115,6 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 \Illuminate\Encryption\Encrypter::class,
                 \Illuminate\Contracts\Encryption\Encrypter::class,
             ],
-            'extension'                 => [Addon\AddonManager::class],
             'events'                    => [
                 \Illuminate\Events\Dispatcher::class,
                 \Illuminate\Contracts\Events\Dispatcher::class,

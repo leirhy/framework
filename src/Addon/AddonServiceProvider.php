@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Addon;
 
-use Notadd\Foundation\Addon\AddonManager;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 
 /**
@@ -26,7 +25,7 @@ class AddonServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['extension'];
+        return ['addon'];
     }
 
     /**
@@ -34,7 +33,7 @@ class AddonServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('extension', function ($app) {
+        $this->app->singleton('addon', function ($app) {
             return new AddonManager($app, $app['config'], $app['events'], $app['files']);
         });
     }

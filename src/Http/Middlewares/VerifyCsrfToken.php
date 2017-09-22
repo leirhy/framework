@@ -84,7 +84,7 @@ class VerifyCsrfToken
     protected function shouldPassThrough($request)
     {
         if ($this->app->isInstalled()) {
-            $this->except = array_merge($this->except, $this->app->make('extension')->getExcepts());
+            $this->except = array_merge($this->except, $this->app->make('addon')->getExcepts());
             $this->except = array_merge($this->except, $this->app->make('module')->getExcepts());
         }
         foreach ($this->except as $except) {

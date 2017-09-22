@@ -8,7 +8,8 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Yaml\Exceptions\InvalidPathException;
 use Notadd\Foundation\Yaml\YamlEnv;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -16,14 +17,12 @@ use Symfony\Component\Console\Input\ArgvInput;
 /**
  * Class DetectEnvironment.
  */
-class LoadEnvironmentVariables
+class LoadEnvironmentVariables implements Bootstrap
 {
     /**
      * Bootstrap the given application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
-     *
-     * @return void
+     * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)
     {
@@ -46,8 +45,6 @@ class LoadEnvironmentVariables
      * Detect if a custom environment file matching the APP_ENV exists.
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
-     *
-     * @return void
      */
     protected function checkForSpecificEnvironmentFile($app)
     {
@@ -72,8 +69,6 @@ class LoadEnvironmentVariables
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param string                                                                      $file
-     *
-     * @return void
      */
     protected function loadEnvironmentFile($app, $file)
     {

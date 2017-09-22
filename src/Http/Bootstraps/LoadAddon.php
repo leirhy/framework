@@ -14,11 +14,12 @@ use Notadd\Foundation\Application;
 use Notadd\Foundation\Addon\Events\AddonLoaded;
 use Notadd\Foundation\Addon\Addon;
 use Notadd\Foundation\Addon\AddonManager;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 
 /**
  * Class LoadExtension.
  */
-class LoadAddon
+class LoadAddon implements Bootstrap
 {
     /**
      * @var \Illuminate\Events\Dispatcher
@@ -50,6 +51,8 @@ class LoadAddon
     }
 
     /**
+     * Bootstrap the given application.
+     *
      * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)

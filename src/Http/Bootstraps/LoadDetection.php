@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Http\Bootstraps;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Http\Contracts\Detector;
 //use Notadd\Foundation\Http\Detectors\ListenerDetector;
 use Notadd\Foundation\Http\Detectors\CommandDetector;
@@ -19,7 +20,7 @@ use Notadd\Foundation\Http\Detectors\SubscriberDetector;
 /**
  * Class LoadDetect.
  */
-class LoadDetection
+class LoadDetection implements Bootstrap
 {
     /**
      * @var \Illuminate\Container\Container
@@ -53,6 +54,8 @@ class LoadDetection
     }
 
     /**
+     * Bootstrap the given application.
+     *
      * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)

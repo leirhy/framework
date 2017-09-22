@@ -8,22 +8,21 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Facade;
 use Notadd\Foundation\AliasLoader;
+use Notadd\Foundation\Application;
 use Notadd\Foundation\Facades\FacadeRegister;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 
 /**
  * Class RegisterFacades.
  */
-class RegisterFacades
+class RegisterFacades implements Bootstrap
 {
     /**
      * Bootstrap the given application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $application
-     *
-     * @return void
+     * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)
     {

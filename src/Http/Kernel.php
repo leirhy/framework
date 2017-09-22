@@ -27,6 +27,7 @@ use Laravel\Passport\Http\Middleware\CheckForAnyScope;
 use Laravel\Passport\Http\Middleware\CheckScopes;
 use Notadd\Foundation\Http\Bootstraps\LoadDetection;
 use Notadd\Foundation\Http\Bootstraps\LoadAddon;
+use Notadd\Foundation\Http\Bootstraps\LoadExtension;
 use Notadd\Foundation\Http\Bootstraps\LoadModule;
 use Notadd\Foundation\Http\Bootstraps\LoadProviders;
 use Notadd\Foundation\Http\Bootstraps\ConfigureLogging;
@@ -73,6 +74,7 @@ class Kernel implements KernelContract
         LoadConfiguration::class,
         ConfigureLogging::class,
         HandleExceptions::class,
+        LoadExtension::class,
         LoadModule::class,
         LoadProviders::class,
         LoadAddon::class,

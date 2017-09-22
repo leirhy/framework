@@ -8,7 +8,8 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Permission\Events\PermissionGroupRegister;
 use Notadd\Foundation\Permission\Events\PermissionModuleRegister;
 use Notadd\Foundation\Permission\Events\PermissionRegister;
@@ -17,14 +18,12 @@ use Notadd\Foundation\Permission\Events\PermissionTypeRegister;
 /**
  * Class RegisterPermission.
  */
-class RegisterPermission
+class RegisterPermission implements Bootstrap
 {
     /**
      * Bootstrap the given application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
-     *
-     * @return void
+     * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)
     {

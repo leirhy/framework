@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Http\Bootstraps;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleLoaded;
 use Notadd\Foundation\Module\ModuleManager;
@@ -18,7 +19,7 @@ use Notadd\Foundation\Module\ModuleManager;
 /**
  * Class LoadModule.
  */
-class LoadModule
+class LoadModule implements Bootstrap
 {
     /**
      * @var \Illuminate\Events\Dispatcher
@@ -50,6 +51,8 @@ class LoadModule
     }
 
     /**
+     * Bootstrap the given application.
+     *
      * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)

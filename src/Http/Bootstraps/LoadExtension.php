@@ -3,19 +3,18 @@
  * This file is part of Notadd.
  *
  * @author TwilRoad <heshudong@ibenchu.com>
- * @copyright (c) 2016, notadd.com
- * @datetime 2016-10-21 11:07
+ * @copyright (c) 2017, notadd.com
+ * @datetime 2017-09-22 18:18
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Illuminate\Http\Request;
 use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
 
 /**
- * Class SetRequestForConsole.
+ * Class LoadExtension.
  */
-class SetRequestForConsole implements Bootstrap
+class LoadExtension implements Bootstrap
 {
     /**
      * Bootstrap the given application.
@@ -24,7 +23,6 @@ class SetRequestForConsole implements Bootstrap
      */
     public function bootstrap(Application $application)
     {
-        $url = $application->make('config')->get('app.url', 'http://localhost');
-        $application->instance('request', Request::create($url, 'GET', [], [], [], $_SERVER));
+        // TODO: Implement bootstrap() method.
     }
 }

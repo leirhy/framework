@@ -11,7 +11,8 @@ namespace Notadd\Foundation\Http\Bootstraps;
 use Exception;
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
-use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
@@ -19,14 +20,12 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Class LoadConfiguration.
  */
-class LoadConfiguration
+class LoadConfiguration implements Bootstrap
 {
     /**
      * Bootstrap the given application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
-     *
-     * @return void
+     * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)
     {

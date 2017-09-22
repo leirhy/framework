@@ -8,21 +8,20 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Log\Writer;
 use Monolog\Logger as Monolog;
+use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 
 /**
  * Class ConfigureLogging.
  */
-class ConfigureLogging
+class ConfigureLogging implements Bootstrap
 {
     /**
      * Bootstrap the given application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
-     *
-     * @return void
+     * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)
     {
@@ -37,7 +36,7 @@ class ConfigureLogging
     /**
      * Register the logger instance in the container.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Notadd\Foundation\Application $app
      *
      * @return \Illuminate\Log\Writer
      */
@@ -51,10 +50,8 @@ class ConfigureLogging
     /**
      * Configure the Monolog handlers for the application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     * @param \Illuminate\Log\Writer                       $log
-     *
-     * @return void
+     * @param \Notadd\Foundation\Application $app
+     * @param \Illuminate\Log\Writer         $log
      */
     protected function configureHandlers(Application $app, Writer $log)
     {
@@ -67,8 +64,6 @@ class ConfigureLogging
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
-     *
-     * @return void
      */
     protected function configureSingleHandler(Application $app, Writer $log)
     {
@@ -80,8 +75,6 @@ class ConfigureLogging
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
-     *
-     * @return void
      */
     protected function configureDailyHandler(Application $app, Writer $log)
     {
@@ -96,8 +89,6 @@ class ConfigureLogging
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
-     *
-     * @return void
      */
     protected function configureSyslogHandler(Application $app, Writer $log)
     {
@@ -109,8 +100,6 @@ class ConfigureLogging
      *
      * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $app
      * @param \Illuminate\Log\Writer                                                      $log
-     *
-     * @return void
      */
     protected function configureErrorlogHandler(Application $app, Writer $log)
     {

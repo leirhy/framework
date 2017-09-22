@@ -9,20 +9,19 @@
 namespace Notadd\Foundation\Http\Bootstraps;
 
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 
 /**
  * Class LoadSetting.
  */
-class LoadSetting
+class LoadSetting implements Bootstrap
 {
     /**
      * Bootstrap the given application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
-     *
-     * @return void
+     * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)
     {

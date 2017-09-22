@@ -10,7 +10,8 @@ namespace Notadd\Foundation\Http\Bootstraps;
 
 use ErrorException;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Application;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
@@ -18,7 +19,7 @@ use Symfony\Component\Debug\Exception\FatalThrowableError;
 /**
  * Class HandleExceptions.
  */
-class HandleExceptions
+class HandleExceptions implements Bootstrap
 {
     /**
      * @var \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
@@ -28,9 +29,7 @@ class HandleExceptions
     /**
      * Bootstrap the given application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
-     *
-     * @return void
+     * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)
     {
@@ -66,7 +65,6 @@ class HandleExceptions
      * @param array  $context
      *
      * @throws \ErrorException
-     * @return void
      */
     public function handleError($level, $message, $file = '', $line = 0, $context = [])
     {
@@ -78,20 +76,18 @@ class HandleExceptions
     /**
      * Handle an uncaught exception from the application.
      *
-     * @param \Throwable $e
-     *
-     * @return void
+     * @param \Throwable $exception
      */
-    public function handleException($e)
+    public function handleException($exception)
     {
-        if (!$e instanceof Exception) {
-            $e = new FatalThrowableError($e);
+        if (!$exception instanceof Exception) {
+            $exception = new FatalThrowableError($exception);
         }
-        $this->getExceptionHandler()->report($e);
+        $this->getExceptionHandler()->report($exception);
         if ($this->app->runningInConsole()) {
-            $this->renderForConsole($e);
+            $this->renderForConsole($exception);
         } else {
-            $this->renderHttpResponse($e);
+            $this->renderHttpResponse($exception);
         }
     }
 
@@ -110,13 +106,11 @@ class HandleExceptions
     /**
      * Render an exception as an HTTP response and send it.
      *
-     * @param \Exception $e
-     *
-     * @return void
+     * @param \Exception $exception
      */
-    protected function renderHttpResponse(Exception $e)
+    protected function renderHttpResponse(Exception $exception)
     {
-        $this->getExceptionHandler()->render($this->app['request'], $e)->send();
+        $this->getExceptionHandler()->render($this->app['request'], $exception)->send();
     }
 
     /**
@@ -139,8 +133,7 @@ class HandleExceptions
      */
     protected function fatalExceptionFromError(array $error, $traceOffset = null)
     {
-        return new FatalErrorException($error['message'], $error['type'], 0, $error['file'], $error['line'],
-            $traceOffset);
+        return new FatalErrorException($error['message'], $error['type'], 0, $error['file'], $error['line'], $traceOffset);
     }
 
     /**

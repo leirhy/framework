@@ -8,20 +8,19 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Illuminate\Contracts\Foundation\Application;
+use Notadd\Foundation\Application;
 use Notadd\Foundation\Flow\Events\FlowRegister;
+use Notadd\Foundation\Http\Contracts\Bootstrap;
 
 /**
  * Class RegisterFlow.
  */
-class RegisterFlow
+class RegisterFlow implements Bootstrap
 {
     /**
      * Bootstrap the given application.
      *
-     * @param \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application $application
-     *
-     * @return void
+     * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)
     {

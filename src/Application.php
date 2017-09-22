@@ -1111,7 +1111,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
                 \Illuminate\Encryption\Encrypter::class,
                 \Illuminate\Contracts\Encryption\Encrypter::class,
             ],
-            'extension'                 => [\Notadd\Foundation\Extension\ExtensionManager::class],
+            'extension'                 => [Addon\AddonManager::class],
             'events'                    => [
                 \Illuminate\Events\Dispatcher::class,
                 \Illuminate\Contracts\Events\Dispatcher::class,

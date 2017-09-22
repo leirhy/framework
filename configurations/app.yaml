@@ -24,6 +24,7 @@ providers:
     - Illuminate\Redis\RedisServiceProvider
     - Illuminate\Session\SessionServiceProvider
     - Illuminate\Validation\ValidationServiceProvider
+    - Notadd\Foundation\Addon\ExtensionServiceProvider
     - Notadd\Foundation\Attachment\AttachmentServiceProvider
     - Notadd\Foundation\Composer\ComposerServiceProvider
     - Notadd\Foundation\Console\ConsoleServiceProvider
@@ -31,7 +32,6 @@ providers:
     - Notadd\Foundation\Debug\DebugServiceProvider
     - Notadd\Foundation\Editor\EditorServiceProvider
     - Notadd\Foundation\Expand\ExpandServiceProvider
-    - Notadd\Foundation\Extension\ExtensionServiceProvider
     - Notadd\Foundation\Flow\FlowServiceProvider
     - Notadd\Foundation\Image\ImageServiceProvider
     - Notadd\Foundation\Mail\MailServiceProvider

@@ -11,8 +11,8 @@ namespace Notadd\Foundation\Http\Detectors;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use Notadd\Foundation\Extension\Extension;
-use Notadd\Foundation\Extension\ExtensionManager;
+use Notadd\Foundation\Addon\Addon;
+use Notadd\Foundation\Addon\AddonManager;
 use Notadd\Foundation\Http\Contracts\Detector;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
@@ -104,7 +104,7 @@ class SubscriberDetector implements Detector
                     'path'      => $location,
                 ]);
             });
-            $this->container->make(ExtensionManager::class)->getEnabledExtensions()->each(function (Extension $extension) use ($paths) {
+            $this->container->make(AddonManager::class)->getEnabledExtensions()->each(function (Addon $extension) use ($paths) {
                 $location = realpath($extension->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Subscribers');
                 $this->file->isDirectory($location) && $paths->push([
                     'namespace' => $extension->get('namespace') . 'Subscribers',

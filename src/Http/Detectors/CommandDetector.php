@@ -12,8 +12,8 @@ use Illuminate\Console\Application as Artisan;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use Notadd\Foundation\Extension\Extension;
-use Notadd\Foundation\Extension\ExtensionManager;
+use Notadd\Foundation\Addon\Addon;
+use Notadd\Foundation\Addon\AddonManager;
 use Notadd\Foundation\Http\Contracts\Detector;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
@@ -100,7 +100,7 @@ class CommandDetector implements Detector
                     'path'      => $location,
                 ]);
             });
-            $this->container->make(ExtensionManager::class)->getEnabledExtensions()->each(function (Extension $extension) use ($collection) {
+            $this->container->make(AddonManager::class)->getEnabledExtensions()->each(function (Addon $extension) use ($collection) {
                 $location = realpath($extension->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Commands');
                 $this->file->isDirectory($location) && $collection->push([
                     'namespace' => $extension->get('namespace') . 'Commands',

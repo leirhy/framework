@@ -290,12 +290,15 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     protected function bindPathsInContainer()
     {
         $this->instance('path', $this->path());
+        $this->instance('path.addon', $this->addonPath());
+        $this->instance('path.base', $this->basePath());
         $this->instance('path.bootstrap', $this->bootstrapPath());
         $this->instance('path.config', $this->configPath());
-        $this->instance('path.base', $this->basePath());
         $this->instance('path.database', $this->databasePath());
+        $this->instance('path.extension', $this->extensionPath());
         $this->instance('path.framework', $this->frameworkPath());
         $this->instance('path.lang', $this->langPath());
+        $this->instance('path.module', $this->modulePath());
         $this->instance('path.public', $this->publicPath());
         $this->instance('path.resources', $this->resourcePath());
         $this->instance('path.static', $this->staticPath());
@@ -303,7 +306,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
-     * Get the path to the application "app" directory.
+     * Get the path to the application directory, alias of base path.
      *
      * @param string $path
      *
@@ -311,11 +314,11 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function path($path = '')
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'src' . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+        return $this->basePath . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 
     /**
-     * Get the base path of the Laravel installation.
+     * Get the base path of the Notadd installation.
      *
      * @param string $path
      *
@@ -1288,5 +1291,29 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function frameworkPath($path = '')
     {
         return __DIR__ . '/../../framework' . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+    }
+
+    /**
+     * @return string
+     */
+    public function modulePath()
+    {
+        return $this->basePath . DIRECTORY_SEPARATOR . 'modules';
+    }
+
+    /**
+     * @return string
+     */
+    public function addonPath()
+    {
+        return $this->basePath . DIRECTORY_SEPARATOR . 'addons';
+    }
+
+    /**
+     * @return string
+     */
+    public function extensionPath()
+    {
+        return $this->basePath . DIRECTORY_SEPARATOR . 'extensions';
     }
 }

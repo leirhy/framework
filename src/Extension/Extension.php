@@ -55,6 +55,14 @@ class Extension implements Arrayable, ArrayAccess, JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function service(): string
+    {
+        return $this->attributes['service'];
+    }
+
+    /**
      * @return bool
      */
     public function validate(): bool

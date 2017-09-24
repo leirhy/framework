@@ -37,7 +37,7 @@ class ExtensionRepository extends Repository
                     $extension->offsetSet('identification', data_get($package, 'name'));
                     $extension->offsetSet('description', data_get($package, 'description'));
                     $extension->offsetSet('author', data_get($package, 'author'));
-                    if ($package->get('type') == 'notadd-module' && $extension->validate()) {
+                    if ($package->get('type') == 'notadd-extension' && $extension->validate()) {
                         $autoload = collect([
                             $directory,
                             'vendor',

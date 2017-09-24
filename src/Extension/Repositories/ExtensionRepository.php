@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Extension\Repositories;
 
-use Illuminate\Container\Container;
+use Notadd\Foundation\Extension\Extension;
 use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
@@ -17,10 +17,48 @@ use Notadd\Foundation\Http\Abstracts\Repository;
 class ExtensionRepository extends Repository
 {
     /**
+     * @var bool
+     */
+    protected $initialized = false;
+
+    /**
      * Initialize.
      */
     public function initialize()
     {
-        $this->initialized = true;
+        if (!$this->initialized) {
+            collect($this->items)->each(function ($directory, $index) {
+                unset($this->items[$index]);
+                $extension = new Extension([
+                    'directory' => $directory,
+                ]);
+                if ($this->file()->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                    $package = collect(json_decode($this->file()->get($file), true));
+                    $extension->offsetSet('identification', data_get($package, 'name'));
+                    $extension->offsetSet('description', data_get($package, 'description'));
+                    $extension->offsetSet('author', data_get($package, 'author'));
+                    if ($package->get('type') == 'notadd-module' && $extension->validate()) {
+                        $autoload = collect([
+                            $directory,
+                            'vendor',
+                            'autoload.php',
+                        ])->implode(DIRECTORY_SEPARATOR);
+                        $this->file()->exists($autoload) && $this->file()->requireOnce($autoload);
+                        collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($extension) {
+                            $extension->offsetSet('namespace', $namespace);
+                            $extension->offsetSet('service', $namespace . 'ExpandServiceProvider');
+                        });
+                        $provider = $extension->offsetGet('service');
+                        $extension->offsetSet('initialized', boolval(class_exists($provider) ?: false));
+                        $key = 'extension.' . $extension->offsetGet('identification') . '.enabled';
+                        $extension->offsetSet('enabled', boolval($this->setting()->get($key, false)));
+                        $key = 'extension.' . $extension->offsetGet('identification') . '.installed';
+                        $extension->offsetSet('installed', boolval($this->setting()->get($key, false)));
+                    }
+                    $this->items[$package->get('identification')] = $extension;
+                }
+            });
+            $this->initialized = true;
+        }
     }
 }

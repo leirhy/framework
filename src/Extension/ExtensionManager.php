@@ -52,10 +52,14 @@ class ExtensionManager
         $this->file = $file;
     }
 
+    /**
+     * @return \Notadd\Foundation\Extension\Repositories\ExtensionRepository
+     */
     public function repository()
     {
         if (!$this->repository instanceof ExtensionRepository) {
             $this->repository = new ExtensionRepository(collect($this->file->directories($this->getExtensionPath())));
+            $this->repository->initialize();
         }
 
         return $this->repository;

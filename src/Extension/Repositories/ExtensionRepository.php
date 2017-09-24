@@ -36,7 +36,7 @@ class ExtensionRepository extends Repository
                     $package = collect(json_decode($this->file()->get($file), true));
                     $extension->offsetSet('identification', data_get($package, 'name'));
                     $extension->offsetSet('description', data_get($package, 'description'));
-                    $extension->offsetSet('author', data_get($package, 'author'));
+                    $extension->offsetSet('authors', data_get($package, 'authors'));
                     if ($package->get('type') == 'notadd-extension' && $extension->validate()) {
                         $autoload = collect([
                             $directory,
@@ -46,7 +46,7 @@ class ExtensionRepository extends Repository
                         $this->file()->exists($autoload) && $this->file()->requireOnce($autoload);
                         collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($extension) {
                             $extension->offsetSet('namespace', $namespace);
-                            $extension->offsetSet('service', $namespace . 'ExpandServiceProvider');
+                            $extension->offsetSet('service', $namespace . 'ExtensionServiceProvider');
                         });
                         $provider = $extension->offsetGet('service');
                         $extension->offsetSet('initialized', boolval(class_exists($provider) ?: false));

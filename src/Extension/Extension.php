@@ -69,6 +69,6 @@ class Extension implements Arrayable, ArrayAccess, JsonSerializable
     {
         return $this->offsetExists('identification')
             && $this->offsetExists('description')
-            && $this->offsetExists('author');
+            && $this->offsetExists('authors');
     }
 }

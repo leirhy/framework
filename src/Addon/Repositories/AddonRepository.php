@@ -59,9 +59,9 @@ class AddonRepository extends Repository
                         }
                         $provider = $addon->offsetGet('provider');
                         $addon->offsetSet('initialized', boolval(class_exists($provider) ?: false));
-                        $key = 'extension.' . $addon->offsetGet('identification') . '.enabled';
+                        $key = 'addon.' . $addon->offsetGet('identification') . '.enabled';
                         $addon->offsetSet('enabled', $this->setting()->get($key, false));
-                        $key = 'extension.' . $addon->offsetGet('identification') . '.installed';
+                        $key = 'addon.' . $addon->offsetGet('identification') . '.installed';
                         $addon->offsetSet('installed', $this->setting()->get($key, false));
                     }
                     $this->items[$configurations->get('identification')] = $addon;

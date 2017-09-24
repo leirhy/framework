@@ -40,7 +40,7 @@ class AddonRepository extends Repository
                     $configurations->isNotEmpty() && $configurations->each(function ($value, $item) use ($addon) {
                         $addon->offsetSet($item, $value);
                     });
-                    if ($package->get('type') == 'notadd-module'
+                    if ($package->get('type') == 'notadd-addon'
                         && $configurations->get('identification') == $package->get('name')
                         && $addon->validate()) {
                         $autoload = collect([

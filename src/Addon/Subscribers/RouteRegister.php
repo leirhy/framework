@@ -22,6 +22,14 @@ class RouteRegister extends AbstractRouteRegister
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/administration'], function () {
+            $this->router->resource('addons', AddonController::class)->names([
+                'destroy' => 'addons.uninstall',
+                'update' => 'addons.install',
+            ])->only([
+                'index',
+                'update',
+                'destroy',
+            ]);
             $this->router->post('addon/enable', AddonController::class . '@enable');
             $this->router->post('addon/exports', AddonController::class . '@exports');
             $this->router->post('addon/imports', AddonController::class . '@imports');

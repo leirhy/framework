@@ -158,7 +158,7 @@ trait Helpers
             'setting',
         ];
         if (in_array($key, $callable) && method_exists($this, 'get' . ucfirst($key))) {
-            return $this->$key();
+            return $this->{'get' . ucfirst($key)}();
         }
         throw new Exception('Undefined property ' . get_class($this) . '::' . $key);
     }

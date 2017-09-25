@@ -1167,6 +1167,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'router'                    => [
                 \Illuminate\Routing\Router::class,
                 \Illuminate\Contracts\Routing\Registrar::class,
+                \Notadd\Foundation\Routing\Router::class,
             ],
             'searchengine.optimization' => [\Notadd\Foundation\SearchEngine\Optimization::class],
             'session'                   => [\Illuminate\Session\SessionManager::class],

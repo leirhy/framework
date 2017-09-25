@@ -29,4 +29,14 @@ class RoutingServiceProvider extends IlluminateRoutingServiceProvider
             return $redirector;
         });
     }
+
+    /**
+     * Register the router instance.
+     */
+    protected function registerRouter()
+    {
+        $this->app->singleton('router', function ($app) {
+            return new Router($app['events'], $app);
+        });
+    }
 }

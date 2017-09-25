@@ -22,12 +22,14 @@ use Illuminate\Session\SessionManager;
  * Class Helpers.
  *
  * @property \Illuminate\Container\Container|\Notadd\Foundation\Application $container
- * @property \Illuminate\Http\Request                                       $request
+ * @property \Illuminate\Database\Connection                                $db
+ * @property \Illuminate\Filesystem\Filesystem                              $file
+ * @property \Psr\Log\LoggerInterface                                       $log
  * @property \Illuminate\Routing\Redirector                                 $redirector
+ * @property \Illuminate\Http\Request                                       $request
+ * @property \Illuminate\Contracts\Routing\ResponseFactory                  $response
  * @property \Illuminate\Session\Store                                      $session
  * @property \Notadd\Foundation\Setting\Contracts\SettingsRepository        $setting
- * @property \Psr\Log\LoggerInterface                                       $log
- * @property \Illuminate\Contracts\Routing\ResponseFactory                  $response
  */
 trait Helpers
 {
@@ -39,7 +41,15 @@ trait Helpers
      */
     protected function getConfig()
     {
-        return Container::getInstance()->make('config');
+        return $this->container->make('config');
+    }
+
+    /**
+     * @return \Illuminate\Database\DatabaseManager
+     */
+    protected function getDb()
+    {
+        return $this->container->make('db');
     }
 
     /**
@@ -50,7 +60,7 @@ trait Helpers
      */
     protected function getConsole()
     {
-        $kernel = Container::getInstance()->make(Kernel::class);
+        $kernel = $this->container->make(Kernel::class);
         $kernel->bootstrap();
 
         return $kernel->getArtisan();
@@ -74,7 +84,7 @@ trait Helpers
      */
     protected function getMailer(): Mailer
     {
-        return Container::getInstance()->make('mailer');
+        return $this->container->make('mailer');
     }
 
     /**
@@ -84,7 +94,7 @@ trait Helpers
      */
     protected function getSession(): SessionManager
     {
-        return Container::getInstance()->make('session');
+        return $this->container->make('session');
     }
 
     /**
@@ -92,7 +102,7 @@ trait Helpers
      */
     protected function getRequest(): Request
     {
-        return Container::getInstance()->make('request');
+        return $this->container->make('request');
     }
 
     /**
@@ -100,7 +110,7 @@ trait Helpers
      */
     protected function getRedirector(): Redirector
     {
-        return Container::getInstance()->make('redirect');
+        return $this->container->make('redirect');
     }
 
     /**
@@ -108,7 +118,7 @@ trait Helpers
      */
     protected function getEvent(): Dispatcher
     {
-        return Container::getInstance()->make('events');
+        return $this->container->make('events');
     }
 
     /**
@@ -116,7 +126,7 @@ trait Helpers
      */
     protected function getLogger()
     {
-        return Container::getInstance()->make('log');
+        return $this->container->make('log');
     }
 
     /**
@@ -138,6 +148,14 @@ trait Helpers
     }
 
     /**
+     * @return \Illuminate\Filesystem\Filesystem
+     */
+    protected function getFile()
+    {
+        return $this->container->make('files');
+    }
+
+    /**
      * @param $key
      *
      * @return mixed
@@ -145,19 +163,7 @@ trait Helpers
      */
     public function __get($key)
     {
-        $callable = [
-            'config',
-            'console',
-            'container',
-            'event',
-            'log',
-            'redirector',
-            'request',
-            'response',
-            'session',
-            'setting',
-        ];
-        if (in_array($key, $callable) && method_exists($this, 'get' . ucfirst($key))) {
+        if (method_exists($this, 'get' . ucfirst($key))) {
             return $this->{'get' . ucfirst($key)}();
         }
         throw new Exception('Undefined property ' . get_class($this) . '::' . $key);

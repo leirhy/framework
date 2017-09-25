@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Routing\Traits;
 use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Mailer;
@@ -25,7 +26,8 @@ use Illuminate\Session\SessionManager;
  * @property \Illuminate\Routing\Redirector                                 $redirector
  * @property \Illuminate\Session\Store                                      $session
  * @property \Notadd\Foundation\Setting\Contracts\SettingsRepository        $setting
- * @property \Psr\Log\LoggerInterface        $log
+ * @property \Psr\Log\LoggerInterface                                       $log
+ * @property \Illuminate\Contracts\Routing\ResponseFactory                  $response
  */
 trait Helpers
 {
@@ -118,6 +120,14 @@ trait Helpers
     }
 
     /**
+     * @return \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    protected function getResponse()
+    {
+        return $this->container->make(ResponseFactory::class);
+    }
+
+    /**
      * Get setting instance.
      *
      * @return \Notadd\Foundation\Setting\Contracts\SettingsRepository
@@ -143,7 +153,9 @@ trait Helpers
             'log',
             'redirector',
             'request',
+            'response',
             'session',
+            'setting',
         ];
         if (in_array($key, $callable) && method_exists($this, 'get' . ucfirst($key))) {
             return $this->$key();

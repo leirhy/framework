@@ -8,13 +8,9 @@
  */
 namespace Notadd\Foundation\Addon\Controllers;
 
-use Notadd\Foundation\Addon\Handlers\EnableHandler;
-use Notadd\Foundation\Addon\Handlers\ExportsHandler;
-use Notadd\Foundation\Addon\Handlers\AddonHandler;
-use Notadd\Foundation\Addon\Handlers\ImportsHandler;
-use Notadd\Foundation\Addon\Handlers\InstallHandler;
-use Notadd\Foundation\Addon\Handlers\UninstallHandler;
-use Notadd\Foundation\Addon\Handlers\UpdateHandler;
+use Illuminate\Support\Collection;
+use Notadd\Foundation\Addon\Addon;
+use Notadd\Foundation\Addon\AddonManager;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 
 /**
@@ -23,100 +19,59 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 class AddonController extends Controller
 {
     /**
-     * @var array
+     * @var \Notadd\Foundation\Addon\AddonManager
      */
-    protected $permissions = [
-        'global::global::extension::extension.manage' => [
-            'enable',
-            'handle',
-            'install',
-            'uninstall',
-            'update',
-        ],
-    ];
+    protected $manager;
 
     /**
-     * Enable handler.
+     * AddonController constructor.
      *
-     * @param \Notadd\Foundation\Addon\Handlers\EnableHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
+     * @param \Notadd\Foundation\Addon\AddonManager $manager
      */
-    public function enable(EnableHandler $handler)
+    public function __construct(AddonManager $manager)
     {
-        return $handler->toResponse()->generateHttpResponse();
+        parent::__construct();
+        $this->manager = $manager;
+    }
+
+    public function list()
+    {
+        $enabled = $this->manager->repository()->enabled();
+        $extensions = $this->manager->repository();
+        $installed = $this->manager->repository()->installed();
+        $notInstalled = $this->manager->repository()->notInstalled();
+
+        return $this->response->json([
+            'data'     => [
+                'enabled'    => $this->info($enabled),
+                'extensions' => $this->info($extensions),
+                'installed'  => $this->info($installed),
+                'notInstall' => $this->info($notInstalled),
+            ],
+            'messages' => '获取插件列表成功！',
+        ]);
     }
 
     /**
-     * @param \Notadd\Foundation\Addon\Handlers\ExportsHandler $handler
+     * Info list.
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @param \Illuminate\Support\Collection $list
+     *
+     * @return array
      */
-    public function exports(ExportsHandler $handler)
+    protected function info(Collection $list)
     {
-        return $handler->toResponse()->generateHttpResponse();
-    }
+        $data = collect();
+        $list->each(function (Addon $extension) use ($data) {
+            $data->put($extension->identification(), [
+                'author'         => collect($extension->offsetGet('author'))->implode(','),
+                'enabled'        => $extension->enabled(),
+                'description'    => $extension->offsetGet('description'),
+                'identification' => $extension->identification(),
+                'name'           => $extension->offsetGet('name'),
+            ]);
+        });
 
-    /**
-     * Handler.
-     *
-     * @param \Notadd\Foundation\Addon\Handlers\AddonHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function handle(AddonHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * @param \Notadd\Foundation\Addon\Handlers\ImportsHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     */
-    public function imports(ImportsHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Install handler.
-     *
-     * @param \Notadd\Foundation\Addon\Handlers\InstallHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function install(InstallHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Uninstall handler.
-     *
-     * @param \Notadd\Foundation\Addon\Handlers\UninstallHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function uninstall(UninstallHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Update handler.
-     *
-     * @param \Notadd\Foundation\Addon\Handlers\UpdateHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function update(UpdateHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
+        return $data->toArray();
     }
 }

@@ -32,7 +32,7 @@ class AddonRepository extends Repository
             collect($this->items)->each(function ($directory, $index) {
                 unset($this->items[$index]);
                 $addon = new Addon([
-                    'addon' => $directory,
+                    'directory' => $directory,
                 ]);
                 if ($this->file()->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                     $package = collect(json_decode($this->file()->get($file), true));

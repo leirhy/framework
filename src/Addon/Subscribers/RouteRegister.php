@@ -9,6 +9,8 @@
 namespace Notadd\Foundation\Addon\Subscribers;
 
 use Notadd\Foundation\Addon\Controllers\AddonController;
+use Notadd\Foundation\Addon\Controllers\AddonExportController;
+use Notadd\Foundation\Addon\Controllers\AddonImportController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
@@ -22,21 +24,35 @@ class RouteRegister extends AbstractRouteRegister
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/administration'], function () {
-            $this->router->resource('addons', AddonController::class)->names([
-                'destroy' => 'addons.uninstall',
-                'update' => 'addons.install',
+            $this->router->resource('addons/{addon}/exports', AddonExportController::class)->methods([
+                'store' => 'export',
+            ])->names([
+                'store' => 'addons.exports',
             ])->only([
-                'index',
-                'update',
-                'destroy',
+                'store',
             ]);
-            $this->router->post('addon/enable', AddonController::class . '@enable');
-            $this->router->post('addon/exports', AddonController::class . '@exports');
-            $this->router->post('addon/imports', AddonController::class . '@imports');
-            $this->router->post('addon/install', AddonController::class . '@install');
-            $this->router->post('addon/uninstall', AddonController::class . '@uninstall');
-            $this->router->post('addon/update', AddonController::class . '@update');
-            $this->router->post('addon', AddonController::class . '@handle');
+            $this->router->resource('addons/{addon}/imports', AddonImportController::class)->methods([
+                'store' => 'import',
+            ])->names([
+                'store' => 'addons.imports',
+            ])->only([
+                'store',
+            ]);
+            $this->router->resource('addons', AddonController::class)->methods([
+                'destroy' => 'uninstall',
+                'index'   => 'list',
+                'store'   => 'install',
+            ])->names([
+                'destroy' => 'addons.uninstall',
+                'index'   => 'addons.list',
+                'store'   => 'addons.install',
+                'update'  => 'addons.update',
+            ])->only([
+                'destroy',
+                'index',
+                'store',
+                'update',
+            ]);
         });
     }
 }

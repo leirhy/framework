@@ -20,7 +20,7 @@ use Notadd\Foundation\Routing\Events\RouteRegister as RouteRegisterEvent;
 abstract class RouteRegister extends EventSubscriber
 {
     /**
-     * @var \Illuminate\Routing\Router
+     * @var \Notadd\Foundation\Routing\Router
      */
     protected $router;
 

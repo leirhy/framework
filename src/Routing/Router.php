@@ -18,10 +18,11 @@ class Router extends IlluminateRouter
     /**
      * Route a resource to a controller.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
-     * @return \Illuminate\Routing\PendingResourceRegistration
+     * @param string $name
+     * @param string $controller
+     * @param array  $options
+     *
+     * @return \Notadd\Foundation\Routing\PendingResourceRegistration
      */
     public function resource($name, $controller, array $options = [])
     {

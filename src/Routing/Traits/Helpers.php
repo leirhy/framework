@@ -25,6 +25,7 @@ use Illuminate\Session\SessionManager;
  * @property \Illuminate\Database\Connection                                $db
  * @property \Illuminate\Filesystem\Filesystem                              $file
  * @property \Psr\Log\LoggerInterface                                       $log
+ * @property \Notadd\Foundation\Module\ModuleManager                        $module
  * @property \Illuminate\Routing\Redirector                                 $redirector
  * @property \Illuminate\Http\Request                                       $request
  * @property \Illuminate\Contracts\Routing\ResponseFactory                  $response
@@ -85,6 +86,14 @@ trait Helpers
     protected function getMailer(): Mailer
     {
         return $this->container->make('mailer');
+    }
+
+    /**
+     * @return \Notadd\Foundation\Module\ModuleManager
+     */
+    protected function getModule()
+    {
+        return $this->container->make('module');
     }
 
     /**

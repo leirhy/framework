@@ -68,6 +68,7 @@ class MenuRepository extends Repository
         });
         $definition = $this->items[$index];
         $definition['children'] = $children->toArray();
+        $definition['index'] = $index;
         $collection->put($index, $definition);
     }
 

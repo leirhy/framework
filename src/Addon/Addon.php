@@ -52,7 +52,7 @@ class Addon implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return bool
      */
-    public function isEnabled()
+    public function enabled()
     {
         return boolval($this->attributes['enabled']);
     }
@@ -60,7 +60,7 @@ class Addon implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return bool
      */
-    public function isInstalled()
+    public function installed()
     {
         return boolval($this->attributes['installed']);
     }

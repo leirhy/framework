@@ -104,7 +104,7 @@ class SubscriberDetector implements Detector
                     'path'      => $location,
                 ]);
             });
-            $this->container->make(AddonManager::class)->getEnabledExtensions()->each(function (Addon $extension) use ($paths) {
+            $this->container->make(AddonManager::class)->repository()->enabled()->each(function (Addon $extension) use ($paths) {
                 $location = realpath($extension->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Subscribers');
                 $this->file->isDirectory($location) && $paths->push([
                     'namespace' => $extension->get('namespace') . 'Subscribers',

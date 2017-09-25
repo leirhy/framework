@@ -100,7 +100,7 @@ class CommandDetector implements Detector
                     'path'      => $location,
                 ]);
             });
-            $this->container->make(AddonManager::class)->getEnabledExtensions()->each(function (Addon $extension) use ($collection) {
+            $this->container->make(AddonManager::class)->repository()->enabled()->each(function (Addon $extension) use ($collection) {
                 $location = realpath($extension->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Commands');
                 $this->file->isDirectory($location) && $collection->push([
                     'namespace' => $extension->get('namespace') . 'Commands',

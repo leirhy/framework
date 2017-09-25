@@ -45,7 +45,7 @@ class AddonHandler extends Handler
         $this->withCode(200)->withData($this->manager->getExtensions()->transform(function (Addon $extension) {
             return [
                 'author'         => $extension->getAuthor(),
-                'enabled'        => $extension->isEnabled(),
+                'enabled'        => $extension->enabled(),
                 'description'    => $extension->getDescription(),
                 'identification' => $extension->getIdentification(),
                 'name'           => $extension->getName(),

@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Administration\Subscribers;
 
+use Notadd\Foundation\Administration\Controllers\DashboardsController;
 use Notadd\Foundation\Administration\Controllers\InformationsController;
 use Notadd\Foundation\Administration\Controllers\MenusController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
@@ -23,6 +24,13 @@ class RouteRegister extends AbstractRouteRegister
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/administration'], function () {
+            $this->router->resource('dashboards', DashboardsController::class)->methods([
+                'store' => 'list',
+            ])->names([
+                'store' => 'dashboards.list',
+            ])->only([
+                'store',
+            ]);
             $this->router->resource('informations', InformationsController::class)->methods([
                 'store' => 'list',
             ])->names([

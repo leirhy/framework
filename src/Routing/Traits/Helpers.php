@@ -21,8 +21,10 @@ use Illuminate\Session\SessionManager;
 /**
  * Class Helpers.
  *
+ * @property \Notadd\Foundation\Addon\AddonManager                          $addon
  * @property \Illuminate\Container\Container|\Notadd\Foundation\Application $container
  * @property \Illuminate\Database\Connection                                $db
+ * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
  * @property \Illuminate\Filesystem\Filesystem                              $file
  * @property \Psr\Log\LoggerInterface                                       $log
  * @property \Notadd\Foundation\Module\ModuleManager                        $module
@@ -34,6 +36,14 @@ use Illuminate\Session\SessionManager;
  */
 trait Helpers
 {
+    /**
+     * @return mixed|\Notadd\Foundation\Addon\AddonManager
+     */
+    protected function getAddon()
+    {
+        return $this->container->make('addon');
+    }
+
     /**
      * Get configuration instance.
      *
@@ -75,6 +85,14 @@ trait Helpers
     protected function getContainer(): Container
     {
         return Container::getInstance();
+    }
+
+    /**
+     * @return \Notadd\Foundation\Extension\ExtensionManager
+     */
+    protected function getExtension()
+    {
+        return $this->container->make('extension');
     }
 
     /**

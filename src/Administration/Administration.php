@@ -12,12 +12,15 @@ use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use InvalidArgumentException;
 use Notadd\Foundation\Administration\Abstracts\Administrator;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class Administration.
  */
 class Administration
 {
+    use Helpers;
+
     /**
      * @var \Notadd\Foundation\Administration\Abstracts\Administrator
      */
@@ -83,5 +86,18 @@ class Administration
         } else {
             throw new InvalidArgumentException('Administrator must be instanceof ' . Administrator::class . '!');
         }
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function pages()
+    {
+        $collection = collect();
+        $this->module->pages()->each(function ($definition) use ($collection) {
+            $collection->push($definition);
+        });
+
+        return $collection;
     }
 }

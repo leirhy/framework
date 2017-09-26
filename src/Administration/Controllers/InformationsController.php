@@ -20,17 +20,13 @@ class InformationsController extends Controller
      */
     public function list()
     {
-        $pages = collect();
         $scripts = collect();
         $stylesheets = collect();
-        $this->module->pages()->each(function ($definition, $index) use ($pages) {
-            $pages->put($index, $definition);
-        });
 
         return $this->response->json([
             'data'    => [
                 'navigation'  => $this->module->menus()->structures()->toArray(),
-                'pages'       => $pages->toArray(),
+                'pages'       => $this->administration->pages()->toArray(),
                 'scripts'     => $scripts->toArray(),
                 'stylesheets' => $stylesheets->toArray(),
             ],

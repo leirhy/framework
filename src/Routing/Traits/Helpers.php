@@ -22,6 +22,7 @@ use Illuminate\Session\SessionManager;
  * Class Helpers.
  *
  * @property \Notadd\Foundation\Addon\AddonManager                          $addon
+ * @property \Notadd\Foundation\Administration\Administration               $administration
  * @property \Illuminate\Container\Container|\Notadd\Foundation\Application $container
  * @property \Illuminate\Database\Connection                                $db
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
@@ -42,6 +43,14 @@ trait Helpers
     protected function getAddon()
     {
         return $this->container->make('addon');
+    }
+
+    /**
+     * @return \Notadd\Foundation\Administration\Administration
+     */
+    protected function getAdministration()
+    {
+        return $this->container->make('administration');
     }
 
     /**

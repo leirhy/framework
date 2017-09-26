@@ -34,7 +34,7 @@ class MenuRepository extends Repository
      */
     public function initialize()
     {
-        $configuration = json_decode($this->setting->get('administration.menus', ''));
+        $configuration = json_decode($this->setting->get('administration.menus', ''), true);
         $this->configuration = is_array($configuration) ? $configuration : [];
         collect($this->items)->each(function ($definition, $module) {
             unset($this->items[$module]);
@@ -54,7 +54,7 @@ class MenuRepository extends Repository
                     $this->structure($index, $collection);
                 }
             });
-            $this->structures = $collection;
+            $this->structures = $collection->sortBy('order');
         }
 
         return $this->structures;
@@ -73,7 +73,7 @@ class MenuRepository extends Repository
             $this->structure($index, $children);
         });
         $definition = $this->items[$index];
-        $definition['children'] = $children->toArray();
+        $definition['children'] = $children->sortBy('order')->toArray();
         $definition['index'] = $index;
         $collection->put($index, $definition);
     }
@@ -87,8 +87,9 @@ class MenuRepository extends Repository
         collect($items)->each(function ($definition, $key) use ($prefix) {
             $key = $prefix . '/' . $key;
             if (isset($this->configuration[$key])) {
-                $definition['enabled'] = boolval($this->configuration[$key]['enabled']);
-                $definition['order'] = intval($this->configuration[$key]['order']);
+                $definition['enabled'] = isset($this->configuration[$key]['enabled']) ? boolval($this->configuration[$key]['enabled']) : false;
+                $definition['order'] = isset($this->configuration[$key]['order']) ? intval($this->configuration[$key]['order']) : 0;
+                $definition['text'] = $this->configuration[$key]['text'] ?? $definition['text'];
             } else {
                 $definition['enabled'] = true;
                 $definition['order'] = 0;

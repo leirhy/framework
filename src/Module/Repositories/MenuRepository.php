@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Module\Repositories;
 
-use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Http\Abstracts\Repository;
 use Notadd\Foundation\Routing\Traits\Helpers;
@@ -21,6 +20,11 @@ class MenuRepository extends Repository
     use Helpers;
 
     /**
+     * @var array
+     */
+    protected $configuration = [];
+
+    /**
      * @var \Illuminate\Support\Collection
      */
     protected $structures;
@@ -30,6 +34,8 @@ class MenuRepository extends Repository
      */
     public function initialize()
     {
+        $configuration = json_decode($this->setting->get('administration.menus', ''));
+        $this->configuration = is_array($configuration) ? $configuration : [];
         collect($this->items)->each(function ($definition, $module) {
             unset($this->items[$module]);
             $this->parse($definition, $module);
@@ -79,13 +85,20 @@ class MenuRepository extends Repository
     private function parse($items, $prefix)
     {
         collect($items)->each(function ($definition, $key) use ($prefix) {
-            $definition['order'] = 0;
+            $key = $prefix . '/' . $key;
+            if (isset($this->configuration[$key])) {
+                $definition['enabled'] = boolval($this->configuration[$key]['enabled']);
+                $definition['order'] = intval($this->configuration[$key]['order']);
+            } else {
+                $definition['enabled'] = true;
+                $definition['order'] = 0;
+            }
             $definition['parent'] = $prefix;
             if (isset($definition['children'])) {
-                $this->parse($definition['children'], $prefix . '/' . $key);
+                $this->parse($definition['children'], $key);
                 unset($definition['children']);
             }
-            $this->items[$prefix . '/' . $key] = $definition;
+            $this->items[$key] = $definition;
         });
     }
 }

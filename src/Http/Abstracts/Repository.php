@@ -8,49 +8,18 @@
  */
 namespace Notadd\Foundation\Http\Abstracts;
 
-use Illuminate\Container\Container;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
-use Notadd\Foundation\Setting\Contracts\SettingsRepository;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class Repository.
  */
 abstract class Repository extends Collection
 {
+    use Helpers;
+
     /**
      * Initialize.
      */
     abstract public function initialize();
-
-    /**
-     * @return \Illuminate\Container\Container
-     */
-    public function container()
-    {
-        return Container::getInstance();
-    }
-
-    /**
-     * @return \Illuminate\Filesystem\Filesystem
-     */
-    protected function file()
-    {
-        return Container::getInstance()->make(Filesystem::class);
-    }
-
-    /**
-     * @param string $key
-     * @param string $default
-     *
-     * @return mixed|\Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    protected function setting($key = '', $default = '')
-    {
-        if ($key) {
-            return Container::getInstance()->make(SettingsRepository::class)->get($key, $default);
-        } else {
-            return Container::getInstance()->make(SettingsRepository::class);
-        }
-    }
 }

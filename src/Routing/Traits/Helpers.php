@@ -22,7 +22,7 @@ use Illuminate\Session\SessionManager;
  * Class Helpers.
  *
  * @property \Notadd\Foundation\Addon\AddonManager                          $addon
- * @property \Notadd\Foundation\Administration\Administration               $administration
+ * @property \Notadd\Foundation\Administration\AdministrationManager        $administration
  * @property \Illuminate\Container\Container|\Notadd\Foundation\Application $container
  * @property \Illuminate\Database\Connection                                $db
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
@@ -31,7 +31,7 @@ use Illuminate\Session\SessionManager;
  * @property \Notadd\Foundation\Module\ModuleManager                        $module
  * @property \Illuminate\Routing\Redirector                                 $redirector
  * @property \Illuminate\Http\Request                                       $request
- * @property \Illuminate\Contracts\Routing\ResponseFactory                  $response
+ * @property \Illuminate\Contracts\Routing\ResponseFactory            $response
  * @property \Illuminate\Session\Store                                      $session
  * @property \Notadd\Foundation\Setting\Contracts\SettingsRepository        $setting
  */
@@ -46,7 +46,7 @@ trait Helpers
     }
 
     /**
-     * @return \Notadd\Foundation\Administration\Administration
+     * @return \Notadd\Foundation\Administration\AdministrationManager
      */
     protected function getAdministration()
     {

@@ -29,12 +29,12 @@ class CheckPublicPath extends EventSubscriber
      *
      * @param \Illuminate\Container\Container $container
      * @param \Illuminate\Events\Dispatcher   $events
-     * @param \Illuminate\Http\Request        $request
+     * @param \Illuminate\Http\Request        $router
      */
-    public function __construct(Container $container, Dispatcher $events, Request $request)
+    public function __construct(Container $container, Dispatcher $events, Request $router)
     {
         parent::__construct($container, $events);
-        $this->request = $request;
+        $this->request = $router;
     }
 
     /**

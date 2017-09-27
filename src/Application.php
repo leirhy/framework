@@ -1077,7 +1077,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function registerCoreContainerAliases()
     {
         $data = [
-            'administration'            => [\Notadd\Foundation\Administration\Administration::class],
+            'administration'            => [\Notadd\Foundation\Administration\AdministrationManager::class],
             'addon'                     => [\Notadd\Foundation\Addon\AddonManager::class],
             'app'                       => [
                 \Illuminate\Contracts\Container\Container::class,

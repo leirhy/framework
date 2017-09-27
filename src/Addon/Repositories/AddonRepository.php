@@ -34,8 +34,8 @@ class AddonRepository extends Repository
                 $addon = new Addon([
                     'directory' => $directory,
                 ]);
-                if ($this->file()->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                    $package = collect(json_decode($this->file()->get($file), true));
+                if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                    $package = collect(json_decode($this->file->get($file), true));
                     $configurations = $this->loadConfigurations($directory);
                     $configurations->isNotEmpty() && $configurations->each(function ($value, $item) use ($addon) {
                         $addon->offsetSet($item, $value);
@@ -48,8 +48,8 @@ class AddonRepository extends Repository
                             'vendor',
                             'autoload.php',
                         ])->implode(DIRECTORY_SEPARATOR);
-                        if ($this->file()->exists($autoload)) {
-                            $this->file()->requireOnce($autoload);
+                        if ($this->file->exists($autoload)) {
+                            $this->file->requireOnce($autoload);
                         }
                         if (!$addon->offsetExists('provider')) {
                             collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($addon) {
@@ -60,9 +60,9 @@ class AddonRepository extends Repository
                         $provider = $addon->offsetGet('provider');
                         $addon->offsetSet('initialized', boolval(class_exists($provider) ?: false));
                         $key = 'addon.' . $addon->offsetGet('identification') . '.enabled';
-                        $addon->offsetSet('enabled', $this->setting()->get($key, false));
+                        $addon->offsetSet('enabled', $this->setting->get($key, false));
                         $key = 'addon.' . $addon->offsetGet('identification') . '.installed';
-                        $addon->offsetSet('installed', $this->setting()->get($key, false));
+                        $addon->offsetSet('installed', $this->setting->get($key, false));
                     }
                     $this->items[$configurations->get('identification')] = $addon;
                 }
@@ -129,13 +129,13 @@ class AddonRepository extends Repository
      */
     protected function loadConfigurations(string $directory): Collection
     {
-        if ($this->file()->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
+        if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
             return collect(Yaml::parse(file_get_contents($file)));
         } else {
-            if ($this->file()->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
+            if ($this->file->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
                 $configurations = collect();
-                collect($this->file()->files($directory))->each(function ($file) use ($configurations) {
-                    if ($this->file()->isReadable($file)) {
+                collect($this->file->files($directory))->each(function ($file) use ($configurations) {
+                    if ($this->file->isReadable($file)) {
                         collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
                             $configurations->put($key, $data);
                         });

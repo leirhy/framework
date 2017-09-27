@@ -34,9 +34,9 @@ class ModuleRepository extends Repository
                 $module = new Module([
                     'directory' => $directory,
                 ]);
-                if ($this->file()->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                     $configurations = $this->loadConfigurations($directory);
-                    $package = collect(json_decode($this->file()->get($file), true));
+                    $package = collect(json_decode($this->file->get($file), true));
                     $configurations->isNotEmpty() && $configurations->each(function ($value, $item) use ($module) {
                         $module->offsetSet($item, $value);
                     });
@@ -48,7 +48,7 @@ class ModuleRepository extends Repository
                             'vendor',
                             'autoload.php',
                         ])->implode(DIRECTORY_SEPARATOR);
-                        $this->file()->exists($autoload) && $this->file()->requireOnce($autoload);
+                        $this->file->exists($autoload) && $this->file->requireOnce($autoload);
                         $module->offsetExists('service') || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
                             $module->offsetSet('namespace', $namespace);
                             $module->offsetSet('service', $namespace . 'ModuleServiceProvider');
@@ -56,9 +56,9 @@ class ModuleRepository extends Repository
                         $provider = $module->offsetGet('service');
                         $module->offsetSet('initialized', boolval(class_exists($provider) ?: false));
                         $key = 'module.' . $module->offsetGet('identification') . '.enabled';
-                        $module->offsetSet('enabled', boolval($this->setting()->get($key, false)));
+                        $module->offsetSet('enabled', boolval($this->setting->get($key, false)));
                         $key = 'module.' . $module->offsetGet('identification') . '.installed';
-                        $module->offsetSet('installed', boolval($this->setting()->get($key, false)));
+                        $module->offsetSet('installed', boolval($this->setting->get($key, false)));
                     }
                     $this->items[$configurations->get('identification')] = $module;
                 }
@@ -75,13 +75,13 @@ class ModuleRepository extends Repository
      */
     protected function loadConfigurations(string $directory)
     {
-        if ($this->file()->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
+        if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
             return collect(Yaml::parse(file_get_contents($file)));
         } else {
-            if ($this->file()->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
+            if ($this->file->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
                 $configurations = collect();
-                collect($this->file()->files($directory))->each(function ($file) use ($configurations) {
-                    if ($this->file()->isReadable($file)) {
+                collect($this->file->files($directory))->each(function ($file) use ($configurations) {
+                    if ($this->file->isReadable($file)) {
                         collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
                             $configurations->put($key, $data);
                         });

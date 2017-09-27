@@ -29,12 +29,12 @@ abstract class RouteRegister extends EventSubscriber
      *
      * @param \Illuminate\Container\Container $container
      * @param \Illuminate\Events\Dispatcher   $events
-     * @param \Illuminate\Routing\Router      $request
+     * @param \Illuminate\Routing\Router      $router
      */
-    public function __construct(Container $container, Dispatcher $events, Router $request)
+    public function __construct(Container $container, Dispatcher $events, Router $router)
     {
         parent::__construct($container, $events);
-        $this->router = $request;
+        $this->router = $router;
     }
 
     /**

@@ -32,8 +32,8 @@ class ExtensionRepository extends Repository
                 $extension = new Extension([
                     'directory' => $directory,
                 ]);
-                if ($this->file()->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                    $package = collect(json_decode($this->file()->get($file), true));
+                if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                    $package = collect(json_decode($this->file->get($file), true));
                     $extension->offsetSet('identification', data_get($package, 'name'));
                     $extension->offsetSet('description', data_get($package, 'description'));
                     $extension->offsetSet('authors', data_get($package, 'authors'));
@@ -43,7 +43,7 @@ class ExtensionRepository extends Repository
                             'vendor',
                             'autoload.php',
                         ])->implode(DIRECTORY_SEPARATOR);
-                        $this->file()->exists($autoload) && $this->file()->requireOnce($autoload);
+                        $this->file->exists($autoload) && $this->file->requireOnce($autoload);
                         collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($extension) {
                             $extension->offsetSet('namespace', $namespace);
                             $extension->offsetSet('service', $namespace . 'ExtensionServiceProvider');
@@ -51,9 +51,9 @@ class ExtensionRepository extends Repository
                         $provider = $extension->offsetGet('service');
                         $extension->offsetSet('initialized', boolval(class_exists($provider) ?: false));
                         $key = 'extension.' . $extension->offsetGet('identification') . '.enabled';
-                        $extension->offsetSet('enabled', boolval($this->setting()->get($key, false)));
+                        $extension->offsetSet('enabled', boolval($this->setting->get($key, false)));
                         $key = 'extension.' . $extension->offsetGet('identification') . '.installed';
-                        $extension->offsetSet('installed', boolval($this->setting()->get($key, false)));
+                        $extension->offsetSet('installed', boolval($this->setting->get($key, false)));
                     }
                     $this->items[$package->get('identification')] = $extension;
                 }

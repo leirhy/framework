@@ -28,7 +28,7 @@ class PageRepository extends Repository
                 collect(data_get($definition, 'tabs'))->each(function ($definition, $tab) use ($key) {
                     $key = $key . '.tabs.' . $tab . '.fields';
                     data_set($this->items, $key, collect(data_get($definition, 'fields'))->map(function ($definition) {
-                        $setting = $this->setting()->get($definition['key'], '');
+                        $setting = $this->setting->get($definition['key'], '');
                         if (isset($definition['format'])) {
                             switch ($definition['format']) {
                                 case 'boolean':

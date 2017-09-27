@@ -14,6 +14,7 @@ use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\MountManager;
 use Notadd\Foundation\Addon\Addon;
 use Notadd\Foundation\Routing\Abstracts\Controller;
+use Notadd\Foundation\Validation\Rule;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -22,6 +23,39 @@ use Symfony\Component\Console\Output\BufferedOutput;
  */
 class AddonController extends Controller
 {
+    /**
+     * @var bool
+     */
+    protected $onlyValues = true;
+
+    /**
+     * @return $this|\Illuminate\Http\JsonResponse
+     */
+    public function enable()
+    {
+        list($identification, $status) = $this->validate($this->request, [
+            'identification' => Rule::required(),
+            'status'         => Rule::required(),
+        ], [
+            'identification.required' => '插件标识必须填写',
+            'status.required'         => '插件状态值必须填写',
+        ]);
+        if (!$this->addon->has($identification)) {
+            return $this->response->json([
+                'message' => '不存在插件[' . $identification . ']',
+            ])->setStatusCode(500);
+        }
+        $key = 'addon.' . $identification . '.enabled';
+        $this->setting->set($key, boolval($status));
+
+        return $this->response->json([
+            'message' => '切换插件开启状态成功！',
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function install()
     {
         set_time_limit(0);
@@ -121,7 +155,7 @@ class AddonController extends Controller
         return $this->response->json([
             'data'     => [
                 'enabled'    => $this->info($enabled),
-                'addons' => $this->info($addons),
+                'addons'     => $this->info($addons),
                 'installed'  => $this->info($installed),
                 'notInstall' => $this->info($notInstalled),
             ],

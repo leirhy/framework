@@ -42,11 +42,12 @@ class RouteRegister extends AbstractRouteRegister
                 'destroy' => 'uninstall',
                 'index'   => 'list',
                 'store'   => 'install',
+                'update'  => 'enable',
             ])->names([
                 'destroy' => 'addons.uninstall',
                 'index'   => 'addons.list',
                 'store'   => 'addons.install',
-                'update'  => 'addons.update',
+                'update'  => 'addons.enable',
             ])->only([
                 'destroy',
                 'index',

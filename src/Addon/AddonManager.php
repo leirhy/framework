@@ -8,24 +8,15 @@
  */
 namespace Notadd\Foundation\Addon;
 
-use Illuminate\Container\Container;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Collection;
-use Notadd\Foundation\Addon\Addon;
 use Notadd\Foundation\Addon\Repositories\AddonRepository;
-use Symfony\Component\Yaml\Yaml;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class ExtensionManager.
  */
 class AddonManager
 {
-    /**
-     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
-     */
-    protected $container;
+    use Helpers;
 
     /**
      * @var \Illuminate\Support\Collection
@@ -33,28 +24,16 @@ class AddonManager
     protected $excepts;
 
     /**
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $file;
-
-    /**
      * @var \Notadd\Foundation\Extension\Repositories\ExtensionRepository
      */
     protected $repository;
 
     /**
-     * ExtensionManager constructor.
-     *
-     * @param \Illuminate\Container\Container   $container
-     * @param \Illuminate\Events\Dispatcher     $events
-     * @param \Illuminate\Filesystem\Filesystem $files
+     * AddonManager constructor.
      */
-    public function __construct(Container $container, Dispatcher $events, Filesystem $files)
+    public function __construct()
     {
-        $this->container = $container;
         $this->excepts = collect();
-        $this->file = $files;
-        $this->unloaded = collect();
     }
 
     /**

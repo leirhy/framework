@@ -8,13 +8,11 @@
  */
 namespace Notadd\Foundation\Addon\Controllers;
 
-use Closure;
 use Illuminate\Support\Collection;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\MountManager;
 use Notadd\Foundation\Addon\Addon;
-use Notadd\Foundation\Addon\AddonManager;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -24,26 +22,10 @@ use Symfony\Component\Console\Output\BufferedOutput;
  */
 class AddonController extends Controller
 {
-    /**
-     * @var \Notadd\Foundation\Addon\AddonManager
-     */
-    protected $manager;
-
-    /**
-     * AddonController constructor.
-     *
-     * @param \Notadd\Foundation\Addon\AddonManager $manager
-     */
-    public function __construct(AddonManager $manager)
-    {
-        parent::__construct();
-        $this->manager = $manager;
-    }
-
     public function install()
     {
         set_time_limit(0);
-        $addon = $this->manager->get($this->request->input('identification'));
+        $addon = $this->addon->get($this->request->input('identification'));
         $output = new BufferedOutput();
         $result = false;
         $this->db->beginTransaction();
@@ -131,10 +113,10 @@ class AddonController extends Controller
      */
     public function list()
     {
-        $addons = $this->manager->repository();
-        $enabled = $this->manager->repository()->enabled();
-        $installed = $this->manager->repository()->installed();
-        $notInstalled = $this->manager->repository()->notInstalled();
+        $addons = $this->addon->repository();
+        $enabled = $this->addon->repository()->enabled();
+        $installed = $this->addon->repository()->installed();
+        $notInstalled = $this->addon->repository()->notInstalled();
 
         return $this->response->json([
             'data'     => [

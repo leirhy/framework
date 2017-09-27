@@ -23,6 +23,7 @@ use Illuminate\Session\SessionManager;
  *
  * @property \Notadd\Foundation\Addon\AddonManager                          $addon
  * @property \Notadd\Foundation\Administration\AdministrationManager        $administration
+ * @property \Illuminate\Auth\AuthManager                                   $auth
  * @property \Illuminate\Container\Container|\Notadd\Foundation\Application $container
  * @property \Illuminate\Database\Connection                                $db
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
@@ -52,6 +53,14 @@ trait Helpers
     protected function getAdministration()
     {
         return $this->container->make('administration');
+    }
+
+    /**
+     * @return \Illuminate\Auth\AuthManager
+     */
+    protected function getAuth()
+    {
+        return $this->container->make('auth');
     }
 
     /**

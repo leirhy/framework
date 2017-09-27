@@ -9,48 +9,17 @@
 namespace Notadd\Foundation\Http\Detectors;
 
 use Illuminate\Console\Application as Artisan;
-use Illuminate\Container\Container;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Addon\Addon;
-use Notadd\Foundation\Addon\AddonManager;
 use Notadd\Foundation\Http\Contracts\Detector;
 use Notadd\Foundation\Module\Module;
-use Notadd\Foundation\Module\ModuleManager;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class CommandDetector.
  */
 class CommandDetector implements Detector
 {
-    /**
-     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
-     */
-    protected $container;
-
-    /**
-     * @var \Illuminate\Events\Dispatcher
-     */
-    protected $event;
-
-    /**
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $file;
-
-    /**
-     * ListenerDetector constructor.
-     *
-     * @param \Illuminate\Container\Container   $container
-     * @param \Illuminate\Events\Dispatcher     $event
-     * @param \Illuminate\Filesystem\Filesystem $file
-     */
-    public function __construct(Container $container, Dispatcher $event, Filesystem $file)
-    {
-        $this->container = $container;
-        $this->file = $file;
-        $this->event = $event;
-    }
+    use Helpers;
 
     /**
      * Detect paths.
@@ -93,14 +62,14 @@ class CommandDetector implements Detector
     {
         $collection = collect();
         if ($this->container->isInstalled()) {
-            $this->container->make(ModuleManager::class)->repository()->enabled()->each(function (Module $module) use ($collection) {
+            $this->module->repository()->enabled()->each(function (Module $module) use ($collection) {
                 $location = realpath($module->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Commands');
                 $this->file->isDirectory($location) && $collection->push([
                     'namespace' => $module->get('namespace') . 'Commands',
                     'path'      => $location,
                 ]);
             });
-            $this->container->make(AddonManager::class)->repository()->enabled()->each(function (Addon $extension) use ($collection) {
+            $this->addon->repository()->enabled()->each(function (Addon $extension) use ($collection) {
                 $location = realpath($extension->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Commands');
                 $this->file->isDirectory($location) && $collection->push([
                     'namespace' => $extension->get('namespace') . 'Commands',

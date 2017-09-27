@@ -34,7 +34,7 @@ class AddonServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('addon', function ($app) {
-            return new AddonManager($app, $app['events'], $app['files']);
+            return new AddonManager();
         });
     }
 }

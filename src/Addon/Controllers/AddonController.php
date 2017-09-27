@@ -139,13 +139,13 @@ class AddonController extends Controller
     protected function info(Collection $list)
     {
         $data = collect();
-        $list->each(function (Addon $extension) use ($data) {
-            $data->put($extension->identification(), [
-                'author'         => collect($extension->offsetGet('author'))->implode(','),
-                'enabled'        => $extension->enabled(),
-                'description'    => $extension->offsetGet('description'),
-                'identification' => $extension->identification(),
-                'name'           => $extension->offsetGet('name'),
+        $list->each(function (Addon $addon) use ($data) {
+            $data->put($addon->identification(), [
+                'author'         => collect($addon->offsetGet('author'))->implode(','),
+                'enabled'        => $addon->enabled(),
+                'description'    => $addon->offsetGet('description'),
+                'identification' => $addon->identification(),
+                'name'           => $addon->offsetGet('name'),
             ]);
         });
 

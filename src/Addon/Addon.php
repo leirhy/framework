@@ -54,7 +54,8 @@ class Addon implements Arrayable, ArrayAccess, JsonSerializable
      */
     public function enabled()
     {
-        return boolval($this->attributes['enabled']);
+        $a = isset($this->attributes['enabled']);
+        return boolval($this->attributes['enabled'] ?? false);
     }
 
     /**
@@ -62,7 +63,7 @@ class Addon implements Arrayable, ArrayAccess, JsonSerializable
      */
     public function installed()
     {
-        return boolval($this->attributes['installed']);
+        return boolval($this->attributes['installed'] ?? false);
     }
 
     /**

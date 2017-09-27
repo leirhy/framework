@@ -35,6 +35,7 @@ use Illuminate\Session\SessionManager;
  * @property \Illuminate\Contracts\Routing\ResponseFactory                  $response
  * @property \Illuminate\Session\Store                                      $session
  * @property \Notadd\Foundation\Setting\Contracts\SettingsRepository        $setting
+ * @property \Notadd\Foundation\Translation\Translator                      $translator
  * @property \Illuminate\Routing\UrlGenerator                               $url
  */
 trait Helpers
@@ -207,6 +208,14 @@ trait Helpers
     protected function getUrl()
     {
         return $this->container->make('url');
+    }
+
+    /**
+     * @return \Notadd\Foundation\Translation\Translator
+     */
+    protected function getTranslator()
+    {
+        return $this->container->make('translator');
     }
 
     /**

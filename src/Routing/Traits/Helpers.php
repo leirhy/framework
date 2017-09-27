@@ -31,9 +31,10 @@ use Illuminate\Session\SessionManager;
  * @property \Notadd\Foundation\Module\ModuleManager                        $module
  * @property \Illuminate\Routing\Redirector                                 $redirector
  * @property \Illuminate\Http\Request                                       $request
- * @property \Illuminate\Contracts\Routing\ResponseFactory            $response
+ * @property \Illuminate\Contracts\Routing\ResponseFactory                  $response
  * @property \Illuminate\Session\Store                                      $session
  * @property \Notadd\Foundation\Setting\Contracts\SettingsRepository        $setting
+ * @property \Illuminate\Routing\UrlGenerator                               $url
  */
 trait Helpers
 {
@@ -189,6 +190,14 @@ trait Helpers
     protected function getFile()
     {
         return $this->container->make('files');
+    }
+
+    /**
+     * @return \Illuminate\Routing\UrlGenerator
+     */
+    protected function getUrl()
+    {
+        return $this->container->make('url');
     }
 
     /**

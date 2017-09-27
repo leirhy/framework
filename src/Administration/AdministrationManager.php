@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use Notadd\Foundation\Administration\Abstracts\Administrator;
 use Notadd\Foundation\Administration\Repositories\PageRepository;
 use Notadd\Foundation\Administration\Repositories\ScriptRepository;
+use Notadd\Foundation\Administration\Repositories\StylesheetRepository;
 use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
@@ -35,6 +36,8 @@ class AdministrationManager
      * @var \Notadd\Foundation\Administration\Repositories\ScriptRepository
      */
     protected $scriptRepository;
+
+    protected $stylesheetRepository;
 
     /**
      * Get administrator.
@@ -100,5 +103,18 @@ class AdministrationManager
         }
 
         return $this->scriptRepository;
+    }
+
+    /**
+     * @return \Notadd\Foundation\Administration\Repositories\StylesheetRepository
+     */
+    public function stylesheets()
+    {
+        if (!$this->stylesheetRepository instanceof  StylesheetRepository) {
+            $this->stylesheetRepository = new StylesheetRepository();
+            $this->stylesheetRepository->initialize();
+        }
+
+        return $this->stylesheetRepository;
     }
 }

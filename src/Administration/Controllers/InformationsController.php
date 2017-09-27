@@ -20,15 +20,12 @@ class InformationsController extends Controller
      */
     public function list()
     {
-        $scripts = collect();
-        $stylesheets = collect();
-
         return $this->response->json([
             'data'    => [
                 'navigation'  => $this->module->menus()->structures()->toArray(),
                 'pages'       => $this->administration->pages()->toArray(),
-                'scripts'     => $scripts->toArray(),
-                'stylesheets' => $stylesheets->toArray(),
+                'scripts'     => $this->administration->scripts()->toArray(),
+                'stylesheets' => $this->administration->stylesheets()->toArray(),
             ],
             'message' => '获取模块和插件信息成功！',
         ]);

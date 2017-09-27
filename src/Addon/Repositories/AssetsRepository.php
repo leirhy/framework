@@ -20,5 +20,33 @@ class AssetsRepository extends Repository
      */
     public function initialize()
     {
+        collect($this->items)->each(function ($items, $module) {
+            unset($this->items[$module]);
+            $collection = collect($items);
+            $collection->count() && $collection->each(function ($collection, $entry) use ($module) {
+                $collection = collect($collection);
+                $collection->count() && $collection->each(function ($definition, $identification) use ($entry, $module) {
+                    $data = [
+                        'entry'          => $entry,
+                        'for'            => 'addon',
+                        'identification' => $identification,
+                        'module'         => $module,
+                        'permission'     => data_get($definition, 'permission', ''),
+                    ];
+                    collect((array)data_get($definition, 'scripts'))->each(function ($path) use ($data) {
+                        $this->items[] = array_merge($data, [
+                            'file' => $path,
+                            'type' => 'script',
+                        ]);
+                    });
+                    collect((array)data_get($definition, 'stylesheets'))->each(function ($path) use ($data) {
+                        $this->items[] = array_merge($data, [
+                            'file' => $path,
+                            'type' => 'stylesheet',
+                        ]);
+                    });
+                });
+            });
+        });
     }
 }

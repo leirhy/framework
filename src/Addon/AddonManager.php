@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Addon;
 
 use Notadd\Foundation\Addon\Repositories\AddonRepository;
+use Notadd\Foundation\Addon\Repositories\AssetsRepository;
 use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
@@ -18,13 +19,15 @@ class AddonManager
 {
     use Helpers;
 
+    protected $assetsRepository;
+
     /**
      * @var \Illuminate\Support\Collection
      */
     protected $excepts;
 
     /**
-     * @var \Notadd\Foundation\Extension\Repositories\ExtensionRepository
+     * @var \Notadd\Foundation\Addon\Repositories\AddonRepository
      */
     protected $repository;
 
@@ -89,6 +92,23 @@ class AddonManager
     public function has($name): bool
     {
         return $this->repository()->has($name);
+    }
+
+    /**
+     * @return \Notadd\Foundation\Addon\Repositories\AssetsRepository
+     */
+    public function assets()
+    {
+        if (!$this->assetsRepository instanceof AssetsRepository) {
+            $collection = collect();
+            $this->repository->enabled()->each(function (Addon $addon) use ($collection) {
+                $collection->put($addon->identification(), $addon->get('assets', []));
+            });
+            $this->assetsRepository = new AssetsRepository($collection);
+            $this->assetsRepository->initialize();
+        }
+
+        return $this->assetsRepository;
     }
 
     /**

@@ -13,7 +13,7 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 /**
  * Class AddonImportController.
  */
-class AddonImportController extends Controller
+class AddonsImportsController extends Controller
 {
     public function import()
     {

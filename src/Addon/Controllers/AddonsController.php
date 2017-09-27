@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * Class ExtensionController.
  */
-class AddonController extends Controller
+class AddonsController extends Controller
 {
     /**
      * @var bool
@@ -58,88 +58,60 @@ class AddonController extends Controller
      */
     public function install()
     {
+        list($identification) = $this->validate($this->request, [
+            'identification' => Rule::required(),
+        ], [
+            'identification.required' => '插件标识必须填写',
+        ]);
         set_time_limit(0);
-        $addon = $this->addon->get($this->request->input('identification'));
-        $output = new BufferedOutput();
-        $result = false;
-        $this->db->beginTransaction();
-        if ($addon) {
-            $collection = collect();
-            // Has Migration.
-            $addon->offsetExists('migrations') && $collection->put('migrations', $addon->get('migrations'));
-            // Has Publishes.
-            $addon->offsetExists('publishes') && $collection->put('publishes', $addon->get('publishes'));
-            if (!$this->setting->get('addon.' . $addon->identification() . '.installed', false)) {
-                if ($collection->count() && $collection->every(function ($instance, $key) use ($addon, $output) {
-                        switch ($key) {
-                            case 'migrations':
-                                if (is_array($instance) && collect($instance)->every(function ($path) use (
-                                        $addon,
-                                        $output
-                                    ) {
-                                        $path = $addon->get('directory') . DIRECTORY_SEPARATOR . $path;
-                                        $migration = str_replace($this->container->basePath(), '', $path);
-                                        $migration = trim($migration, DIRECTORY_SEPARATOR);
-                                        $input = new ArrayInput([
-                                            '--path'  => $migration,
-                                            '--force' => true,
-                                        ]);
-                                        $this->getConsole()->find('migrate')->run($input, $output);
-
-                                        return true;
-                                    })) {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
-                                break;
-                            case 'publishes':
-                                if (is_array($instance) && collect($instance)->every(function ($from, $to) use (
-                                        $addon,
-                                        $output
-                                    ) {
-                                        $from = $addon->get('directory') . DIRECTORY_SEPARATOR . $from;
-                                        $to = $this->container->basePath() . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . $to;
-                                        if ($this->file->isFile($from)) {
-                                            $this->publishFile($from, $to);
-                                        } else {
-                                            if ($this->file->isDirectory($from)) {
-                                                $this->publishDirectory($from, $to);
-                                            }
-                                        }
-
-                                        return true;
-                                    })) {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
-                                break;
-                            default:
-                                return false;
-                                break;
-                        }
-                    })) {
-                    $result = true;
-                }
-            }
-        }
-        if ($result) {
-            $this->container->make('log')->info('Install Addon ' . $this->request->input('identification') . ':',
-                explode(PHP_EOL, $output->fetch()));
-            $this->setting->set('addon.' . $addon->identification() . '.installed', true);
-            $this->db->commit();
-
+        if (!$this->addon->has($identification)) {
             return $this->response->json([
-                'message' => '安装模块成功！',
-            ])->setStatusCode(200);
-        } else {
-            $this->db->rollBack();
-
-            return $this->response->json([
-                'message' => '安装模块失败！',
+                'message' => '插件不存在！',
             ])->setStatusCode(500);
         }
+        $key = 'addon.' . $identification . '.installed';
+        if ($this->setting->get($key, false)) {
+            return $this->response->json([
+                'message' => '插件已经安装，不必重复安装！',
+            ])->setStatusCode(500);
+        }
+        $addon = $this->addon->get($identification);
+        $output = new BufferedOutput();
+        $this->db->transaction(function () use ($addon, $output) {
+            if ($addon->offsetExists('migrations')) {
+                $migrations = (array)$addon->offsetExists('migrations');
+                collect($migrations)->each(function ($path) use ($addon, $output) {
+                    $path = $addon->get('directory') . DIRECTORY_SEPARATOR . $path;
+                    $migration = str_replace($this->container->basePath(), '', $path);
+                    $migration = trim($migration, DIRECTORY_SEPARATOR);
+                    $input = new ArrayInput([
+                        '--path'  => $migration,
+                        '--force' => true,
+                    ]);
+                    $this->getConsole()->find('migrate')->run($input, $output);
+                });
+            }
+            if ($addon->offsetExists('publishes')) {
+                $publishes = (array)$addon->get('publishes');
+                collect($publishes)->each(function ($from, $to) use ($addon, $output) {
+                    $from = $addon->get('directory') . DIRECTORY_SEPARATOR . $from;
+                    $to = $this->container->basePath() . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . $to;
+                    if ($this->file->isFile($from)) {
+                        $this->publishFile($from, $to);
+                    } else {
+                        if ($this->file->isDirectory($from)) {
+                            $this->publishDirectory($from, $to);
+                        }
+                    }
+                });
+            }
+            $notice = 'Install Addon ' . $this->request->input('identification') . ':';
+            $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
+            $this->setting->set('addon.' . $addon->identification() . '.installed', true);
+        });
+        return $this->response->json([
+            'message' => '安装模块成功！',
+        ])->setStatusCode(200);
     }
 
     /**

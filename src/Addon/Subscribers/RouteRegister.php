@@ -8,9 +8,9 @@
  */
 namespace Notadd\Foundation\Addon\Subscribers;
 
-use Notadd\Foundation\Addon\Controllers\AddonController;
-use Notadd\Foundation\Addon\Controllers\AddonExportController;
-use Notadd\Foundation\Addon\Controllers\AddonImportController;
+use Notadd\Foundation\Addon\Controllers\AddonsController;
+use Notadd\Foundation\Addon\Controllers\AddonsExportsController;
+use Notadd\Foundation\Addon\Controllers\AddonsImportsController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
@@ -24,21 +24,21 @@ class RouteRegister extends AbstractRouteRegister
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/administration'], function () {
-            $this->router->resource('addons/{addon}/exports', AddonExportController::class)->methods([
+            $this->router->resource('addons/{addon}/exports', AddonsExportsController::class)->methods([
                 'store' => 'export',
             ])->names([
                 'store' => 'addons.exports',
             ])->only([
                 'store',
             ]);
-            $this->router->resource('addons/{addon}/imports', AddonImportController::class)->methods([
+            $this->router->resource('addons/{addon}/imports', AddonsImportsController::class)->methods([
                 'store' => 'import',
             ])->names([
                 'store' => 'addons.imports',
             ])->only([
                 'store',
             ]);
-            $this->router->resource('addons', AddonController::class)->methods([
+            $this->router->resource('addons', AddonsController::class)->methods([
                 'destroy' => 'uninstall',
                 'index'   => 'list',
                 'store'   => 'install',

@@ -13,7 +13,7 @@ use Notadd\Foundation\Routing\Abstracts\Controller;
 /**
  * Class AddonExportController.
  */
-class AddonExportController extends Controller
+class AddonsExportsController extends Controller
 {
     public function export()
     {

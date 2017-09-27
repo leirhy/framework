@@ -28,6 +28,7 @@ class AssetsRepository extends Repository
                 $collection->count() && $collection->each(function ($definition, $identification) use ($entry, $module) {
                     $data = [
                         'entry'          => $entry,
+                        'for'            => 'module',
                         'identification' => $identification,
                         'module'         => $module,
                         'permission'     => data_get($definition, 'permission', ''),

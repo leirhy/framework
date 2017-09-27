@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Administration;
 use InvalidArgumentException;
 use Notadd\Foundation\Administration\Abstracts\Administrator;
 use Notadd\Foundation\Administration\Repositories\PageRepository;
+use Notadd\Foundation\Administration\Repositories\ScriptRepository;
 use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
@@ -29,6 +30,11 @@ class AdministrationManager
      * @var \Notadd\Foundation\Administration\Repositories\PageRepository
      */
     protected $pageRepository;
+
+    /**
+     * @var \Notadd\Foundation\Administration\Repositories\ScriptRepository
+     */
+    protected $scriptRepository;
 
     /**
      * Get administrator.
@@ -81,5 +87,18 @@ class AdministrationManager
         }
 
         return $this->pageRepository;
+    }
+
+    /**
+     * @return \Notadd\Foundation\Administration\Repositories\ScriptRepository
+     */
+    public function scripts()
+    {
+        if (!$this->scriptRepository instanceof ScriptRepository) {
+            $this->scriptRepository = new ScriptRepository();
+            $this->scriptRepository->initialize();
+        }
+
+        return $this->scriptRepository;
     }
 }

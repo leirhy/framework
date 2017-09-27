@@ -10,12 +10,13 @@ namespace Notadd\Foundation\Administration;
 
 use InvalidArgumentException;
 use Notadd\Foundation\Administration\Abstracts\Administrator;
+use Notadd\Foundation\Administration\Repositories\PageRepository;
 use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
- * Class Administration.
+ * Class AdministrationManager.
  */
-class Administration
+class AdministrationManager
 {
     use Helpers;
 
@@ -23,6 +24,11 @@ class Administration
      * @var \Notadd\Foundation\Administration\Abstracts\Administrator
      */
     protected $administrator;
+
+    /**
+     * @var \Notadd\Foundation\Administration\Repositories\PageRepository
+     */
+    protected $pageRepository;
 
     /**
      * Get administrator.
@@ -69,11 +75,11 @@ class Administration
      */
     public function pages()
     {
-        $collection = collect();
-        $this->module->pages()->each(function ($definition) use ($collection) {
-            $collection->push($definition);
-        });
+        if (!$this->pageRepository instanceof PageRepository) {
+            $this->pageRepository = new PageRepository();
+            $this->pageRepository->initialize();
+        }
 
-        return $collection;
+        return $this->pageRepository;
     }
 }

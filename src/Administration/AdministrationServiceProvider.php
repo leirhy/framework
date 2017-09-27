@@ -34,7 +34,7 @@ class AdministrationServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('administration', function () {
-            return new Administration();
+            return new AdministrationManager();
         });
     }
 }

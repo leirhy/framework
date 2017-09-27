@@ -22,6 +22,11 @@ use Notadd\Foundation\Module\Repositories\PageRepository;
 class ModuleManager
 {
     /**
+     * @var \Notadd\Foundation\Module\Repositories\AssetsRepository
+     */
+    protected $assetsRepository;
+
+    /**
      * Container instance.
      *
      * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
@@ -37,6 +42,16 @@ class ModuleManager
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $file;
+
+    /**
+     * @var \Notadd\Foundation\Module\Repositories\MenuRepository
+     */
+    protected $menuRepository;
+
+    /**
+     * @var \Notadd\Foundation\Module\Repositories\PageRepository
+     */
+    protected $pageRepository;
 
     /**
      * @var \Notadd\Foundation\Module\Repositories\ModuleRepository
@@ -116,14 +131,16 @@ class ModuleManager
      */
     public function menus(): MenuRepository
     {
-        $collection = collect();
-        $this->repository->enabled()->each(function (Module $module) use ($collection) {
-            $collection->put($module->identification(), $module->get('menus', []));
-        });
-        $repository = new MenuRepository($collection);
-        $repository->initialize();
+        if (!$this->menuRepository instanceof MenuRepository) {
+            $collection = collect();
+            $this->repository->enabled()->each(function (Module $module) use ($collection) {
+                $collection->put($module->identification(), $module->get('menus', []));
+            });
+            $this->menuRepository = new MenuRepository($collection);
+            $this->menuRepository->initialize();
+        }
 
-        return $repository;
+        return $this->menuRepository;
     }
 
     /**
@@ -131,14 +148,17 @@ class ModuleManager
      */
     public function pages(): PageRepository
     {
-        $collection = collect();
-        $this->repository->enabled()->each(function (Module $module) use ($collection) {
-            $collection->put($module->identification(), $module->get('pages', []));
-        });
-        $repository = new PageRepository($collection);
-        $repository->initialize();
+        if (!$this->pageRepository instanceof PageRepository) {
+            $collection = collect();
+            $this->repository->enabled()->each(function (Module $module) use ($collection) {
+                $collection->put($module->identification(), $module->get('pages', []));
+            });
+            $this->pageRepository = new PageRepository($collection);
+            $this->pageRepository->initialize();
 
-        return $repository;
+        }
+
+        return $this->pageRepository;
     }
 
     /**
@@ -146,14 +166,16 @@ class ModuleManager
      */
     public function assets(): AssetsRepository
     {
-        $collection = collect();
-        $this->repository->enabled()->each(function (Module $module) use ($collection) {
-            $collection->put($module->identification(), $module->get('assets', []));
-        });
-        $repository = new AssetsRepository($collection);
-        $repository->initialize();
+        if (!$this->assetsRepository instanceof AssetsRepository) {
+            $collection = collect();
+            $this->repository->enabled()->each(function (Module $module) use ($collection) {
+                $collection->put($module->identification(), $module->get('assets', []));
+            });
+            $this->assetsRepository = new AssetsRepository($collection);
+            $this->assetsRepository->initialize();
+        }
 
-        return $repository;
+        return $this->assetsRepository;
     }
 
     /**

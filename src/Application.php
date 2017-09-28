@@ -9,12 +9,14 @@
 namespace Notadd\Foundation;
 
 use Closure;
+use Illuminate\Cache\CacheServiceProvider;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Events\EventServiceProvider;
 use Illuminate\Filesystem\FilesystemServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogServiceProvider;
+use Illuminate\Redis\RedisServiceProvider;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -204,6 +206,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         $this->register(new LogServiceProvider($this));
         $this->register(new RoutingServiceProvider($this));
         $this->register(new ViewServiceProvider($this));
+        $this->register(new RedisServiceProvider($this));
+        $this->register(new CacheServiceProvider($this));
         $this->register(new DatabaseServiceProvider($this));
         $this->register(new ModuleServiceProvider($this));
         $this->register(new SettingServiceProvider($this));

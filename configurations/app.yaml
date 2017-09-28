@@ -14,14 +14,14 @@ providers:
     - Illuminate\Auth\Passwords\PasswordResetServiceProvider
     - Illuminate\Broadcasting\BroadcastServiceProvider
     - Illuminate\Bus\BusServiceProvider
-    - Illuminate\Cache\CacheServiceProvider
+#    - Illuminate\Cache\CacheServiceProvider
     - Illuminate\Cookie\CookieServiceProvider
     - Illuminate\Encryption\EncryptionServiceProvider
     - Illuminate\Hashing\HashServiceProvider
     - Illuminate\Pagination\PaginationServiceProvider
     - Illuminate\Pipeline\PipelineServiceProvider
     - Illuminate\Queue\QueueServiceProvider
-    - Illuminate\Redis\RedisServiceProvider
+#    - Illuminate\Redis\RedisServiceProvider
     - Illuminate\Session\SessionServiceProvider
     - Illuminate\Validation\ValidationServiceProvider
     - Notadd\Foundation\Addon\AddonServiceProvider

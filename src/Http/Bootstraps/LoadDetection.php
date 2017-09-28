@@ -8,24 +8,21 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Illuminate\Container\Container;
-use Illuminate\Events\Dispatcher;
+use Carbon\Carbon;
 use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Http\Contracts\Detector;
 //use Notadd\Foundation\Http\Detectors\ListenerDetector;
 use Notadd\Foundation\Http\Detectors\CommandDetector;
 use Notadd\Foundation\Http\Detectors\SubscriberDetector;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class LoadDetect.
  */
 class LoadDetection implements Bootstrap
 {
-    /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
+    use Helpers;
 
     /**
      * @var array
@@ -37,37 +34,28 @@ class LoadDetection implements Bootstrap
     ];
 
     /**
-     * @var \Illuminate\Events\Dispatcher
-     */
-    protected $event;
-
-    /**
-     * LoadDetect constructor.
-     *
-     * @param \Illuminate\Container\Container $container
-     * @param \Illuminate\Events\Dispatcher   $event
-     */
-    public function __construct(Container $container, Dispatcher $event)
-    {
-        $this->container = $container;
-        $this->event = $event;
-    }
-
-    /**
      * Bootstrap the given application.
      *
      * @param \Notadd\Foundation\Application $application
      */
     public function bootstrap(Application $application)
     {
-        foreach ($this->detectors as $detector) {
-            $detector = $this->container->make($detector);
-            $detector instanceof Detector && collect($detector->paths())->each(function ($definition) use ($detector) {
-                $collections = $detector->detect($definition['path'], $definition['namespace']);
-                foreach ($collections as $collection) {
-                    $this->event->subscribe($collection);
-                }
-            });
+        if ($this->container->isInstalled() && $this->cache->store()->has('bootstrap.detection')) {
+            $collection = $this->cache->store()->get('bootstrap.detection', collect());
+        } else {
+            $collection = collect();
+            foreach ($this->detectors as $detector) {
+                $detector = $this->container->make($detector);
+                $detector instanceof Detector && collect($detector->paths())->each(function ($definition) use ($collection, $detector) {
+                    collect($detector->detect($definition['path'], $definition['namespace']))->each(function ($subscriber) use ($collection) {
+                        $collection->push($subscriber);
+                    });
+                });
+            }
+            $this->container->isInstalled() && $this->cache->store()->put('bootstrap.detection', $collection, (new Carbon())->addHour(10));
         }
+        $collection->each(function ($subscriber) {
+            $this->event->subscribe($subscriber);
+        });
     }
 }

@@ -58,7 +58,7 @@ class AssetsPublish
                     $headers['Content-Type'] = 'text/css';
                     break;
                 case 'js':
-                    $headers['Content-Type'] = 'application/json';
+                    $headers['Content-Type'] = 'application/x-javascript';
                     break;
                 default:
                     $headers['Content-Type'] = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file);

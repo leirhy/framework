@@ -24,6 +24,7 @@ use Illuminate\Session\SessionManager;
  * @property \Notadd\Foundation\Addon\AddonManager                          $addon
  * @property \Notadd\Foundation\Administration\AdministrationManager        $administration
  * @property \Illuminate\Auth\AuthManager                                   $auth
+ * @property \Illuminate\Cache\CacheManager                                 $cache
  * @property \Illuminate\Container\Container|\Notadd\Foundation\Application $container
  * @property \Illuminate\Database\Connection                                $db
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
@@ -216,6 +217,14 @@ trait Helpers
     protected function getTranslator()
     {
         return $this->container->make('translator');
+    }
+
+    /**
+     * @return \Illuminate\Cache\CacheManager
+     */
+    protected function getCache()
+    {
+        return $this->container->make('cache');
     }
 
     /**

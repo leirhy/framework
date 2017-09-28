@@ -26,33 +26,28 @@ class MenuRepository extends Repository
     protected $configuration = [];
 
     /**
-     * @var bool
-     */
-    protected $initialized = false;
-
-    /**
      * @var \Illuminate\Support\Collection
      */
     protected $structures;
 
     /**
      * Initialize.
+     *
+     * @param \Illuminate\Support\Collection $data
      */
-    public function initialize()
+    public function initialize(Collection $data)
     {
-        if (!$this->initialized) {
-            if ($this->container->isInstalled() && $this->cache->store()->has('module.menu.repository')) {
-                $this->items = $this->cache->store()->get('module.menu.repository', []);
-            } else {
-                $configuration = json_decode($this->setting->get('administration.menus', ''), true);
-                $this->configuration = is_array($configuration) ? $configuration : [];
-                collect($this->items)->each(function ($definition, $module) {
-                    unset($this->items[$module]);
-                    $this->parse($definition, $module);
+        $configuration = json_decode($this->setting->get('administration.menus', ''), true);
+        $this->configuration = is_array($configuration) ? $configuration : [];
+        if ($this->container->isInstalled()) {
+            $this->items = $this->cache->store()->rememberForever('module.menu.repository', function () use ($data) {
+                $collection = collect();
+                $data->each(function ($definition, $module) use ($collection) {
+                    $this->parse($definition, $module, $collection);
                 });
-                $this->container->isInstalled() && $this->cache->store()->put('module.menu.repository', $this->items, (new Carbon())->addHour(10));
-            }
-            $this->initialized = true;
+
+                return $collection->toArray();
+            });
         }
     }
 
@@ -93,12 +88,13 @@ class MenuRepository extends Repository
     }
 
     /**
-     * @param $items
-     * @param $prefix
+     * @param array                          $items
+     * @param string                         $prefix
+     * @param \Illuminate\Support\Collection $collection
      */
-    private function parse($items, $prefix)
+    private function parse(array $items, string $prefix, Collection $collection)
     {
-        collect($items)->each(function ($definition, $key) use ($prefix) {
+        collect($items)->each(function ($definition, $key) use ($collection, $prefix) {
             $key = $prefix . '/' . $key;
             if (isset($this->configuration[$key])) {
                 $definition['enabled'] = isset($this->configuration[$key]['enabled']) ? boolval($this->configuration[$key]['enabled']) : false;
@@ -110,10 +106,10 @@ class MenuRepository extends Repository
             }
             $definition['parent'] = $prefix;
             if (isset($definition['children'])) {
-                $this->parse($definition['children'], $key);
+                $this->parse($definition['children'], $key, $collection);
                 unset($definition['children']);
             }
-            $this->items[$key] = $definition;
+            $collection->put($key, $definition);
         });
     }
 }

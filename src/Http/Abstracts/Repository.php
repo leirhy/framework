@@ -20,6 +20,8 @@ abstract class Repository extends Collection
 
     /**
      * Initialize.
+     *
+     * @param \Illuminate\Support\Collection $collection
      */
-    abstract public function initialize();
+    abstract public function initialize(Collection $collection);
 }

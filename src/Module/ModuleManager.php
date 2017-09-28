@@ -77,8 +77,8 @@ class ModuleManager
     public function repository(): ModuleRepository
     {
         if (!$this->repository instanceof ModuleRepository) {
-            $this->repository = new ModuleRepository(collect($this->file->directories($this->getModulePath())));
-            $this->repository->initialize();
+            $this->repository = new ModuleRepository();
+            $this->repository->initialize(collect($this->file->directories($this->getModulePath())));
         }
 
         return $this->repository;
@@ -136,8 +136,8 @@ class ModuleManager
             $this->repository->enabled()->each(function (Module $module) use ($collection) {
                 $collection->put($module->identification(), $module->get('menus', []));
             });
-            $this->menuRepository = new MenuRepository($collection);
-            $this->menuRepository->initialize();
+            $this->menuRepository = new MenuRepository();
+            $this->menuRepository->initialize($collection);
         }
 
         return $this->menuRepository;
@@ -153,8 +153,8 @@ class ModuleManager
             $this->repository->enabled()->each(function (Module $module) use ($collection) {
                 $collection->put($module->identification(), $module->get('pages', []));
             });
-            $this->pageRepository = new PageRepository($collection);
-            $this->pageRepository->initialize();
+            $this->pageRepository = new PageRepository();
+            $this->pageRepository->initialize($collection);
 
         }
 
@@ -171,8 +171,8 @@ class ModuleManager
             $this->repository->enabled()->each(function (Module $module) use ($collection) {
                 $collection->put($module->identification(), $module->get('assets', []));
             });
-            $this->assetsRepository = new AssetsRepository($collection);
-            $this->assetsRepository->initialize();
+            $this->assetsRepository = new AssetsRepository();
+            $this->assetsRepository->initialize($collection);
         }
 
         return $this->assetsRepository;

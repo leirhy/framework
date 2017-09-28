@@ -22,25 +22,19 @@ class AddonRepository extends Repository
     /**
      * @var bool
      */
-    protected $initialized = false;
+    protected $loadFromCache = true;
 
     /**
      * Initialize.
+     *
+     * @param \Illuminate\Support\Collection $data
      */
-    public function initialize()
+    public function initialize(Collection $data)
     {
-        if (!$this->initialized) {
-            if ($this->container->isInstalled() && $this->cache->store()->has('addon.repository')) {
-                $this->items = $this->cache->store()->get('addon.repository', []);
-                collect($this->items)->each(function (Addon $addon) {
-                    if ($addon->offsetExists('autoload')) {
-                        $autoload = $addon->get('autoload');
-                        $this->file->exists($autoload) && $this->file->requireOnce($autoload);
-                    }
-                });
-            } else {
-                collect($this->items)->each(function ($directory, $index) {
-                    unset($this->items[$index]);
+        if ($this->container->isInstalled()) {
+            $this->items = $this->cache->store()->rememberForever('addon.repository', function () use ($data) {
+                $collection = collect();
+                $data->each(function ($directory, $index) use ($collection) {
                     $addon = new Addon([
                         'directory' => $directory,
                     ]);
@@ -61,6 +55,7 @@ class AddonRepository extends Repository
                             if ($this->file->exists($autoload)) {
                                 $addon->offsetSet('autoload', $autoload);
                                 $this->file->requireOnce($autoload);
+                                $this->loadFromCache = false;
                             }
                             if (!$addon->offsetExists('provider')) {
                                 collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($addon) {
@@ -75,12 +70,20 @@ class AddonRepository extends Repository
                             $key = 'addon.' . $addon->offsetGet('identification') . '.installed';
                             $addon->offsetSet('installed', $this->setting->get($key, false));
                         }
-                        $this->items[$configurations->get('identification')] = $addon;
+                        $collection->put($configurations->get('identification'), $addon);
                     }
                 });
-                $this->container->isInstalled() && $this->cache->store()->put('addon.repository', $this->items, (new Carbon())->addHour(10));
+
+                return $collection->toArray();
+            });
+            if (!$this->loadFromCache) {
+                collect($this->items)->each(function (Addon $addon) {
+                    if ($addon->offsetExists('autoload')) {
+                        $autoload = $addon->get('autoload');
+                        $this->file->exists($autoload) && $this->file->requireOnce($autoload);
+                    }
+                });
             }
-            $this->initialized = true;
         }
     }
 

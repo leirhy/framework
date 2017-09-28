@@ -22,25 +22,19 @@ class ModuleRepository extends Repository
     /**
      * @var bool
      */
-    protected $initialized = false;
+    protected $loadFromCache = true;
 
     /**
      * Initialize.
+     *
+     * @param \Illuminate\Support\Collection $data
      */
-    public function initialize()
+    public function initialize(Collection $data)
     {
-        if (!$this->initialized) {
-            if ($this->container->isInstalled() && $this->cache->store()->has('module.repository')) {
-                $this->items = $this->cache->store()->get('module.repository', []);
-                collect($this->items)->each(function (Module $module) {
-                    if ($module->offsetExists('autoload')) {
-                        $autoload = $module->get('autoload');
-                        $this->file->exists($autoload) && $this->file->requireOnce($autoload);
-                    }
-                });
-            } else {
-                collect($this->items)->each(function ($directory, $index) {
-                    unset($this->items[$index]);
+        if ($this->container->isInstalled()) {
+            $this->items = $this->cache->store()->rememberForever('module.repository', function () use ($data) {
+                $collection = collect();
+                $data->each(function ($directory, $index) use ($collection) {
                     $module = new Module([
                         'directory' => $directory,
                     ]);
@@ -61,6 +55,7 @@ class ModuleRepository extends Repository
                             if ($this->file->exists($autoload)) {
                                 $module->offsetSet('autoload', $autoload);
                                 $this->file->requireOnce($autoload);
+                                $this->loadFromCache = false;
                             }
                             $module->offsetExists('service') || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
                                 $module->offsetSet('namespace', $namespace);
@@ -73,12 +68,20 @@ class ModuleRepository extends Repository
                             $key = 'module.' . $module->offsetGet('identification') . '.installed';
                             $module->offsetSet('installed', boolval($this->setting->get($key, false)));
                         }
-                        $this->items[$configurations->get('identification')] = $module;
+                        $collection->put($configurations->get('identification'), $module);
                     }
                 });
-                $this->container->isInstalled() && $this->cache->store()->put('module.repository', $this->items, (new Carbon())->addHour(2));
+
+                return $collection->toArray();
+            });
+            if (!$this->loadFromCache) {
+                collect($this->items)->each(function (Module $module) {
+                    if ($module->offsetExists('autoload')) {
+                        $autoload = $module->get('autoload');
+                        $this->file->exists($autoload) && $this->file->requireOnce($autoload);
+                    }
+                });
             }
-            $this->initialized = true;
         }
     }
 

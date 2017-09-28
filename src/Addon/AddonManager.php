@@ -65,8 +65,8 @@ class AddonManager
                     });
                 });
             }
-            $this->repository = new AddonRepository($collection);
-            $this->repository->initialize();
+            $this->repository = new AddonRepository();
+            $this->repository->initialize($collection);
         }
 
         return $this->repository;
@@ -104,8 +104,8 @@ class AddonManager
             $this->repository->enabled()->each(function (Addon $addon) use ($collection) {
                 $collection->put($addon->identification(), $addon->get('assets', []));
             });
-            $this->assetsRepository = new AssetsRepository($collection);
-            $this->assetsRepository->initialize();
+            $this->assetsRepository = new AssetsRepository();
+            $this->assetsRepository->initialize($collection);
         }
 
         return $this->assetsRepository;

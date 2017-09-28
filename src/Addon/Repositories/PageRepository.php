@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Addon\Repositories;
 
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
@@ -17,8 +18,10 @@ class PageRepository extends Repository
 {
     /**
      * Initialize.
+     *
+     * @param \Illuminate\Support\Collection $data
      */
-    public function initialize()
+    public function initialize(Collection $data)
     {
     }
 }

@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Addon\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Addon\Addon;
 use Notadd\Foundation\Http\Abstracts\Repository;
@@ -29,44 +30,56 @@ class AddonRepository extends Repository
     public function initialize()
     {
         if (!$this->initialized) {
-            collect($this->items)->each(function ($directory, $index) {
-                unset($this->items[$index]);
-                $addon = new Addon([
-                    'directory' => $directory,
-                ]);
-                if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                    $package = collect(json_decode($this->file->get($file), true));
-                    $configurations = $this->loadConfigurations($directory);
-                    $configurations->isNotEmpty() && $configurations->each(function ($value, $item) use ($addon) {
-                        $addon->offsetSet($item, $value);
-                    });
-                    if ($package->get('type') == 'notadd-addon'
-                        && $configurations->get('identification') == $package->get('name')
-                        && $addon->validate()) {
-                        $autoload = collect([
-                            $directory,
-                            'vendor',
-                            'autoload.php',
-                        ])->implode(DIRECTORY_SEPARATOR);
-                        if ($this->file->exists($autoload)) {
-                            $this->file->requireOnce($autoload);
-                        }
-                        if (!$addon->offsetExists('provider')) {
-                            collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($addon) {
-                                $addon->offsetSet('namespace', $namespace);
-                                $addon->offsetSet('provider', $namespace . 'Extension');
-                            });
-                        }
-                        $provider = $addon->offsetGet('provider');
-                        $addon->offsetSet('initialized', boolval(class_exists($provider) ?: false));
-                        $key = 'addon.' . $addon->offsetGet('identification') . '.enabled';
-                        $addon->offsetSet('enabled', $this->setting->get($key, false));
-                        $key = 'addon.' . $addon->offsetGet('identification') . '.installed';
-                        $addon->offsetSet('installed', $this->setting->get($key, false));
+            if ($this->container->isInstalled() && $this->cache->store()->has('addon.repository')) {
+                $this->items = $this->cache->store()->get('addon.repository', []);
+                collect($this->items)->each(function (Addon $addon) {
+                    if ($addon->offsetExists('autoload')) {
+                        $autoload = $addon->get('autoload');
+                        $this->file->exists($autoload) && $this->file->requireOnce($autoload);
                     }
-                    $this->items[$configurations->get('identification')] = $addon;
-                }
-            });
+                });
+            } else {
+                collect($this->items)->each(function ($directory, $index) {
+                    unset($this->items[$index]);
+                    $addon = new Addon([
+                        'directory' => $directory,
+                    ]);
+                    if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                        $package = collect(json_decode($this->file->get($file), true));
+                        $configurations = $this->loadConfigurations($directory);
+                        $configurations->isNotEmpty() && $configurations->each(function ($value, $item) use ($addon) {
+                            $addon->offsetSet($item, $value);
+                        });
+                        if ($package->get('type') == 'notadd-addon'
+                            && $configurations->get('identification') == $package->get('name')
+                            && $addon->validate()) {
+                            $autoload = collect([
+                                $directory,
+                                'vendor',
+                                'autoload.php',
+                            ])->implode(DIRECTORY_SEPARATOR);
+                            if ($this->file->exists($autoload)) {
+                                $addon->offsetSet('autoload', $autoload);
+                                $this->file->requireOnce($autoload);
+                            }
+                            if (!$addon->offsetExists('provider')) {
+                                collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($addon) {
+                                    $addon->offsetSet('namespace', $namespace);
+                                    $addon->offsetSet('provider', $namespace . 'Extension');
+                                });
+                            }
+                            $provider = $addon->offsetGet('provider');
+                            $addon->offsetSet('initialized', boolval(class_exists($provider) ?: false));
+                            $key = 'addon.' . $addon->offsetGet('identification') . '.enabled';
+                            $addon->offsetSet('enabled', $this->setting->get($key, false));
+                            $key = 'addon.' . $addon->offsetGet('identification') . '.installed';
+                            $addon->offsetSet('installed', $this->setting->get($key, false));
+                        }
+                        $this->items[$configurations->get('identification')] = $addon;
+                    }
+                });
+                $this->container->isInstalled() && $this->cache->store()->put('addon.repository', $this->items, (new Carbon())->addHour(10));
+            }
             $this->initialized = true;
         }
     }

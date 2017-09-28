@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Module\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Http\Abstracts\Repository;
 use Notadd\Foundation\Module\Module;
@@ -29,40 +30,54 @@ class ModuleRepository extends Repository
     public function initialize()
     {
         if (!$this->initialized) {
-            collect($this->items)->each(function ($directory, $index) {
-                unset($this->items[$index]);
-                $module = new Module([
-                    'directory' => $directory,
-                ]);
-                if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                    $configurations = $this->loadConfigurations($directory);
-                    $package = collect(json_decode($this->file->get($file), true));
-                    $configurations->isNotEmpty() && $configurations->each(function ($value, $item) use ($module) {
-                        $module->offsetSet($item, $value);
-                    });
-                    if ($package->get('type') == 'notadd-module'
-                        && $configurations->get('identification') == $package->get('name')
-                        && $module->validate()) {
-                        $autoload = collect([
-                            $directory,
-                            'vendor',
-                            'autoload.php',
-                        ])->implode(DIRECTORY_SEPARATOR);
+            if ($this->container->isInstalled() && $this->cache->store()->has('module.repository')) {
+                $this->items = $this->cache->store()->get('module.repository', []);
+                collect($this->items)->each(function (Module $module) {
+                    if ($module->offsetExists('autoload')) {
+                        $autoload = $module->get('autoload');
                         $this->file->exists($autoload) && $this->file->requireOnce($autoload);
-                        $module->offsetExists('service') || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
-                            $module->offsetSet('namespace', $namespace);
-                            $module->offsetSet('service', $namespace . 'ModuleServiceProvider');
-                        });
-                        $provider = $module->offsetGet('service');
-                        $module->offsetSet('initialized', boolval(class_exists($provider) ?: false));
-                        $key = 'module.' . $module->offsetGet('identification') . '.enabled';
-                        $module->offsetSet('enabled', boolval($this->setting->get($key, false)));
-                        $key = 'module.' . $module->offsetGet('identification') . '.installed';
-                        $module->offsetSet('installed', boolval($this->setting->get($key, false)));
                     }
-                    $this->items[$configurations->get('identification')] = $module;
-                }
-            });
+                });
+            } else {
+                collect($this->items)->each(function ($directory, $index) {
+                    unset($this->items[$index]);
+                    $module = new Module([
+                        'directory' => $directory,
+                    ]);
+                    if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                        $configurations = $this->loadConfigurations($directory);
+                        $package = collect(json_decode($this->file->get($file), true));
+                        $configurations->isNotEmpty() && $configurations->each(function ($value, $item) use ($module) {
+                            $module->offsetSet($item, $value);
+                        });
+                        if ($package->get('type') == 'notadd-module'
+                            && $configurations->get('identification') == $package->get('name')
+                            && $module->validate()) {
+                            $autoload = collect([
+                                $directory,
+                                'vendor',
+                                'autoload.php',
+                            ])->implode(DIRECTORY_SEPARATOR);
+                            if ($this->file->exists($autoload)) {
+                                $module->offsetSet('autoload', $autoload);
+                                $this->file->requireOnce($autoload);
+                            }
+                            $module->offsetExists('service') || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
+                                $module->offsetSet('namespace', $namespace);
+                                $module->offsetSet('service', $namespace . 'ModuleServiceProvider');
+                            });
+                            $provider = $module->offsetGet('service');
+                            $module->offsetSet('initialized', boolval(class_exists($provider) ?: false));
+                            $key = 'module.' . $module->offsetGet('identification') . '.enabled';
+                            $module->offsetSet('enabled', boolval($this->setting->get($key, false)));
+                            $key = 'module.' . $module->offsetGet('identification') . '.installed';
+                            $module->offsetSet('installed', boolval($this->setting->get($key, false)));
+                        }
+                        $this->items[$configurations->get('identification')] = $module;
+                    }
+                });
+                $this->container->isInstalled() && $this->cache->store()->put('module.repository', $this->items, (new Carbon())->addHour(2));
+            }
             $this->initialized = true;
         }
     }

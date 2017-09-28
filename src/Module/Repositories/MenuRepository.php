@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Module\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Http\Abstracts\Repository;
 use Notadd\Foundation\Routing\Traits\Helpers;
@@ -25,6 +26,11 @@ class MenuRepository extends Repository
     protected $configuration = [];
 
     /**
+     * @var bool
+     */
+    protected $initialized = false;
+
+    /**
      * @var \Illuminate\Support\Collection
      */
     protected $structures;
@@ -34,12 +40,20 @@ class MenuRepository extends Repository
      */
     public function initialize()
     {
-        $configuration = json_decode($this->setting->get('administration.menus', ''), true);
-        $this->configuration = is_array($configuration) ? $configuration : [];
-        collect($this->items)->each(function ($definition, $module) {
-            unset($this->items[$module]);
-            $this->parse($definition, $module);
-        });
+        if (!$this->initialized) {
+            if ($this->container->isInstalled() && $this->cache->store()->has('module.menu.repository')) {
+                $this->items = $this->cache->store()->get('module.menu.repository', []);
+            } else {
+                $configuration = json_decode($this->setting->get('administration.menus', ''), true);
+                $this->configuration = is_array($configuration) ? $configuration : [];
+                collect($this->items)->each(function ($definition, $module) {
+                    unset($this->items[$module]);
+                    $this->parse($definition, $module);
+                });
+                $this->container->isInstalled() && $this->cache->store()->put('module.menu.repository', $this->items, (new Carbon())->addHour(10));
+            }
+            $this->initialized = true;
+        }
     }
 
     /**

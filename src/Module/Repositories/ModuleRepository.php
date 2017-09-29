@@ -72,9 +72,9 @@ class ModuleRepository extends Repository
                     }
                 });
 
-                return $collection->toArray();
+                return $collection->all();
             });
-            if (!$this->loadFromCache) {
+            if ($this->loadFromCache) {
                 collect($this->items)->each(function (Module $module) {
                     if ($module->offsetExists('autoload')) {
                         $autoload = $module->get('autoload');

@@ -86,7 +86,7 @@ class AdministrationManager
     {
         if (!$this->pageRepository instanceof PageRepository) {
             $this->pageRepository = new PageRepository();
-            $this->pageRepository->initialize();
+            $this->pageRepository->initialize(collect());
         }
 
         return $this->pageRepository;
@@ -99,7 +99,7 @@ class AdministrationManager
     {
         if (!$this->scriptRepository instanceof ScriptRepository) {
             $this->scriptRepository = new ScriptRepository();
-            $this->scriptRepository->initialize();
+            $this->scriptRepository->initialize(collect());
         }
 
         return $this->scriptRepository;
@@ -112,7 +112,7 @@ class AdministrationManager
     {
         if (!$this->stylesheetRepository instanceof  StylesheetRepository) {
             $this->stylesheetRepository = new StylesheetRepository();
-            $this->stylesheetRepository->initialize();
+            $this->stylesheetRepository->initialize(collect());
         }
 
         return $this->stylesheetRepository;

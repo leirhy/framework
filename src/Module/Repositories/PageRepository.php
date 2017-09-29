@@ -30,30 +30,35 @@ class PageRepository extends Repository
                     collect($items)->each(function ($definition, $identification) use ($collection, $module) {
                         $key = $module . '/' . $identification;
                         $collection->put($key, $definition);
-                        collect(data_get($definition, 'tabs'))->each(function ($definition, $tab) use ($collection, $key) {
-                            $key = $key . '.tabs.' . $tab . '.fields';
-                            data_set($collection, $key, collect(data_get($definition, 'fields'))->map(function ($definition) {
-                                $setting = $this->setting->get($definition['key'], '');
-                                if (isset($definition['format'])) {
-                                    switch ($definition['format']) {
-                                        case 'boolean':
-                                            $definition['value'] = boolval($setting);
-                                            break;
-                                        default:
-                                            $definition['value'] = $setting;
-                                            break;
-                                    }
-                                } else {
-                                    $definition['value'] = $setting;
-                                }
-
-                                return $definition;
-                            })->toArray());
-                        });
                     });
                 });
+                $collection->transform(function ($definition) {
+                    data_set($definition, 'tabs', collect($definition['tabs'])->map(function ($definition) {
+                        data_set($definition, 'fields', collect($definition['fields'])->map(function ($definition) {
+                            $setting = $this->setting->get($definition['key'], '');
+                            if (isset($definition['format'])) {
+                                switch ($definition['format']) {
+                                    case 'boolean':
+                                        $definition['value'] = boolval($setting);
+                                        break;
+                                    default:
+                                        $definition['value'] = $setting;
+                                        break;
+                                }
+                            } else {
+                                $definition['value'] = $setting;
+                            }
 
-                return $collection->toArray();
+                            return $definition;
+                        }));
+
+                        return $definition;
+                    }));
+
+                    return $definition;
+                });
+
+                return $collection->all();
             });
         }
     }

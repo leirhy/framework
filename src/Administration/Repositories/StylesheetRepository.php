@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Administration\Repositories;
 
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Http\Abstracts\Repository;
 
 /**
@@ -17,8 +18,10 @@ class StylesheetRepository extends Repository
 {
     /**
      * Initialize.
+     *
+     * @param \Illuminate\Support\Collection $collection
      */
-    public function initialize()
+    public function initialize(Collection $collection)
     {
         $this->module->assets()->filter(function ($definition) {
             return isset($definition['entry'])

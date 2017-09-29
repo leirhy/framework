@@ -46,7 +46,7 @@ class MenuRepository extends Repository
                     $this->parse($definition, $module, $collection);
                 });
 
-                return $collection->toArray();
+                return $collection->all();
             });
         }
     }

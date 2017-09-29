@@ -54,7 +54,7 @@ class AssetsRepository extends Repository
                     });
                 });
 
-                return $collection->toArray();
+                return $collection->all();
             });
         }
     }

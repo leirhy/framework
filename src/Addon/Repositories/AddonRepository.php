@@ -74,9 +74,9 @@ class AddonRepository extends Repository
                     }
                 });
 
-                return $collection->toArray();
+                return $collection->all();
             });
-            if (!$this->loadFromCache) {
+            if ($this->loadFromCache) {
                 collect($this->items)->each(function (Addon $addon) {
                     if ($addon->offsetExists('autoload')) {
                         $autoload = $addon->get('autoload');

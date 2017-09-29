@@ -68,9 +68,9 @@ class ExtensionRepository extends Repository
                     }
                 });
 
-                return $collection->toArray();
+                return $collection->all();
             });
-            if (!$this->loadFromCache) {
+            if ($this->loadFromCache) {
                 collect($this->items)->each(function (Extension $extension) {
                     if ($extension->offsetExists('autoload')) {
                         $autoload = $extension->get('autoload');

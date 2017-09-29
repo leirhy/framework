@@ -24,7 +24,7 @@ class PageRepository extends Repository
     public function initialize(Collection $data)
     {
         if ($this->container->isInstalled()) {
-            $this->items = $this->cache->rememberForever('', function () use ($data) {
+            $this->items = $this->cache->store()->rememberForever('module.page.repository', function () use ($data) {
                 $collection = collect();
                 $data->each(function ($items, $module) use ($collection) {
                     collect($items)->each(function ($definition, $identification) use ($collection, $module) {

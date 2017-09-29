@@ -24,7 +24,7 @@ class AssetsRepository extends Repository
     public function initialize(Collection $data)
     {
         if ($this->container->isInstalled()) {
-            $this->items = $this->cache->store()->rememberForever('', function () use ($data) {
+            $this->items = $this->cache->store()->rememberForever('module.assets.repository', function () use ($data) {
                 $collection = collect();
                 $data->each(function ($items, $module) use ($collection) {
                     $items = collect($items);

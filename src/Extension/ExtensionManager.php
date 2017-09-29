@@ -58,8 +58,8 @@ class ExtensionManager
     public function repository()
     {
         if (!$this->repository instanceof ExtensionRepository) {
-            $this->repository = new ExtensionRepository(collect($this->file->directories($this->getExtensionPath())));
-            $this->repository->initialize();
+            $this->repository = new ExtensionRepository();
+            $this->repository->initialize(collect($this->file->directories($this->getExtensionPath())));
         }
 
         return $this->repository;

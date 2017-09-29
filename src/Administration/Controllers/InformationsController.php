@@ -22,7 +22,7 @@ class InformationsController extends Controller
     {
         return $this->response->json([
             'data'    => [
-                'navigation'  => $this->module->menus()->structures()->toArray(),
+                'navigation'  => $this->administration->navigations()->toArray(),
                 'pages'       => $this->administration->pages()->toArray(),
                 'scripts'     => $this->administration->scripts()->toArray(),
                 'stylesheets' => $this->administration->stylesheets()->toArray(),

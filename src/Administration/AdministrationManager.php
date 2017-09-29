@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Administration;
 
 use InvalidArgumentException;
 use Notadd\Foundation\Administration\Abstracts\Administrator;
+use Notadd\Foundation\Administration\Repositories\NavigationRepository;
 use Notadd\Foundation\Administration\Repositories\PageRepository;
 use Notadd\Foundation\Administration\Repositories\ScriptRepository;
 use Notadd\Foundation\Administration\Repositories\StylesheetRepository;
@@ -28,6 +29,11 @@ class AdministrationManager
     protected $administrator;
 
     /**
+     * @var \Notadd\Foundation\Administration\Repositories\NavigationRepository
+     */
+    protected $navigationRepository;
+
+    /**
      * @var \Notadd\Foundation\Administration\Repositories\PageRepository
      */
     protected $pageRepository;
@@ -37,6 +43,9 @@ class AdministrationManager
      */
     protected $scriptRepository;
 
+    /**
+     * @var \Notadd\Foundation\Administration\Repositories\StylesheetRepository
+     */
     protected $stylesheetRepository;
 
     /**
@@ -77,6 +86,19 @@ class AdministrationManager
         } else {
             throw new InvalidArgumentException('Administrator must be instanceof ' . Administrator::class . '!');
         }
+    }
+
+    /**
+     * @return \Notadd\Foundation\Administration\Repositories\NavigationRepository
+     */
+    public function navigations()
+    {
+        if (!$this->navigationRepository instanceof NavigationRepository) {
+            $this->navigationRepository = new NavigationRepository();
+            $this->navigationRepository->initialize($this->module->menus()->structures());
+        }
+
+        return $this->navigationRepository;
     }
 
     /**

@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\Module\Controllers;
 
 use Notadd\Foundation\Module\Handlers\DomainHandler;
-use Notadd\Foundation\Module\Handlers\EnableHandler;
 use Notadd\Foundation\Module\Handlers\ExportsHandler;
 use Notadd\Foundation\Module\Handlers\ImportsHandler;
 use Notadd\Foundation\Module\Handlers\InstallHandler;
@@ -35,19 +34,6 @@ class ModuleController extends Controller
             'update',
         ],
     ];
-
-    /**
-     * Enable handler.
-     *
-     * @param \Notadd\Foundation\Module\Handlers\EnableHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function enable(EnableHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
 
     /**
      * @param \Notadd\Foundation\Module\Handlers\DomainHandler $handler

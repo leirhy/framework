@@ -11,12 +11,45 @@ namespace Notadd\Foundation\Module\Controllers;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Routing\Abstracts\Controller;
+use Notadd\Foundation\Validation\Rule;
 
 /**
  * Class ModulesController.
  */
 class ModulesController extends Controller
 {
+    /**
+     * @var bool
+     */
+    protected $onlyValues = true;
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function enable()
+    {
+        list($identification, $status) = $this->validate($this->request, [
+            'identification' => Rule::required(),
+            'status'         => Rule::required(),
+        ], [
+            'identification.required' => '模块标识必须填写',
+            'status.required'         => '模块状态值必须填写',
+        ]);
+        if (!$this->module->has($identification)) {
+            return $this->response->json([
+                'message' => '不存在模块[' . $identification . ']',
+            ])->setStatusCode(500);
+        }
+        $key = 'module.' . $identification . '.enabled';
+        $this->setting->set($key, boolval($status));
+        $this->redis->flushall();
+
+        return $this->response->json([
+            'message' => '切换模块开启状态成功！',
+        ]);
+    }
+
+
     /**
      * @return \Illuminate\Http\JsonResponse
      */

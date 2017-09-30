@@ -25,36 +25,7 @@ class NavigationRepository extends Repository
     {
         if ($this->container->isInstalled()) {
             $this->items = $this->cache->store()->rememberForever('administration.navigation.repository', function () use ($data) {
-                return $data->map(function ($definition) {
-                    return collect($definition)->map(function ($definition, $key) {
-                        if ($key == 'children') {
-                            return collect($definition)->map(function ($definition, $key) {
-                                if ($key == 'notadd/administration/global/0') {
-                                    $children = collect((array)$definition['children']);
-                                    $this->administration->pages()->each(function ($definition) use ($children, $key) {
-                                        if ($definition['initialization']['target'] == 'global') {
-                                            $children->push([
-                                                'children' => [],
-                                                'parent' => $key,
-                                                'path' => $definition['initialization']['path'],
-                                                'text' => $definition['initialization']['name'],
-                                            ]);
-                                        }
-                                    });
-                                    $definition['children'] = $children->map(function ($definition, $index) {
-                                        $definition['index'] = $definition['parent'] . '/' . $index;
-
-                                        return $definition;
-                                    })->keyBy('index')->toArray();
-                                }
-
-                                return $definition;
-                            });
-                        } else {
-                            return $definition;
-                        }
-                    });
-                })->all();
+                return $data->all();
             });
         }
     }

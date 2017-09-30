@@ -42,6 +42,49 @@ class MenuRepository extends Repository
         if ($this->container->isInstalled()) {
             $this->items = $this->cache->store()->rememberForever('module.menu.repository', function () use ($data) {
                 $collection = collect();
+                $data = $data->map(function ($definition, $key) {
+                    if ($key == 'notadd/administration') {
+                        return collect($definition)->map(function ($definition, $key) {
+                            if ($key == 'global') {
+                                return collect($definition)->map(function ($definition, $key) {
+                                    if ($key == 'children') {
+                                        return collect($definition)->map(function ($definition) {
+                                            if (isset($definition['injection'])) {
+                                                $children = isset($definition['children']) ? collect((array)$definition['children']) : collect();
+                                                switch ($definition['injection']) {
+                                                    case 'addon':
+                                                        $this->addon->repository();
+                                                        break;
+                                                    case 'global':
+                                                        $this->administration->pages()->each(function ($definition) use ($children) {
+                                                            if ($definition['initialization']['target'] == 'global') {
+                                                                $children->push([
+                                                                    'path' => $definition['initialization']['path'],
+                                                                    'text' => $definition['initialization']['name'],
+                                                                ]);
+                                                            }
+                                                        });
+                                                        break;
+                                                }
+                                                $definition['children'] = $children->toArray();
+
+                                                return $definition;
+                                            } else {
+                                                return $definition;
+                                            }
+                                        })->toArray();
+                                    } else {
+                                        return $definition;
+                                    }
+                                })->toArray();
+                            } else {
+                                return $definition;
+                            }
+                        })->toArray();
+                    } else {
+                        return $definition;
+                    }
+                });
                 $data->each(function ($definition, $module) use ($collection) {
                     $this->parse($definition, $module, $collection);
                 });

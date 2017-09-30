@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Module\Subscribers;
 
 use Notadd\Foundation\Module\Controllers\ModuleController;
 use Notadd\Foundation\Module\Controllers\ModulesController;
+use Notadd\Foundation\Module\Controllers\ModulesDomainsController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
@@ -23,6 +24,13 @@ class RouteRegister extends AbstractRouteRegister
     public function handle()
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/administration'], function () {
+            $this->router->resource('modules/domains', ModulesDomainsController::class)->methods([
+                'store' => 'update',
+            ])->names([
+                'store' => 'domains.update',
+            ])->only([
+                'store',
+            ]);
             $this->router->resource('modules', ModulesController::class)->methods([
                 'destroy' => 'uninstall',
                 'index'   => 'list',
@@ -41,7 +49,6 @@ class RouteRegister extends AbstractRouteRegister
             ]);
         });
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api'], function () {
-            $this->router->post('module/domain', ModuleController::class . '@domain');
             $this->router->post('module/exports', ModuleController::class . '@exports');
             $this->router->post('module/imports', ModuleController::class . '@imports');
             $this->router->post('module/install', ModuleController::class . '@install');

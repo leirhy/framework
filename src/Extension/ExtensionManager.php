@@ -53,6 +53,16 @@ class ExtensionManager
     }
 
     /**
+     * @param $identification
+     *
+     * @return bool
+     */
+    public function has($identification)
+    {
+        return $this->repository()->has($identification);
+    }
+
+    /**
      * @return \Notadd\Foundation\Extension\Repositories\ExtensionRepository
      */
     public function repository()

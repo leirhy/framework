@@ -33,7 +33,6 @@ class ExtensionRepository extends Repository
             $this->items = $this->cache->store()->rememberForever('extension.repository', function () use ($data) {
                 $collection = collect();
                 $data->each(function ($directory, $index) use ($collection) {
-                    unset($this->items[$index]);
                     $extension = new Extension([
                         'directory' => $directory,
                     ]);

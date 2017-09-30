@@ -53,7 +53,12 @@ class MenuRepository extends Repository
                                                 $children = isset($definition['children']) ? collect((array)$definition['children']) : collect();
                                                 switch ($definition['injection']) {
                                                     case 'addon':
-                                                        $this->addon->repository();
+                                                        $this->addon->navigations()->each(function ($definition) use ($children) {
+                                                            $children->push([
+                                                                'path' => $definition['path'] ?? '/',
+                                                                'text' => $definition['text'] ?? '未定义',
+                                                            ]);
+                                                        });
                                                         break;
                                                     case 'global':
                                                         $this->administration->pages()->each(function ($definition) use ($children) {

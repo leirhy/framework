@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Addon;
 
 use Notadd\Foundation\Addon\Repositories\AddonRepository;
 use Notadd\Foundation\Addon\Repositories\AssetsRepository;
+use Notadd\Foundation\Addon\Repositories\NavigationRepository;
 use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
@@ -19,12 +20,20 @@ class AddonManager
 {
     use Helpers;
 
+    /**
+     * @var \Notadd\Foundation\Addon\Repositories\AssetsRepository
+     */
     protected $assetsRepository;
 
     /**
      * @var \Illuminate\Support\Collection
      */
     protected $excepts;
+
+    /**
+     * @var \Notadd\Foundation\Addon\Repositories\NavigationRepository
+     */
+    protected $navigationRepository;
 
     /**
      * @var \Notadd\Foundation\Addon\Repositories\AddonRepository
@@ -49,6 +58,21 @@ class AddonManager
     public function get($name): Addon
     {
         return $this->repository()->get($name);
+    }
+
+    /**
+     * @return \Notadd\Foundation\Addon\Repositories\NavigationRepository
+     */
+    public function navigations()
+    {
+        if (!$this->navigationRepository instanceof NavigationRepository) {
+            $collection = $this->repository()->enabled()->map(function (Addon $addon) {
+                return $addon->offsetExists('navigations') ? (array)$addon->get('navigations') : [];
+            });
+            $this->navigationRepository = new NavigationRepository();
+            $this->navigationRepository->initialize($collection);
+        }
+        return $this->navigationRepository;
     }
 
     /**

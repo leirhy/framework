@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Module\Controllers;
 
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Validation\Rule;
 
@@ -31,7 +32,8 @@ class ModulesDomainsController extends Controller
         ], [
             'data.required' => '域名数据必须填写',
         ]);
-        collect($data)->each(function ($definition) {
+        $collection = collect();
+        collect($data)->each(function ($definition) use ($collection) {
             if (isset($definition['identification'])
                 && $this->module->has($definition['identification'])
                 && $this->module->repository()->installed()->has($definition['identification']) || in_array($definition['identification'], [
@@ -49,11 +51,26 @@ class ModulesDomainsController extends Controller
                 if (data_get($definition, 'default', false)) {
                     $this->setting->set('module.default', $identification);
                 }
+                $collection->put($identification, [
+                    'alias' => data_get($definition, 'alias', ''),
+                    'default' => data_get($definition, 'default', false),
+                    'enabled' => data_get($definition, 'enabled', ''),
+                    'host' => data_get($definition, 'host', ''),
+                ]);
             }
         });
+        $collection->isNotEmpty() && $this->writeToConfigurationFile($collection);
 
         return $this->response->json([
             'message' => '更新模块域名信息成功！',
         ]);
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection $collection
+     */
+    protected function writeToConfigurationFile(Collection $collection)
+    {
+        file_put_contents($this->container->staticPath('configuration.json'), json_encode($collection->toArray()));
     }
 }

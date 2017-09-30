@@ -1269,11 +1269,15 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     }
 
     /**
+     * Get the path to the application statics files.
+     *
+     * @param string $path
+     *
      * @return string
      */
-    public function staticPath()
+    public function staticPath($path = '')
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'statics';
+        return $this->basePath . DIRECTORY_SEPARATOR . 'statics' . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 
     /**

@@ -47,6 +47,7 @@ class AddonsController extends Controller
         }
         $key = 'addon.' . $identification . '.enabled';
         $this->setting->set($key, boolval($status));
+        $this->redis->flushall();
 
         return $this->response->json([
             'message' => '切换插件开启状态成功！',
@@ -109,6 +110,8 @@ class AddonsController extends Controller
             $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
             $this->setting->set('addon.' . $addon->identification() . '.installed', true);
         });
+        $this->redis->flushall();
+
         return $this->response->json([
             'message' => '安装模块成功！',
         ])->setStatusCode(200);

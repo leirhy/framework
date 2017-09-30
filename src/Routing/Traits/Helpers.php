@@ -32,6 +32,7 @@ use Illuminate\Session\SessionManager;
  * @property \Psr\Log\LoggerInterface                                       $log
  * @property \Notadd\Foundation\Module\ModuleManager                        $module
  * @property \Illuminate\Routing\Redirector                                 $redirector
+ * @property \Illuminate\Redis\RedisManager                                 $redis
  * @property \Illuminate\Http\Request                                       $request
  * @property \Illuminate\Contracts\Routing\ResponseFactory                  $response
  * @property \Illuminate\Session\Store                                      $session
@@ -225,6 +226,14 @@ trait Helpers
     protected function getCache()
     {
         return $this->container->make('cache');
+    }
+
+    /**
+     * @return \Illuminate\Redis\RedisManager
+     */
+    protected function getRedis()
+    {
+        return $this->container->make('redis');
     }
 
     /**

@@ -31,7 +31,6 @@ class ExtensionsController extends Controller
         ], [
             'identification.required' => '拓展标识必须填写',
         ]);
-        $a = $this->extension->repository();
         if (!$this->extension->has($identification)) {
             return $this->response->json([
                 'message' => '拓展不存在！',
@@ -39,6 +38,7 @@ class ExtensionsController extends Controller
         }
         $key = 'extension.' . $identification . '.require.install';
         $this->setting->set($key, true);
+        $this->redis->flushall();
 
         return $this->response->json([
             'message' => '添加到待安装列表成功!',

@@ -17,6 +17,11 @@ use Notadd\Foundation\Validation\Rule;
 class ExtensionsController extends Controller
 {
     /**
+     * @var bool
+     */
+    protected $onlyValues = true;
+
+    /**
      * @return \Illuminate\Http\JsonResponse
      */
     public function install()
@@ -26,6 +31,7 @@ class ExtensionsController extends Controller
         ], [
             'identification.required' => '拓展标识必须填写',
         ]);
+        $a = $this->extension->repository();
         if (!$this->extension->has($identification)) {
             return $this->response->json([
                 'message' => '拓展不存在！',

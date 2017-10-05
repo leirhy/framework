@@ -38,7 +38,8 @@ class ExtensionRepository extends Repository
                     ]);
                     if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
                         $package = collect(json_decode($this->file->get($file), true));
-                        $extension->offsetSet('identification', data_get($package, 'name'));
+                        $identification = data_get($package, 'name');
+                        $extension->offsetSet('identification', $identification);
                         $extension->offsetSet('description', data_get($package, 'description'));
                         $extension->offsetSet('authors', data_get($package, 'authors'));
                         if ($package->get('type') == 'notadd-extension' && $extension->validate()) {
@@ -52,16 +53,24 @@ class ExtensionRepository extends Repository
                                 $this->file->requireOnce($autoload);
                                 $this->loadFromCache = false;
                             }
-                            collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($extension) {
+                            collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use (
+                                $extension
+                            ) {
                                 $extension->offsetSet('namespace', $namespace);
                                 $extension->offsetSet('service', $namespace . 'ExtensionServiceProvider');
                             });
                             $provider = $extension->offsetGet('service');
                             $extension->offsetSet('initialized', boolval(class_exists($provider) ?: false));
-                            $key = 'extension.' . $extension->offsetGet('identification') . '.enabled';
+                            $key = 'extension.' . $identification . '.enabled';
                             $extension->offsetSet('enabled', boolval($this->setting->get($key, false)));
-                            $key = 'extension.' . $extension->offsetGet('identification') . '.installed';
+                            $key = 'extension.' . $identification . '.installed';
                             $extension->offsetSet('installed', boolval($this->setting->get($key, false)));
+                            $install = 'extension.' . $identification . '.require.install';
+                            $uninstall = 'extension.' . $identification . '.require.uninstall';
+                            $extension->offsetSet('require', [
+                                'install'   => boolval($this->setting->get($install, false)),
+                                'uninstall' => boolval($this->setting->get($uninstall, false)),
+                            ]);
                         }
                         $collection->put($extension->get('identification'), $extension);
                     }

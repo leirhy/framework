@@ -24,6 +24,7 @@ use Notadd\Foundation\Console\Commands\DownCommand;
 use Notadd\Foundation\Console\Commands\EnvironmentCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
+use Notadd\Foundation\Extension\Commands\InstallCommand;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Routing\Commands\RouteCacheCommand;
 use Notadd\Foundation\Routing\Commands\RouteClearCommand;
@@ -43,24 +44,25 @@ class ConsoleServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        'ClearCompiled'   => 'command.clear-compiled',
-        'ClearResets'     => 'command.auth.resets.clear',
-        'ConfigCache'     => 'command.config.cache',
-        'ConfigClear'     => 'command.config.clear',
-        'Down'            => 'command.down',
-        'Environment'     => 'command.environment',
-        'KeyGenerate'     => 'command.key.generate',
-        'Migrate'         => 'command.migrate',
-        'MigrateInstall'  => 'command.migrate.install',
-        'MigrateRefresh'  => 'command.migrate.refresh',
-        'MigrateReset'    => 'command.migrate.reset',
-        'MigrateRollback' => 'command.migrate.rollback',
-        'MigrateStatus'   => 'command.migrate.status',
-        'RouteCache'      => 'command.route.cache',
-        'RouteClear'      => 'command.route.clear',
-        'RouteList'       => 'command.route.list',
-        'Up'              => 'command.up',
-        'ViewClear'       => 'command.view.clear',
+        'ClearCompiled'    => 'command.clear-compiled',
+        'ClearResets'      => 'command.auth.resets.clear',
+        'ConfigCache'      => 'command.config.cache',
+        'ConfigClear'      => 'command.config.clear',
+        'Down'             => 'command.down',
+        'Environment'      => 'command.environment',
+        'ExtensionInstall' => 'command.extension.install',
+        'KeyGenerate'      => 'command.key.generate',
+        'Migrate'          => 'command.migrate',
+        'MigrateInstall'   => 'command.migrate.install',
+        'MigrateRefresh'   => 'command.migrate.refresh',
+        'MigrateReset'     => 'command.migrate.reset',
+        'MigrateRollback'  => 'command.migrate.rollback',
+        'MigrateStatus'    => 'command.migrate.status',
+        'RouteCache'       => 'command.route.cache',
+        'RouteClear'       => 'command.route.clear',
+        'RouteList'        => 'command.route.list',
+        'Up'               => 'command.up',
+        'ViewClear'        => 'command.view.clear',
     ];
 
     /**
@@ -165,6 +167,16 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.environment', function () {
             return new EnvironmentCommand();
+        });
+    }
+
+    /**
+     * Register the command.
+     */
+    protected function registerExtensionInstallCommand()
+    {
+        $this->app->singleton('command.extension.install', function () {
+            return new InstallCommand();
         });
     }
 

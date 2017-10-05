@@ -42,10 +42,12 @@ class InstallCommand extends Command
                 $installer = new $installer;
                 if ($installer instanceof Installer) {
                     $installer->handle();
+                    $key = 'extension.' . $extension->identification() . '.install';
+                    $this->setting->set($key, true);
                 }
             }
         });
-        $this->info('已安装一下拓展：');
+        $this->info('已安装以下拓展：');
         $extensions->each(function (Extension $extension) {
             $this->info($extension->identification());
         });

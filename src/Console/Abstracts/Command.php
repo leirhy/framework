@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Console\Abstracts;
 use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Support\Arrayable;
+use Notadd\Foundation\Routing\Traits\Helpers;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -23,10 +24,7 @@ use Symfony\Component\Console\Question\Question;
  */
 abstract class Command extends SymfonyCommand
 {
-    /**
-     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
-     */
-    protected $container;
+    use Helpers;
 
     /**
      * @var \Symfony\Component\Console\Input\InputInterface
@@ -37,15 +35,6 @@ abstract class Command extends SymfonyCommand
      * @var \Symfony\Component\Console\Output\OutputInterface
      */
     protected $output;
-
-    /**
-     * Command constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->container = $this->getContainer();
-    }
 
     /**
      * Prompt the user for input.

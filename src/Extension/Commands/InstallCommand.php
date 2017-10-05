@@ -9,6 +9,8 @@
 namespace Notadd\Foundation\Extension\Commands;
 
 use Notadd\Foundation\Console\Abstracts\Command;
+use Notadd\Foundation\Extension\Abstracts\Installer;
+use Notadd\Foundation\Extension\Extension;
 
 /**
  * Class InstallCommand.
@@ -31,6 +33,23 @@ class InstallCommand extends Command
      */
     public function handle(): bool
     {
+        $extensions = $this->extension->repository()->filter(function (Extension $extension) {
+            return $extension->get('require.install') == true;
+        });
+        $extensions->each(function (Extension $extension) {
+            $installer = $extension->get('namespace') . 'Installer';
+            if (class_exists($installer)) {
+                $installer = new $installer;
+                if ($installer instanceof Installer) {
+                    $installer->handle();
+                }
+            }
+        });
+        $this->info('已安装一下拓展：');
+        $extensions->each(function (Extension $extension) {
+            $this->info($extension->identification());
+        });
+
         return true;
     }
 }

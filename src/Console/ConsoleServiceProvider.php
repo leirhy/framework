@@ -25,6 +25,7 @@ use Notadd\Foundation\Console\Commands\EnvironmentCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
 use Notadd\Foundation\Extension\Commands\InstallCommand;
+use Notadd\Foundation\Extension\Commands\UninstallCommand;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Routing\Commands\RouteCacheCommand;
 use Notadd\Foundation\Routing\Commands\RouteClearCommand;
@@ -51,6 +52,7 @@ class ConsoleServiceProvider extends ServiceProvider
         'Down'             => 'command.down',
         'Environment'      => 'command.environment',
         'ExtensionInstall' => 'command.extension.install',
+        'ExtensionUninstall' => 'command.extension.uninstall',
         'KeyGenerate'      => 'command.key.generate',
         'Migrate'          => 'command.migrate',
         'MigrateInstall'   => 'command.migrate.install',
@@ -177,6 +179,16 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.extension.install', function () {
             return new InstallCommand();
+        });
+    }
+
+    /**
+     * Register the command.
+     */
+    protected function registerExtensionUninstallCommand()
+    {
+        $this->app->singleton('command.extension.uninstall', function () {
+            return new UninstallCommand();
         });
     }
 

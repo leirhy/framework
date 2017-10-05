@@ -63,7 +63,7 @@ class ExtensionRepository extends Repository
                             $key = 'extension.' . $extension->offsetGet('identification') . '.installed';
                             $extension->offsetSet('installed', boolval($this->setting->get($key, false)));
                         }
-                        $collection->put($package->get('identification'), $extension);
+                        $collection->put($extension->get('identification'), $extension);
                     }
                 });
 

@@ -44,7 +44,7 @@ class RouteRegister extends AbstractRouteRegister
                 $this->container->bound('auth.login') ? $this->container->make('auth.login') : 'login',
 
                 // @TwilRoad The why is `auth.logout.resolver` ? I think the is error. - @medz
-                $this->container->bound('auth.logout.resolver') ? $this->container->make('auth.Logout.resolver') : AuthController::class
+                $this->container->bound('auth.logout.resolver') ? $this->container->make('auth.logout.resolver') : AuthController::class
             );
         });
     }

@@ -1,11 +1,19 @@
 <?php
-/**
- * This file is part of Notadd.
- *
- * @author TwilRoad <heshudong@ibenchu.com>
- * @copyright (c) 2016, notadd.com
- * @datetime 2016-08-29 14:07
- */
+
+// +----------------------------------------------------------------------+
+// | The Notadd Framework.                                              |
+// +----------------------------------------------------------------------+
+// | Copyright (c) 2016-2017 Shanxi Benchu Network Technology Co,.Ltd     |
+// +----------------------------------------------------------------------+
+// | This source file is subject to version 2.0 of the Apache license,    |
+// | that is bundled with this package in the file LICENSE, and is        |
+// | available through the world-wide-web at the following url:           |
+// | http://www.apache.org/licenses/LICENSE-2.0.html                      |
+// +----------------------------------------------------------------------+
+// | Author: TwilRoad <heshudong@ibenchu.com>                             |
+// |         Seven Du <shiweidu@outlook.com>                              |
+// +----------------------------------------------------------------------+
+
 namespace Notadd\Foundation\Addon;
 
 use ArrayAccess;
@@ -50,12 +58,14 @@ class Addon implements Arrayable, ArrayAccess, JsonSerializable
     }
 
     /**
+     * Get The addon enabled.
+     *
      * @return bool
+     * @author Seven Du <shiweidu@outlook.com>
      */
-    public function enabled()
+    public function enabled(): bool
     {
-        $a = isset($this->attributes['enabled']);
-        return boolval($this->attributes['enabled'] ?? false);
+        return (bool) $this->get('enabled', false);
     }
 
     /**

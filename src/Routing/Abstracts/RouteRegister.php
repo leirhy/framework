@@ -10,8 +10,8 @@ namespace Notadd\Foundation\Routing\Abstracts;
 
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
-use Illuminate\Routing\Router;
 use Notadd\Foundation\Event\Abstracts\EventSubscriber;
+use Notadd\Foundation\Routing\Router;
 use Notadd\Foundation\Routing\Events\RouteRegister as RouteRegisterEvent;
 
 /**
@@ -29,7 +29,7 @@ abstract class RouteRegister extends EventSubscriber
      *
      * @param \Illuminate\Container\Container $container
      * @param \Illuminate\Events\Dispatcher   $events
-     * @param \Illuminate\Routing\Router      $router
+     * @param \Notadd\Foundation\Routing\Router $router
      */
     public function __construct(Container $container, Dispatcher $events, Router $router)
     {

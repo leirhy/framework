@@ -27,21 +27,9 @@ class ModuleManager
     protected $assetsRepository;
 
     /**
-     * Container instance.
-     *
-     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
-     */
-    protected $container;
-
-    /**
      * @var \Illuminate\Support\Collection
      */
     protected $excepts;
-
-    /**
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $file;
 
     /**
      * @var \Notadd\Foundation\Module\Repositories\MenuRepository

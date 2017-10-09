@@ -16,7 +16,7 @@
 
 namespace Notadd\Foundation\Auth\Subscribers;
 
-use Notadd\Foundation\Routing\Router
+use Notadd\Foundation\Routing\Router;
 use Notadd\Foundation\Auth\Controllers\AuthController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 

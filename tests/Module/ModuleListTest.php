@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Tests\Module;
 
-use Illuminate\Container\Container;
 use Notadd\Foundation\Module\ModuleManager;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +18,7 @@ class ModuleListTest extends TestCase
 {
     public function testList()
     {
-        $list = (new ModuleManager(Container::getInstance()))->repository();
+        $list = (new ModuleManager())->repository();
         $this->assertNotEmpty($list->all());
     }
 }

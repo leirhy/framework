@@ -2,25 +2,25 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
- * @datetime 2016-12-13 21:05
+ * @datetime      2016-12-13 21:05
  */
 namespace Notadd\Foundation\Module;
 
-use Illuminate\Container\Container;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Module\Repositories\AssetsRepository;
 use Notadd\Foundation\Module\Repositories\MenuRepository;
 use Notadd\Foundation\Module\Repositories\ModuleRepository;
 use Notadd\Foundation\Module\Repositories\PageRepository;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class ModuleManager.
  */
 class ModuleManager
 {
+    use Helpers;
+
     /**
      * @var \Notadd\Foundation\Module\Repositories\AssetsRepository
      */
@@ -60,15 +60,10 @@ class ModuleManager
 
     /**
      * ModuleManager constructor.
-     *
-     * @param \Illuminate\Container\Container         $container
-     * @param \Illuminate\Filesystem\Filesystem       $files
      */
-    public function __construct(Container $container, Filesystem $files)
+    public function __construct()
     {
-        $this->container = $container;
         $this->excepts = collect();
-        $this->file = $files;
     }
 
     /**
@@ -155,7 +150,6 @@ class ModuleManager
             });
             $this->pageRepository = new PageRepository();
             $this->pageRepository->initialize($collection);
-
         }
 
         return $this->pageRepository;

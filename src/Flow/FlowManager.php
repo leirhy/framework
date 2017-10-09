@@ -1,12 +1,21 @@
 <?php
-/**
- * This file is part of Notadd.
- *
- * @author TwilRoad <269044570@qq.com>
- * @copyright (c) 2017, notadd.com
- * @datetime 2017-05-29 16:18
- */
+
+// +----------------------------------------------------------------------+
+// | The Notadd Framework.                                                |
+// +----------------------------------------------------------------------+
+// | Copyright (c) 2016-2017 Shanxi Benchu Network Technology Co,.Ltd     |
+// +----------------------------------------------------------------------+
+// | This source file is subject to version 2.0 of the Apache license,    |
+// | that is bundled with this package in the file LICENSE, and is        |
+// | available through the world-wide-web at the following url:           |
+// | http://www.apache.org/licenses/LICENSE-2.0.html                      |
+// +----------------------------------------------------------------------+
+// | Author: TwilRoad <heshudong@ibenchu.com>                             |
+// |         Seven Du <shiweidu@outlook.com>                              |
+// +----------------------------------------------------------------------+
+
 namespace Notadd\Foundation\Flow;
+
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Collection;
@@ -17,9 +26,6 @@ use Notadd\Foundation\Flow\Contracts\SupportStrategy;
 use Symfony\Component\Workflow\Exception\InvalidDefinitionException;
 use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 
-/**
- * Class FlowManager.
- */
 class FlowManager
 {
     /**

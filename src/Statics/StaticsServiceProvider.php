@@ -6,7 +6,6 @@
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-08-21 20:37
  */
-
 namespace Notadd\Foundation\Statics;
 
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;

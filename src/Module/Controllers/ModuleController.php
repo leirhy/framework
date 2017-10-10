@@ -10,7 +10,6 @@ namespace Notadd\Foundation\Module\Controllers;
 
 use Notadd\Foundation\Module\Handlers\ExportsHandler;
 use Notadd\Foundation\Module\Handlers\ImportsHandler;
-use Notadd\Foundation\Module\Handlers\InstallHandler;
 use Notadd\Foundation\Module\Handlers\ModuleHandler;
 use Notadd\Foundation\Module\Handlers\UninstallHandler;
 use Notadd\Foundation\Module\Handlers\UpdateHandler;
@@ -63,19 +62,6 @@ class ModuleController extends Controller
      * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function imports(ImportsHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
-     * Install handler.
-     *
-     * @param \Notadd\Foundation\Module\Handlers\InstallHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function install(InstallHandler $handler)
     {
         return $handler->toResponse()->generateHttpResponse();
     }

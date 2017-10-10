@@ -2,9 +2,9 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime 2017-09-26 15:32
+ * @datetime      2017-09-26 15:32
  */
 namespace Notadd\Foundation\Module\Controllers;
 
@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Validation\Rule;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * Class ModulesController.
@@ -49,6 +51,62 @@ class ModulesController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function install()
+    {
+        list($identification) = $this->validate($this->request, [
+            'identification' => Rule::required(),
+        ], [
+            'identification.required' => '模块标识必须填写',
+        ]);
+        if (!$this->module->has($identification)) {
+            $this->response->json([
+                'message' => '模块[' . $identification . ']不存在！',
+            ])->setStatusCode(500);
+        }
+        set_time_limit(0);
+        $module = $this->module->get($identification);
+        $output = new BufferedOutput();
+        $this->db->transaction(function () use ($module, $output) {
+            if ($module->offsetExists('migrations')) {
+                $migrations = (array)$module->get('migrations');
+                collect($migrations)->each(function ($path) use ($module, $output) {
+                    $path = $module->get('directory') . DIRECTORY_SEPARATOR . $path;
+                    $migration = str_replace($this->container->basePath(), '', $path);
+                    $migration = trim($migration, DIRECTORY_SEPARATOR);
+                    $input = new ArrayInput([
+                        '--path'  => $migration,
+                        '--force' => true,
+                    ]);
+                    $this->getConsole()->find('migrate')->run($input, $output);
+                });
+            }
+            if ($module->offsetExists('publishes')) {
+                $publishes = (array)$module->get('publishes');
+                collect($publishes)->each(function ($from, $to) use ($module, $output) {
+                    $from = $module->get('directory') . DIRECTORY_SEPARATOR . $from;
+                    $to = $this->container->basePath() . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . $to;
+                    if ($this->file->isFile($from)) {
+                        $this->publishFile($from, $to);
+                    } else {
+                        if ($this->file->isDirectory($from)) {
+                            $this->publishDirectory($from, $to);
+                        }
+                    }
+                });
+            }
+        });
+        $notice = 'Install Module ' . $this->request->input('identification') . ':';
+        $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
+        $this->setting->set('module.' . $module->identification() . '.installed', true);
+        $this->redis->flushall();
+
+        return $this->response->json([
+            'message' => '安装模块成功！',
+        ]);
+    }
 
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -116,7 +174,7 @@ class ModulesController extends Controller
                 'modules'     => $this->info($modules),
                 'notInstall'  => $this->info($notInstalled),
             ],
-            'message' => '',
+            'message' => '获取模块数据成功！',
         ]);
     }
 

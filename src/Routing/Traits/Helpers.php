@@ -17,6 +17,9 @@ use Illuminate\Http\Request;
 use Illuminate\Mail\Mailer;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\SessionManager;
+use League\Flysystem\Adapter\Local as LocalAdapter;
+use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\MountManager;
 
 /**
  * Class Helpers.
@@ -234,6 +237,53 @@ trait Helpers
     protected function getRedis()
     {
         return $this->container->make('redis');
+    }
+
+    /**
+     * Publish the file to the given path.
+     *
+     * @param string $from
+     * @param string $to
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function publishFile($from, $to)
+    {
+        $this->createParentDirectory(dirname($to));
+        $this->file->copy($from, $to);
+    }
+
+    /**
+     * Create the directory to house the published files if needed.
+     *
+     * @param $directory
+     */
+    protected function createParentDirectory($directory)
+    {
+        if (!$this->file->isDirectory($directory)) {
+            $this->file->makeDirectory($directory, 0755, true);
+        }
+    }
+
+    /**
+     * Publish the directory to the given directory.
+     *
+     * @param $from
+     * @param $to
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function publishDirectory($from, $to)
+    {
+        $manager = new MountManager([
+            'from' => new Flysystem(new LocalAdapter($from)),
+            'to'   => new Flysystem(new LocalAdapter($to)),
+        ]);
+        foreach ($manager->listContents('from://', true) as $file) {
+            if ($file['type'] === 'file') {
+                $manager->put('to://' . $file['path'], $manager->read('from://' . $file['path']));
+            }
+        }
     }
 
     /**

@@ -9,9 +9,6 @@
 namespace Notadd\Foundation\Addon\Controllers;
 
 use Illuminate\Support\Collection;
-use League\Flysystem\Adapter\Local as LocalAdapter;
-use League\Flysystem\Filesystem as Flysystem;
-use League\Flysystem\MountManager;
 use Notadd\Foundation\Addon\Addon;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Validation\Rule;
@@ -80,7 +77,7 @@ class AddonsController extends Controller
         $output = new BufferedOutput();
         $this->db->transaction(function () use ($addon, $output) {
             if ($addon->offsetExists('migrations')) {
-                $migrations = (array)$addon->offsetExists('migrations');
+                $migrations = (array)$addon->get('migrations');
                 collect($migrations)->each(function ($path) use ($addon, $output) {
                     $path = $addon->get('directory') . DIRECTORY_SEPARATOR . $path;
                     $migration = str_replace($this->container->basePath(), '', $path);
@@ -106,10 +103,10 @@ class AddonsController extends Controller
                     }
                 });
             }
-            $notice = 'Install Addon ' . $this->request->input('identification') . ':';
-            $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
-            $this->setting->set('addon.' . $addon->identification() . '.installed', true);
         });
+        $notice = 'Install Addon ' . $this->request->input('identification') . ':';
+        $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
+        $this->setting->set('addon.' . $addon->identification() . '.installed', true);
         $this->redis->flushall();
 
         return $this->response->json([
@@ -159,52 +156,5 @@ class AddonsController extends Controller
         });
 
         return $data->toArray();
-    }
-
-    /**
-     * Publish the file to the given path.
-     *
-     * @param string $from
-     * @param string $to
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    protected function publishFile($from, $to)
-    {
-        $this->createParentDirectory(dirname($to));
-        $this->file->copy($from, $to);
-    }
-
-    /**
-     * Create the directory to house the published files if needed.
-     *
-     * @param $directory
-     */
-    protected function createParentDirectory($directory)
-    {
-        if (!$this->file->isDirectory($directory)) {
-            $this->file->makeDirectory($directory, 0755, true);
-        }
-    }
-
-    /**
-     * Publish the directory to the given directory.
-     *
-     * @param $from
-     * @param $to
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    protected function publishDirectory($from, $to)
-    {
-        $manager = new MountManager([
-            'from' => new Flysystem(new LocalAdapter($from)),
-            'to'   => new Flysystem(new LocalAdapter($to)),
-        ]);
-        foreach ($manager->listContents('from://', true) as $file) {
-            if ($file['type'] === 'file') {
-                $manager->put('to://' . $file['path'], $manager->read('from://' . $file['path']));
-            }
-        }
     }
 }

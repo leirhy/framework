@@ -43,26 +43,24 @@ class ListCommand extends Command
     /**
      * Command Handler.
      *
-     * @param \Notadd\Foundation\Addon\AddonManager $manager
-     *
      * @return bool
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function handle(AddonManager $manager)
+    public function handle()
     {
-        $extensions = $manager->getExtensions();
+        $addons = $this->addon->repository();
         $list = new Collection();
         $this->info('Extensions list:');
-        $extensions->each(function (Addon $extension) use ($list) {
-            $data = collect(collect($extension->getAuthor())->first());
+        $addons->each(function (Addon $addon) use ($list) {
+            $data = collect(collect($addon->get('author'))->first());
             $author = $data->get('name');
             $data->has('email') ? $author .= ' <' . $data->get('email') . '>' : null;
             $list->push([
-                $extension->identification(),
+                $addon->identification(),
                 $author,
-                $extension->getDescription(),
-                $extension->getPath(),
-                $extension->getEntry(),
+                $addon->get('description'),
+                $addon->get('directory'),
+                $addon->provider(),
                 'Normal',
             ]);
         });

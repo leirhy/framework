@@ -2,9 +2,9 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime 2017-09-25 13:42
+ * @datetime      2017-09-25 13:42
  */
 namespace Notadd\Foundation\Routing\Traits;
 
@@ -28,6 +28,7 @@ use League\Flysystem\MountManager;
  * @property \Notadd\Foundation\Administration\AdministrationManager        $administration
  * @property \Illuminate\Auth\AuthManager                                   $auth
  * @property \Illuminate\Cache\CacheManager                                 $cache
+ * @property \Illuminate\Config\Repository                                  $config
  * @property \Illuminate\Container\Container|\Notadd\Foundation\Application $container
  * @property \Illuminate\Database\Connection                                $db
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension

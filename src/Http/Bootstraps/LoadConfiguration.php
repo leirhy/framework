@@ -31,7 +31,7 @@ class LoadConfiguration implements Bootstrap
     {
         $items = [];
         if (file_exists($cached = $application->getCachedConfigPath())) {
-            $items = Yaml::parse(file_get_contents($cached));
+            $items = require_once $cached;
             $loadedFromCache = true;
         }
         $application->instance('config', $configuration = new Repository($items));

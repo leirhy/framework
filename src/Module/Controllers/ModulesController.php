@@ -44,6 +44,11 @@ class ModulesController extends Controller
                 'message' => '不存在模块[' . $identification . ']',
             ])->setStatusCode(500);
         }
+        if (!$this->module->repository()->installed()->has($identification)) {
+            return $this->response->json([
+                'message' => '模块[' . $identification . ']尚未安装！',
+            ])->setStatusCode(500);
+        }
         $key = 'module.' . $identification . '.enabled';
         $this->setting->set($key, boolval($status));
         $this->redis->flushall();

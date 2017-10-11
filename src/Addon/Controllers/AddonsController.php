@@ -2,13 +2,15 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime 2017-02-22 17:50
+ * @datetime      2017-02-22 17:50
  */
 namespace Notadd\Foundation\Addon\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Notadd\Foundation\Addon\Addon;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Validation\Rule;
@@ -28,7 +30,7 @@ class AddonsController extends Controller
     /**
      * @return $this|\Illuminate\Http\JsonResponse
      */
-    public function enable()
+    public function enable(): JsonResponse
     {
         list($identification, $status) = $this->validate($this->request, [
             'identification' => Rule::required(),
@@ -54,7 +56,7 @@ class AddonsController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function install()
+    public function install(): JsonResponse
     {
         list($identification) = $this->validate($this->request, [
             'identification' => Rule::required(),
@@ -117,7 +119,7 @@ class AddonsController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function list()
+    public function list(): JsonResponse
     {
         $addons = $this->addon->repository();
         $enabled = $this->addon->repository()->enabled();
@@ -156,5 +158,51 @@ class AddonsController extends Controller
         });
 
         return $data->toArray();
+    }
+
+    /**
+     * @param string $identification
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uninstall(string $identification): JsonResponse
+    {
+        $identification = Str::replaceFirst('-', '/', $identification);
+        if (!$this->addon->has($identification)) {
+            return $this->response->json([
+                'message' => '插件[' . $identification . ']不存在！',
+            ])->setStatusCode(500);
+        }
+        if ($this->addon->repository()->enabled()->has($identification)) {
+            return $this->response->json([
+                'message' => '插件[' . $identification . ']已开启！',
+            ])->setStatusCode(500);
+        }
+        set_time_limit(0);
+        $addon = $this->addon->get($identification);
+        $output = new BufferedOutput();
+        $this->db->transaction(function () use ($addon, $output) {
+            if ($addon->offsetExists('migrations')) {
+                $migrations = (array)$addon->get('migrations');
+                collect($migrations)->each(function ($path) use ($addon, $output) {
+                    $path = $addon->get('directory') . DIRECTORY_SEPARATOR . $path;
+                    $migration = str_replace($this->container->basePath(), '', $path);
+                    $migration = trim($migration, DIRECTORY_SEPARATOR);
+                    $input = new ArrayInput([
+                        '--path'  => $migration,
+                        '--force' => true,
+                    ]);
+                    $this->getConsole()->find('migrate:rollback')->run($input, $output);
+                });
+            }
+        });
+        $notice = 'Uninstall Addon ' . $identification . ':';
+        $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
+        $this->setting->set('addon.' . $identification . '.installed', false);
+        $this->redis->flushall();
+
+        return $this->response->json([
+            'message' => '卸载插件成功！',
+        ]);
     }
 }

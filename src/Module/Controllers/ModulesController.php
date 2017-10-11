@@ -218,8 +218,13 @@ class ModulesController extends Controller
     {
         $identification = Str::replaceFirst('-', '/', $identification);
         if (!$this->module->has($identification)) {
-            $this->response->json([
+            return $this->response->json([
                 'message' => '模块[' . $identification . ']不存在！',
+            ])->setStatusCode(500);
+        }
+        if ($this->module->repository()->enabled()->has($identification)) {
+            return $this->response->json([
+                'message' => '模块[' . $identification . ']已开启！',
             ])->setStatusCode(500);
         }
         set_time_limit(0);

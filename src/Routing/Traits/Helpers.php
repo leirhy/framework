@@ -9,17 +9,27 @@
 namespace Notadd\Foundation\Routing\Traits;
 
 use Exception;
+use Illuminate\Auth\AuthManager;
+use Illuminate\Cache\CacheManager;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Mailer;
+use Illuminate\Redis\RedisManager;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\SessionManager;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\MountManager;
+use Notadd\Foundation\Addon\AddonManager;
+use Notadd\Foundation\Administration\AdministrationManager;
+use Notadd\Foundation\Extension\ExtensionManager;
+use Notadd\Foundation\Module\ModuleManager;
+use Notadd\Foundation\Translation\Translator;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class Helpers.
@@ -49,7 +59,7 @@ trait Helpers
     /**
      * @return mixed|\Notadd\Foundation\Addon\AddonManager
      */
-    protected function getAddon()
+    protected function getAddon(): AddonManager
     {
         return $this->container->make('addon');
     }
@@ -57,7 +67,7 @@ trait Helpers
     /**
      * @return \Notadd\Foundation\Administration\AdministrationManager
      */
-    protected function getAdministration()
+    protected function getAdministration(): AdministrationManager
     {
         return $this->container->make('administration');
     }
@@ -65,7 +75,7 @@ trait Helpers
     /**
      * @return \Illuminate\Auth\AuthManager
      */
-    protected function getAuth()
+    protected function getAuth(): AuthManager
     {
         return $this->container->make('auth');
     }
@@ -84,7 +94,7 @@ trait Helpers
     /**
      * @return \Illuminate\Database\DatabaseManager
      */
-    protected function getDb()
+    protected function getDb(): DatabaseManager
     {
         return $this->container->make('db');
     }
@@ -116,7 +126,7 @@ trait Helpers
     /**
      * @return \Notadd\Foundation\Extension\ExtensionManager
      */
-    protected function getExtension()
+    protected function getExtension(): ExtensionManager
     {
         return $this->container->make('extension');
     }
@@ -135,7 +145,7 @@ trait Helpers
     /**
      * @return \Notadd\Foundation\Module\ModuleManager
      */
-    protected function getModule()
+    protected function getModule(): ModuleManager
     {
         return $this->container->make('module');
     }
@@ -177,7 +187,7 @@ trait Helpers
     /**
      * @return \Psr\Log\LoggerInterface
      */
-    protected function getLogger()
+    protected function getLogger(): LoggerInterface
     {
         return $this->container->make('log');
     }
@@ -219,7 +229,7 @@ trait Helpers
     /**
      * @return \Notadd\Foundation\Translation\Translator
      */
-    protected function getTranslator()
+    protected function getTranslator(): Translator
     {
         return $this->container->make('translator');
     }
@@ -227,7 +237,7 @@ trait Helpers
     /**
      * @return \Illuminate\Cache\CacheManager
      */
-    protected function getCache()
+    protected function getCache(): CacheManager
     {
         return $this->container->make('cache');
     }
@@ -235,7 +245,7 @@ trait Helpers
     /**
      * @return \Illuminate\Redis\RedisManager
      */
-    protected function getRedis()
+    protected function getRedis(): RedisManager
     {
         return $this->container->make('redis');
     }

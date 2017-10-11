@@ -8,7 +8,9 @@
  */
 namespace Notadd\Foundation\Module\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Validation\Rule;
@@ -28,7 +30,7 @@ class ModulesController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function enable()
+    public function enable(): JsonResponse
     {
         list($identification, $status) = $this->validate($this->request, [
             'identification' => Rule::required(),
@@ -54,7 +56,7 @@ class ModulesController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function install()
+    public function install(): JsonResponse
     {
         list($identification) = $this->validate($this->request, [
             'identification' => Rule::required(),
@@ -98,9 +100,9 @@ class ModulesController extends Controller
                 });
             }
         });
-        $notice = 'Install Module ' . $this->request->input('identification') . ':';
+        $notice = 'Install Module ' . $identification . ':';
         $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
-        $this->setting->set('module.' . $module->identification() . '.installed', true);
+        $this->setting->set('module.' . $identification . '.installed', true);
         $this->redis->flushall();
 
         return $this->response->json([
@@ -111,7 +113,7 @@ class ModulesController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function list()
+    public function list(): JsonResponse
     {
         $enabled = $this->module->repository()->enabled();
         $installed = $this->module->repository()->installed();
@@ -200,5 +202,46 @@ class ModulesController extends Controller
         });
 
         return $data->toArray();
+    }
+
+    /**
+     * @param string $identification
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uninstall(string $identification): JsonResponse
+    {
+        $identification = Str::replaceFirst('-', '/', $identification);
+        if (!$this->module->has($identification)) {
+            $this->response->json([
+                'message' => '模块[' . $identification . ']不存在！',
+            ])->setStatusCode(500);
+        }
+        set_time_limit(0);
+        $module = $this->module->get($identification);
+        $output = new BufferedOutput();
+        $this->db->transaction(function () use ($module, $output) {
+            if ($module->offsetExists('migrations')) {
+                $migrations = (array)$module->get('migrations');
+                collect($migrations)->each(function ($path) use ($module, $output) {
+                    $path = $module->get('directory') . DIRECTORY_SEPARATOR . $path;
+                    $migration = str_replace($this->container->basePath(), '', $path);
+                    $migration = trim($migration, DIRECTORY_SEPARATOR);
+                    $input = new ArrayInput([
+                        '--path'  => $migration,
+                        '--force' => true,
+                    ]);
+                    $this->getConsole()->find('migrate:rollback')->run($input, $output);
+                });
+            }
+        });
+        $notice = 'Uninstall Module ' . $identification . ':';
+        $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
+        $this->setting->set('module.' . $identification . '.installed', false);
+        $this->redis->flushall();
+
+        return $this->response->json([
+            'message' => '卸载模块成功！',
+        ]);
     }
 }

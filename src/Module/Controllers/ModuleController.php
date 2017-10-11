@@ -67,19 +67,6 @@ class ModuleController extends Controller
     }
 
     /**
-     * Uninstall handler.
-     *
-     * @param \Notadd\Foundation\Module\Handlers\UninstallHandler $handler
-     *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
-     * @throws \Exception
-     */
-    public function uninstall(UninstallHandler $handler)
-    {
-        return $handler->toResponse()->generateHttpResponse();
-    }
-
-    /**
      * Update Handler.
      *
      * @param \Notadd\Foundation\Module\Handlers\UpdateHandler $handler

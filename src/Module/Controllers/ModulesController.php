@@ -11,6 +11,7 @@ namespace Notadd\Foundation\Module\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Notadd\Foundation\Module\Abstracts\Installation;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Validation\Rule;
@@ -77,6 +78,11 @@ class ModulesController extends Controller
         $module = $this->module->get($identification);
         $output = new BufferedOutput();
         $this->db->transaction(function () use ($module, $output) {
+            $installation = $module->get('namespace') . 'Installation';
+            class_exists($installation) && $installation = $this->container->make($installation);
+            if ($installation instanceof Installation) {
+                $installation->preInstall();
+            }
             if ($module->offsetExists('migrations')) {
                 $migrations = (array)$module->get('migrations');
                 collect($migrations)->each(function ($path) use ($module, $output) {
@@ -103,6 +109,9 @@ class ModulesController extends Controller
                         }
                     }
                 });
+            }
+            if ($installation instanceof Installation) {
+                $installation->postInstall();
             }
         });
         $notice = 'Install Module ' . $identification . ':';

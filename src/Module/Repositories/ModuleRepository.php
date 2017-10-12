@@ -57,9 +57,9 @@ class ModuleRepository extends Repository
                                 $this->file->requireOnce($autoload);
                                 $this->loadFromCache = false;
                             }
-                            $module->offsetExists('service') || collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
+                            collect(data_get($package, 'autoload.psr-4'))->each(function ($entry, $namespace) use ($module) {
                                 $module->offsetSet('namespace', $namespace);
-                                $module->offsetSet('service', $namespace . 'ModuleServiceProvider');
+                                $module->offsetExists('service') || $module->offsetSet('service', $namespace . 'ModuleServiceProvider');
                             });
                             $provider = $module->offsetGet('service');
                             $module->offsetSet('initialized', boolval(class_exists($provider) ?: false));

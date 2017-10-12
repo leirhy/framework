@@ -28,7 +28,6 @@ use Notadd\Foundation\Http\Bootstraps\LoadConfiguration;
 use Notadd\Foundation\Http\Bootstraps\LoadSetting;
 use Notadd\Foundation\Http\Bootstraps\RegisterFacades;
 use Notadd\Foundation\Http\Bootstraps\RegisterFlow;
-use Notadd\Foundation\Http\Bootstraps\RegisterPermission;
 use Notadd\Foundation\Http\Bootstraps\RegisterRouter;
 use Notadd\Foundation\Http\Bootstraps\SetRequestForConsole;
 use Notadd\Foundation\Console\Application as Artisan;
@@ -95,7 +94,6 @@ class Kernel implements KernelContract
         LoadSetting::class,
         LoadDetection::class,
         RegisterRouter::class,
-        RegisterPermission::class,
         RegisterFlow::class,
     ];
 

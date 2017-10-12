@@ -240,6 +240,11 @@ class ModulesController extends Controller
         $module = $this->module->get($identification);
         $output = new BufferedOutput();
         $this->db->transaction(function () use ($module, $output) {
+            $installation = $module->get('namespace') . 'Installation';
+            class_exists($installation) && $installation = $this->container->make($installation);
+            if ($installation instanceof Installation) {
+                $installation->postUninstall();
+            }
             if ($module->offsetExists('migrations')) {
                 $migrations = (array)$module->get('migrations');
                 collect($migrations)->each(function ($path) use ($module, $output) {
@@ -252,6 +257,9 @@ class ModulesController extends Controller
                     ]);
                     $this->getConsole()->find('migrate:rollback')->run($input, $output);
                 });
+            }
+            if ($installation instanceof Installation) {
+                $installation->postUninstall();
             }
         });
         $notice = 'Uninstall Module ' . $identification . ':';

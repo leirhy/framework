@@ -2,9 +2,9 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime 2017-10-05 22:10
+ * @datetime      2017-10-05 22:10
  */
 namespace Notadd\Foundation\Extension\Commands;
 
@@ -44,9 +44,12 @@ class InstallCommand extends Command
                     $installer->handle();
                     $key = 'extension.' . $extension->identification() . '.install';
                     $this->setting->set($key, true);
+                    $key = 'extension.' . $extension->identification() . '.require.install';
+                    $this->setting->set($key, false);
                 }
             }
         });
+        $this->redis->flushall();
         $this->info('已安装以下拓展：');
         $extensions->each(function (Extension $extension) {
             $this->info($extension->identification());

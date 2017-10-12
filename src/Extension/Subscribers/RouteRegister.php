@@ -23,12 +23,15 @@ class RouteRegister extends AbstractRouteRegister
     {
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/administration'], function () {
             $this->router->resource('extensions', ExtensionsController::class)->methods([
+                'destroy' => 'uninstall',
                 'index' => 'list',
                 'store' => 'install',
             ])->names([
+                'destroy' => 'addons.uninstall',
                 'index' => 'extensions.list',
                 'store' => 'extensions.install',
             ])->only([
+                'destroy',
                 'index',
                 'store',
             ]);

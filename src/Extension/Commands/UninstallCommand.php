@@ -44,7 +44,7 @@ class UninstallCommand extends Command
                     $uninstaller->handle();
                     $key = 'extension.' . $extension->identification() . '.installed';
                     $this->setting->set($key, false);
-                    $key = 'extension.' . $extension->identification() . '.require.install';
+                    $key = 'extension.' . $extension->identification() . '.require.uninstall';
                     $this->setting->set($key, false);
                 }
             }

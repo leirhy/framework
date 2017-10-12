@@ -8,41 +8,21 @@
  */
 namespace Notadd\Foundation\Permission;
 
-use Illuminate\Container\Container;
-use Illuminate\Support\Collection;
+use Notadd\Foundation\Module\Module;
+use Notadd\Foundation\Permission\Repositories\PermissionRepository;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class PermissionManager.
  */
 class PermissionManager
 {
-    /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
+    use Helpers;
 
     /**
-     * @var \Notadd\Foundation\Permission\PermissionGroupManager
+     * @var \Notadd\Foundation\Permission\Repositories\PermissionRepository
      */
-    protected $group;
-
-    /**
-     * @var \Illuminate\Support\Collection
-     */
-    protected $permissions;
-
-    /**
-     * PermissionManager constructor.
-     *
-     * @param \Illuminate\Container\Container                      $container
-     * @param \Notadd\Foundation\Permission\PermissionGroupManager $group
-     */
-    public function __construct(Container $container, PermissionGroupManager $group)
-    {
-        $this->container = $container;
-        $this->group = $group;
-        $this->permissions = new Collection();
-    }
+    protected $repository;
 
     /**
      * @param $identification
@@ -52,56 +32,25 @@ class PermissionManager
      */
     public function check($identification, $group)
     {
-        if (!$identification || !$group) {
-            return false;
-        }
-        $permissions = json_decode($this->container->make('setting')->get('permissions', json_encode([])), true);
-        if (array_key_exists($identification, $permissions)) {
-            $groups = $permissions[$identification];
-            if (in_array($group, $groups)) {
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 
     /**
-     * @param array $attributes
-     *
-     * @return \Illuminate\Support\Collection|bool
+     * @return \Notadd\Foundation\Permission\Repositories\PermissionRepository
      */
-    public function extend(array $attributes)
+    public function repository(): PermissionRepository
     {
-        $group = $attributes['module'] . '::' . $attributes['group'];
-        $permission = $attributes['module'] . '::' . $attributes['group'] . '::' . $attributes['identification'];
-        if (Permission::validate($attributes) && $this->group->exists($group) && !$this->permissions->has($permission)) {
-            $this->permissions->put($permission, Permission::createFromAttributes($attributes));
-
-            return true;
+        if (!$this->repository instanceof PermissionRepository) {
+            $this->repository = new PermissionRepository();
+            $collection = collect();
+            $this->module->repository()->enabled()->each(function (Module $module) use ($collection) {
+                if ($module->offsetExists('permissions')) {
+                    $collection->put($module->identification(), $module->get('permissions'));
+                }
+            });
+            $this->repository->initialize($collection);
         }
 
-        return false;
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function permissions()
-    {
-        return $this->permissions;
-    }
-
-    /**
-     * @param $key
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function permissionsForGroup($key)
-    {
-        list($module, $group) = explode('::', $key);
-        return $this->permissions->filter(function (Permission $permission) use ($group, $module) {
-            return $permission->module() == $module && $permission->group() == $group;
-        });
+        return $this->repository;
     }
 }

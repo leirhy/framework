@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\Debug\Subscribers;
 
 use Notadd\Foundation\Debug\Controllers\ConfigurationsController;
-use Notadd\Foundation\Debug\Controllers\DebugController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
@@ -22,10 +21,6 @@ class RouteRegister extends AbstractRouteRegister
      */
     public function handle()
     {
-        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/debug'], function () {
-            $this->router->post('get', DebugController::class . '@get');
-            $this->router->post('set', DebugController::class . '@set');
-        });
         $this->router->group([
             'middleware' => ['auth:api', 'cross', 'web'],
             'prefix'     => 'api/administration/debug',

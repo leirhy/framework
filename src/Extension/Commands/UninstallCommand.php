@@ -42,7 +42,7 @@ class UninstallCommand extends Command
                 $uninstaller = new $uninstaller;
                 if ($uninstaller instanceof Uninstaller) {
                     $uninstaller->handle();
-                    $key = 'extension.' . $extension->identification() . '.install';
+                    $key = 'extension.' . $extension->identification() . '.installed';
                     $this->setting->set($key, false);
                     $key = 'extension.' . $extension->identification() . '.require.install';
                     $this->setting->set($key, false);

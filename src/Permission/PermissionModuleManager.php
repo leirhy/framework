@@ -29,7 +29,6 @@ class PermissionModuleManager
     {
         $this->container = $container;
         $this->modules = new Collection();
-        $this->initialize();
     }
 
     /**
@@ -50,15 +49,6 @@ class PermissionModuleManager
         if (PermissionModule::validate($attributes) && !$this->modules->has($attributes['identification'])) {
             $this->modules->put($attributes['identification'], PermissionModule::createFromAttributes($attributes));
         }
-    }
-
-    protected function initialize()
-    {
-        $this->modules->put('global', PermissionModule::createFromAttributes([
-            'description' => '全局权限类型。',
-            'identification' => 'global',
-            'name' => '全局',
-        ]));
     }
 
     /**

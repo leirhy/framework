@@ -24,6 +24,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Notadd\Foundation\Permission\Exceptions\PermissionException;
 use Notadd\Foundation\Routing\Traits\Helpers;
+use Predis\Connection\ConnectionException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Debug\Exception\FlattenException;
@@ -143,6 +144,30 @@ class Handler implements ExceptionHandlerContract
             return $this->permissionDenied($request, $exception);
         } else if ($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
+        } else if ($exception instanceof ConnectionException) {
+            if ($request->expectsJson()) {
+                $message = 'Redis 服务异常或未开启！';
+                $data = $this->config->get('app.debug') ? [
+                    'message'   => $message,
+                    'exception' => get_class($exception),
+                    'file'      => $exception->getFile(),
+                    'line'      => $exception->getLine(),
+                    'trace'     => collect($exception->getTrace())->map(function ($trace) {
+                        return Arr::except($trace, ['args']);
+                    })->all(),
+                ] : [
+                    'message' => $message,
+                ];
+
+                return new JsonResponse(
+                    $data,
+                    500,
+                    [],
+                    JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+                );
+            } else {
+                return $this->prepareResponse($request, $exception);
+            }
         }
 
         return $request->expectsJson()
@@ -202,7 +227,7 @@ class Handler implements ExceptionHandlerContract
      */
     protected function convertExceptionToArray(Exception $e)
     {
-        return config('app.debug') ? [
+        return $this->config->get('app.debug') ? [
             'message'   => $e->getMessage(),
             'exception' => get_class($e),
             'file'      => $e->getFile(),

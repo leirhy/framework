@@ -16,16 +16,6 @@ use Illuminate\Support\Str;
 trait Viewable
 {
     /**
-     * Get view instance.
-     *
-     * @return \Illuminate\Contracts\View\Factory
-     */
-    protected function getView()
-    {
-        return $this->container->make('view');
-    }
-
-    /**
      * Share variable with view.
      *
      * @param      $key
@@ -33,7 +23,7 @@ trait Viewable
      */
     protected function share($key, $value = null)
     {
-        $this->getView()->share($key, $value);
+        $this->view->share($key, $value);
     }
 
     /**
@@ -48,9 +38,9 @@ trait Viewable
     protected function view($template, array $data = [], $mergeData = [])
     {
         if (Str::contains($template, '::')) {
-            return $this->getView()->make($template, $data, $mergeData);
+            return $this->view->make($template, $data, $mergeData);
         } else {
-            return $this->getView()->make('theme::' . $template, $data, $mergeData);
+            return $this->view->make('theme::' . $template, $data, $mergeData);
         }
     }
 }

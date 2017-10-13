@@ -21,6 +21,7 @@ use Illuminate\Mail\Mailer;
 use Illuminate\Redis\RedisManager;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\SessionManager;
+use Illuminate\View\Factory;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\MountManager;
@@ -54,6 +55,7 @@ use Psr\Log\LoggerInterface;
  * @property \Notadd\Foundation\Setting\Contracts\SettingsRepository        $setting
  * @property \Notadd\Foundation\Translation\Translator                      $translator
  * @property \Illuminate\Routing\UrlGenerator                               $url
+ * @property \Illuminate\View\Factory                                       $view
  */
 trait Helpers
 {
@@ -249,6 +251,14 @@ trait Helpers
     protected function getRedis(): RedisManager
     {
         return $this->container->make('redis');
+    }
+
+    /**
+     * @return \Illuminate\View\Factory
+     */
+    protected function getView(): Factory
+    {
+        return $this->container->make('view');
     }
 
     /**

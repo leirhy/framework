@@ -16,39 +16,33 @@
 
 namespace Notadd\Foundation\Flow;
 
-use Illuminate\Container\Container;
-use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Notadd\Foundation\Database\Model;
 use Notadd\Foundation\Flow\Abstracts\Entity;
 use Notadd\Foundation\Flow\Contracts\SupportStrategy;
+use Notadd\Foundation\Routing\Traits\Helpers;
 use Symfony\Component\Workflow\Exception\InvalidDefinitionException;
 use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 
+/**
+ * Class FlowManager.
+ */
 class FlowManager
 {
-    /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
+    use Helpers;
 
     /**
-     * @var \Illuminate\Events\Dispatcher
+     * @var \Illuminate\Support\Collection
      */
-    protected $dispatcher;
+    protected $flows;
 
     /**
      * FlowManager constructor.
-     *
-     * @param \Illuminate\Container\Container $container
-     * @param \Illuminate\Events\Dispatcher   $dispatcher
      */
-    public function __construct(Container $container, Dispatcher $dispatcher)
+    public function __construct()
     {
-        $this->container = $container;
         $this->flows = new Collection();
-        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -137,7 +131,7 @@ class FlowManager
             }
             $events = $definition->registerFlowEvents();
             foreach ((array)$events as $event => $handler) {
-                method_exists($definition, $handler) && $this->dispatcher->listen($event, [
+                method_exists($definition, $handler) && $this->event->listen($event, [
                     $definition,
                     $handler,
                 ]);
@@ -157,7 +151,7 @@ class FlowManager
             if (method_exists($definition, 'events')) {
                 $events = $definition->{'events'}();
                 foreach ((array)$events as $event => $handler) {
-                    method_exists($definition, $handler) && $this->dispatcher->listen($event, [
+                    method_exists($definition, $handler) && $this->event->listen($event, [
                         $definition,
                         $handler,
                     ]);

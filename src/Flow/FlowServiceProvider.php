@@ -33,8 +33,8 @@ class FlowServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('flow', function ($app) {
-            return new FlowManager($app, $app['events']);
+        $this->app->singleton('flow', function () {
+            return new FlowManager();
         });
     }
 }

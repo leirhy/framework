@@ -41,6 +41,7 @@ use Psr\Log\LoggerInterface;
  * @property \Illuminate\Config\Repository                                  $config
  * @property \Illuminate\Container\Container|\Notadd\Foundation\Application $container
  * @property \Illuminate\Database\Connection                                $db
+ * @property \Illuminate\Events\Dispatcher                                  $event
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
  * @property \Illuminate\Filesystem\Filesystem                              $file
  * @property \Psr\Log\LoggerInterface                                       $log

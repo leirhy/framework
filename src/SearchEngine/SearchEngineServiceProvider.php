@@ -37,8 +37,8 @@ class SearchEngineServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('searchengine.optimization', function ($application) {
-            return new Optimization($application, $application['setting'], $application['view']);
+        $this->app->singleton('searchengine.optimization', function () {
+            return new Optimization();
         });
     }
 }

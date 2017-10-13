@@ -8,19 +8,16 @@
  */
 namespace Notadd\Foundation\Member;
 
-use Illuminate\Container\Container;
 use InvalidArgumentException;
 use Notadd\Foundation\Member\Abstracts\Manager;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class MemberManagement.
  */
 class MemberManagement
 {
-    /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
+    use Helpers;
 
     /**
      * @var array
@@ -36,16 +33,6 @@ class MemberManagement
      * @var \Notadd\Foundation\Member\Abstracts\Manager
      */
     protected $manager;
-
-    /**
-     * MemberManagement constructor.
-     *
-     * @param \Illuminate\Container\Container $container
-     */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
 
     /**
      * Create a member.

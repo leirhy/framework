@@ -8,49 +8,20 @@
  */
 namespace Notadd\Foundation\Extension;
 
-use Illuminate\Container\Container;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
 use Notadd\Foundation\Extension\Repositories\ExtensionRepository;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class ExtensionManager.
  */
 class ExtensionManager
 {
-    /**
-     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
-     */
-    protected $container;
-
-    /**
-     * @var \Illuminate\Events\Dispatcher
-     */
-    protected $event;
-
-    /**
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $file;
+    use Helpers;
 
     /**
      * @var \Notadd\Foundation\Extension\Repositories\ExtensionRepository
      */
     protected $repository;
-
-    /**
-     * ExtensionManager constructor.
-     *
-     * @param \Illuminate\Container\Container   $container
-     * @param \Illuminate\Events\Dispatcher     $event
-     * @param \Illuminate\Filesystem\Filesystem $file
-     */
-    public function __construct(Container $container, Dispatcher $event, Filesystem $file)
-    {
-        $this->container = $container;
-        $this->event = $event;
-        $this->file = $file;
-    }
 
     /**
      * @param $identification

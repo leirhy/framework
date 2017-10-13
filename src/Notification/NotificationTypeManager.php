@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Notification;
 
-use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Notadd\Foundation\Notification\Abstracts\NotificationType;
 
@@ -18,23 +17,15 @@ use Notadd\Foundation\Notification\Abstracts\NotificationType;
 class NotificationTypeManager
 {
     /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
-
-    /**
      * @var \Illuminate\Support\Collection
      */
     protected $types;
 
     /**
      * NotificationTypeManager constructor.
-     *
-     * @param \Illuminate\Container\Container $container
      */
-    public function __construct(Container $container)
+    public function __construct()
     {
-        $this->container = $container;
         $this->types = new Collection();
     }
 

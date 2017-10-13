@@ -36,8 +36,8 @@ class NotificationServiceProvider extends IlluminateNotificationServiceProvider
     public function register()
     {
         parent::register();
-        $this->app->singleton('notification.type', function ($app) {
-            return new NotificationTypeManager($app);
+        $this->app->singleton('notification.type', function () {
+            return new NotificationTypeManager();
         });
     }
 }

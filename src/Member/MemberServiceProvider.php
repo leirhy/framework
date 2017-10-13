@@ -36,8 +36,8 @@ class MemberServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('member', function ($app) {
-            return new MemberManagement($app);
+        $this->app->singleton('member', function () {
+            return new MemberManagement();
         });
         $this->app->singleton('member.manager', function () {
             $manager = $this->app->make('member');

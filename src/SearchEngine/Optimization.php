@@ -8,58 +8,36 @@
  */
 namespace Notadd\Foundation\SearchEngine;
 
-use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
-use Illuminate\View\Factory;
-use Notadd\Foundation\Setting\Contracts\SettingsRepository;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class Optimization.
  */
 class Optimization
 {
-    /**
-     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
-     */
-    private $container;
+    use Helpers;
 
     /**
      * @var \Illuminate\Support\Collection
      */
-    private $code;
+    protected $code;
 
     /**
      * @var \Notadd\Foundation\SearchEngine\Meta
      */
-    private $meta;
-
-    /**
-     * @var \Notadd\Foundation\Setting\Contracts\SettingsRepository
-     */
-    private $settings;
-
-    /**
-     * @var \Illuminate\View\Factory
-     */
-    private $view;
+    protected $meta;
 
     /**
      * Optimization constructor.
-     *
-     * @param \Illuminate\Container\Container                         $container
-     * @param \Notadd\Foundation\Setting\Contracts\SettingsRepository $settings
-     * @param \Illuminate\View\Factory                                $view
      */
-    public function __construct(Container $container, SettingsRepository $settings, Factory $view)
+    public function __construct()
     {
-        $this->container = $container;
-        $this->view = $view;
         $this->code = new Collection();
         $this->meta = new Meta();
-        $this->settings = $settings;
-        $this->code->put('{sitename}', $this->settings->get('seo.title', 'Notadd CMS'));
-        $this->code->put('{keywords}', $this->settings->get('seo.keyword', 'Notadd CMS'));
-        $this->code->put('{description}', $this->settings->get('seo.description', 'Notadd CMS'));
+        $this->code->put('{sitename}', $this->setting->get('seo.title', 'Notadd CMS'));
+        $this->code->put('{keywords}', $this->setting->get('seo.keyword', 'Notadd CMS'));
+        $this->code->put('{description}', $this->setting->get('seo.description', 'Notadd CMS'));
     }
 
     /**

@@ -8,33 +8,16 @@
  */
 namespace Notadd\Foundation\Theme;
 
-use Illuminate\Container\Container;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class ThemeManager.
  */
 class ThemeManager
 {
-    /**
-     * Container instance.
-     *
-     * @var \Illuminate\Container\Container|\Notadd\Foundation\Application
-     */
-    protected $container;
-
-    /**
-     * @var \Illuminate\Events\Dispatcher
-     */
-    protected $events;
-
-    /**
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $files;
+    use Helpers;
 
     /**
      * @var \Illuminate\Support\Collection
@@ -43,16 +26,9 @@ class ThemeManager
 
     /**
      * ThemeManager constructor.
-     *
-     * @param \Illuminate\Container\Container   $container
-     * @param \Illuminate\Events\Dispatcher     $events
-     * @param \Illuminate\Filesystem\Filesystem $files
      */
-    public function __construct(Container $container, Dispatcher $events, Filesystem $files)
+    public function __construct()
     {
-        $this->container = $container;
-        $this->events = $events;
-        $this->files = $files;
         $this->themes = new Collection();
     }
 
@@ -66,10 +42,10 @@ class ThemeManager
     public function getThemes($installed = false)
     {
         if ($this->themes->isEmpty()) {
-            if ($this->files->isDirectory($this->getThemePath()) && !empty($directories = $this->files->directories($this->getThemePath()))) {
+            if ($this->file->isDirectory($this->getThemePath()) && !empty($directories = $this->file->directories($this->getThemePath()))) {
                 (new Collection($directories))->each(function ($directory) use ($installed) {
-                    if ($this->files->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
-                        $package = new Collection(json_decode($this->files->get($file), true));
+                    if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'composer.json')) {
+                        $package = new Collection(json_decode($this->file->get($file), true));
                         if (Arr::get($package, 'type') == 'notadd-extension' && $name = Arr::get($package, 'name')) {
                             $module = new Theme($name, Arr::get($package, 'authors'),
                                 Arr::get($package, 'description'));

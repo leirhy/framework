@@ -33,8 +33,8 @@ class ThemeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('theme', function ($app) {
-            return new ThemeManager($app, $app['events'], $app['files']);
+        $this->app->singleton('theme', function () {
+            return new ThemeManager();
         });
     }
 }

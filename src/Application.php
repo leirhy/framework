@@ -2,9 +2,9 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
- * @datetime 2016-10-20 19:41
+ * @datetime      2016-10-20 19:41
  */
 namespace Notadd\Foundation;
 
@@ -1133,6 +1133,16 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'flow'                      => [\Notadd\Foundation\Flow\FlowManager::class],
             'hash'                      => [\Illuminate\Contracts\Hashing\Hasher::class],
             'images'                    => [\Notadd\Foundation\Image\ImageManager::class],
+            'jwt.auth'                  => [\Tymon\JWTAuth\JWTAuth::class],
+            'jwt.provider.user'         => [\Tymon\JWTAuth\Providers\User\UserInterface::class],
+            'jwt.provider.jwt'          => [\Tymon\JWTAuth\Providers\JWT\JWTInterface::class],
+            'jwt.provider.auth'         => [\Tymon\JWTAuth\Providers\Auth\AuthInterface::class],
+            'jwt.provider.storage'      => [\Tymon\JWTAuth\Providers\Storage\StorageInterface::class],
+            'jwt.manager'               => [\Tymon\JWTAuth\JWTManager::class],
+            'jwt.blacklist'             => [\Tymon\JWTAuth\Blacklist::class],
+            'jwt.payload.factory'       => [\Tymon\JWTAuth\PayloadFactory::class],
+            'jwt.claim.factory'         => [\Tymon\JWTAuth\Claims\Factory::class],
+            'jwt.validators.payload'    => [\Tymon\JWTAuth\Validators\PayloadValidator::class],
             'log'                       => [
                 \Illuminate\Log\Writer::class,
                 \Illuminate\Contracts\Logging\Log::class,
@@ -1146,9 +1156,6 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'member'                    => [\Notadd\Foundation\Member\MemberManagement::class],
             'module'                    => [\Notadd\Foundation\Module\ModuleManager::class],
             'permission'                => [\Notadd\Foundation\Permission\PermissionManager::class],
-            'permission.group'          => [\Notadd\Foundation\Permission\PermissionGroupManager::class],
-            'permission.module'         => [\Notadd\Foundation\Permission\PermissionModuleManager::class],
-            'permission.type'           => [\Notadd\Foundation\Permission\PermissionTypeManager::class],
             'queue'                     => [
                 \Illuminate\Queue\QueueManager::class,
                 \Illuminate\Contracts\Queue\Factory::class,

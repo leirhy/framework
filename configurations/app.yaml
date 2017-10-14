@@ -32,6 +32,7 @@ providers:
     - Notadd\Foundation\Extension\ExtensionServiceProvider
     - Notadd\Foundation\Flow\FlowServiceProvider
     - Notadd\Foundation\Image\ImageServiceProvider
+    - Notadd\Foundation\JWTAuth\JWTAuthServiceProvider
     - Notadd\Foundation\Mail\MailServiceProvider
     - Notadd\Foundation\Member\MemberServiceProvider
     - Notadd\Foundation\Navigation\NavigationServiceProvider

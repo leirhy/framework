@@ -9,6 +9,7 @@
 !extension.yaml
 !filesystems.yaml
 !image.yaml
+!jwt.yaml
 !mail.yaml
 !module.yaml
 !queue.yaml

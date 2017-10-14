@@ -25,7 +25,7 @@ class ItemController extends Controller
      *
      * @param \Notadd\Foundation\Navigation\Handlers\Item\CreateHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function create(CreateHandler $handler)
@@ -38,7 +38,7 @@ class ItemController extends Controller
      *
      * @param \Notadd\Foundation\Navigation\Handlers\Item\DeleteHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function delete(DeleteHandler $handler)
@@ -51,7 +51,7 @@ class ItemController extends Controller
      *
      * @param \Notadd\Foundation\Navigation\Handlers\Item\EditHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function edit(EditHandler $handler)
@@ -64,7 +64,7 @@ class ItemController extends Controller
      *
      * @param \Notadd\Foundation\Navigation\Handlers\Item\FetchHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function fetch(FetchHandler $handler)
@@ -77,7 +77,7 @@ class ItemController extends Controller
      *
      * @param \Notadd\Foundation\Navigation\Handlers\Item\SortHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function sort(SortHandler $handler)

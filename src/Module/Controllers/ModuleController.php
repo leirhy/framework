@@ -34,7 +34,7 @@ class ModuleController extends Controller
     /**
      * @param \Notadd\Foundation\Module\Handlers\ExportsHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function exports(ExportsHandler $handler)
     {
@@ -44,7 +44,7 @@ class ModuleController extends Controller
     /**
      * @param \Notadd\Foundation\Module\Handlers\ImportsHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function imports(ImportsHandler $handler)
     {
@@ -56,7 +56,7 @@ class ModuleController extends Controller
      *
      * @param \Notadd\Foundation\Module\Handlers\UpdateHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function update(UpdateHandler $handler)

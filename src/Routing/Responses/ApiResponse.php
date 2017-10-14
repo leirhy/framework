@@ -6,7 +6,7 @@
  * @copyright (c) 2016, notadd.com
  * @datetime 2016-11-08 11:03
  */
-namespace Notadd\Foundation\Passport\Responses;
+namespace Notadd\Foundation\Routing\Responses;
 
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response;
@@ -27,7 +27,7 @@ class ApiResponse
      * @param \Psr\Http\Message\ResponseInterface|null $response
      * @param array                                    $params
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function generateHttpResponse(ResponseInterface $response = null, $params = [])
     {

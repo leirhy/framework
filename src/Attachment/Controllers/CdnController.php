@@ -21,7 +21,7 @@ class CdnController extends Controller
      *
      * @param \Notadd\Foundation\Attachment\Handlers\CdnSetHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse
      * @throws \Exception
      */
     public function handle(CdnSetHandler $handler)

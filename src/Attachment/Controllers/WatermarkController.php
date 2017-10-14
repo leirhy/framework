@@ -21,7 +21,7 @@ class WatermarkController extends Controller
      *
      * @param \Notadd\Foundation\Attachment\Handlers\WatermarkSetHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse
      * @throws \Exception
      */
     public function handle(WatermarkSetHandler $handler)

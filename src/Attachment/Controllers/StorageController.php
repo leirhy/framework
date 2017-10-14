@@ -21,7 +21,7 @@ class StorageController extends Controller
      *
      * @param \Notadd\Foundation\Attachment\Handlers\StorageSetHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse
      * @throws \Exception
      */
     public function handle(StorageSetHandler $handler)

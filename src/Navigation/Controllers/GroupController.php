@@ -24,7 +24,7 @@ class GroupController extends Controller
      *
      * @param \Notadd\Foundation\Navigation\Handlers\Group\CreateHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function create(CreateHandler $handler)
@@ -37,7 +37,7 @@ class GroupController extends Controller
      *
      * @param \Notadd\Foundation\Navigation\Handlers\Group\DeleteHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function delete(DeleteHandler $handler)
@@ -50,7 +50,7 @@ class GroupController extends Controller
      *
      * @param \Notadd\Foundation\Navigation\Handlers\Group\EditHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function edit(EditHandler $handler)
@@ -63,7 +63,7 @@ class GroupController extends Controller
      *
      * @param \Notadd\Foundation\Navigation\Handlers\Group\FetchHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function fetch(FetchHandler $handler)

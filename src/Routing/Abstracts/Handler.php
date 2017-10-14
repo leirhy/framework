@@ -14,7 +14,7 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
-use Notadd\Foundation\Passport\Responses\ApiResponse;
+use Notadd\Foundation\Routing\Responses\ApiResponse;
 use Notadd\Foundation\Permission\PermissionManager;
 use Notadd\Foundation\Validation\ValidatesRequests;
 
@@ -117,10 +117,10 @@ abstract class Handler
     abstract protected function execute();
 
     /**
-     * @param \Notadd\Foundation\Passport\Responses\ApiResponse $response
-     * @param \Exception                                        $exception
+     * @param \Notadd\Foundation\Routing\Responses\ApiResponse $response
+     * @param \Exception                                       $exception
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse
      */
     protected function handleExceptions(ApiResponse $response, Exception $exception)
     {
@@ -169,7 +169,7 @@ abstract class Handler
     /**
      * Make data to response with errors or messages.
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse
      * @throws \Exception
      */
     public function toResponse()

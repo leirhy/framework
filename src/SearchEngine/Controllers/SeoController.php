@@ -34,7 +34,7 @@ class SeoController extends ApiController
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\BatchHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function batch(BatchHandler $handler)
     {
@@ -44,7 +44,7 @@ class SeoController extends ApiController
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\CreateHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function create(CreateHandler $handler)
     {
@@ -54,7 +54,7 @@ class SeoController extends ApiController
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\EditHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function edit(EditHandler $handler)
     {
@@ -64,7 +64,7 @@ class SeoController extends ApiController
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\ListHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function list(ListHandler $handler)
     {
@@ -74,7 +74,7 @@ class SeoController extends ApiController
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\ModuleHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function module(ModuleHandler $handler)
     {
@@ -84,7 +84,7 @@ class SeoController extends ApiController
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\OrderHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function order(OrderHandler $handler)
     {
@@ -94,7 +94,7 @@ class SeoController extends ApiController
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\RemoveHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function remove(RemoveHandler $handler)
     {
@@ -104,7 +104,7 @@ class SeoController extends ApiController
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\SeoHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function seo(SeoHandler $handler)
     {
@@ -114,7 +114,7 @@ class SeoController extends ApiController
     /**
      * @param \Notadd\Foundation\SearchEngine\Handlers\TemplateHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function template(TemplateHandler $handler)
     {

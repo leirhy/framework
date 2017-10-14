@@ -33,7 +33,7 @@ class MailController extends Controller
      *
      * @param GetHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function get(GetHandler $handler)
@@ -46,7 +46,7 @@ class MailController extends Controller
      *
      * @param \Notadd\Foundation\Mail\Handlers\SetHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse * @throws \Exception
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse * @throws \Exception
      * @throws \Exception
      */
     public function set(SetHandler $handler)
@@ -59,7 +59,7 @@ class MailController extends Controller
      *
      * @param \Notadd\Foundation\Mail\Handlers\TestHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      * @throws \Exception
      */
     public function test(TestHandler $handler)

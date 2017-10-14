@@ -19,7 +19,7 @@ class RedisController extends Controller
     /**
      * @param \Notadd\Foundation\Redis\Handlers\ClearHandler $handler
      *
-     * @return \Notadd\Foundation\Passport\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
+     * @return \Notadd\Foundation\Routing\Responses\ApiResponse|\Psr\Http\Message\ResponseInterface|\Zend\Diactoros\Response
      */
     public function clear(ClearHandler $handler)
     {

@@ -2,9 +2,9 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
- * @datetime 2016-10-21 11:56
+ * @datetime      2016-10-21 11:56
  */
 namespace Notadd\Foundation\Console;
 
@@ -45,26 +45,26 @@ class ConsoleServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        'ClearCompiled'    => 'command.clear-compiled',
-        'ClearResets'      => 'command.auth.resets.clear',
-        'ConfigCache'      => 'command.config.cache',
-        'ConfigClear'      => 'command.config.clear',
-        'Down'             => 'command.down',
-        'Environment'      => 'command.environment',
-        'ExtensionInstall' => 'command.extension.install',
+        'ClearCompiled'      => 'command.clear-compiled',
+        'ClearResets'        => 'command.auth.resets.clear',
+        'ConfigCache'        => 'command.config.cache',
+        'ConfigClear'        => 'command.config.clear',
+        'Down'               => 'command.down',
+        'Environment'        => 'command.environment',
+        'ExtensionInstall'   => 'command.extension.install',
         'ExtensionUninstall' => 'command.extension.uninstall',
-        'KeyGenerate'      => 'command.key.generate',
-        'Migrate'          => 'command.migrate',
-        'MigrateInstall'   => 'command.migrate.install',
-        'MigrateRefresh'   => 'command.migrate.refresh',
-        'MigrateReset'     => 'command.migrate.reset',
-        'MigrateRollback'  => 'command.migrate.rollback',
-        'MigrateStatus'    => 'command.migrate.status',
-        'RouteCache'       => 'command.route.cache',
-        'RouteClear'       => 'command.route.clear',
-        'RouteList'        => 'command.route.list',
-        'Up'               => 'command.up',
-        'ViewClear'        => 'command.view.clear',
+        'KeyGenerate'        => 'command.key.generate',
+        'Migrate'            => 'command.migrate',
+        'MigrateInstall'     => 'command.migrate.install',
+        'MigrateRefresh'     => 'command.migrate.refresh',
+        'MigrateReset'       => 'command.migrate.reset',
+        'MigrateRollback'    => 'command.migrate.rollback',
+        'MigrateStatus'      => 'command.migrate.status',
+        'RouteCache'         => 'command.route.cache',
+        'RouteClear'         => 'command.route.clear',
+        'RouteList'          => 'command.route.list',
+        'Up'                 => 'command.up',
+        'ViewClear'          => 'command.view.clear',
     ];
 
     /**
@@ -81,6 +81,7 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->commands('jwt.generate');
         $this->registerCommands($this->commands);
         $this->registerCommands($this->devCommands);
     }

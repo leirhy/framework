@@ -29,6 +29,28 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'jwt.auth',
+            'jwt.blacklist',
+            'jwt.claim.factory',
+            'jwt.generate',
+            'jwt.manager',
+            'jwt.payload.factory',
+            'jwt.provider.auth',
+            'jwt.provider.jwt',
+            'jwt.provider.storage',
+            'jwt.provider.user',
+            'jwt.validators.payload',
+        ];
+    }
+
+    /**
      * Register Service Provider.
      */
     public function register()

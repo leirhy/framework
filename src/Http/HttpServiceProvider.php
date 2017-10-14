@@ -2,12 +2,13 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
- * @datetime 2016-10-21 10:52
+ * @datetime      2016-10-21 10:52
  */
 namespace Notadd\Foundation\Http;
 
+use Illuminate\Auth\RequestGuard;
 use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
@@ -18,6 +19,7 @@ use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Tymon\JWTAuth\JWTAuth;
 
 /**
  * Class HttpServiceProvider.
@@ -73,5 +75,23 @@ class HttpServiceProvider extends ServiceProvider
         }
         $form->setUserResolver($current->getUserResolver());
         $form->setRouteResolver($current->getRouteResolver());
+    }
+
+    /**
+     * Register Service Provider.
+     */
+    public function register()
+    {
+        $this->app['auth']->extend('passport', function ($app) {
+            $guard = new RequestGuard(function () {
+                $token = $this->app->make(JWTAuth::class)->getToken();
+
+                return $this->app->make(JWTAuth::class)->authenticate($token);
+            }, $app['request']);
+
+            return tap($guard, function ($guard) {
+                $this->app->refresh('request', $guard, 'setRequest');
+            });
+        });
     }
 }

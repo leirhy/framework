@@ -10,9 +10,9 @@ namespace Notadd\Foundation\JWTAuth;
 
 use Illuminate\Contracts\Foundation\Application;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
+use Notadd\Foundation\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Claims\Factory;
-use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;

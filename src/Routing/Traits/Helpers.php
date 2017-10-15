@@ -45,6 +45,7 @@ use Psr\Log\LoggerInterface;
  * @property \Illuminate\Events\Dispatcher                                  $event
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
  * @property \Illuminate\Filesystem\Filesystem                              $file
+ * @property \Tymon\JWTAuth\JWTAuth                                         $jwt
  * @property \Psr\Log\LoggerInterface                                       $log
  * @property \Notadd\Foundation\Module\ModuleManager                        $module
  * @property \Illuminate\Routing\Redirector                                 $redirector
@@ -259,6 +260,14 @@ trait Helpers
     protected function getView(): Factory
     {
         return $this->container->make('view');
+    }
+
+    /**
+     * @return \Tymon\JWTAuth\JWTAuth
+     */
+    protected function getJwt()
+    {
+        return $this->container->make('jwt.auth');
     }
 
     /**

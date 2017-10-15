@@ -33,6 +33,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run as Whoops;
 
@@ -138,6 +139,12 @@ class Handler implements ExceptionHandlerContract
         $exception = $this->prepareException($exception);
         if ($exception instanceof HttpResponseException) {
             return $exception->getResponse();
+        } else if ($exception instanceof TokenInvalidException) {
+            if ($request->expectsJson()) {
+                return $this->response->json(['error' => 'Unauthenticated.'], 401);
+            }
+
+            return $this->redirector->guest('login');
         } else if ($exception instanceof AuthenticationException) {
             return $this->unauthenticated($request, $exception);
         } else if ($exception instanceof PermissionException) {

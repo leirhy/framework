@@ -93,8 +93,9 @@ class JWTAuthServiceProvider extends ServiceProvider
                 $app['jwt.provider.auth'],
                 $app['request']
             );
+            $auth->setIdentifier($app['config']['jwt.identifier']);
 
-            return $auth->setIdentifier($app['config']['jwt.identifier']);
+            return $auth;
         });
         $this->app->singleton('jwt.blacklist', function ($app) {
             $instance = new Blacklist($app['jwt.provider.storage']);

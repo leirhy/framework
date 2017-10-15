@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Administration\Subscribers;
 
+use Notadd\Foundation\Administration\Controllers\AdministrationController;
 use Notadd\Foundation\Administration\Controllers\ConfigurationsController;
 use Notadd\Foundation\Administration\Controllers\DashboardsController;
 use Notadd\Foundation\Administration\Controllers\InformationsController;
@@ -24,6 +25,9 @@ class RouteRegister extends AbstractRouteRegister
      */
     public function handle()
     {
+        $this->router->group(['middleware' => ['cross', 'web'], 'prefix' => 'api/administration'], function () {
+            $this->router->post('token', AdministrationController::class . '@token');
+        });
         $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/administration'], function () {
             $this->router->resource('configurations', ConfigurationsController::class)->methods([
                 'show' => 'definition',

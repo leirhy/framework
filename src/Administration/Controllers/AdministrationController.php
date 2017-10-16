@@ -26,13 +26,14 @@ class AdministrationController extends Controller
      */
     public function access(): JsonResponse
     {
-        if (!$this->jwt->parseToken()->authenticate()) {
+        if (!$user = $this->jwt->parseToken()->authenticate()) {
             return $this->response->json([
                 'message' => '登录失效，请重新登录！',
             ], 401);
         }
 
         return $this->response->json([
+            'data'    => $user,
             'message' => '有效登录',
         ]);
     }
@@ -68,12 +69,8 @@ class AdministrationController extends Controller
         $this->request->session()->regenerate();
         $this->clearLoginAttempts($this->request);
         $user = $this->auth->guard()->user();
-        try {
-            if (!$token = $this->jwt->fromUser($user)) {
-                return $this->response->json(['error' => 'invalid_credentials'], 401);
-            }
-        } catch (JWTException $exception) {
-            return $this->response->json(['error' => '授权失败！'], 500);
+        if (!$token = $this->jwt->fromUser($user)) {
+            return $this->response->json(['error' => 'invalid_credentials'], 401);
         }
 
         return $this->response->json([

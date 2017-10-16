@@ -24,6 +24,22 @@ class AdministrationController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
+    public function access(): JsonResponse
+    {
+        if (!$this->jwt->parseToken()->authenticate()) {
+            return $this->response->json([
+                'message' => '登录失效，请重新登录！',
+            ], 401);
+        }
+
+        return $this->response->json([
+            'message' => '有效登录',
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function token(): JsonResponse
     {
         $this->validate($this->request, [
@@ -57,10 +73,13 @@ class AdministrationController extends Controller
                 return $this->response->json(['error' => 'invalid_credentials'], 401);
             }
         } catch (JWTException $exception) {
-            return $this->response->json(['error' => 'could_not_create_token'], 500);
+            return $this->response->json(['error' => '授权失败！'], 500);
         }
 
-        return $this->response->json(compact('token'));
+        return $this->response->json([
+            'data'    => $token,
+            'message' => '获取 Token 成功！',
+        ]);
     }
 
     /**

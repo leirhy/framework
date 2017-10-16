@@ -20,6 +20,7 @@ use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\JWTGuard;
 
 /**
  * Class HttpServiceProvider.
@@ -82,16 +83,16 @@ class HttpServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['auth']->extend('passport', function ($app) {
-            $guard = new RequestGuard(function () {
-                $token = $this->app->make(JWTAuth::class)->getToken();
+        $this->app['auth']->extend('jwt', function ($app, $name, array $config) {
+            $guard = new JwtGuard(
+                $app['jwt'],
+                $app['auth']->createUserProvider($config['provider']),
+                $app['request']
+            );
 
-                return $this->app->make(JWTAuth::class)->authenticate($token);
-            }, $app['request']);
+            $app->refresh('request', $guard, 'setRequest');
 
-            return tap($guard, function ($guard) {
-                $this->app->refresh('request', $guard, 'setRequest');
-            });
+            return $guard;
         });
     }
 }

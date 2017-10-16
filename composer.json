@@ -88,7 +88,7 @@
         "symfony/workflow": "~3.3",
         "symfony/yaml": "~3.3",
         "tijsverkoyen/css-to-inline-styles": "~2.2",
-        "tymon/jwt-auth": "^0.5.12",
+        "tymon/jwt-auth": "^1.0.0-rc.1",
         "vlucas/phpdotenv": "~2.2"
     },
     "require-dev": {

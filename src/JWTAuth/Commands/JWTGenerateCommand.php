@@ -10,7 +10,6 @@ namespace Notadd\Foundation\JWTAuth\Commands;
 
 use Illuminate\Support\Str;
 use Notadd\Foundation\Console\Abstracts\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -23,12 +22,6 @@ class JWTGenerateCommand extends Command
      */
     protected function configure()
     {
-        $this->addOption(
-            'show',
-            null,
-            InputOption::VALUE_NONE,
-            'Simply display the key instead of modifying files.'
-        );
         $this->setDescription('Set the JWTAuth secret key used to sign the tokens');
         $this->setName('jwt:generate');
     }
@@ -39,10 +32,6 @@ class JWTGenerateCommand extends Command
     public function handle()
     {
         $key = Str::random(32);
-
-        if ($this->input->getOption('show')) {
-            return $this->output->writeln('<comment>'.$key.'</comment>');
-        }
 
         $file = $this->container->environmentFilePath();
         $this->file->exists($file) || touch($file);

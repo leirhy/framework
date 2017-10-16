@@ -3,7 +3,7 @@ defaults:
     passwords: users
 guards:
     api:
-        driver: passport
+        driver: jwt
         provider: users
     web:
         driver: session
@@ -11,7 +11,7 @@ guards:
 providers:
     users:
         driver: eloquent
-        model: \Notadd\Foundation\Member\Member
+        model: Notadd\Foundation\Member\Member
 passwords:
     users:
         provider: users

@@ -12,10 +12,17 @@ use Illuminate\Contracts\Foundation\Application;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
+use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\Http\Parser\AuthHeaders;
+use Tymon\JWTAuth\Http\Parser\Cookies;
+use Tymon\JWTAuth\Http\Parser\InputSource;
+use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Http\Parser\QueryString;
+use Tymon\JWTAuth\Http\Parser\RouteParams;
+use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\JWTManager;
-use Tymon\JWTAuth\PayloadFactory;
+use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 /**
@@ -36,16 +43,17 @@ class JWTAuthServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
+            'jwt',
             'jwt.auth',
             'jwt.blacklist',
             'jwt.claim.factory',
-            'jwt.generate',
             'jwt.manager',
+            'jwt.parser',
             'jwt.payload.factory',
             'jwt.provider.auth',
             'jwt.provider.jwt',
             'jwt.provider.storage',
-            'jwt.provider.user',
+            'jwt.secret',
             'jwt.validators.payload',
         ];
     }
@@ -55,69 +63,89 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('jwt.provider.user', function (Application $app) {
-            $provider = $app['config']['jwt.providers.user'];
-            $model = $app->make($app['config']['jwt.user']);
+        $this->app->singleton('jwt', function ($app) {
+            return new JWT(
+                $app['jwt.manager'],
+                $app['jwt.parser']
+            );
+        });
+        $this->app->singleton('jwt.auth', function ($app) {
+            return new JWTAuth(
+                $app['jwt.manager'],
+                $app['jwt.provider.auth'],
+                $app['jwt.parser']
+            );
+        });
+        $this->app->singleton('jwt.blacklist', function ($app) {
+            $instance = new Blacklist($app['jwt.provider.storage']);
+            $instance->setGracePeriod($app['config']['jwt.blacklist_grace_period']);
+            $instance->setRefreshTTL($app['config']['jwt.refresh_ttl']);
 
-            return new $provider($model);
+            return $instance;
         });
-        $this->app->singleton('jwt.provider.jwt', function ($app) {
-            $secret = $app['config']['jwt.secret'];
-            $algo = $app['config']['jwt.algo'];
-            $provider = $app['config']['jwt.providers.jwt'];
+        $this->app->singleton('jwt.claim.factory', function ($app) {
+            $factory = new ClaimFactory($app['request']);
+            $app->refresh('request', $factory, 'setRequest');
+            $factory->setTTL($app['config']['jwt.ttl']);
 
-            return new $provider($secret, $algo);
-        });
-        $this->app->singleton('jwt.provider.auth', function ($app) {
-            return $this->getConfigInstance($app['config']['jwt.providers.auth']);
-        });
-        $this->app->singleton('jwt.provider.storage', function ($app) {
-            return $this->getConfigInstance($app['config']['jwt.providers.storage']);
-        });
-        $this->app->singleton('jwt.claim.factory', function () {
-            return new Factory();
+            return $factory;
         });
         $this->app->singleton('jwt.manager', function ($app) {
-            $instance = new JWTManager(
+            $instance = new Manager(
                 $app['jwt.provider.jwt'],
                 $app['jwt.blacklist'],
                 $app['jwt.payload.factory']
             );
+            $instance->setBlacklistEnabled((bool)$app['config']['jwt.blacklist_enabled']);
+            $instance->setPersistentClaims((array)$app['config']['jwt.persistent_claims']);
 
-            return $instance->setBlacklistEnabled((bool)$app['config']['jwt.blacklist_enabled']);
+            return $instance;
         });
-        $this->app->singleton('jwt.auth', function ($app) {
-            $auth = new JWTAuth(
-                $app['jwt.manager'],
-                $app['jwt.provider.user'],
-                $app['jwt.provider.auth'],
-                $app['request']
+        $this->app->singleton('jwt.parser', function (Application $app) {
+            $parser = new Parser(
+                $app['request'],
+                [
+                    new AuthHeaders,
+                    new QueryString,
+                    new InputSource,
+                    new RouteParams,
+                    new Cookies,
+                ]
             );
-            $auth->setIdentifier($app['config']['jwt.identifier']);
+            $app->refresh('request', $parser, 'setRequest');
 
-            return $auth;
-        });
-        $this->app->singleton('jwt.blacklist', function ($app) {
-            $instance = new Blacklist($app['jwt.provider.storage']);
-
-            return $instance->setRefreshTTL($app['config']['jwt.refresh_ttl']);
-        });
-        $this->app->singleton('jwt.validators.payload', function ($app) {
-            return with(new PayloadValidator())
-                ->setRefreshTTL($app['config']['jwt.refresh_ttl'])
-                ->setRequiredClaims($app['config']['jwt.required_claims']);
+            return $parser;
         });
         $this->app->singleton('jwt.payload.factory', function ($app) {
-            $factory = new PayloadFactory(
+            return new Factory(
                 $app['jwt.claim.factory'],
-                $app['request'],
                 $app['jwt.validators.payload']
             );
-
-            return $factory->setTTL($app['config']['jwt.ttl']);
         });
-        $this->app->singleton('jwt.generate', function () {
+        $this->app->singleton('jwt.provider.auth', function ($app) {
+            return $this->getConfigInstance($app['config']['jwt.providers.auth']);
+        });
+        $this->app->singleton('jwt.provider.jwt', function ($app) {
+            $provider = $app['config']['jwt.providers.jwt'];
+
+            return new $provider(
+                $app['config']['jwt.secret'],
+                $app['config']['jwt.algo'],
+                $app['config']['jwt.keys']
+            );
+        });
+        $this->app->singleton('jwt.provider.storage', function ($app) {
+            return $this->getConfigInstance($app['config']['jwt.providers.storage']);
+        });
+        $this->app->singleton('jwt.secret', function () {
             return new JWTGenerateCommand();
+        });
+        $this->app->singleton('jwt.validators.payload', function ($app) {
+            $instance = new PayloadValidator();
+            $instance->setRefreshTTL($app['config']['jwt.refresh_ttl']);
+            $instance->setRequiredClaims($app['config']['jwt.required_claims']);
+
+            return $instance;
         });
     }
 

@@ -79,7 +79,7 @@ class AddonsController extends Controller
         $output = new BufferedOutput();
         $this->db->transaction(function () use ($addon, $output) {
             if ($addon->offsetExists('migrations')) {
-                $migrations = (array)$addon->get('migrations');
+                $migrations = (array) $addon->get('migrations');
                 collect($migrations)->each(function ($path) use ($addon, $output) {
                     $path = $addon->get('directory') . DIRECTORY_SEPARATOR . $path;
                     $migration = str_replace($this->container->basePath(), '', $path);

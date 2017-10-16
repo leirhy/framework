@@ -32,14 +32,23 @@ class JWTGenerateCommand extends Command
     public function handle()
     {
         $key = Str::random(32);
-
         $file = $this->container->environmentFilePath();
         $this->file->exists($file) || touch($file);
-
         $data = collect(Yaml::parse($this->file->get($file)));
         $data->put('JWT_SECRET', $key);
         $this->file->put($file, Yaml::dump($data->toArray()));
-
+        $config = [
+            'curve_name'       => 'prime256v1',
+            'digest_alg'       => 'sha512',
+            'private_key_bits' => 4096,
+            'private_key_type' => OPENSSL_KEYTYPE_EC,
+        ];
+        $res = openssl_pkey_new($config);
+        openssl_pkey_export($res, $privateKey);
+        $publicKey = openssl_pkey_get_details($res);
+        $publicKey = $publicKey['key'];
+        file_put_contents($this->container->storagePath() . '/privateKey.pem', $privateKey);
+        file_put_contents($this->container->storagePath() . '/publicKey.pem', $publicKey);
         $this->container['config']['jwt.secret'] = $key;
 
         return $this->output->writeln("<info>jwt-auth secret [$key] set successfully.</info>");

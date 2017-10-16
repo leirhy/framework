@@ -81,7 +81,7 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->commands('jwt.generate');
+        $this->commands('jwt.secret');
         $this->registerCommands($this->commands);
         $this->registerCommands($this->devCommands);
     }

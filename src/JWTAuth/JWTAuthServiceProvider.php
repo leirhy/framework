@@ -126,12 +126,15 @@ class JWTAuthServiceProvider extends ServiceProvider
             return $this->getConfigInstance($app['config']['jwt.providers.auth']);
         });
         $this->app->singleton('jwt.provider.jwt', function ($app) {
+            $keys = $app['config']['jwt.keys'];
+            $keys['private'] = realpath($app['path.storage'] . '/privateKey.pem');
+            $keys['public'] = realpath($app['path.storage'] . '/publicKey.pem');
             $provider = $app['config']['jwt.providers.jwt'];
 
             return new $provider(
                 $app['config']['jwt.secret'],
                 $app['config']['jwt.algo'],
-                $app['config']['jwt.keys']
+                $keys
             );
         });
         $this->app->singleton('jwt.provider.storage', function ($app) {

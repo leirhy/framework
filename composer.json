@@ -89,7 +89,8 @@
         "symfony/workflow": "~3.3",
         "symfony/yaml": "~3.3",
         "tijsverkoyen/css-to-inline-styles": "~2.2",
-        "vlucas/phpdotenv": "~2.2"
+        "vlucas/phpdotenv": "~2.2",
+        "zendframework/zend-diactoros": "~1.0"
     },
     "require-dev": {
         "aws/aws-sdk-php": "~3.0",

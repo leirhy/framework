@@ -11,19 +11,14 @@ namespace Notadd\Foundation\JWTAuth;
 use Illuminate\Contracts\Foundation\Application;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\JWTAuth\Commands\JWTGenerateCommand;
-use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
-use Tymon\JWTAuth\Factory;
-use Tymon\JWTAuth\Http\Parser\AuthHeaders;
-use Tymon\JWTAuth\Http\Parser\Cookies;
-use Tymon\JWTAuth\Http\Parser\InputSource;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Http\Parser\QueryString;
-use Tymon\JWTAuth\Http\Parser\RouteParams;
-use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\Manager;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use Notadd\Foundation\JWTAuth\Claims\Factory as ClaimFactory;
+use Notadd\Foundation\JWTAuth\Http\Parser\AuthHeaders;
+use Notadd\Foundation\JWTAuth\Http\Parser\Cookies;
+use Notadd\Foundation\JWTAuth\Http\Parser\InputSource;
+use Notadd\Foundation\JWTAuth\Http\Parser\Parser;
+use Notadd\Foundation\JWTAuth\Http\Parser\QueryString;
+use Notadd\Foundation\JWTAuth\Http\Parser\RouteParams;
+use Notadd\Foundation\JWTAuth\Validators\PayloadValidator;
 
 /**
  * Class JWTAuthServiceProvider.

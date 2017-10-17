@@ -53,7 +53,7 @@ class JWS extends NamshiJWT
     }
 
     /**
-     * @param      $key
+     * @param     $key
      * @param null $password
      *
      * @return string

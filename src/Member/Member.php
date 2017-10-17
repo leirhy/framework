@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Member;
 
-use Laravel\Passport\HasApiTokens;
 use Notadd\Foundation\Auth\User as Authenticatable;
 use Notadd\Foundation\JWTAuth\Contracts\JWTSubject;
 
@@ -17,8 +16,6 @@ use Notadd\Foundation\JWTAuth\Contracts\JWTSubject;
  */
 class Member extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens;
-
     /**
      * @var array
      */

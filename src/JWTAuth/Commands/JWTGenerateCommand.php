@@ -43,14 +43,25 @@ class JWTGenerateCommand extends Command
             'private_key_bits' => 4096,
             'private_key_type' => OPENSSL_KEYTYPE_EC,
         ];
-        $res = openssl_pkey_new($config);
-        openssl_pkey_export($res, $privateKey);
-        $publicKey = openssl_pkey_get_details($res);
-        $publicKey = $publicKey['key'];
-        file_put_contents($this->container->storagePath() . '/privateKey.pem', $privateKey);
-        file_put_contents($this->container->storagePath() . '/publicKey.pem', $publicKey);
+        $this->output->writeln('<info>当前 PHP 版本为：' . PHP_VERSION .'</info>');
+        if (version_compare(PHP_VERSION, '7.1.0') > 0) {
+            $this->output->writeln('<info>PHP 7.1 及以上版本将自动创建秘钥对：</info>');
+            $this->output->writeln('');
+            $res = openssl_pkey_new($config);
+            openssl_pkey_export($res, $privateKey);
+            $publicKey = openssl_pkey_get_details($res);
+            $publicKey = $publicKey['key'];
+            file_put_contents($this->container->storagePath() . '/privateKey.pem', $privateKey);
+            file_put_contents($this->container->storagePath() . '/publicKey.pem', $publicKey);
+            $this->output->writeln('<comment>私钥：</comment>');
+            $this->output->writeln('<comment>' . $privateKey . '</comment>');
+            $this->output->writeln('<comment>公钥：</comment>');
+            $this->output->writeln('<comment>' . $publicKey . '</comment>');
+        } else {
+            $this->output->writeln('<info>PHP 7.1 以下版本，请自行创建密钥对！</info>');
+        }
         $this->container['config']['jwt.secret'] = $key;
 
-        return $this->output->writeln("<info>jwt-auth secret [$key] set successfully.</info>");
+        return $this->output->writeln("<info>秘钥初始化成功！</info>");
     }
 }

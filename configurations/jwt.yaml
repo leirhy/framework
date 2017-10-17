@@ -17,5 +17,5 @@ blacklist_enabled: %env:JWT_BLACKLIST_ENABLED,true%
 blacklist_grace_period: %env:JWT_BLACKLIST_GRACE_PERIOD,0%
 providers:
     jwt: Notadd\Foundation\JWTAuth\Providers\JWT\Namshi
-    auth: Tymon\JWTAuth\Providers\Auth\Illuminate
-    storage: Tymon\JWTAuth\Providers\Storage\Illuminate
+    auth: Notadd\Foundation\JWTAuth\Providers\Auth\Illuminate
+    storage: Notadd\Foundation\JWTAuth\Providers\Storage\Illuminate

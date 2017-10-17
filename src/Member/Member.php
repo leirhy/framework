@@ -10,7 +10,7 @@ namespace Notadd\Foundation\Member;
 
 use Laravel\Passport\HasApiTokens;
 use Notadd\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Notadd\Foundation\JWTAuth\Contracts\JWTSubject;
 
 /**
  * Class Member.

@@ -1,18 +1,18 @@
 <?php
-
-/*
- * This file is part of jwt-auth.
+/**
+ * This file is part of Notadd.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * @author        TwilRoad <heshudong@ibenchu.com>
+ * @copyright (c) 2017, notadd.com
+ * @datetime      2017-10-17 11:51
  */
-
-namespace Tymon\JWTAuth\Facades;
+namespace Notadd\Foundation\JWTAuth\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Class JWTFactory.
+ */
 class JWTFactory extends Facade
 {
     /**

@@ -45,7 +45,7 @@ use Psr\Log\LoggerInterface;
  * @property \Illuminate\Events\Dispatcher                                  $event
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
  * @property \Illuminate\Filesystem\Filesystem                              $file
- * @property \Tymon\JWTAuth\JWTAuth                                         $jwt
+ * @property \Notadd\Foundation\JWTAuth\JWTAuth                             $jwt
  * @property \Psr\Log\LoggerInterface                                       $log
  * @property \Notadd\Foundation\Module\ModuleManager                        $module
  * @property \Illuminate\Routing\Redirector                                 $redirector
@@ -263,7 +263,7 @@ trait Helpers
     }
 
     /**
-     * @return \Tymon\JWTAuth\JWTAuth
+     * @return \Notadd\Foundation\JWTAuth\JWTAuth
      */
     protected function getJwt()
     {

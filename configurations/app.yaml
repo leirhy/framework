@@ -60,8 +60,8 @@ aliases:
     File: Illuminate\Support\Facades\File
     Gate: Illuminate\Support\Facades\Gate
     Hash: Illuminate\Support\Facades\Hash
-    JWTAuth: Tymon\JWTAuth\Facades\JWTAuth
-    JWTFactory: Tymon\JWTAuth\Facades\JWTFactory
+    JWTAuth: Notadd\Foundation\JWTAuth\Facades\JWTAuth
+    JWTFactory: Notadd\Foundation\JWTAuth\Facades\JWTFactory
     Lang: Illuminate\Support\Facades\Lang
     Log: Illuminate\Support\Facades\Log
     Mail: Illuminate\Support\Facades\Mail

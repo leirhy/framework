@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Http;
 
-use Illuminate\Auth\RequestGuard;
 use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
@@ -19,8 +18,7 @@ use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\JWTGuard;
+use Notadd\Foundation\JWTAuth\JWTGuard;
 
 /**
  * Class HttpServiceProvider.

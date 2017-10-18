@@ -92,6 +92,7 @@
         "symfony/yaml": "~3.3",
         "tijsverkoyen/css-to-inline-styles": "~2.2",
         "vlucas/phpdotenv": "~2.2",
+        "webonyx/graphql-php": "0.1.*",
         "zendframework/zend-diactoros": "~1.0"
     },
     "require-dev": {

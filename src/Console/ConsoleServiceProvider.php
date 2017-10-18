@@ -16,6 +16,13 @@ use Illuminate\Database\Console\Migrations\StatusCommand as MigrateStatusCommand
 use Illuminate\Database\Console\Migrations\InstallCommand as MigrateInstallCommand;
 use Illuminate\Database\Console\Migrations\RefreshCommand as MigrateRefreshCommand;
 use Illuminate\Database\Console\Migrations\RollbackCommand as MigrateRollbackCommand;
+use Illuminate\Queue\Console\FlushFailedCommand as FlushFailedQueueCommand;
+use Illuminate\Queue\Console\ForgetFailedCommand as ForgetFailedQueueCommand;
+use Illuminate\Queue\Console\ListenCommand as QueueListenCommand;
+use Illuminate\Queue\Console\ListFailedCommand as ListFailedQueueCommand;
+use Illuminate\Queue\Console\RetryCommand as QueueRetryCommand;
+use Illuminate\Queue\Console\RestartCommand as QueueRestartCommand;
+use Illuminate\Queue\Console\WorkCommand as QueueWorkCommand;
 use Notadd\Foundation\Console\Commands\AppNameCommand;
 use Notadd\Foundation\Console\Commands\ClearCompiledCommand;
 use Notadd\Foundation\Console\Commands\ConfigCacheCommand;
@@ -60,6 +67,13 @@ class ConsoleServiceProvider extends ServiceProvider
         'MigrateReset'       => 'command.migrate.reset',
         'MigrateRollback'    => 'command.migrate.rollback',
         'MigrateStatus'      => 'command.migrate.status',
+        'QueueFailed'        => 'command.queue.failed',
+        'QueueFlush'         => 'command.queue.flush',
+        'QueueForget'        => 'command.queue.forget',
+        'QueueListen'        => 'command.queue.listen',
+        'QueueRestart'       => 'command.queue.restart',
+        'QueueRetry'         => 'command.queue.retry',
+        'QueueWork'          => 'command.queue.work',
         'RouteCache'         => 'command.route.cache',
         'RouteClear'         => 'command.route.clear',
         'RouteList'          => 'command.route.list',
@@ -287,6 +301,90 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.migrate.status', function ($app) {
             return new MigrateStatusCommand($app['migrator']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerQueueFailedCommand()
+    {
+        $this->app->singleton('command.queue.failed', function () {
+            return new ListFailedQueueCommand;
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerQueueForgetCommand()
+    {
+        $this->app->singleton('command.queue.forget', function () {
+            return new ForgetFailedQueueCommand;
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerQueueFlushCommand()
+    {
+        $this->app->singleton('command.queue.flush', function () {
+            return new FlushFailedQueueCommand;
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerQueueListenCommand()
+    {
+        $this->app->singleton('command.queue.listen', function ($app) {
+            return new QueueListenCommand($app['queue.listener']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerQueueRestartCommand()
+    {
+        $this->app->singleton('command.queue.restart', function () {
+            return new QueueRestartCommand;
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerQueueRetryCommand()
+    {
+        $this->app->singleton('command.queue.retry', function () {
+            return new QueueRetryCommand;
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerQueueWorkCommand()
+    {
+        $this->app->singleton('command.queue.work', function ($app) {
+            return new QueueWorkCommand($app['queue.worker']);
         });
     }
 

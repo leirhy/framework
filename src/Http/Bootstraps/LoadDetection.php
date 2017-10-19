@@ -52,7 +52,8 @@ class LoadDetection implements Bootstrap
                     });
                 });
             }
-            $this->container->isInstalled() && $this->cache->store()->put('bootstrap.detection', $collection, (new Carbon())->addHour(10));
+            $this->container->isInstalled() &&
+            $this->cache->tags('notadd')->put('bootstrap.detection', $collection, (new Carbon())->addHour(10));
         }
         $collection->each(function ($subscriber) {
             $this->event->subscribe($subscriber);

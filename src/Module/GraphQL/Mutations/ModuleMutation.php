@@ -22,4 +22,12 @@ class ModuleMutation extends Mutation
     {
         return '';
     }
+
+    /**
+     * @return mixed
+     */
+    public function resolve()
+    {
+        // TODO: Implement resolve() method.
+    }
 }

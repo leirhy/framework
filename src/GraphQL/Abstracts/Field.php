@@ -49,6 +49,11 @@ abstract class Field extends Fluent
     abstract public function name(): string;
 
     /**
+     * @return mixed
+     */
+    abstract public function resolve();
+
+    /**
      * @return null
      */
     public function type()
@@ -61,15 +66,11 @@ abstract class Field extends Fluent
      */
     protected function getResolver()
     {
-        if (!method_exists($this, 'resolve')) {
-            return null;
-        }
         $resolver = [$this, 'resolve'];
         $authorize = [$this, 'authorize'];
 
         return function () use ($resolver, $authorize) {
             $args = func_get_args();
-            // Authorize
             if (call_user_func_array($authorize, $args) !== true) {
                 throw new AuthorizationError('Unauthorized');
             }

@@ -22,4 +22,12 @@ class ClearMutation extends Mutation
     {
         // TODO: Implement name() method.
     }
+
+    /**
+     * @return mixed
+     */
+    public function resolve()
+    {
+        // TODO: Implement resolve() method.
+    }
 }

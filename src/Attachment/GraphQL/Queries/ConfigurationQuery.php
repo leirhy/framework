@@ -15,5 +15,19 @@ use Notadd\Foundation\GraphQL\Abstracts\Query;
  */
 class ConfigurationQuery extends Query
 {
+    /**
+     * @return string
+     */
+    public function name(): string
+    {
+        return '';
+    }
 
+    /**
+     * @return mixed
+     */
+    public function resolve()
+    {
+        // TODO: Implement resolve() method.
+    }
 }

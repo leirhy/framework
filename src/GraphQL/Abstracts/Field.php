@@ -30,10 +30,23 @@ abstract class Field extends Fluent
     /**
      * @return array
      */
+    public function args()
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
     public function attributes()
     {
         return [];
     }
+
+    /**
+     * @return string
+     */
+    abstract public function name(): string;
 
     /**
      * @return null
@@ -41,14 +54,6 @@ abstract class Field extends Fluent
     public function type()
     {
         return null;
-    }
-
-    /**
-     * @return array
-     */
-    public function args()
-    {
-        return [];
     }
 
     /**

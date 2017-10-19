@@ -15,5 +15,11 @@ use Notadd\Foundation\GraphQL\Abstracts\Query;
  */
 class ExtensionQuery extends Query
 {
-
+    /**
+     * @return string
+     */
+    public function name(): string
+    {
+        return '';
+    }
 }

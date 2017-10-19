@@ -15,4 +15,11 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
  */
 class AddonMutation extends Mutation
 {
+    /**
+     * @return string
+     */
+    public function name(): string
+    {
+        return '';
+    }
 }

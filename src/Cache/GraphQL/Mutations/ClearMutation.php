@@ -15,4 +15,11 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
  */
 class ClearMutation extends Mutation
 {
+    /**
+     * @return string
+     */
+    public function name(): string
+    {
+        // TODO: Implement name() method.
+    }
 }

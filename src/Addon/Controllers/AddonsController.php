@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Notadd\Foundation\Addon\Addon;
+use Notadd\Foundation\Cache\Queues\FlushAll;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Validation\Rule;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -46,7 +47,7 @@ class AddonsController extends Controller
         }
         $key = 'addon.' . $identification . '.enabled';
         $this->setting->set($key, boolval($status));
-        $this->redis->flushall();
+        FlushAll::dispatch();
 
         return $this->response->json([
             'message' => '切换插件开启状态成功！',
@@ -109,7 +110,7 @@ class AddonsController extends Controller
         $notice = 'Install Addon ' . $this->request->input('identification') . ':';
         $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
         $this->setting->set('addon.' . $addon->identification() . '.installed', true);
-        $this->redis->flushall();
+        FlushAll::dispatch();
 
         return $this->response->json([
             'message' => '安装模块成功！',
@@ -199,7 +200,7 @@ class AddonsController extends Controller
         $notice = 'Uninstall Addon ' . $identification . ':';
         $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
         $this->setting->set('addon.' . $identification . '.installed', false);
-        $this->redis->flushall();
+        FlushAll::dispatch();
 
         return $this->response->json([
             'message' => '卸载插件成功！',

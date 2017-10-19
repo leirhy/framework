@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Extension\Commands;
 
+use Notadd\Foundation\Cache\Queues\FlushAll;
 use Notadd\Foundation\Console\Abstracts\Command;
 use Notadd\Foundation\Extension\Abstracts\Uninstaller;
 use Notadd\Foundation\Extension\Extension;
@@ -49,7 +50,7 @@ class UninstallCommand extends Command
                 }
             }
         });
-        $this->redis->flushall();
+        FlushAll::dispatch();
         $this->info('已卸载以下拓展：');
         $extensions->each(function (Extension $extension) {
             $this->info($extension->identification());

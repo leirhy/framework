@@ -38,7 +38,7 @@ use Psr\Log\LoggerInterface;
  * @property \Notadd\Foundation\Addon\AddonManager                          $addon
  * @property \Notadd\Foundation\Administration\AdministrationManager        $administration
  * @property \Illuminate\Auth\AuthManager                                   $auth
- * @property \Illuminate\Cache\CacheManager                                 $cache
+ * @property \Illuminate\Cache\CacheManager|\Illuminate\Cache\TaggableStore $cache
  * @property \Illuminate\Config\Repository                                  $config
  * @property \Illuminate\Container\Container|\Notadd\Foundation\Application $container
  * @property \Illuminate\Database\Connection                                $db

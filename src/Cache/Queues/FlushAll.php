@@ -6,26 +6,26 @@
  * @copyright (c) 2017, notadd.com
  * @datetime      2017-10-18 18:07
  */
-namespace Notadd\Foundation\Redis\Queues;
+namespace Notadd\Foundation\Cache\Queues;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Notadd\Foundation\Bus\Dispatchable;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class FlushAll.
  */
 class FlushAll implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, Helpers, InteractsWithQueue, Queueable;
 
     /**
      * Handle Queue.
      */
     public function handle()
     {
-        app('redis')->flushall();
+        $this->cache->tags('notadd')->flush();
     }
 }

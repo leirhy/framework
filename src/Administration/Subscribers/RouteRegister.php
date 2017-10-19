@@ -39,10 +39,11 @@ class RouteRegister extends AbstractRouteRegister
                 'store',
             ]);
             $this->router->resource('dashboards', DashboardsController::class)->methods([
-                'store' => 'list',
+                'index' => 'list',
             ])->names([
-                'store' => 'dashboards.list',
+                'index' => 'dashboards.list',
             ])->only([
+                'index',
                 'store',
             ]);
             $this->router->resource('informations', InformationsController::class)->methods([

@@ -6,14 +6,14 @@
  * @copyright (c) 2017, notadd.com
  * @datetime      2017-10-18 17:51
  */
-namespace Notadd\Foundation\GraphQL\Types;
+namespace Notadd\Foundation\GraphQL\Abstracts;
 
 use Notadd\Foundation\GraphQL\Traits\ShouldValidate;
 
 /**
  * Class Mutation.
  */
-class Mutation extends Field
+abstract class Mutation extends Field
 {
     use ShouldValidate;
 }

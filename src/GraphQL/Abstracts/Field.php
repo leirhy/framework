@@ -6,7 +6,7 @@
  * @copyright (c) 2017, notadd.com
  * @datetime      2017-10-18 17:49
  */
-namespace Notadd\Foundation\GraphQL\Types;
+namespace Notadd\Foundation\GraphQL\Abstracts;
 
 use Illuminate\Support\Fluent;
 use Notadd\Foundation\GraphQL\Errors\AuthorizationError;
@@ -14,7 +14,7 @@ use Notadd\Foundation\GraphQL\Errors\AuthorizationError;
 /**
  * Class Field.
  */
-class Field extends Fluent
+abstract class Field extends Fluent
 {
     /**
      * @param $root

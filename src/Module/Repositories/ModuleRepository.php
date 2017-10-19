@@ -32,7 +32,7 @@ class ModuleRepository extends Repository
     public function initialize(Collection $data)
     {
         if ($this->container->isInstalled()) {
-            $this->items = $this->cache->store()->rememberForever('module.repository', function () use ($data) {
+            $this->items = $this->cache->tags('notadd')->rememberForever('module.repository', function () use ($data) {
                 $collection = collect();
                 $data->each(function ($directory, $index) use ($collection) {
                     $module = new Module([

@@ -32,7 +32,7 @@ class AddonRepository extends Repository
     public function initialize(Collection $data)
     {
         if ($this->container->isInstalled()) {
-            $this->items = $this->cache->store()->rememberForever('addon.repository', function () use ($data) {
+            $this->items = $this->cache->tags('notadd')->rememberForever('addon.repository', function () use ($data) {
                 $collection = collect();
                 $data->each(function ($directory, $index) use ($collection) {
                     $addon = new Addon([

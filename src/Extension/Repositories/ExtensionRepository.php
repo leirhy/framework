@@ -30,7 +30,7 @@ class ExtensionRepository extends Repository
     public function initialize(Collection $data)
     {
         if ($this->container->isInstalled()) {
-            $this->items = $this->cache->store()->rememberForever('extension.repository', function () use ($data) {
+            $this->items = $this->cache->tags('notadd')->rememberForever('extension.repository', function () use ($data) {
                 $collection = collect();
                 $data->each(function ($directory, $index) use ($collection) {
                     $extension = new Extension([

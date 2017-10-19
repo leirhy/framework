@@ -24,7 +24,7 @@ class NavigationRepository extends Repository
     public function initialize(Collection $data)
     {
         if ($this->container->isInstalled()) {
-            $this->items = $this->cache->store()->rememberForever('administration.navigation.repository', function () use ($data) {
+            $this->items = $this->cache->tags('notadd')->rememberForever('administration.navigation.repository', function () use ($data) {
                 return $data->all();
             });
         }

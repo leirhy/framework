@@ -40,7 +40,7 @@ class MenuRepository extends Repository
         $configuration = json_decode($this->setting->get('administration.menus', ''), true);
         $this->configuration = is_array($configuration) ? $configuration : [];
         if ($this->container->isInstalled()) {
-            $this->items = $this->cache->store()->rememberForever('module.menu.repository', function () use ($data) {
+            $this->items = $this->cache->tags('notadd')->rememberForever('module.menu.repository', function () use ($data) {
                 $collection = collect();
                 $data = $data->map(function ($definition, $key) {
                     if ($key == 'notadd/administration') {

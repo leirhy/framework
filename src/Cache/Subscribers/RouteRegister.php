@@ -6,9 +6,9 @@
  * @copyright (c) 2017, notadd.com
  * @datetime 2017-09-09 23:45
  */
-namespace Notadd\Foundation\Redis\Subscribers;
+namespace Notadd\Foundation\Cache\Subscribers;
 
-use Notadd\Foundation\Redis\Controllers\RedisController;
+use Notadd\Foundation\Cache\Controllers\RedisController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
 /**
@@ -21,8 +21,8 @@ class RouteRegister extends AbstractRouteRegister
      */
     public function handle()
     {
-        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api'], function () {
-            $this->router->post('redis/clear', RedisController::class . '@clear');
+        $this->router->group(['middleware' => ['auth:api', 'cross', 'web'], 'prefix' => 'api/administration'], function () {
+            $this->router->post('cache/clear', RedisController::class . '@handle');
         });
     }
 }

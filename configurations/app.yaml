@@ -42,6 +42,7 @@ providers:
     - Notadd\Foundation\SearchEngine\SearchEngineServiceProvider
     - Notadd\Foundation\Theme\ThemeServiceProvider
     - Notadd\Foundation\Translation\TranslationServiceProvider
+    - Notadd\Foundation\Testing\TestingServiceProvider
     - Notadd\Foundation\Yaml\YamlServiceProvider
     - Notadd\Foundation\Http\HttpServiceProvider
     - Notadd\Foundation\Administration\AdministrationServiceProvider

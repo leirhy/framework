@@ -29,7 +29,7 @@ class LoadSetting implements Bootstrap
             $config = $application->make(Repository::class);
             $setting = $application->make(SettingsRepository::class);
             date_default_timezone_set($setting->get('setting.timezone', $config['app.timezone']));
-            $config->set('app.debug', $setting->get('setting.debug', true));
+            $config->set('app.debug', $setting->get('debug.enabled', true));
             $config->set('mail.driver', $setting->get('mail.driver', 'smtp'));
             $config->set('mail.host', $setting->get('mail.host'));
             $config->set('mail.port', $setting->get('mail.port'));

@@ -11,7 +11,6 @@ namespace Notadd\Foundation\Module\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Notadd\Foundation\Cache\Queues\FlushAll;
 use Notadd\Foundation\Module\Abstracts\Installation;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Routing\Abstracts\Controller;
@@ -53,7 +52,7 @@ class ModulesController extends Controller
         }
         $key = 'module.' . $identification . '.enabled';
         $this->setting->set($key, boolval($status));
-        FlushAll::dispatch();
+        $this->cache->tags('notadd')->flush();
 
         return $this->response->json([
             'message' => '切换模块开启状态成功！',
@@ -118,7 +117,7 @@ class ModulesController extends Controller
         $notice = 'Install Module ' . $identification . ':';
         $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
         $this->setting->set('module.' . $identification . '.installed', true);
-        FlushAll::dispatch();
+        $this->cache->tags('notadd')->flush();
 
         return $this->response->json([
             'message' => '安装模块成功！',
@@ -266,7 +265,7 @@ class ModulesController extends Controller
         $notice = 'Uninstall Module ' . $identification . ':';
         $this->container->make('log')->info($notice, explode(PHP_EOL, $output->fetch()));
         $this->setting->set('module.' . $identification . '.installed', false);
-        FlushAll::dispatch();
+        $this->cache->tags('notadd')->flush();
 
         return $this->response->json([
             'message' => '卸载模块成功！',

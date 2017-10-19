@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Extension\Commands;
 
-use Notadd\Foundation\Cache\Queues\FlushAll;
 use Notadd\Foundation\Console\Abstracts\Command;
 use Notadd\Foundation\Extension\Abstracts\Installer;
 use Notadd\Foundation\Extension\Extension;
@@ -50,7 +49,7 @@ class InstallCommand extends Command
                 }
             }
         });
-        FlushAll::dispatch();
+        $this->cache->tags('notadd')->flush();
         $this->info('已安装以下拓展：');
         $extensions->each(function (Extension $extension) {
             $this->info($extension->identification());

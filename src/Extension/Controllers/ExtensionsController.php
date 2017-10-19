@@ -10,7 +10,6 @@ namespace Notadd\Foundation\Extension\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
-use Notadd\Foundation\Cache\Queues\FlushAll;
 use Notadd\Foundation\Routing\Abstracts\Controller;
 use Notadd\Foundation\Validation\Rule;
 
@@ -41,7 +40,7 @@ class ExtensionsController extends Controller
         }
         $key = 'extension.' . $identification . '.require.install';
         $this->setting->set($key, true);
-        FlushAll::dispatch();
+        $this->cache->tags('notadd')->flush();
 
         return $this->response->json([
             'message' => '添加到待安装列表成功!',
@@ -74,7 +73,7 @@ class ExtensionsController extends Controller
         }
         $key = 'extension.' . $identification . '.require.uninstall';
         $this->setting->set($key, true);
-        FlushAll::dispatch();
+        $this->cache->tags('notadd')->flush();
 
         return $this->response->json([
             'message' => '添加到待安装列表成功!',

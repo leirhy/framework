@@ -329,14 +329,14 @@ trait Helpers
     /**
      * @param $key
      *
-     * @return mixed
-     * @throws \Exception
+     * @return null
      */
     public function __get($key)
     {
         if (method_exists($this, 'get' . ucfirst($key))) {
             return $this->{'get' . ucfirst($key)}();
         }
-        throw new Exception('Undefined property ' . get_class($this) . '::' . $key);
+
+        return null;
     }
 }

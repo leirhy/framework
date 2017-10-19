@@ -45,6 +45,7 @@ use Psr\Log\LoggerInterface;
  * @property \Illuminate\Events\Dispatcher                                  $event
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
  * @property \Illuminate\Filesystem\Filesystem                              $file
+ * @property \Notadd\Foundation\GraphQL\GraphQL                             $graphql
  * @property \Notadd\Foundation\JWTAuth\JWTAuth                             $jwt
  * @property \Psr\Log\LoggerInterface                                       $log
  * @property \Notadd\Foundation\Module\ModuleManager                        $module
@@ -260,6 +261,14 @@ trait Helpers
     protected function getView(): Factory
     {
         return $this->container->make('view');
+    }
+
+    /**
+     * @return \Notadd\Foundation\GraphQL\GraphQL
+     */
+    protected function getGraphql()
+    {
+        return $this->container->make('graphql');
     }
 
     /**

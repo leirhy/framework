@@ -41,6 +41,7 @@ class MenusController extends Controller
             unset($data[$key]['permission']);
         }
         $this->setting->set('administration.menus', json_encode($data));
+        $this->cache->tags('notadd')->flush();
 
         return $this->response->json([
             'message' => '批量更新数据成功！',

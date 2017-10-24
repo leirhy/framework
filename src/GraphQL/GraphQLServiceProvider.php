@@ -34,7 +34,7 @@ class GraphQLServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('graphql', function ($app) {
-            return new GraphQL();
+            return new GraphQLManager();
         });
     }
 }

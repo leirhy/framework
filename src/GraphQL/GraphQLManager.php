@@ -13,6 +13,7 @@ use GraphQL\GraphQL as GraphQLBase;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Schema;
 use Illuminate\Support\Arr;
+use Notadd\Foundation\GraphQL\Errors\ValidationError;
 use Notadd\Foundation\GraphQL\Exceptions\SchemaNotFoundException;
 use Notadd\Foundation\GraphQL\Exceptions\TypeNotFoundException;
 use Notadd\Foundation\Routing\Traits\Helpers;
@@ -20,7 +21,7 @@ use Notadd\Foundation\Routing\Traits\Helpers;
 /**
  * Class GraphQL.
  */
-class GraphQL
+class GraphQLManager
 {
     use Helpers;
 
@@ -281,16 +282,28 @@ class GraphQL
         $this->schemas = [];
     }
 
+    /**
+     * @return array
+     */
     public function getTypes()
     {
         return $this->types;
     }
 
+    /**
+     * @return array
+     */
     public function getSchemas()
     {
         return $this->schemas;
     }
 
+    /**
+     * @param      $class
+     * @param null $name
+     *
+     * @return null
+     */
     protected function getTypeName($class, $name = null)
     {
         if ($name) {
@@ -301,6 +314,11 @@ class GraphQL
         return $type->name;
     }
 
+    /**
+     * @param \GraphQL\Error\Error $e
+     *
+     * @return array
+     */
     public static function formatError(Error $e)
     {
         $error = [

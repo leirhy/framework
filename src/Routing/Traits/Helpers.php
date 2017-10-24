@@ -45,7 +45,7 @@ use Psr\Log\LoggerInterface;
  * @property \Illuminate\Events\Dispatcher                                  $event
  * @property \Notadd\Foundation\Extension\ExtensionManager                  $extension
  * @property \Illuminate\Filesystem\Filesystem                              $file
- * @property \Notadd\Foundation\GraphQL\GraphQL                             $graphql
+ * @property \Notadd\Foundation\GraphQL\GraphQLManager                      $graphql
  * @property \Notadd\Foundation\JWTAuth\JWTAuth                             $jwt
  * @property \Psr\Log\LoggerInterface                                       $log
  * @property \Notadd\Foundation\Module\ModuleManager                        $module
@@ -264,7 +264,7 @@ trait Helpers
     }
 
     /**
-     * @return \Notadd\Foundation\GraphQL\GraphQL
+     * @return \Notadd\Foundation\GraphQL\GraphQLManager
      */
     protected function getGraphql()
     {

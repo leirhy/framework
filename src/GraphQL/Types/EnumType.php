@@ -10,6 +10,9 @@ namespace Notadd\Foundation\GraphQL\Types;
 
 use GraphQL\Type\Definition\EnumType as EnumObjectType;
 
+/**
+ * Class EnumType.
+ */
 class EnumType extends Type
 {
     public function values()
@@ -44,5 +47,13 @@ class EnumType extends Type
     public function toType()
     {
         return new EnumObjectType($this->toArray());
+    }
+
+    /**
+     * @return array
+     */
+    public function fields()
+    {
+        return [];
     }
 }

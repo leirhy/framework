@@ -15,4 +15,11 @@ use Notadd\Foundation\GraphQL\Types\Type;
  */
 class ConfigurationType extends Type
 {
+    /**
+     * @return array
+     */
+    public function fields()
+    {
+        // TODO: Implement fields() method.
+    }
 }

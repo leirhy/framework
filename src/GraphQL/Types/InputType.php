@@ -19,4 +19,12 @@ class InputType extends Type
     {
         return new InputObjectType($this->toArray());
     }
+
+    /**
+     * @return array
+     */
+    public function fields()
+    {
+        return [];
+    }
 }

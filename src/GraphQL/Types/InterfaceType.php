@@ -55,4 +55,12 @@ class InterfaceType extends Type
     {
         return new BaseInterfaceType($this->toArray());
     }
+
+    /**
+     * @return array
+     */
+    public function fields()
+    {
+        return [];
+    }
 }

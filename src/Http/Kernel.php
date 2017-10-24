@@ -28,6 +28,7 @@ use Laravel\Passport\Http\Middleware\CheckScopes;
 use Notadd\Foundation\Http\Bootstraps\LoadDetection;
 use Notadd\Foundation\Http\Bootstraps\LoadAddon;
 use Notadd\Foundation\Http\Bootstraps\LoadExtension;
+use Notadd\Foundation\Http\Bootstraps\LoadGraphQL;
 use Notadd\Foundation\Http\Bootstraps\LoadModule;
 use Notadd\Foundation\Http\Bootstraps\LoadProviders;
 use Notadd\Foundation\Http\Bootstraps\ConfigureLogging;
@@ -80,6 +81,7 @@ class Kernel implements KernelContract
         RegisterFacades::class,
         LoadSetting::class,
         LoadDetection::class,
+        LoadGraphQL::class,
         RegisterRouter::class,
         RegisterFlow::class,
     ];

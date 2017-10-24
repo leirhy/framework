@@ -16,7 +16,7 @@ use GraphQL\Type\Definition\InputObjectType;
 /**
  * Class Type.
  */
-class Type extends Fluent
+abstract class Type extends Fluent
 {
     /**
      * @var array
@@ -44,10 +44,7 @@ class Type extends Fluent
     /**
      * @return array
      */
-    public function fields()
-    {
-        return [];
-    }
+    abstract public function fields();
 
     /**
      * @return array

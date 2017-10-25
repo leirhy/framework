@@ -9,7 +9,9 @@
 namespace Notadd\Foundation\Http\Bootstraps;
 
 use Notadd\Foundation\Application;
+use Notadd\Foundation\Arr;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
+use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
@@ -26,49 +28,59 @@ class LoadGraphQL implements Bootstrap
      */
     public function bootstrap(Application $application)
     {
-        $paths = collect();
-        $directories = $this->file->directories($this->container->frameworkPath('src'));
-        foreach ($directories as $directory) {
+        $src = $this->container->frameworkPath('src');
+        $directories = array_map(function ($directory) {
+            return [
+                'directory' => $directory,
+                'namespace' => 'Notadd\\Foundation\\',
+            ];
+        }, $this->file->directories($src));
+        if ($this->container->isInstalled()) {
+            $directories = array_merge($directories, $this->module->enabled()->map(function (Module $module) {
+                return [
+                    'directory' => $module->directory() . DIRECTORY_SEPARATOR . 'src',
+                    'namespace' => $module->namespace(),
+                ];
+            })->values()->toArray());
+        }
+        $mutations = [];
+        $queries = [];
+        $types = [];
+        foreach ($directories as $definitions) {
+            list($directory, $namespace) = array_values($definitions);
             $graphql = realpath($directory . DIRECTORY_SEPARATOR . 'GraphQL');
             if ($this->file->isDirectory($graphql)) {
-                $data = [];
-                $data['graphql'] = '\\Notadd\\Foundation\\' . $this->file->name($directory) . '\\GraphQL';
+                $namespace = $namespace . $this->file->name($directory) . '\\GraphQL';
                 $mutation = $graphql . DIRECTORY_SEPARATOR . 'Mutations';
-                if ($this->file->isDirectory($mutation)) {
-                    foreach ($this->file->files($mutation) as $file) {
-                        $class = $data['graphql'] . '\\Mutations\\' . $this->file->name($file);
-                        if ($this->file->extension($file) == 'php' && class_exists($class)) {
-                            $data['mutation'][] = $class;
-                        }
-                    }
-                }
+                $this->file->isDirectory($mutation) && $mutations = $this->load($mutation, $mutations, 'Mutations', $namespace);
                 $query = $graphql . DIRECTORY_SEPARATOR . 'Queries';
-                if ($this->file->isDirectory($query)) {
-                    foreach ($this->file->files($query) as $file) {
-                        $class = $data['graphql'] . '\\Queries\\' . $this->file->name($file);
-                        if ($this->file->extension($file) == 'php' && class_exists($class)) {
-                            $data['query'][] = $class;
-                        }
-                    }
-                }
+                $this->file->isDirectory($query) && $queries = $this->load($query, $queries, 'Queries', $namespace);
                 $type = $graphql . DIRECTORY_SEPARATOR . 'Types';
-                if ($this->file->isDirectory($type)) {
-                    foreach ($this->file->files($type) as $file) {
-                        $class = $data['graphql'] . '\\Types\\' . $this->file->name($file);
-                        if ($this->file->extension($file) == 'php' && class_exists($class)) {
-                            $data['type'][] = $class;
-                        }
-                    }
-                }
-                $paths->push($data);
+                $this->file->isDirectory($type) && $types = $this->load($type, $types, 'Types', $namespace);
             }
         }
-        $paths->each(function ($definition) {
-            if (isset($definition['type'])) {
-                foreach ((array)$definition['type'] as $type) {
-                    $this->graphql->addType($type);
-                }
+        Arr::each(function ($type) {
+            $this->graphql->addType($type);
+        }, $types);
+    }
+
+    /**
+     * @param string $directory
+     * @param array  $exists
+     * @param string $folder
+     * @param string $namespace
+     *
+     * @return array
+     */
+    protected function load(string $directory, array $exists, string $folder, string $namespace)
+    {
+        return array_merge($exists, array_filter(Arr::map(function ($file) use ($folder, $namespace) {
+            $class = $namespace . '\\' . $folder . '\\' . $this->file->name($file);
+            if ($this->file->extension($file) == 'php' && class_exists($class)) {
+                return $class;
+            } else {
+                return false;
             }
-        });
+        }, $this->file->files($directory))));
     }
 }

@@ -1,19 +1,11 @@
 <?php
-
-// +----------------------------------------------------------------------+
-// | The Notadd Framework.                                                |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 2016-2017 Shanxi Benchu Network Technology Co,.Ltd     |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 2.0 of the Apache license,    |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available through the world-wide-web at the following url:           |
-// | http://www.apache.org/licenses/LICENSE-2.0.html                      |
-// +----------------------------------------------------------------------+
-// | Author: TwilRoad <heshudong@ibenchu.com>                             |
-// |         Seven Du <shiweidu@outlook.com>                              |
-// +----------------------------------------------------------------------+
-
+/**
+ * This file is part of Notadd.
+ *
+ * @author        TwilRoad <heshudong@ibenchu.com>
+ * @copyright (c) 2017, notadd.com
+ * @datetime      2017-09-14 20:27
+ */
 namespace Notadd\Foundation\Addon;
 
 use ArrayAccess;
@@ -41,7 +33,7 @@ class Addon implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return string
      */
-    public function identification()
+    public function identification(): string
     {
         return $this->attributes['identification'];
     }
@@ -54,15 +46,23 @@ class Addon implements Arrayable, ArrayAccess, JsonSerializable
      */
     public function enabled(): bool
     {
-        return (bool) $this->get('enabled', false);
+        return (bool)$this->get('enabled', false);
     }
 
     /**
      * @return bool
      */
-    public function installed()
+    public function installed(): bool
     {
         return boolval($this->attributes['installed'] ?? false);
+    }
+
+    /**
+     * @return string
+     */
+    public function namespace(): string
+    {
+        return $this->attributes['namespace'];
     }
 
     /**
@@ -76,7 +76,7 @@ class Addon implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return array
      */
-    public function scripts()
+    public function scripts(): array
     {
         $data = collect();
         collect(data_get($this->attributes, 'assets.scripts'))->each(function ($script) use ($data) {
@@ -89,7 +89,7 @@ class Addon implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return array
      */
-    public function stylesheets()
+    public function stylesheets(): array
     {
         $data = collect();
         collect(data_get($this->attributes, 'assets.stylesheets'))->each(function ($stylesheet) use ($data) {

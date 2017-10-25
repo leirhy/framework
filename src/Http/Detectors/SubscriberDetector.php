@@ -2,9 +2,9 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime 2017-09-14 20:27
+ * @datetime      2017-09-14 20:27
  */
 namespace Notadd\Foundation\Http\Detectors;
 
@@ -58,7 +58,8 @@ class SubscriberDetector implements Detector
     public function paths()
     {
         $paths = collect();
-        collect($this->file->directories($this->container->frameworkPath('src')))->each(function ($directory) use ($paths) {
+        $directories = $this->container->frameworkPath('src');
+        collect($this->file->directories($directories))->each(function ($directory) use ($paths) {
             $location = realpath($directory . DIRECTORY_SEPARATOR . 'Subscribers');
             $this->file->isDirectory($location) && $paths->push([
                 'namespace' => '\\Notadd\\Foundation\\' . $this->file->name($directory) . '\\Subscribers',
@@ -67,16 +68,24 @@ class SubscriberDetector implements Detector
         });
         if ($this->container->isInstalled()) {
             $this->module->enabled()->each(function (Module $module) use ($paths) {
-                $location = realpath($module->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Subscribers');
+                $location = realpath(implode(DIRECTORY_SEPARATOR, [
+                    $module->directory(),
+                    'src',
+                    'Subscribers',
+                ]));
                 $this->file->isDirectory($location) && $paths->push([
                     'namespace' => $module->get('namespace') . 'Subscribers',
                     'path'      => $location,
                 ]);
             });
-            $this->addon->enabled()->each(function (Addon $extension) use ($paths) {
-                $location = realpath($extension->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Subscribers');
+            $this->addon->enabled()->each(function (Addon $addon) use ($paths) {
+                $location = realpath(implode(DIRECTORY_SEPARATOR, [
+                    $addon->get('directory'),
+                    'src',
+                    'Subscribers',
+                ]));
                 $this->file->isDirectory($location) && $paths->push([
-                    'namespace' => $extension->get('namespace') . 'Subscribers',
+                    'namespace' => $addon->get('namespace') . 'Subscribers',
                     'path'      => $location,
                 ]);
             });

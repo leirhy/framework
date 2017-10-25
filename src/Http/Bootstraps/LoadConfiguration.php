@@ -56,11 +56,8 @@ class LoadConfiguration implements Bootstrap
         if (!isset($files['app'])) {
             throw new Exception('Unable to load the "app" configuration file.');
         }
-        foreach ($this->getConfigurationFiles($application) as $key => $path) {
-            $values = Yaml::parse(file_get_contents($path));
-            $values = is_array($values) ? $values : [];
-            array_walk_recursive($values, [$this, 'parseValues']);
-            $repository->set($key, $values);
+        foreach ($files as $key => $path) {
+            $repository->set($key, require $path);
         }
     }
 
@@ -75,9 +72,9 @@ class LoadConfiguration implements Bootstrap
     {
         $files = [];
         $configPath = realpath($app->configPath());
-        foreach (Finder::create()->files()->name('*.yaml')->in($configPath) as $file) {
+        foreach (Finder::create()->files()->name('*.php')->in($configPath) as $file) {
             $directory = $this->getNestedDirectory($file, $configPath);
-            $files[$directory . basename($file->getRealPath(), '.yaml')] = $file->getRealPath();
+            $files[$directory . basename($file->getRealPath(), '.php')] = $file->getRealPath();
         }
 
         return $files;
@@ -99,29 +96,5 @@ class LoadConfiguration implements Bootstrap
         }
 
         return $nested;
-    }
-
-    /**
-     * @param $value
-     *
-     * @return bool
-     */
-    protected function parseValues(&$value)
-    {
-        if (!is_string($value)) {
-            return true;
-        }
-        preg_match_all('/%([a-zA-Z_]+)(?::(.*))?%/', $value, $matches);
-        if (empty(array_shift($matches))) {
-            return true;
-        }
-        $function = current(array_shift($matches));
-        if (!function_exists($function)) {
-            return true;
-        }
-        $args = current(array_shift($matches));
-        $value = call_user_func_array($function, explode(',', $args));
-
-        return true;
     }
 }

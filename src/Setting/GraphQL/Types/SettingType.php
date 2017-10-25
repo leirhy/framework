@@ -32,4 +32,12 @@ class SettingType extends Type
             ],
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return 'setting';
+    }
 }

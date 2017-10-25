@@ -63,4 +63,12 @@ class InterfaceType extends Type
     {
         return [];
     }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return 'interface';
+    }
 }

@@ -22,4 +22,12 @@ class ExtensionType extends Type
     {
         // TODO: Implement fields() method.
     }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return 'extension';
+    }
 }

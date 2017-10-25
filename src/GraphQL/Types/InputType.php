@@ -27,4 +27,12 @@ class InputType extends Type
     {
         return [];
     }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return 'input';
+    }
 }

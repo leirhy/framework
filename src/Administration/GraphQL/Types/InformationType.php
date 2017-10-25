@@ -22,4 +22,12 @@ class InformationType extends Type
     {
         // TODO: Implement fields() method.
     }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return 'information';
+    }
 }

@@ -56,4 +56,12 @@ class EnumType extends Type
     {
         return [];
     }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return 'enum';
+    }
 }

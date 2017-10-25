@@ -47,6 +47,11 @@ abstract class Type extends Fluent
     abstract public function fields();
 
     /**
+     * @return string
+     */
+    abstract public function name();
+
+    /**
      * @return array
      */
     public function interfaces()
@@ -119,6 +124,7 @@ abstract class Type extends Fluent
         if (sizeof($interfaces)) {
             $attributes['interfaces'] = $interfaces;
         }
+        isset($attributes['name']) || $attributes['name'] = $this->name();
 
         return $attributes;
     }

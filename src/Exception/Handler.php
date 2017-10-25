@@ -22,6 +22,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
+use Notadd\Foundation\JWTAuth\Exceptions\TokenInvalidException;
 use Notadd\Foundation\Permission\Exceptions\PermissionException;
 use Notadd\Foundation\Routing\Traits\Helpers;
 use Predis\Connection\ConnectionException;
@@ -33,7 +34,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run as Whoops;
 
@@ -198,7 +198,7 @@ class Handler implements ExceptionHandlerContract
             );
         }
         if (!$this->isHttpException($exception)) {
-            $e = new HttpException(500, $exception->getMessage());
+            $exception = new HttpException(500, $exception->getMessage());
         }
 
         return $this->toIlluminateResponse(

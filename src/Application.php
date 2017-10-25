@@ -22,6 +22,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ViewServiceProvider;
 use Notadd\Foundation\Database\DatabaseServiceProvider;
+use Notadd\Foundation\Extension\ExtensionServiceProvider;
 use Notadd\Foundation\Http\Bootstraps\LoadEnvironmentVariables;
 use Notadd\Foundation\Http\Events\BootstrapBooted;
 use Notadd\Foundation\Module\ModuleServiceProvider;
@@ -209,6 +210,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         $this->register(new RedisServiceProvider($this));
         $this->register(new CacheServiceProvider($this));
         $this->register(new DatabaseServiceProvider($this));
+        $this->register(new ExtensionServiceProvider($this));
         $this->register(new ModuleServiceProvider($this));
         $this->register(new SettingServiceProvider($this));
     }
@@ -225,7 +227,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         $this->hasBeenBootstrapped = true;
         foreach ($bootstrappers as $bootstrapper) {
             $this['events']->dispatch('bootstrapping: ' . $bootstrapper, [$this]);
-            $this->make($bootstrapper)->bootstrap($this);
+            $this->make($bootstrapper)->bootstrap();
             $this['events']->dispatch('bootstrapped: ' . $bootstrapper, [$this]);
         }
         $this['events']->dispatch(new BootstrapBooted());

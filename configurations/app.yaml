@@ -29,7 +29,6 @@ providers:
     - Notadd\Foundation\Database\MigrationServiceProvider
     - Notadd\Foundation\Debug\DebugServiceProvider
     - Notadd\Foundation\Editor\EditorServiceProvider
-    - Notadd\Foundation\Extension\ExtensionServiceProvider
     - Notadd\Foundation\Flow\FlowServiceProvider
     - Notadd\Foundation\GraphQL\GraphQLServiceProvider
     - Notadd\Foundation\Image\ImageServiceProvider

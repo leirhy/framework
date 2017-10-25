@@ -8,31 +8,31 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Routing\Events\RouteRegister;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class RegisterRouter.
  */
 class RegisterRouter implements Bootstrap
 {
+    use Helpers;
+
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
-        if ($application->isInstalled()) {
-            if ($application->routesAreCached()) {
-                $application->booted(function () use ($application) {
-                    require $application->getCachedRoutesPath();
+        if ($this->container->isInstalled()) {
+            if ($this->container->routesAreCached()) {
+                $this->container->booted(function () {
+                    require $this->container->getCachedRoutesPath();
                 });
             } else {
-                $application->make('events')->dispatch(new RouteRegister($application['router']));
-                $application->booted(function () use ($application) {
-                    $application['router']->getRoutes()->refreshNameLookups();
+                $this->event->dispatch(new RouteRegister($this->container['router']));
+                $this->container->booted(function () {
+                    $this->container['router']->getRoutes()->refreshNameLookups();
                 });
             }
         }

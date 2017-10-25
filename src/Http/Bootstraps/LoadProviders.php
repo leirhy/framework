@@ -8,24 +8,24 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Http\Events\ProviderLoaded;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class BootProviders.
  */
 class LoadProviders implements Bootstrap
 {
+    use Helpers;
+
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
-        $application->registerConfiguredProviders();
-        $application->boot();
-        $application->make('events')->dispatch(new ProviderLoaded());
+        $this->container->registerConfiguredProviders();
+        $this->container->boot();
+        $this->container->make('events')->dispatch(new ProviderLoaded());
     }
 }

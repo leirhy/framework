@@ -8,58 +8,26 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
-use Notadd\Foundation\Application;
 use Notadd\Foundation\Addon\Events\AddonLoaded;
 use Notadd\Foundation\Addon\Addon;
-use Notadd\Foundation\Addon\AddonManager;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
- * Class LoadExtension.
+ * Class LoadAddon.
  */
 class LoadAddon implements Bootstrap
 {
-    /**
-     * @var \Illuminate\Events\Dispatcher
-     */
-    protected $events;
-
-    /**
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $files;
-
-    /**
-     * @var \Notadd\Foundation\Addon\AddonManager
-     */
-    protected $manager;
-
-    /**
-     * LoadExtension constructor.
-     *
-     * @param \Illuminate\Events\Dispatcher         $events
-     * @param \Illuminate\Filesystem\Filesystem     $files
-     * @param \Notadd\Foundation\Addon\AddonManager $manager
-     */
-    public function __construct(Dispatcher $events, Filesystem $files, AddonManager $manager)
-    {
-        $this->events = $events;
-        $this->files = $files;
-        $this->manager = $manager;
-    }
+    use Helpers;
 
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
-        $this->manager->repository()->enabled()->each(function (Addon $extension) use ($application) {
-            $this->manager->registerExcept($extension->get('csrf', []));
-            collect($extension->get('events', []))->each(function ($data, $key) {
+        $this->addon->repository()->enabled()->each(function (Addon $addon) {
+            $this->addon->registerExcept($addon->get('csrf', []));
+            collect($addon->get('events', []))->each(function ($data, $key) {
                 switch ($key) {
                     case 'subscribes':
                         collect($data)->each(function ($subscriber) {
@@ -70,8 +38,8 @@ class LoadAddon implements Bootstrap
                         break;
                 }
             });
-            $application->register($extension->provider());
+            $this->container->register($addon->provider());
         });
-        $this->events->dispatch(new AddonLoaded());
+        $this->event->dispatch(new AddonLoaded());
     }
 }

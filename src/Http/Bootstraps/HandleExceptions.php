@@ -10,8 +10,8 @@ namespace Notadd\Foundation\Http\Bootstraps;
 
 use ErrorException;
 use Exception;
-use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
+use Notadd\Foundation\Routing\Traits\Helpers;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
@@ -21,19 +21,13 @@ use Symfony\Component\Debug\Exception\FatalThrowableError;
  */
 class HandleExceptions implements Bootstrap
 {
-    /**
-     * @var \Illuminate\Contracts\Foundation\Application|\Notadd\Foundation\Application
-     */
-    protected $app;
+    use Helpers;
 
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
-        $this->app = $application;
         error_reporting(-1);
         set_error_handler([
             $this,
@@ -47,10 +41,10 @@ class HandleExceptions implements Bootstrap
             $this,
             'handleShutdown',
         ]);
-        if (!$application->environment('testing')) {
+        if (!$this->container->environment('testing')) {
             ini_set('display_errors', 'Off');
         }
-        if ($application->make('config')->get('app.debug')) {
+        if ($this->config->get('app.debug')) {
             ini_set('display_errors', true);
         }
     }
@@ -84,7 +78,7 @@ class HandleExceptions implements Bootstrap
             $exception = new FatalThrowableError($exception);
         }
         $this->getExceptionHandler()->report($exception);
-        if ($this->app->runningInConsole()) {
+        if ($this->container->runningInConsole()) {
             $this->renderForConsole($exception);
         } else {
             $this->renderHttpResponse($exception);
@@ -110,7 +104,7 @@ class HandleExceptions implements Bootstrap
      */
     protected function renderHttpResponse(Exception $exception)
     {
-        $this->getExceptionHandler()->render($this->app['request'], $exception)->send();
+        $this->getExceptionHandler()->render($this->container['request'], $exception)->send();
     }
 
     /**
@@ -160,6 +154,6 @@ class HandleExceptions implements Bootstrap
      */
     protected function getExceptionHandler()
     {
-        return $this->app->make('Illuminate\Contracts\Debug\ExceptionHandler');
+        return $this->container->make('Illuminate\Contracts\Debug\ExceptionHandler');
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
+use Notadd\Foundation\Routing\Traits\Helpers;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
@@ -22,21 +23,21 @@ use Symfony\Component\Yaml\Yaml;
  */
 class LoadConfiguration implements Bootstrap
 {
+    use Helpers;
+
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
         $items = [];
-        if (file_exists($cached = $application->getCachedConfigPath())) {
+        if (file_exists($cached = $this->container->getCachedConfigPath())) {
             $items = require_once $cached;
             $loadedFromCache = true;
         }
-        $application->instance('config', $configuration = new Repository($items));
+        $this->container->instance('config', $configuration = new Repository($items));
         if (!isset($loadedFromCache)) {
-            $this->loadConfigurationFiles($application, $configuration);
+            $this->loadConfigurationFiles($this->container, $configuration);
         }
         mb_internal_encoding('UTF-8');
     }

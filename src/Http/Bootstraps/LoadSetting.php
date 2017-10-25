@@ -8,36 +8,32 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Illuminate\Contracts\Config\Repository;
-use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
-use Notadd\Foundation\Setting\Contracts\SettingsRepository;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class LoadSetting.
  */
 class LoadSetting implements Bootstrap
 {
+    use Helpers;
+
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
-        if ($application->isInstalled()) {
-            $config = $application->make(Repository::class);
-            $setting = $application->make(SettingsRepository::class);
-            date_default_timezone_set($setting->get('setting.timezone', $config['app.timezone']));
-            $config->set('app.debug', $setting->get('debug.enabled', true));
-            $config->set('mail.driver', $setting->get('mail.driver', 'smtp'));
-            $config->set('mail.host', $setting->get('mail.host'));
-            $config->set('mail.port', $setting->get('mail.port'));
-            $config->set('mail.from.address', $setting->get('mail.from'));
-            $config->set('mail.from.name', $setting->get('site.title', 'Notadd'));
-            $config->set('mail.encryption', $setting->get('mail.encryption'));
-            $config->set('mail.username', $setting->get('mail.username'));
-            $config->set('mail.password', $setting->get('mail.password'));
+        if ($this->container->isInstalled()) {
+            date_default_timezone_set($this->setting->get('setting.timezone', $this->config['app.timezone']));
+            $this->config->set('app.debug', $this->setting->get('debug.enabled', true));
+            $this->config->set('mail.driver', $this->setting->get('mail.driver', 'smtp'));
+            $this->config->set('mail.host', $this->setting->get('mail.host'));
+            $this->config->set('mail.port', $this->setting->get('mail.port'));
+            $this->config->set('mail.from.address', $this->setting->get('mail.from'));
+            $this->config->set('mail.from.name', $this->setting->get('site.title', 'Notadd'));
+            $this->config->set('mail.encryption', $this->setting->get('mail.encryption'));
+            $this->config->set('mail.username', $this->setting->get('mail.username'));
+            $this->config->set('mail.password', $this->setting->get('mail.password'));
         }
     }
 }

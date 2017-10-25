@@ -8,8 +8,6 @@
  */
 namespace Notadd\Foundation\Http\Contracts;
 
-use Notadd\Foundation\Application;
-
 /**
  * Interface Bootstrap.
  */
@@ -17,8 +15,6 @@ interface Bootstrap
 {
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application);
+    public function bootstrap();
 }

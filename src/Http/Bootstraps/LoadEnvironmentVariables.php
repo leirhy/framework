@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Http\Bootstraps;
 
 use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
+use Notadd\Foundation\Routing\Traits\Helpers;
 use Notadd\Foundation\Yaml\Exceptions\InvalidPathException;
 use Notadd\Foundation\Yaml\YamlEnv;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -19,24 +20,24 @@ use Symfony\Component\Console\Input\ArgvInput;
  */
 class LoadEnvironmentVariables implements Bootstrap
 {
+    use Helpers;
+
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
-        $application->singleton('yaml.environment', function () use ($application) {
-            return new YamlEnv($application->environmentPath(), $application->environmentFile());
+        $this->container->singleton('yaml.environment', function () {
+            return new YamlEnv($this->container->environmentPath(), $this->container->environmentFile());
         });
-        if (!$application->configurationIsCached()) {
-            $this->checkForSpecificEnvironmentFile($application);
+        if (!$this->container->configurationIsCached()) {
+            $this->checkForSpecificEnvironmentFile($this->container);
             try {
-                $application->make('yaml.environment')->load();
+                $this->container->make('yaml.environment')->load();
             } catch (InvalidPathException $e) {
             }
         }
-        $application->detectEnvironment(function () {
+        $this->container->detectEnvironment(function () {
             return env('APP_ENV', 'production');
         });
     }

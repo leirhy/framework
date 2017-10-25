@@ -9,22 +9,22 @@
 namespace Notadd\Foundation\Http\Bootstraps;
 
 use Illuminate\Http\Request;
-use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class SetRequestForConsole.
  */
 class SetRequestForConsole implements Bootstrap
 {
+    use Helpers;
+
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
-        $url = $application->make('config')->get('app.url', 'http://localhost');
-        $application->instance('request', Request::create($url, 'GET', [], [], [], $_SERVER));
+        $url = $this->config->get('app.url', 'http://localhost');
+        $this->container->instance('request', Request::create($url, 'GET', [], [], [], $_SERVER));
     }
 }

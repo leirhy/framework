@@ -8,22 +8,22 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Notadd\Foundation\Application;
 use Notadd\Foundation\Flow\Events\FlowRegister;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class RegisterFlow.
  */
 class RegisterFlow implements Bootstrap
 {
+    use Helpers;
+
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
-        $application->make('events')->dispatch(new FlowRegister($application['flow']));
+        $this->event->dispatch(new FlowRegister($this->container['flow']));
     }
 }

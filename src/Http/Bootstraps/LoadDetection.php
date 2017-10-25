@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\Http\Bootstraps;
 
 use Carbon\Carbon;
-use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Http\Contracts\Detector;
 //use Notadd\Foundation\Http\Detectors\ListenerDetector;
@@ -35,10 +34,8 @@ class LoadDetection implements Bootstrap
 
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
         if ($this->container->isInstalled() && $this->cache->store()->has('bootstrap.detection')) {
             $collection = $this->cache->store()->get('bootstrap.detection', collect());

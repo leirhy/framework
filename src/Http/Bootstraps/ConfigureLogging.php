@@ -12,24 +12,25 @@ use Illuminate\Log\Writer;
 use Monolog\Logger as Monolog;
 use Notadd\Foundation\Application;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class ConfigureLogging.
  */
 class ConfigureLogging implements Bootstrap
 {
+    use Helpers;
+
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
-        $log = $this->registerLogger($application);
-        if ($application->hasMonologConfigurator()) {
-            call_user_func($application->getMonologConfigurator(), $log->getMonolog());
+        $log = $this->registerLogger($this->container);
+        if ($this->container->hasMonologConfigurator()) {
+            call_user_func($this->container->getMonologConfigurator(), $log->getMonolog());
         } else {
-            $this->configureHandlers($application, $log);
+            $this->configureHandlers($this->container, $log);
         }
     }
 

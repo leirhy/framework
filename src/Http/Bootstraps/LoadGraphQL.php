@@ -8,7 +8,6 @@
  */
 namespace Notadd\Foundation\Http\Bootstraps;
 
-use Notadd\Foundation\Application;
 use Notadd\Foundation\Arr;
 use Notadd\Foundation\Http\Contracts\Bootstrap;
 use Notadd\Foundation\Module\Module;
@@ -23,10 +22,8 @@ class LoadGraphQL implements Bootstrap
 
     /**
      * Bootstrap the given application.
-     *
-     * @param \Notadd\Foundation\Application $application
      */
-    public function bootstrap(Application $application)
+    public function bootstrap()
     {
         $src = $this->container->frameworkPath('src');
         $directories = array_map(function ($directory) {

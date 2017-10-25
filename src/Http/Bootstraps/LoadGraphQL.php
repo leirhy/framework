@@ -64,7 +64,11 @@ class LoadGraphQL implements Bootstrap
             }
         }
         $paths->each(function ($definition) {
-            isset($definition['type']) && $this->graphql->addType($definition['type']);
+            if (isset($definition['type'])) {
+                foreach ((array)$definition['type'] as $type) {
+                    $this->graphql->addType($type);
+                }
+            }
         });
     }
 }

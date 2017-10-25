@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Module;
 
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Module\Repositories\AssetsRepository;
 use Notadd\Foundation\Module\Repositories\MenuRepository;
 use Notadd\Foundation\Module\Repositories\ModuleRepository;
@@ -52,6 +53,22 @@ class ModuleManager
     public function __construct()
     {
         $this->excepts = collect();
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function enabled()
+    {
+        return $this->repository()->enabled();
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function installed(): Collection
+    {
+        return $this->repository()->installed();
     }
 
     /**

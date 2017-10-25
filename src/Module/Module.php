@@ -39,6 +39,22 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     /**
      * @return string
      */
+    public function directory()
+    {
+        return $this->attributes['directory'];
+    }
+
+    /**
+     * @return string
+     */
+    public function namespace()
+    {
+        return $this->attributes['namespace'];
+    }
+
+    /**
+     * @return string
+     */
     public function identification(): string
     {
         return $this->attributes['identification'];

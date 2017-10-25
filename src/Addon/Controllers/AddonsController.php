@@ -122,8 +122,8 @@ class AddonsController extends Controller
     public function list(): JsonResponse
     {
         $addons = $this->addon->repository();
-        $enabled = $this->addon->repository()->enabled();
-        $installed = $this->addon->repository()->installed();
+        $enabled = $this->addon->enabled();
+        $installed = $this->addon->installed();
         $notInstalled = $this->addon->repository()->notInstalled();
 
         return $this->response->json([
@@ -173,7 +173,7 @@ class AddonsController extends Controller
                 'message' => '插件[' . $identification . ']不存在！',
             ])->setStatusCode(500);
         }
-        if ($this->addon->repository()->enabled()->has($identification)) {
+        if ($this->addon->enabled()->has($identification)) {
             return $this->response->json([
                 'message' => '插件[' . $identification . ']已开启！',
             ])->setStatusCode(500);

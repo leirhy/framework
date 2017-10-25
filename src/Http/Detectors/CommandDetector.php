@@ -62,14 +62,14 @@ class CommandDetector implements Detector
     {
         $collection = collect();
         if ($this->container->isInstalled()) {
-            $this->module->repository()->enabled()->each(function (Module $module) use ($collection) {
+            $this->module->enabled()->each(function (Module $module) use ($collection) {
                 $location = realpath($module->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Commands');
                 $this->file->isDirectory($location) && $collection->push([
                     'namespace' => $module->get('namespace') . 'Commands',
                     'path'      => $location,
                 ]);
             });
-            $this->addon->repository()->enabled()->each(function (Addon $extension) use ($collection) {
+            $this->addon->enabled()->each(function (Addon $extension) use ($collection) {
                 $location = realpath($extension->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Commands');
                 $this->file->isDirectory($location) && $collection->push([
                     'namespace' => $extension->get('namespace') . 'Commands',

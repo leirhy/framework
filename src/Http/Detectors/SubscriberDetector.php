@@ -66,14 +66,14 @@ class SubscriberDetector implements Detector
             ]);
         });
         if ($this->container->isInstalled()) {
-            $this->module->repository()->enabled()->each(function (Module $module) use ($paths) {
+            $this->module->enabled()->each(function (Module $module) use ($paths) {
                 $location = realpath($module->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Subscribers');
                 $this->file->isDirectory($location) && $paths->push([
                     'namespace' => $module->get('namespace') . 'Subscribers',
                     'path'      => $location,
                 ]);
             });
-            $this->addon->repository()->enabled()->each(function (Addon $extension) use ($paths) {
+            $this->addon->enabled()->each(function (Addon $extension) use ($paths) {
                 $location = realpath($extension->get('directory') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Subscribers');
                 $this->file->isDirectory($location) && $paths->push([
                     'namespace' => $extension->get('namespace') . 'Subscribers',

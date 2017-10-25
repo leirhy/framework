@@ -25,7 +25,7 @@ class LoadAddon implements Bootstrap
      */
     public function bootstrap()
     {
-        $this->addon->repository()->enabled()->each(function (Addon $addon) {
+        $this->addon->enabled()->each(function (Addon $addon) {
             $this->addon->registerExcept($addon->get('csrf', []));
             collect($addon->get('events', []))->each(function ($data, $key) {
                 switch ($key) {

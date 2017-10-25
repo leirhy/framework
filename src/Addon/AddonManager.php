@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Addon;
 
+use Illuminate\Support\Collection;
 use Notadd\Foundation\Addon\Repositories\AddonRepository;
 use Notadd\Foundation\Addon\Repositories\AssetsRepository;
 use Notadd\Foundation\Addon\Repositories\NavigationRepository;
@@ -58,6 +59,22 @@ class AddonManager
     public function get($name): Addon
     {
         return $this->repository()->get($name);
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function enabled(): Collection
+    {
+        return $this->repository()->enabled();
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function installed(): Collection
+    {
+        return $this->repository()->installed();
     }
 
     /**

@@ -161,7 +161,7 @@ class GraphQLManager
     protected function buildObjectTypeFromClass($type, $opts = [])
     {
         if (!is_object($type)) {
-            $type = $this->app->make($type);
+            $type = $this->container->make($type);
         }
         foreach ($opts as $key => $value) {
             $type->{$key} = $value;
@@ -181,7 +181,7 @@ class GraphQLManager
         $typeFields = [];
         foreach ($fields as $name => $field) {
             if (is_string($field)) {
-                $field = $this->app->make($field);
+                $field = $this->container->make($field);
                 $name = is_numeric($name) ? $field->name : $name;
                 $field->name = $name;
                 $field = $field->toArray();
@@ -309,7 +309,7 @@ class GraphQLManager
         if ($name) {
             return $name;
         }
-        $type = is_object($class) ? $class : $this->app->make($class);
+        $type = is_object($class) ? $class : $this->container->make($class);
 
         return $type->name;
     }

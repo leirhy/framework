@@ -38,6 +38,6 @@ class SettingType extends Type
      */
     public function name()
     {
-        return 'setting';
+        return 'setting.setting';
     }
 }

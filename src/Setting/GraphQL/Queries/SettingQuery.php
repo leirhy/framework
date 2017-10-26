@@ -20,7 +20,7 @@ class SettingQuery extends Query
      */
     public function name(): string
     {
-        return 'settings';
+        return 'setting.setting';
     }
 
     /**

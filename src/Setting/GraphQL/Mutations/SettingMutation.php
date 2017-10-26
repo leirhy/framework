@@ -20,7 +20,7 @@ class SettingMutation extends Mutation
      */
     public function name(): string
     {
-        // TODO: Implement name() method.
+        return 'setting.setting';
     }
 
     /**

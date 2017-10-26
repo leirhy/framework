@@ -1134,6 +1134,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'filesystem.disk'           => [\Illuminate\Contracts\Filesystem\Filesystem::class],
             'filesystem.cloud'          => [\Illuminate\Contracts\Filesystem\Cloud::class],
             'flow'                      => [\Notadd\Foundation\Flow\FlowManager::class],
+            'graphql'                   => [\Notadd\Foundation\GraphQL\GraphQLManager::class],
             'hash'                      => [\Illuminate\Contracts\Hashing\Hasher::class],
             'images'                    => [\Notadd\Foundation\Image\ImageManager::class],
             'jwt'                       => [\Notadd\Foundation\JWTAuth\JWT::class],

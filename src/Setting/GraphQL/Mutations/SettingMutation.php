@@ -16,14 +16,6 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 class SettingMutation extends Mutation
 {
     /**
-     * @return string
-     */
-    public function name(): string
-    {
-        return 'setting.setting';
-    }
-
-    /**
      * @return mixed
      */
     public function resolve()

@@ -16,14 +16,6 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 class ExtensionMutation extends Mutation
 {
     /**
-     * @return string
-     */
-    public function name(): string
-    {
-        return 'extension.extension';
-    }
-
-    /**
      * @return mixed
      */
     public function resolve()

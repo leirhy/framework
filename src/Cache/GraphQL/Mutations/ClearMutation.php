@@ -16,14 +16,6 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 class ClearMutation extends Mutation
 {
     /**
-     * @return string
-     */
-    public function name(): string
-    {
-        return 'cache.clear';
-    }
-
-    /**
      * @return mixed
      */
     public function resolve()

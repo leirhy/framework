@@ -24,9 +24,12 @@ class AddonQuery extends Query
     }
 
     /**
-     * @return mixed
+     * @param $root
+     * @param $args
+     *
+     * @return array
      */
-    public function resolve()
+    public function resolve($root, $args)
     {
         // TODO: Implement resolve() method.
     }

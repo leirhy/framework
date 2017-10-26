@@ -16,14 +16,6 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 class ModuleMutation extends Mutation
 {
     /**
-     * @return string
-     */
-    public function name(): string
-    {
-        return 'module.module';
-    }
-
-    /**
      * @return mixed
      */
     public function resolve()

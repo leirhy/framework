@@ -28,6 +28,6 @@ class DashboardType extends Type
      */
     public function name()
     {
-        return 'dashboard';
+        return 'administration.dashboard';
     }
 }

@@ -25,13 +25,7 @@ class LoadGraphQL implements Bootstrap
      */
     public function bootstrap()
     {
-        $src = $this->container->frameworkPath('src');
-        $directories = array_map(function ($directory) {
-            return [
-                'directory' => $directory,
-                'namespace' => 'Notadd\\Foundation\\',
-            ];
-        }, $this->file->directories($src));
+        $directories = [];
         if ($this->container->isInstalled()) {
             $directories = array_merge($directories, $this->module->enabled()->map(function (Module $module) {
                 return [

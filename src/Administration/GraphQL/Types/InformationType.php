@@ -28,6 +28,6 @@ class InformationType extends Type
      */
     public function name()
     {
-        return 'information';
+        return 'administration.information';
     }
 }

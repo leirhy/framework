@@ -20,7 +20,7 @@ class ClearMutation extends Mutation
      */
     public function name(): string
     {
-        // TODO: Implement name() method.
+        return 'cache.clear';
     }
 
     /**

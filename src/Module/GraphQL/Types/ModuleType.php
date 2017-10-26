@@ -28,6 +28,6 @@ class ModuleType extends Type
      */
     public function name()
     {
-        return 'module';
+        return 'module.module';
     }
 }

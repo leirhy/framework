@@ -20,7 +20,7 @@ class ModuleQuery extends Query
      */
     public function name(): string
     {
-        return '';
+        return 'module.module';
     }
 
     /**

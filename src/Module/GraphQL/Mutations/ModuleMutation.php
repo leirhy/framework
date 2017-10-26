@@ -20,7 +20,7 @@ class ModuleMutation extends Mutation
      */
     public function name(): string
     {
-        return '';
+        return 'module.module';
     }
 
     /**

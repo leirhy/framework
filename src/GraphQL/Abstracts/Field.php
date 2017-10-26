@@ -44,11 +44,6 @@ abstract class Field extends Fluent
     }
 
     /**
-     * @return string
-     */
-    abstract public function name(): string;
-
-    /**
      * @return mixed
      */
     abstract public function resolve();

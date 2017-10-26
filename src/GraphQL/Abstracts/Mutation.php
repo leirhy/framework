@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\GraphQL\Abstracts;
 
+use GraphQL\Type\Definition\Type;
 use Notadd\Foundation\GraphQL\Traits\ShouldValidate;
 
 /**
@@ -16,4 +17,12 @@ use Notadd\Foundation\GraphQL\Traits\ShouldValidate;
 abstract class Mutation extends Field
 {
     use ShouldValidate;
+
+    /**
+     * @return \GraphQL\Type\Definition\ListOfType
+     */
+    public function type()
+    {
+        return Type::listOf(Type::string());
+    }
 }

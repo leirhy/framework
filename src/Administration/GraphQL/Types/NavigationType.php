@@ -28,6 +28,6 @@ class NavigationType extends Type
      */
     public function name()
     {
-        return 'administration.navigation';
+        return 'AdministrationNavigation';
     }
 }

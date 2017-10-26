@@ -20,7 +20,7 @@ class ModuleType extends Type
      */
     public function fields()
     {
-        // TODO: Implement fields() method.
+        return [];
     }
 
     /**
@@ -28,6 +28,6 @@ class ModuleType extends Type
      */
     public function name()
     {
-        return 'module.module';
+        return 'ModuleModule';
     }
 }

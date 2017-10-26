@@ -20,7 +20,7 @@ class ExtensionType extends Type
      */
     public function fields()
     {
-        // TODO: Implement fields() method.
+        return [];
     }
 
     /**
@@ -28,6 +28,6 @@ class ExtensionType extends Type
      */
     public function name()
     {
-        return 'extension.extension';
+        return 'ExtensionExtension';
     }
 }

@@ -20,7 +20,7 @@ class InformationType extends Type
      */
     public function fields()
     {
-        // TODO: Implement fields() method.
+        return [];
     }
 
     /**
@@ -28,6 +28,6 @@ class InformationType extends Type
      */
     public function name()
     {
-        return 'administration.information';
+        return 'AdministrationInformation';
     }
 }

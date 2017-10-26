@@ -23,7 +23,7 @@ class SettingType extends Type
     {
         return [
             'key'   => [
-                'type'        => TypeDefinition::nonNull(TypeDefinition::string()),
+                'type'        => TypeDefinition::string(),
                 'description' => 'The key of the setting',
             ],
             'value' => [
@@ -38,6 +38,14 @@ class SettingType extends Type
      */
     public function name()
     {
-        return 'setting.setting';
+        return 'Setting';
+    }
+
+    /**
+     * @return \GraphQL\Type\Definition\StringType
+     */
+    public function type()
+    {
+        return TypeDefinition::string();
     }
 }

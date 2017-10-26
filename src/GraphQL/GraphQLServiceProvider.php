@@ -41,7 +41,6 @@ class GraphQLServiceProvider extends ServiceProvider
             foreach ($app['config']['graphql']['schemas'] as $name => $definition) {
                 $manager->addSchema($name, $definition);
             }
-            dd($app['config']['graphql']);
 
             return $manager;
         });

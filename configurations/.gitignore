@@ -8,6 +8,7 @@
 !database.php
 !extension.php
 !filesystems.php
+!graphql.php
 !image.php
 !jwt.php
 !mail.php

@@ -13,7 +13,7 @@ use Notadd\Foundation\GraphQL\Types\Type;
 /**
  * Class MenuType.
  */
-class MenuType extends Type
+class NavigationType extends Type
 {
     /**
      * @return array
@@ -28,6 +28,6 @@ class MenuType extends Type
      */
     public function name()
     {
-        return 'menu';
+        return 'administration.navigation';
     }
 }

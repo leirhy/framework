@@ -4,23 +4,23 @@
  *
  * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime      2017-10-19 18:17
+ * @datetime      2017-10-26 12:04
  */
-namespace Notadd\Foundation\Administration\GraphQL\Mutations;
+namespace Notadd\Foundation\Administration\GraphQL\Queries;
 
-use Notadd\Foundation\GraphQL\Abstracts\Mutation;
+use Notadd\Foundation\GraphQL\Abstracts\Query;
 
 /**
- * Class ConfigurationMutation.
+ * Class DashboardQuery.
  */
-class ConfigurationMutation extends Mutation
+class DashboardQuery extends Query
 {
     /**
      * @return string
      */
     public function name(): string
     {
-        return '';
+        return 'administration.dashboard';
     }
 
     /**

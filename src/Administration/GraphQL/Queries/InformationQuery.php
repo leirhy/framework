@@ -4,23 +4,23 @@
  *
  * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime      2017-10-19 18:04
+ * @datetime      2017-10-26 12:05
  */
 namespace Notadd\Foundation\Administration\GraphQL\Queries;
 
 use Notadd\Foundation\GraphQL\Abstracts\Query;
 
 /**
- * Class ConfigurationQuery.
+ * Class InformationQuery.
  */
-class ConfigurationQuery extends Query
+class InformationQuery extends Query
 {
     /**
      * @return string
      */
     public function name(): string
     {
-        return '';
+        return 'administration.information';
     }
 
     /**

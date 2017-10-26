@@ -28,6 +28,6 @@ class ExtensionType extends Type
      */
     public function name()
     {
-        return 'extension';
+        return 'extension.extension';
     }
 }

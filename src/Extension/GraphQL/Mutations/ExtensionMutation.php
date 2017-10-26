@@ -20,7 +20,7 @@ class ExtensionMutation extends Mutation
      */
     public function name(): string
     {
-        return '';
+        return 'extension.extension';
     }
 
     /**

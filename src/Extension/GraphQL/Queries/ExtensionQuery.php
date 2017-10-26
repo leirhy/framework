@@ -20,7 +20,7 @@ class ExtensionQuery extends Query
      */
     public function name(): string
     {
-        return '';
+        return 'extension.extension';
     }
 
     /**

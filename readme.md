@@ -3,7 +3,7 @@
 ![Downloads](https://img.shields.io/packagist/dt/notadd/framework.svg)
 # Notadd Framework
 
-A magical Content Management Framework development based on Laravel 5.4!
+A magical Content Management Framework development based on Laravel 5.5!
 
 ## 文档
 

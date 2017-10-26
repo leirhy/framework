@@ -16,17 +16,12 @@ use Notadd\Foundation\GraphQL\Abstracts\Query;
 class InformationQuery extends Query
 {
     /**
-     * @return string
+     * @param $root
+     * @param $args
+     *
+     * @return array
      */
-    public function name(): string
-    {
-        return 'administration.information';
-    }
-
-    /**
-     * @return mixed
-     */
-    public function resolve()
+    public function resolve($root, $args)
     {
         // TODO: Implement resolve() method.
     }

@@ -16,17 +16,12 @@ use Notadd\Foundation\GraphQL\Abstracts\Query;
 class DashboardQuery extends Query
 {
     /**
-     * @return string
+     * @param $root
+     * @param $args
+     *
+     * @return array
      */
-    public function name(): string
-    {
-        return 'administration.dashboard';
-    }
-
-    /**
-     * @return mixed
-     */
-    public function resolve()
+    public function resolve($root, $args)
     {
         // TODO: Implement resolve() method.
     }

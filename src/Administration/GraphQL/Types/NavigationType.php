@@ -8,12 +8,12 @@
  */
 namespace Notadd\Foundation\Administration\GraphQL\Types;
 
-use Notadd\Foundation\GraphQL\Types\Type;
+use Notadd\Foundation\GraphQL\Abstracts\Type;
 
 /**
  * Class MenuType.
  */
-class NavigationType extends Type
+class NavigationType extends \Notadd\Foundation\GraphQL\Abstracts\Type
 {
     /**
      * @return array

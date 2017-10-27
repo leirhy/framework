@@ -8,12 +8,12 @@
  */
 namespace Notadd\Foundation\Extension\GraphQL\Types;
 
-use Notadd\Foundation\GraphQL\Types\Type;
+use Notadd\Foundation\GraphQL\Abstracts\Type;
 
 /**
  * Class ExtensionType.
  */
-class ExtensionType extends Type
+class ExtensionType extends \Notadd\Foundation\GraphQL\Abstracts\Type
 {
     /**
      * @return array

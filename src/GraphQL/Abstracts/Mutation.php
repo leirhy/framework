@@ -10,13 +10,14 @@ namespace Notadd\Foundation\GraphQL\Abstracts;
 
 use GraphQL\Type\Definition\Type;
 use Notadd\Foundation\GraphQL\Traits\ShouldValidate;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class Mutation.
  */
-abstract class Mutation extends Field
+abstract class Mutation
 {
-    use ShouldValidate;
+    use Helpers, ShouldValidate;
 
     /**
      * @return \GraphQL\Type\Definition\ListOfType

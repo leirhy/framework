@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\GraphQL\Types;
 
 use GraphQL\Type\Definition\EnumType as EnumObjectType;
+use Notadd\Foundation\GraphQL\Abstracts\Type;
 
 /**
  * Class EnumType.

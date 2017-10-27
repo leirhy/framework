@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\GraphQL\Types;
 
 use GraphQL\Type\Definition\InterfaceType as BaseInterfaceType;
+use Notadd\Foundation\GraphQL\Abstracts\Type;
 
 /**
  * Class InterfaceType.

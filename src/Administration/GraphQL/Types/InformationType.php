@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\Administration\GraphQL\Types;
 
-use Notadd\Foundation\GraphQL\Types\Type;
+use Notadd\Foundation\GraphQL\Abstracts\Type;
 
 /**
  * Class InformationType.

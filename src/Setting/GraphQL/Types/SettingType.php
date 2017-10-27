@@ -9,12 +9,12 @@
 namespace Notadd\Foundation\Setting\GraphQL\Types;
 
 use GraphQL\Type\Definition\Type as TypeDefinition;
-use Notadd\Foundation\GraphQL\Types\Type;
+use Notadd\Foundation\GraphQL\Abstracts\Type;
 
 /**
  * Class SettingType.
  */
-class SettingType extends Type
+class SettingType extends \Notadd\Foundation\GraphQL\Abstracts\Type
 {
     /**
      * @return array

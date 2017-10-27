@@ -6,18 +6,27 @@
  * @copyright (c) 2017, notadd.com
  * @datetime      2017-10-18 17:47
  */
-namespace Notadd\Foundation\GraphQL\Types;
+namespace Notadd\Foundation\GraphQL\Abstracts;
 
 use GraphQL\Type\Definition\EnumType;
-use Illuminate\Support\Fluent;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\InputObjectType;
+use Notadd\Foundation\Routing\Traits\Helpers;
 
 /**
  * Class Type.
  */
-abstract class Type extends Fluent
+abstract class Type
 {
+    use Helpers {
+        __get as HelperGet;
+    }
+
+    /**
+     * @var array.
+     */
+    protected $attributes = [];
+
     /**
      * @var array
      */
@@ -139,6 +148,9 @@ abstract class Type extends Fluent
         return $this->getAttributes();
     }
 
+    /**
+     * @return \GraphQL\Type\Definition\EnumType|\GraphQL\Type\Definition\InputObjectType|\GraphQL\Type\Definition\ObjectType
+     */
     public function toType()
     {
         if ($this->inputObject) {
@@ -160,9 +172,9 @@ abstract class Type extends Fluent
      */
     public function __get($key)
     {
-        $attributes = $this->getAttributes();
+        $attributes = $this->toArray();
 
-        return isset($attributes[$key]) ? $attributes[$key] : null;
+        return isset($attributes[$key]) ? $attributes[$key] : $this->HelperGet($key);
     }
 
     /**

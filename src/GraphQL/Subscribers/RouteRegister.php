@@ -21,8 +21,8 @@ class RouteRegister extends AbstractRouteRegister
      */
     public function handle()
     {
-        $this->router->group(['middleware' => [/*'auth:api', */'cross', 'web'], 'prefix' => 'api'], function () {
-            $this->router->any('graphql', GraphQLController::class . '@query');
+        $this->router->group(['middleware' => [/*'auth:api', */'cross', 'web'], 'prefix' => 'api/administration'], function () {
+            $this->router->post('/', GraphQLController::class . '@query');
         });
     }
 }

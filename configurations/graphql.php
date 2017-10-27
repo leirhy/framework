@@ -11,11 +11,11 @@ return [
     'schemas' => [
         'default' => [
             'mutation' => [
-                'AdministrationNavigation' => \Notadd\Foundation\Administration\GraphQL\Mutations\NavigationMutation::class,
-                'CacheClear'               => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
-                'ExtensionExtension'       => \Notadd\Foundation\Extension\GraphQL\Mutations\ExtensionMutation::class,
-                'ModuleModule'             => \Notadd\Foundation\Module\GraphQL\Mutations\ModuleMutation::class,
-                'SettingSetting'           => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingMutation::class,
+                'navigations' => \Notadd\Foundation\Administration\GraphQL\Mutations\NavigationMutation::class,
+                'clearCache'               => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
+                'extensions'       => \Notadd\Foundation\Extension\GraphQL\Mutations\ExtensionMutation::class,
+                'modules'             => \Notadd\Foundation\Module\GraphQL\Mutations\ModuleMutation::class,
+                'settings'           => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingMutation::class,
             ],
             'query'    => [
                 'dashboards'   => \Notadd\Foundation\Administration\GraphQL\Queries\DashboardQuery::class,

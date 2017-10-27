@@ -63,10 +63,10 @@ class KeyGenerateCommand extends Command
 
         file_exists($path) || touch($path);
 
-        $environments = new Collection($this->laravel->make(Yaml::class)->parse(file_get_contents($path)));
+        $environments = new Collection(Yaml::parse(file_get_contents($path)));
         $environments->put('APP_KEY', $key);
 
-        file_put_contents($path, $this->laravel->make(Yaml::class)->dump($environments->toArray()));
+        file_put_contents($path, Yaml::dump($environments->toArray()));
     }
 
     /**

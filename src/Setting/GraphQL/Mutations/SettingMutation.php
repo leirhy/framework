@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Setting\GraphQL\Mutations;
 
+use GraphQL\Type\Definition\Type;
 use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 
 /**
@@ -16,10 +17,35 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 class SettingMutation extends Mutation
 {
     /**
+     * @return array
+     */
+    public function args()
+    {
+        return [
+            'key'   => [
+                'name' => 'key',
+                'type' => Type::string(),
+            ],
+            'value' => [
+                'name' => 'key',
+                'type' => Type::string(),
+            ],
+        ];
+    }
+
+    /**
      * @return mixed
      */
     public function resolve()
     {
         // TODO: Implement resolve() method.
+    }
+
+    /**
+     * @return \GraphQL\Type\Definition\ListOfType
+     */
+    public function type()
+    {
+        return Type::listOf($this->graphql->type('Setting'));
     }
 }

@@ -22,7 +22,10 @@ class SettingQuery extends Query
     public function args()
     {
         return [
-            'key' => ['name' => 'key', 'type' => Type::string()],
+            'key' => [
+                'name' => 'key',
+                'type' => Type::string(),
+            ],
         ];
     }
 

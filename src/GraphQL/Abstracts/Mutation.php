@@ -9,7 +9,9 @@
 namespace Notadd\Foundation\GraphQL\Abstracts;
 
 use GraphQL\Type\Definition\Type;
+use Illuminate\Container\Container;
 use Notadd\Foundation\GraphQL\Errors\AuthorizationError;
+use Notadd\Foundation\GraphQL\GraphQLManager;
 use Notadd\Foundation\GraphQL\Traits\ShouldValidate;
 use Notadd\Foundation\Routing\Traits\Helpers;
 
@@ -27,6 +29,39 @@ abstract class Mutation
      * @var array.
      */
     protected $attributes = [];
+
+    /**
+     * @var \Illuminate\Container\Container.
+     */
+    protected $container;
+
+    /**
+     * @var \Notadd\Foundation\GraphQL\GraphQLManager.
+     */
+    protected $graphql;
+
+    /**
+     * Query constructor.
+     *
+     * @param \Illuminate\Container\Container           $container
+     * @param \Notadd\Foundation\GraphQL\GraphQLManager $graphql
+     */
+    public function __construct(Container $container, GraphQLManager $graphql)
+    {
+        $this->container = $container;
+        $this->graphql = $graphql;
+    }
+
+    /**
+     * @param $root
+     * @param $args
+     *
+     * @return bool
+     */
+    public function authorize($root, $args)
+    {
+        return true;
+    }
 
     /**
      * @return array

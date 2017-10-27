@@ -228,23 +228,28 @@ class Handler implements ExceptionHandlerContract
     /**
      * Convert the given exception to an array.
      *
-     * @param  \Exception $e
+     * @param  \Exception $exception
      *
      * @return array
      */
-    protected function convertExceptionToArray(Exception $e)
+    protected function convertExceptionToArray(Exception $exception)
     {
-        return $this->config->get('app.debug') ? [
-            'message'   => $e->getMessage(),
-            'exception' => get_class($e),
-            'file'      => $e->getFile(),
-            'line'      => $e->getLine(),
-            'trace'     => collect($e->getTrace())->map(function ($trace) {
+        $errors = [
+            'message'   => $exception->getMessage(),
+            'exception' => get_class($exception),
+            'file'      => $exception->getFile(),
+            'line'      => $exception->getLine(),
+            'trace'     => collect($exception->getTrace())->map(function ($trace) {
                 return Arr::except($trace, ['args']);
             })->all(),
-        ] : [
-            'message' => $this->isHttpException($e) ? $e->getMessage() : 'Server Error',
         ];
+        if ($this->config->get('app.debug')) {
+            return $errors;
+        } else {
+            return [
+                'message' => $this->isHttpException($exception) ? $exception->getMessage() : 'Server Error',
+            ];
+        }
     }
 
     /**

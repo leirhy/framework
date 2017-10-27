@@ -60,7 +60,7 @@ trait ShouldValidate
      */
     protected function getResolver()
     {
-        $resolver = parent::getResolver();
+        $resolver = $this->getResolver();
         if (!$resolver) {
             return null;
         }

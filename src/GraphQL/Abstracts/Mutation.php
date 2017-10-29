@@ -21,7 +21,7 @@ use Notadd\Foundation\Routing\Traits\Helpers;
 abstract class Mutation
 {
     use Helpers {
-
+        __get as HelperGet;
     }
     use ShouldValidate;
 
@@ -104,9 +104,12 @@ abstract class Mutation
     }
 
     /**
+     * @param $root
+     * @param $args
+     *
      * @return mixed
      */
-    abstract public function resolve();
+    abstract public function resolve($root, $args);
 
     /**
      * @return \Closure|null

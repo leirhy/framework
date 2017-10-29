@@ -16,9 +16,12 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 class ClearMutation extends Mutation
 {
     /**
-     * @return mixed
+     * @param $root
+     * @param $args
+     *
+     * @return mixed|void
      */
-    public function resolve()
+    public function resolve($root, $args)
     {
         // TODO: Implement resolve() method.
     }

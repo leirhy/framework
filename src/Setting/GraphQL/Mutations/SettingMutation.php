@@ -27,18 +27,21 @@ class SettingMutation extends Mutation
                 'type' => Type::string(),
             ],
             'value' => [
-                'name' => 'key',
+                'name' => 'value',
                 'type' => Type::string(),
             ],
         ];
     }
 
     /**
-     * @return mixed
+     * @param $root
+     * @param $args
+     *
+     * @return mixed|void
      */
-    public function resolve()
+    public function resolve($root, $args)
     {
-        // TODO: Implement resolve() method.
+        $this->setting->set($args['key'], $args['value']);
     }
 
     /**
@@ -46,6 +49,6 @@ class SettingMutation extends Mutation
      */
     public function type()
     {
-        return Type::listOf($this->graphql->type('Setting'));
+        return $this->graphql->type('Setting');
     }
 }

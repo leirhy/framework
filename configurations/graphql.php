@@ -30,7 +30,7 @@ return [
     'types'   => [
         \Notadd\Foundation\Administration\GraphQL\Types\DashboardType::class,
         \Notadd\Foundation\Administration\GraphQL\Types\InformationType::class,
-//        \Notadd\Foundation\Administration\GraphQL\Types\NavigationType::class,
+        \Notadd\Foundation\Administration\GraphQL\Types\NavigationType::class,
         \Notadd\Foundation\Extension\GraphQL\Types\ExtensionType::class,
         \Notadd\Foundation\Module\GraphQL\Types\ModuleType::class,
         \Notadd\Foundation\Setting\GraphQL\Types\SettingType::class,

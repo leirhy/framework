@@ -20,7 +20,7 @@ class NavigationType extends \Notadd\Foundation\GraphQL\Abstracts\Type
      */
     public function fields()
     {
-        // TODO: Implement fields() method.
+        return [];
     }
 
     /**

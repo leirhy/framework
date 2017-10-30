@@ -8,6 +8,8 @@
  */
 namespace Notadd\Foundation\Module\GraphQL\Queries;
 
+use GraphQL\Type\Definition\ListOfType;
+use GraphQL\Type\Definition\Type;
 use Notadd\Foundation\GraphQL\Abstracts\Query;
 
 /**
@@ -23,6 +25,14 @@ class ModuleQuery extends Query
      */
     public function resolve($root, $args)
     {
-        // TODO: Implement resolve() method.
+        return $this->module->repository()->toArray();
+    }
+
+    /**
+     * @return \GraphQL\Type\Definition\ListOfType
+     */
+    public function type(): ListOfType
+    {
+        return Type::listOf($this->graphql->type('module'));
     }
 }

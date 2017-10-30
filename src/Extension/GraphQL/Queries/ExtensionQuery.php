@@ -25,7 +25,7 @@ class ExtensionQuery extends Query
      */
     public function resolve($root, $args)
     {
-        // TODO: Implement resolve() method.
+        return $this->extension->repository()->toArray();
     }
 
     /**
@@ -33,6 +33,6 @@ class ExtensionQuery extends Query
      */
     public function type(): ListOfType
     {
-        return Type::listOf(Type::string());
+        return Type::listOf($this->graphql->type('extension'));
     }
 }

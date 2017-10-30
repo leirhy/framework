@@ -8,19 +8,41 @@
  */
 namespace Notadd\Foundation\Extension\GraphQL\Types;
 
-use Notadd\Foundation\GraphQL\Abstracts\Type;
+use GraphQL\Type\Definition\Type;
+use Notadd\Foundation\GraphQL\Abstracts\Type as AbstractType;
 
 /**
  * Class ExtensionType.
  */
-class ExtensionType extends \Notadd\Foundation\GraphQL\Abstracts\Type
+class ExtensionType extends AbstractType
 {
     /**
      * @return array
      */
     public function fields()
     {
-        return [];
+        return [
+            'enabled'        => [
+                'description' => '',
+                'type'        => Type::boolean(),
+            ],
+            'identification' => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
+            'name'           => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
+            'namespace'      => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
+            'provider'       => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
+        ];
     }
 
     /**
@@ -28,6 +50,6 @@ class ExtensionType extends \Notadd\Foundation\GraphQL\Abstracts\Type
      */
     public function name()
     {
-        return 'ExtensionExtension';
+        return 'extension';
     }
 }

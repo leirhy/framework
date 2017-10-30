@@ -49,6 +49,6 @@ class SettingMutation extends Mutation
      */
     public function type()
     {
-        return $this->graphql->type('Setting');
+        return $this->graphql->type('setting');
     }
 }

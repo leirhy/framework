@@ -8,13 +8,13 @@
  */
 namespace Notadd\Foundation\Setting\GraphQL\Types;
 
-use GraphQL\Type\Definition\Type as TypeDefinition;
-use Notadd\Foundation\GraphQL\Abstracts\Type;
+use GraphQL\Type\Definition\Type;
+use Notadd\Foundation\GraphQL\Abstracts\Type as AbstractType;
 
 /**
  * Class SettingType.
  */
-class SettingType extends \Notadd\Foundation\GraphQL\Abstracts\Type
+class SettingType extends AbstractType
 {
     /**
      * @return array
@@ -23,12 +23,12 @@ class SettingType extends \Notadd\Foundation\GraphQL\Abstracts\Type
     {
         return [
             'key'   => [
-                'type'        => TypeDefinition::string(),
                 'description' => 'The key of the setting',
+                'type'        => Type::string(),
             ],
             'value' => [
-                'type'        => TypeDefinition::string(),
                 'description' => 'The value of the setting',
+                'type'        => Type::string(),
             ],
         ];
     }
@@ -38,14 +38,6 @@ class SettingType extends \Notadd\Foundation\GraphQL\Abstracts\Type
      */
     public function name()
     {
-        return 'Setting';
-    }
-
-    /**
-     * @return \GraphQL\Type\Definition\StringType
-     */
-    public function type()
-    {
-        return TypeDefinition::string();
+        return 'setting';
     }
 }

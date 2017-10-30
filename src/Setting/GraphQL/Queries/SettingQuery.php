@@ -58,6 +58,6 @@ class SettingQuery extends Query
      */
     public function type(): ListOfType
     {
-        return Type::listOf($this->graphql->type('Setting'));
+        return Type::listOf($this->graphql->type('setting'));
     }
 }

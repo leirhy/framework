@@ -12,12 +12,13 @@ return [
         'default' => [
             'mutation' => [
                 'navigations' => \Notadd\Foundation\Administration\GraphQL\Mutations\NavigationMutation::class,
-                'clearCache'               => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
-                'extensions'       => \Notadd\Foundation\Extension\GraphQL\Mutations\ExtensionMutation::class,
-                'modules'             => \Notadd\Foundation\Module\GraphQL\Mutations\ModuleMutation::class,
-                'settings'           => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingMutation::class,
+                'clearCache'  => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
+                'extensions'  => \Notadd\Foundation\Extension\GraphQL\Mutations\ExtensionMutation::class,
+                'modules'     => \Notadd\Foundation\Module\GraphQL\Mutations\ModuleMutation::class,
+                'settings'    => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingMutation::class,
             ],
             'query'    => [
+                'addons'       => \Notadd\Foundation\Addon\GraphQL\Queries\AddonQuery::class,
                 'dashboards'   => \Notadd\Foundation\Administration\GraphQL\Queries\DashboardQuery::class,
                 'informations' => \Notadd\Foundation\Administration\GraphQL\Queries\InformationQuery::class,
                 'navigations'  => \Notadd\Foundation\Administration\GraphQL\Queries\NavigationQuery::class,
@@ -28,6 +29,7 @@ return [
         ],
     ],
     'types'   => [
+        \Notadd\Foundation\Addon\GraphQL\Types\AddonType::class,
         \Notadd\Foundation\Administration\GraphQL\Types\DashboardType::class,
         \Notadd\Foundation\Administration\GraphQL\Types\InformationType::class,
         \Notadd\Foundation\Administration\GraphQL\Types\NavigationType::class,

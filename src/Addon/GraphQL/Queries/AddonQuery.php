@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Addon\GraphQL\Queries;
 
+use GraphQL\Type\Definition\Type;
 use Notadd\Foundation\GraphQL\Abstracts\Query;
 
 /**
@@ -16,14 +17,6 @@ use Notadd\Foundation\GraphQL\Abstracts\Query;
 class AddonQuery extends Query
 {
     /**
-     * @return string
-     */
-    public function name(): string
-    {
-        return '';
-    }
-
-    /**
      * @param $root
      * @param $args
      *
@@ -31,6 +24,11 @@ class AddonQuery extends Query
      */
     public function resolve($root, $args)
     {
-        // TODO: Implement resolve() method.
+        return $this->addon->repository()->toArray();
+    }
+
+    public function type()
+    {
+        return Type::listOf($this->graphql->type('addon'));
     }
 }

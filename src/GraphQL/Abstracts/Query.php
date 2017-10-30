@@ -9,7 +9,6 @@
 namespace Notadd\Foundation\GraphQL\Abstracts;
 
 use GraphQL\Type\Definition\ListOfType;
-use GraphQL\Type\Definition\Type;
 use Illuminate\Container\Container;
 use Notadd\Foundation\GraphQL\Errors\AuthorizationError;
 use Notadd\Foundation\GraphQL\GraphQLManager;

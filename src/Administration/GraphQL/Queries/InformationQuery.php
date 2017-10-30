@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Administration\GraphQL\Queries;
 
+use GraphQL\Type\Definition\ListOfType;
 use Notadd\Foundation\GraphQL\Abstracts\Query;
 
 /**
@@ -24,5 +25,13 @@ class InformationQuery extends Query
     public function resolve($root, $args)
     {
         // TODO: Implement resolve() method.
+    }
+
+    /**
+     * @return \GraphQL\Type\Definition\ListOfType
+     */
+    public function type(): ListOfType
+    {
+        // TODO: Implement type() method.
     }
 }

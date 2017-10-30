@@ -9,6 +9,7 @@
 namespace Notadd\Foundation\Administration\GraphQL\Queries;
 
 use GraphQL\Type\Definition\ListOfType;
+use GraphQL\Type\Definition\Type;
 use Notadd\Foundation\GraphQL\Abstracts\Query;
 
 /**
@@ -32,6 +33,6 @@ class InformationQuery extends Query
      */
     public function type(): ListOfType
     {
-        // TODO: Implement type() method.
+        return Type::listOf(Type::string());
     }
 }

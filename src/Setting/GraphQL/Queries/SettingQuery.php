@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Setting\GraphQL\Queries;
 
+use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\Type;
 use Notadd\Foundation\GraphQL\Abstracts\Query;
 
@@ -55,7 +56,7 @@ class SettingQuery extends Query
     /**
      * @return \GraphQL\Type\Definition\ListOfType
      */
-    public function type()
+    public function type(): ListOfType
     {
         return Type::listOf($this->graphql->type('Setting'));
     }

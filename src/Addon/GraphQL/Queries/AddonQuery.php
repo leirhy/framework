@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Addon\GraphQL\Queries;
 
+use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\Type;
 use Notadd\Foundation\GraphQL\Abstracts\Query;
 
@@ -27,7 +28,10 @@ class AddonQuery extends Query
         return $this->addon->repository()->toArray();
     }
 
-    public function type()
+    /**
+     * @return \GraphQL\Type\Definition\ListOfType
+     */
+    public function type(): ListOfType
     {
         return Type::listOf($this->graphql->type('addon'));
     }

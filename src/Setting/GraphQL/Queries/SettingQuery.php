@@ -4,7 +4,7 @@
  *
  * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime      2017-10-24 14:35
+ * @datetime      2017-10-31 17:46
  */
 namespace Notadd\Foundation\Setting\GraphQL\Queries;
 
@@ -34,23 +34,15 @@ class SettingQuery extends Query
      * @param $root
      * @param $args
      *
-     * @return array|\stdClass
+     * @return mixed
      */
     public function resolve($root, $args)
     {
         if (isset($args['key'])) {
-            return [
-                [
-                    'key'   => $args['key'],
-                    'value' => $this->setting->get($args['key']),
-                ],
-            ];
+            return $this->setting->get($args['key']);
         }
-        $settings = $this->setting->all()->map(function ($value, $key) {
-            return ['key' => $key, 'value' => $value];
-        })->values();
 
-        return $settings->toArray();
+        return null;
     }
 
     /**
@@ -58,6 +50,6 @@ class SettingQuery extends Query
      */
     public function type(): ListOfType
     {
-        return Type::listOf($this->graphql->type('setting'));
+        return Type::listOf(Type::string());
     }
 }

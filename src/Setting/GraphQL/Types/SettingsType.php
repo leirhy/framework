@@ -14,7 +14,7 @@ use Notadd\Foundation\GraphQL\Abstracts\Type as AbstractType;
 /**
  * Class SettingType.
  */
-class SettingType extends AbstractType
+class SettingsType extends AbstractType
 {
     /**
      * @return array
@@ -38,6 +38,6 @@ class SettingType extends AbstractType
      */
     public function name()
     {
-        return 'setting';
+        return 'settings';
     }
 }

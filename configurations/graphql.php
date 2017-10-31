@@ -15,7 +15,7 @@ return [
                 'clearCache'  => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
                 'extensions'  => \Notadd\Foundation\Extension\GraphQL\Mutations\ExtensionMutation::class,
                 'modules'     => \Notadd\Foundation\Module\GraphQL\Mutations\ModuleMutation::class,
-                'settings'    => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingMutation::class,
+                'settings'    => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingsMutation::class,
             ],
             'query'    => [
                 'addons'       => \Notadd\Foundation\Addon\GraphQL\Queries\AddonQuery::class,
@@ -24,7 +24,8 @@ return [
                 'navigations'  => \Notadd\Foundation\Administration\GraphQL\Queries\NavigationQuery::class,
                 'extensions'   => \Notadd\Foundation\Extension\GraphQL\Queries\ExtensionQuery::class,
                 'modules'      => \Notadd\Foundation\Module\GraphQL\Queries\ModuleQuery::class,
-                'settings'     => \Notadd\Foundation\Setting\GraphQL\Queries\SettingQuery::class,
+                'setting'      => \Notadd\Foundation\Setting\GraphQL\Queries\SettingQuery::class,
+                'settings'     => \Notadd\Foundation\Setting\GraphQL\Queries\SettingsQuery::class,
             ],
         ],
     ],
@@ -35,6 +36,6 @@ return [
         \Notadd\Foundation\Administration\GraphQL\Types\NavigationType::class,
         \Notadd\Foundation\Extension\GraphQL\Types\ExtensionType::class,
         \Notadd\Foundation\Module\GraphQL\Types\ModuleType::class,
-        \Notadd\Foundation\Setting\GraphQL\Types\SettingType::class,
+        \Notadd\Foundation\Setting\GraphQL\Types\SettingsType::class,
     ],
 ];

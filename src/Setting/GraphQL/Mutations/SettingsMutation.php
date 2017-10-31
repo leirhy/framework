@@ -14,7 +14,7 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 /**
  * Class SettingMutation.
  */
-class SettingMutation extends Mutation
+class SettingsMutation extends Mutation
 {
     /**
      * @return array
@@ -49,6 +49,6 @@ class SettingMutation extends Mutation
      */
     public function type()
     {
-        return $this->graphql->type('setting');
+        return $this->graphql->type('settings');
     }
 }

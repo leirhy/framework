@@ -2,9 +2,9 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2016, notadd.com
- * @datetime 2016-10-24 10:11
+ * @datetime      2016-10-24 10:11
  */
 namespace Notadd\Foundation\Setting;
 
@@ -29,6 +29,11 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
      * @var array
      */
     protected $cache = [];
+
+    /**
+     * @var array
+     */
+    protected $formats = [];
 
     /**
      * MemoryCacheSettingsRepository constructor.
@@ -79,8 +84,32 @@ class MemoryCacheSettingsRepository implements SettingsRepositoryContract
         if (array_key_exists($key, $this->cache)) {
             return $this->cache[$key];
         } else {
-            return array_get($this->all(), $key, $default);
+            if (is_null($default) && isset($this->formats[$key])) {
+                $default = $this->formats[$key]['default'] ?? null;
+            }
+            $value = array_get($this->all(), $key, $default);
+            if (isset($this->formats[$key]) && isset($this->formats[$key]['type'])) {
+                switch ($this->formats[$key]['type']) {
+                    case 'boolean':
+                        $value = boolval($value);
+                        break;
+                    case 'integer':
+                        $value = intval($value);
+                        break;
+                }
+            }
+
+            return $value;
         }
+    }
+
+    /**
+     * @param string $key
+     * @param $definition
+     */
+    public function registerFormat(string $key, $definition)
+    {
+        $this->formats[$key] = $definition;
     }
 
     /**

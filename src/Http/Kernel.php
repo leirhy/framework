@@ -79,7 +79,6 @@ class Kernel implements KernelContract
         LoadProviders::class,
         LoadAddon::class,
         RegisterFacades::class,
-        LoadSetting::class,
         LoadDetection::class,
         LoadGraphQL::class,
         RegisterRouter::class,

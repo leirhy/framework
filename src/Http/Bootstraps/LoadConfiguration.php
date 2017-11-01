@@ -39,6 +39,7 @@ class LoadConfiguration implements Bootstrap
         if (!isset($loadedFromCache)) {
             $this->loadConfigurationFiles($this->container, $configuration);
         }
+        date_default_timezone_set($configuration->get('app.timezone', 'PRC'));
         mb_internal_encoding('UTF-8');
     }
 

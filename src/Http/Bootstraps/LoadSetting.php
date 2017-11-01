@@ -24,7 +24,6 @@ class LoadSetting implements Bootstrap
     public function bootstrap()
     {
         if ($this->container->isInstalled()) {
-            date_default_timezone_set($this->setting->get('setting.timezone', $this->config['app.timezone']));
             $this->config->set('app.debug', $this->setting->get('debug.enabled', true));
             $this->config->set('mail.driver', $this->setting->get('mail.driver', 'smtp'));
             $this->config->set('mail.host', $this->setting->get('mail.host'));

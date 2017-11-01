@@ -244,7 +244,8 @@ class AssetsPublish
      */
     public function handle($request, Closure $next)
     {
-        if (file_exists($file = $this->container->staticPath() . DIRECTORY_SEPARATOR . $request->path()) && !Str::endsWith('/', $request->path())) {
+        $file = $this->container->staticPath() . DIRECTORY_SEPARATOR . $request->path();
+        if (file_exists($file) && !Str::endsWith('/', $request->path())) {
             $headers = [];
             $extension = pathinfo($file, PATHINFO_EXTENSION);
             if (isset($this->mimes[$extension])) {

@@ -6,7 +6,7 @@
  * @copyright (c) 2016, notadd.com
  * @datetime      2016-10-21 09:50
  */
-namespace Notadd\Foundation\Exception;
+namespace Notadd\Foundation\Http;
 
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -40,7 +40,7 @@ use Whoops\Run as Whoops;
 /**
  * Class Handler.
  */
-class Handler implements ExceptionHandlerContract
+class ExceptionHandler implements ExceptionHandlerContract
 {
     use Helpers;
 

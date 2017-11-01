@@ -39,10 +39,12 @@ class SettingQuery extends Query
     public function resolve($root, $args)
     {
         if (isset($args['key'])) {
-            return $this->setting->get($args['key']);
+            return is_array($this->setting->get($args['key'])) ? $this->setting->get($args['key']) : [
+                $this->setting->get($args['key']),
+            ];
         }
 
-        return null;
+        return [null];
     }
 
     /**

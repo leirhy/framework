@@ -48,17 +48,6 @@ class ExtensionsController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function list(): JsonResponse
-    {
-        return $this->response->json([
-            'data'    => $this->extension->repository()->toArray(),
-            'message' => '获取插件列表成功！',
-        ]);
-    }
-
-    /**
      * @param $identification
      *
      * @return \Illuminate\Http\JsonResponse

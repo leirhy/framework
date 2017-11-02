@@ -18,6 +18,23 @@ use Notadd\Foundation\GraphQL\Abstracts\Query;
 class AddonQuery extends Query
 {
     /**
+     * @return array
+     */
+    public function args()
+    {
+        return [
+            'enabled' => [
+                'name' => 'enabled',
+                'type' => Type::getNullableType(Type::boolean()),
+            ],
+            'installed' => [
+                'name' => 'installed',
+                'type' => Type::getNullableType(Type::boolean()),
+            ],
+        ];
+    }
+
+    /**
      * @param $root
      * @param $args
      *
@@ -25,6 +42,14 @@ class AddonQuery extends Query
      */
     public function resolve($root, $args)
     {
+        if (isset($args['enabled']) && $args['enabled'] === true) {
+            return $this->addon->enabled()->toArray();
+        } elseif (isset($args['installed']) && $args['installed'] === true) {
+            return $this->addon->installed()->toArray();
+        } elseif (isset($args['installed']) && $args['installed'] === false) {
+            return $this->addon->notInstalled()->toArray();
+        }
+
         return $this->addon->repository()->toArray();
     }
 

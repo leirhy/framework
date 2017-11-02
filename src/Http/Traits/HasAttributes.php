@@ -2,11 +2,10 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <269044570@qq.com>
+ * @author        TwilRoad <269044570@qq.com>
  * @copyright (c) 2017, notadd.com
- * @datetime 2017-08-16 12:04
+ * @datetime      2017-08-16 12:04
  */
-
 namespace Notadd\Foundation\Http\Traits;
 
 /**

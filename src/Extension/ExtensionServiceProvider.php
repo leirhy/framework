@@ -34,7 +34,7 @@ class ExtensionServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('extension', function ($app) {
-            return new ExtensionManager($app, $app['events'], $app['files']);
+            return new ExtensionManager();
         });
     }
 }

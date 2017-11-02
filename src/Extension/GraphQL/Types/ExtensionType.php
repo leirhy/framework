@@ -22,6 +22,14 @@ class ExtensionType extends AbstractType
     public function fields()
     {
         return [
+            'authors' => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
+            'description' => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
             'enabled'        => [
                 'description' => '',
                 'type'        => Type::boolean(),
@@ -29,6 +37,14 @@ class ExtensionType extends AbstractType
             'identification' => [
                 'description' => '',
                 'type'        => Type::string(),
+            ],
+            'initialized' => [
+                'description' => '',
+                'type'        => Type::boolean(),
+            ],
+            'installed' => [
+                'description' => '',
+                'type'        => Type::boolean(),
             ],
             'name'           => [
                 'description' => '',

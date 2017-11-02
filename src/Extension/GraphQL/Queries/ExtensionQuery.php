@@ -10,6 +10,7 @@ namespace Notadd\Foundation\Extension\GraphQL\Queries;
 
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\Type;
+use Notadd\Foundation\Extension\Extension;
 use Notadd\Foundation\GraphQL\Abstracts\Query;
 
 /**
@@ -25,7 +26,19 @@ class ExtensionQuery extends Query
      */
     public function resolve($root, $args)
     {
-        return $this->extension->repository()->toArray();
+        return $this->extension->repository()->map(function (Extension $extension) {
+            $authors = (array)$extension->get('authors');
+            foreach ($authors as $key => $author) {
+                $string = $author['name'] ?? '';
+                $string .= ' <';
+                $string .= $author['email'] ?? '';
+                $string .= '>';
+                $authors[$key] = $string;
+            }
+            $extension->offsetSet('authors', implode(',', $authors));
+
+            return $extension;
+        })->toArray();
     }
 
     /**

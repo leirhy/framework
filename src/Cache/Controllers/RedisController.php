@@ -2,9 +2,9 @@
 /**
  * This file is part of Notadd.
  *
- * @author TwilRoad <heshudong@ibenchu.com>
+ * @author        TwilRoad <heshudong@ibenchu.com>
  * @copyright (c) 2017, notadd.com
- * @datetime 2017-09-09 23:50
+ * @datetime      2017-09-09 23:50
  */
 namespace Notadd\Foundation\Cache\Controllers;
 
@@ -22,6 +22,7 @@ class RedisController extends Controller
     public function handle()
     {
         FlushAll::dispatch();
+
         return $this->response->json([
             'message' => '清除缓存成功！',
         ]);

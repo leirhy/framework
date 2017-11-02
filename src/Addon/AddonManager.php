@@ -78,6 +78,14 @@ class AddonManager
     }
 
     /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function notInstalled(): Collection
+    {
+        return $this->repository()->notInstalled();
+    }
+
+    /**
      * @return \Notadd\Foundation\Addon\Repositories\NavigationRepository
      */
     public function navigations()

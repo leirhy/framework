@@ -22,6 +22,10 @@ class AddonType extends AbstractType
     public function fields()
     {
         return [
+            'description'    => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
             'enabled'        => [
                 'description' => '',
                 'type'        => Type::boolean(),
@@ -39,6 +43,10 @@ class AddonType extends AbstractType
                 'type'        => Type::string(),
             ],
             'provider'       => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
+            'version'        => [
                 'description' => '',
                 'type'        => Type::string(),
             ],

@@ -58,6 +58,14 @@ class ExtensionType extends AbstractType
                 'description' => '',
                 'type'        => Type::string(),
             ],
+            'requireInstall'       => [
+                'description' => '',
+                'type'        => Type::boolean(),
+            ],
+            'requireUninstall'       => [
+                'description' => '',
+                'type'        => Type::boolean(),
+            ],
         ];
     }
 

@@ -36,6 +36,9 @@ class ExtensionQuery extends Query
                 $authors[$key] = $string;
             }
             $extension->offsetSet('authors', implode(',', $authors));
+            $require = $extension->get('require');
+            $extension->offsetSet('requireInstall', $require['install']);
+            $extension->offsetSet('requireUninstall', $require['uninstall']);
 
             return $extension;
         })->toArray();

@@ -11,16 +11,17 @@ return [
     'schemas' => [
         'default' => [
             'mutation' => [
-                'enableModule'     => \Notadd\Foundation\Module\GraphQL\Mutations\EnableMutation::class,
-                'exportModule'     => \Notadd\Foundation\Module\GraphQL\Mutations\ExportMutation::class,
-                'navigations'      => \Notadd\Foundation\Administration\GraphQL\Mutations\NavigationMutation::class,
-                'clearCache'       => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
-                'importModule'     => \Notadd\Foundation\Module\GraphQL\Mutations\ImportMutation::class,
-                'installExtension' => \Notadd\Foundation\Extension\GraphQL\Mutations\InstallMutation::class,
-                'installModule'    => \Notadd\Foundation\Module\GraphQL\Mutations\InstallMutation::class,
-                'setting'          => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingMutation::class,
-                'settings'         => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingsMutation::class,
-                'uninstallModule'  => \Notadd\Foundation\Module\GraphQL\Mutations\UninstallMutation::class,
+                'enableModule'       => \Notadd\Foundation\Module\GraphQL\Mutations\EnableMutation::class,
+                'exportModule'       => \Notadd\Foundation\Module\GraphQL\Mutations\ExportMutation::class,
+                'navigations'        => \Notadd\Foundation\Administration\GraphQL\Mutations\NavigationMutation::class,
+                'clearCache'         => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
+                'importModule'       => \Notadd\Foundation\Module\GraphQL\Mutations\ImportMutation::class,
+                'installExtension'   => \Notadd\Foundation\Extension\GraphQL\Mutations\InstallMutation::class,
+                'installModule'      => \Notadd\Foundation\Module\GraphQL\Mutations\InstallMutation::class,
+                'setting'            => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingMutation::class,
+                'settings'           => \Notadd\Foundation\Setting\GraphQL\Mutations\SettingsMutation::class,
+                'uninstallExtension' => \Notadd\Foundation\Extension\GraphQL\Mutations\UninstallMutation::class,
+                'uninstallModule'    => \Notadd\Foundation\Module\GraphQL\Mutations\UninstallMutation::class,
             ],
             'query'    => [
                 'addons'       => \Notadd\Foundation\Addon\GraphQL\Queries\AddonQuery::class,

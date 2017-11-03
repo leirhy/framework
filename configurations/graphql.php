@@ -16,6 +16,7 @@ return [
                 'exportModule'       => \Notadd\Foundation\Module\GraphQL\Mutations\ExportMutation::class,
                 'navigations'        => \Notadd\Foundation\Administration\GraphQL\Mutations\NavigationMutation::class,
                 'clearCache'         => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
+                'importAddon'        => \Notadd\Foundation\Addon\GraphQL\Mutations\ImportMutation::class,
                 'importModule'       => \Notadd\Foundation\Module\GraphQL\Mutations\ImportMutation::class,
                 'installAddon'       => \Notadd\Foundation\Addon\GraphQL\Mutations\InstallMutation::class,
                 'installExtension'   => \Notadd\Foundation\Extension\GraphQL\Mutations\InstallMutation::class,

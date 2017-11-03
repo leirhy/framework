@@ -23,13 +23,15 @@ class AddonQuery extends Query
     public function args()
     {
         return [
-            'enabled' => [
-                'name' => 'enabled',
-                'type' => Type::getNullableType(Type::boolean()),
+            'enabled'   => [
+                'defaultValue' => null,
+                'name'         => 'enabled',
+                'type'         => Type::boolean(),
             ],
             'installed' => [
-                'name' => 'installed',
-                'type' => Type::getNullableType(Type::boolean()),
+                'defaultValue' => null,
+                'name'         => 'installed',
+                'type'         => Type::boolean(),
             ],
         ];
     }
@@ -42,11 +44,11 @@ class AddonQuery extends Query
      */
     public function resolve($root, $args)
     {
-        if (isset($args['enabled']) && $args['enabled'] === true) {
+        if ($args['enabled'] === true) {
             return $this->addon->enabled()->toArray();
-        } elseif (isset($args['installed']) && $args['installed'] === true) {
+        } else if ($args['installed'] === true) {
             return $this->addon->installed()->toArray();
-        } elseif (isset($args['installed']) && $args['installed'] === false) {
+        } else if ($args['installed'] === false) {
             return $this->addon->notInstalled()->toArray();
         }
 

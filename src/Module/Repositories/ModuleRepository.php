@@ -96,13 +96,18 @@ class ModuleRepository extends Repository
         if ($this->file->exists($file = $directory . DIRECTORY_SEPARATOR . 'configuration.yaml')) {
             return collect(Yaml::parse(file_get_contents($file)));
         } else {
-            if ($this->file->isDirectory($directory = $directory . DIRECTORY_SEPARATOR . 'configurations')) {
-                $configurations = collect();
+            $directory = $directory . DIRECTORY_SEPARATOR . 'configurations';
+            if ($this->file->isDirectory($directory)) {
+                $module = $directory . DIRECTORY_SEPARATOR . 'module.yaml';
+                if ($this->file->exists($module)) {
+                    $configurations = collect(Yaml::parse($this->file->get($module)));
+                } else {
+                    $configurations = collect();
+                }
                 collect($this->file->files($directory))->each(function ($file) use ($configurations) {
-                    if ($this->file->isReadable($file)) {
-                        collect(Yaml::dump(file_get_contents($file)))->each(function ($data, $key) use ($configurations) {
-                            $configurations->put($key, $data);
-                        });
+                    $name = basename(realpath($file), '.yaml');
+                    if ($this->file->isReadable($file) && $name !== 'module') {
+                        $configurations->put($name, Yaml::parse(file_get_contents($file)));
                     }
                 });
 

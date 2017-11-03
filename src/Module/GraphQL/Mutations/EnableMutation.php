@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Module\GraphQL\Mutations;
 
+use GraphQL\Type\Definition\Type;
 use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 
 /**
@@ -20,7 +21,12 @@ class EnableMutation extends Mutation
      */
     public function args(): array
     {
-        return [];
+        return [
+            'identification' => [
+                'name' => 'identification',
+                'type' => Type::string(),
+            ],
+        ];
     }
 
     /**

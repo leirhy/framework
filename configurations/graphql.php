@@ -11,6 +11,7 @@ return [
     'schemas' => [
         'default' => [
             'mutation' => [
+                'enableModule'    => \Notadd\Foundation\Module\GraphQL\Mutations\EnableMutation::class,
                 'navigations'     => \Notadd\Foundation\Administration\GraphQL\Mutations\NavigationMutation::class,
                 'clearCache'      => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
                 'extensions'      => \Notadd\Foundation\Extension\GraphQL\Mutations\ExtensionMutation::class,

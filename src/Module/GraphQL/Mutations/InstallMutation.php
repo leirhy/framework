@@ -13,7 +13,7 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 /**
  * Class ConfigurationMutation.
  */
-class ModuleMutation extends Mutation
+class InstallMutation extends Mutation
 {
     /**
      * @param $root

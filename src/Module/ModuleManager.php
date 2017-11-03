@@ -72,6 +72,14 @@ class ModuleManager
     }
 
     /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function notInstalled(): Collection
+    {
+        return $this->repository()->notInstalled();
+    }
+
+    /**
      * @return \Notadd\Foundation\Module\Repositories\ModuleRepository
      */
     public function repository(): ModuleRepository

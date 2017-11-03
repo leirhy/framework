@@ -24,11 +24,11 @@ class SettingsMutation extends Mutation
         return [
             'key'   => [
                 'name' => 'key',
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::string()),
             ],
             'value' => [
                 'name' => 'value',
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::string()),
             ],
         ];
     }

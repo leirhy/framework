@@ -19,7 +19,7 @@ class SettingsMutation extends Mutation
     /**
      * @return array
      */
-    public function args()
+    public function args(): array
     {
         return [
             'key'   => [

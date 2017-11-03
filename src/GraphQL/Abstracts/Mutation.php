@@ -66,10 +66,7 @@ abstract class Mutation
     /**
      * @return array
      */
-    public function args()
-    {
-        return [];
-    }
+    abstract public function args(): array;
 
     /**
      * @return array

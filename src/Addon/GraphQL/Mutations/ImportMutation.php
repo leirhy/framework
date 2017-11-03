@@ -16,6 +16,14 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 class ImportMutation extends Mutation
 {
     /**
+     * @return array
+     */
+    public function args(): array
+    {
+        return [];
+    }
+
+    /**
      * @param $root
      * @param $args
      *
@@ -23,6 +31,6 @@ class ImportMutation extends Mutation
      */
     public function resolve($root, $args)
     {
-        // TODO: Implement resolve() method.
+        return [];
     }
 }

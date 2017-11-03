@@ -16,6 +16,14 @@ use Notadd\Foundation\GraphQL\Abstracts\Mutation;
 class UninstallMutation extends Mutation
 {
     /**
+     * @return array
+     */
+    public function args(): array
+    {
+        return [];
+    }
+
+    /**
      * @param $root
      * @param $args
      *

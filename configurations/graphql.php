@@ -12,6 +12,7 @@ return [
         'default' => [
             'mutation' => [
                 'enableModule'    => \Notadd\Foundation\Module\GraphQL\Mutations\EnableMutation::class,
+                'exportModule'    => \Notadd\Foundation\Module\GraphQL\Mutations\ExportMutation::class,
                 'navigations'     => \Notadd\Foundation\Administration\GraphQL\Mutations\NavigationMutation::class,
                 'clearCache'      => \Notadd\Foundation\Cache\GraphQL\Mutations\ClearMutation::class,
                 'extensions'      => \Notadd\Foundation\Extension\GraphQL\Mutations\ExtensionMutation::class,

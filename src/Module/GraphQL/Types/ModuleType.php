@@ -22,6 +22,14 @@ class ModuleType extends AbstractType
     public function fields()
     {
         return [
+            'author'        => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
+            'description'        => [
+                'description' => '',
+                'type'        => Type::string(),
+            ],
             'enabled'        => [
                 'description' => '',
                 'type'        => Type::boolean(),
@@ -34,11 +42,7 @@ class ModuleType extends AbstractType
                 'description' => '',
                 'type'        => Type::string(),
             ],
-            'namespace'      => [
-                'description' => '',
-                'type'        => Type::string(),
-            ],
-            'provider'       => [
+            'version'      => [
                 'description' => '',
                 'type'        => Type::string(),
             ],

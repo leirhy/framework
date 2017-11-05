@@ -26,7 +26,7 @@ class LoadModule implements Bootstrap
     public function bootstrap()
     {
         if ($this->container->isInstalled()) {
-            $this->module->repository()->enabled()->each(function (Module $module) {
+            $this->module->enabled()->each(function (Module $module) {
                 $this->module->registerExcept($module->get('csrf', []));
                 collect($module->get('events', []))->each(function ($data, $key) {
                     switch ($key) {

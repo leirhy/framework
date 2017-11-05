@@ -182,6 +182,6 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
         return $this->offsetExists('name')
             && $this->offsetExists('identification')
             && $this->offsetExists('description')
-            && $this->offsetExists('author');
+            && $this->offsetExists('authors');
     }
 }

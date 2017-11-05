@@ -67,6 +67,8 @@ class ModuleQuery extends Query
             $module->offsetSet('authors', implode(',', $authors));
 
             return $module;
+        })->filter(function (Module $module) {
+            return $module->identification() !== 'notadd/administration';
         })->toArray();
     }
 

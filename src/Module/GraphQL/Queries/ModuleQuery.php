@@ -26,13 +26,13 @@ class ModuleQuery extends Query
         return [
             'enabled'   => [
                 'defaultValue' => null,
-                'name' => 'enabled',
-                'type' => Type::boolean(),
+                'name'         => 'enabled',
+                'type'         => Type::boolean(),
             ],
             'installed' => [
                 'defaultValue' => null,
-                'name' => 'installed',
-                'type' => Type::boolean(),
+                'name'         => 'installed',
+                'type'         => Type::boolean(),
             ],
         ];
     }
@@ -47,21 +47,24 @@ class ModuleQuery extends Query
     {
         if ($args['enabled'] === true) {
             $collection = $this->module->enabled();
-        } elseif ($args['installed'] === true) {
+        } else if ($args['installed'] === true) {
             $collection = $this->module->installed();
-        } elseif ($args['installed'] === false) {
+        } else if ($args['installed'] === false) {
             $collection = $this->module->notInstalled();
         } else {
             $collection = $this->module->repository();
         }
 
         return $collection->map(function (Module $module) {
-            $authors = (array)$module->get('author');
-            $string = $authors[0] ?? '';
-            $string .= ' <';
-            $string .= $authors[1] ?? '';
-            $string .= '>';
-            $module->offsetSet('author', $string);
+            $authors = (array)$module->get('authors');
+            foreach ($authors as $key => $author) {
+                if (isset($author['name']) && isset($author['email'])) {
+                    $authors[$key] = $author['name'] . ' <' . $author['email'] . '>';
+                } else {
+                    unset($authors[$key]);
+                }
+            }
+            $module->offsetSet('authors', implode(',', $authors));
 
             return $module;
         })->toArray();

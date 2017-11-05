@@ -206,7 +206,7 @@ class ModulesController extends Controller
         $data = new Collection();
         $list->each(function (Module $module) use ($data) {
             $data->put($module->identification(), [
-                'author'         => collect($module->offsetGet('author'))->implode(','),
+                'authors'         => collect($module->offsetGet('authors'))->implode(','),
                 'enabled'        => boolval($module->offsetGet('enabled')),
                 'description'    => $module->offsetGet('description'),
                 'identification' => $module->identification(),

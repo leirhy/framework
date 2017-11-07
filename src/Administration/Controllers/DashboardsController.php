@@ -27,7 +27,7 @@ class DashboardsController extends Controller
         $hidden = collect();
         $left = collect();
         $right = collect();
-        $this->module->repository()->enabled()->each(function (Module $module) use ($dashboards) {
+        $this->module->enabled()->each(function (Module $module) use ($dashboards) {
             $module->offsetExists('dashboards') && collect($module->get('dashboards'))->each(function (
                 $definition,
                 $identification

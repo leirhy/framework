@@ -91,7 +91,7 @@ class AddonManager
     public function navigations()
     {
         if (!$this->navigationRepository instanceof NavigationRepository) {
-            $collection = $this->repository()->enabled()->map(function (Addon $addon) {
+            $collection = $this->enabled()->map(function (Addon $addon) {
                 return $addon->offsetExists('navigations') ? (array)$addon->get('navigations') : [];
             });
             $this->navigationRepository = new NavigationRepository();

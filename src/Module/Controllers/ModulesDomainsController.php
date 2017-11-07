@@ -36,7 +36,7 @@ class ModulesDomainsController extends Controller
         collect($data)->each(function ($definition) use ($collection) {
             if (isset($definition['identification'])
                 && $this->module->has($definition['identification'])
-                && $this->module->repository()->installed()->has($definition['identification']) || in_array($definition['identification'], [
+                && $this->module->installed()->has($definition['identification']) || in_array($definition['identification'], [
                     'notadd/administration',
                     'notadd/api',
                     'notadd/notadd',

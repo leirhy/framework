@@ -45,7 +45,7 @@ class ModulesController extends Controller
                 'message' => '不存在模块[' . $identification . ']',
             ])->setStatusCode(500);
         }
-        if (!$this->module->repository()->installed()->has($identification)) {
+        if (!$this->module->installed()->has($identification)) {
             return $this->response->json([
                 'message' => '模块[' . $identification . ']尚未安装！',
             ])->setStatusCode(500);
@@ -129,10 +129,10 @@ class ModulesController extends Controller
      */
     public function list(): JsonResponse
     {
-        $enabled = $this->module->repository()->enabled();
-        $installed = $this->module->repository()->installed();
+        $enabled = $this->module->enabled();
+        $installed = $this->module->installed();
         $modules = $this->module->repository();
-        $notInstalled = $this->module->repository()->notInstalled();
+        $notInstalled = $this->module->notInstalled();
         $domains = $enabled->map(function (Module $module) {
             $data = [];
             $alias = 'module.' . $module->identification() . '.domain.alias';
@@ -231,7 +231,7 @@ class ModulesController extends Controller
                 'message' => '模块[' . $identification . ']不存在！',
             ])->setStatusCode(500);
         }
-        if ($this->module->repository()->enabled()->has($identification)) {
+        if ($this->module->enabled()->has($identification)) {
             return $this->response->json([
                 'message' => '模块[' . $identification . ']已开启！',
             ])->setStatusCode(500);

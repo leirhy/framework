@@ -124,7 +124,7 @@ class AddonsController extends Controller
         $addons = $this->addon->repository();
         $enabled = $this->addon->enabled();
         $installed = $this->addon->installed();
-        $notInstalled = $this->addon->repository()->notInstalled();
+        $notInstalled = $this->addon->notInstalled();
 
         return $this->response->json([
             'data'     => [

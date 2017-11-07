@@ -43,7 +43,7 @@ class PermissionManager
         if (!$this->repository instanceof PermissionRepository) {
             $this->repository = new PermissionRepository();
             $collection = collect();
-            $this->module->repository()->enabled()->each(function (Module $module) use ($collection) {
+            $this->module->enabled()->each(function (Module $module) use ($collection) {
                 if ($module->offsetExists('permissions')) {
                     $collection->put($module->identification(), $module->get('permissions'));
                 }

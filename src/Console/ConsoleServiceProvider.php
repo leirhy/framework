@@ -29,6 +29,7 @@ use Notadd\Foundation\Console\Commands\ConfigCacheCommand;
 use Notadd\Foundation\Console\Commands\ConfigClearCommand;
 use Notadd\Foundation\Console\Commands\DownCommand;
 use Notadd\Foundation\Console\Commands\EnvironmentCommand;
+use Notadd\Foundation\Console\Commands\OPcacheStatusCommand;
 use Notadd\Foundation\Console\Commands\VendorPublishCommand;
 use Notadd\Foundation\Database\Commands\SeederMakeCommand;
 use Notadd\Foundation\Extension\Commands\InstallCommand;
@@ -67,6 +68,7 @@ class ConsoleServiceProvider extends ServiceProvider
         'MigrateReset'       => 'command.migrate.reset',
         'MigrateRollback'    => 'command.migrate.rollback',
         'MigrateStatus'      => 'command.migrate.status',
+        'OPcacheStatus'      => 'command.opcache.status',
         'QueueFailed'        => 'command.queue.failed',
         'QueueFlush'         => 'command.queue.flush',
         'QueueForget'        => 'command.queue.forget',
@@ -301,6 +303,18 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.migrate.status', function ($app) {
             return new MigrateStatusCommand($app['migrator']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerOPcacheStatusCommand()
+    {
+        $this->app->singleton('command.opcache.status', function ($app) {
+            return new OPcacheStatusCommand();
         });
     }
 

@@ -18,30 +18,35 @@ trait ShouldValidate
     /**
      * @return array
      */
-    protected function rules()
+    protected function rules(): array
     {
         return [];
     }
 
     /**
+     * Get The validate rules.
+     *
+     * @param mixed $arguments
      * @return array
+     * @author Seven Du <shiweidu@outlook.com>
      */
-    public function getRules()
+    public function getRules(...$arguments): array
     {
-        $arguments = func_get_args();
-        $rules = call_user_func_array([$this, 'rules'], $arguments);
-        $argsRules = [];
+        $rules = [];
+        // Make rules.
         foreach ($this->args() as $name => $arg) {
-            if (isset($arg['rules'])) {
-                if (is_callable($arg['rules'])) {
-                    $argsRules[$name] = call_user_func_array($arg['rules'], $arguments);
-                } else {
-                    $argsRules[$name] = $arg['rules'];
-                }
+            if (! isset($arg['rules'])) {
+                continue;
+            }
+
+            // setting rules.
+            $rules[$name] = $arg['rules'];
+            if (is_callable($arg['rules'])) {
+                $rules[$name] = call_user_func($arg['rules'], ...$arguments);
             }
         }
 
-        return array_merge($rules, $argsRules);
+        return array_merge($this->rules(...$arguments), $rules);
     }
 
     /**

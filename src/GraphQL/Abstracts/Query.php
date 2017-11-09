@@ -86,32 +86,27 @@ abstract class Query
     abstract public function resolve($root, $args);
 
     /**
+     * The Query to array.
+     *
      * @return array
+     * @author Seven Du <shiweidu@outlook.com>
      */
-    public function toArray()
+    public function toArray(): array
     {
-        $attributes = $this->attributes();
-        $args = $this->args();
-        $attributes = array_merge($this->attributes, [
-            'args' => $args,
-        ], $attributes);
-        $type = $this->type();
-        if (isset($type)) {
+        $attributes = array_merge($this->attributes, ['args' => $this->args()], $this->attributes());
+
+        if (isset($type = $this->type())) {
             $attributes['type'] = $type;
         }
-        $resolver = [$this, 'resolve'];
-        $authorize = [$this, 'authorize'];
-        $resolver = function () use ($resolver, $authorize) {
-            $args = func_get_args();
-            if (call_user_func_array($authorize, $args) !== true) {
+
+        $attributes['resolve'] = function (...$arguments) {
+            if ($this->authorize(...$arguments) !== true) {
                 throw new AuthorizationError('Unauthorized');
             }
 
-            return call_user_func_array($resolver, $args);
+            return $this->resolve(...$arguments);
         };
-        if (isset($resolver)) {
-            $attributes['resolve'] = $resolver;
-        }
+        $attributes['resolve']->bindTo($this);
 
         return $attributes;
     }

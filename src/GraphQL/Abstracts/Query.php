@@ -94,11 +94,10 @@ abstract class Query
     public function toArray(): array
     {
         $attributes = array_merge($this->attributes, ['args' => $this->args()], $this->attributes());
-
-        if (isset($type = $this->type())) {
+        $type = $this->type();
+        if (isset($type)) {
             $attributes['type'] = $type;
         }
-
         $attributes['resolve'] = function (...$arguments) {
             if ($this->authorize(...$arguments) !== true) {
                 throw new AuthorizationError('Unauthorized');

@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\GraphQL\Subscribers;
 
+use Notadd\Foundation\Routing\Router;
 use Notadd\Foundation\GraphQL\Controllers\GraphQLController;
 use Notadd\Foundation\Routing\Abstracts\RouteRegister as AbstractRouteRegister;
 
@@ -21,8 +22,8 @@ class RouteRegister extends AbstractRouteRegister
      */
     public function handle()
     {
-        $this->router->group(['middleware' => [/*'auth:api', */'cross', 'web'], 'prefix' => 'api/administration'], function () {
-            $this->router->post('/', GraphQLController::class . '@query');
+        $this->router->group(['middleware' => [/*'auth:api', */'cross', 'web'], 'prefix' => 'api/administration'], function (Router $route) {
+            $route->post('/', GraphQLController::class.'@query');
         });
     }
 }

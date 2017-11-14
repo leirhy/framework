@@ -50,7 +50,7 @@ return [
         Notadd\Foundation\Theme\ThemeServiceProvider::class,
         Notadd\Foundation\Translation\TranslationServiceProvider::class,
         Notadd\Foundation\Testing\TestingServiceProvider::class,
-        Notadd\Foundation\Http\HttpServiceProvider::class,
+//        Notadd\Foundation\Http\HttpServiceProvider::class,
         Notadd\Foundation\Administration\AdministrationServiceProvider::class,
         Notadd\Installer\InstallerServiceProvider::class,
     ],

@@ -23,8 +23,6 @@ use Illuminate\Routing\Router;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Laravel\Passport\Http\Middleware\CheckForAnyScope;
-use Laravel\Passport\Http\Middleware\CheckScopes;
 use Notadd\Foundation\Http\Bootstraps\LoadDetection;
 use Notadd\Foundation\Http\Bootstraps\LoadAddon;
 use Notadd\Foundation\Http\Bootstraps\LoadExtension;
@@ -35,7 +33,6 @@ use Notadd\Foundation\Http\Bootstraps\ConfigureLogging;
 use Notadd\Foundation\Http\Bootstraps\LoadEnvironmentVariables;
 use Notadd\Foundation\Http\Bootstraps\HandleExceptions;
 use Notadd\Foundation\Http\Bootstraps\LoadConfiguration;
-use Notadd\Foundation\Http\Bootstraps\LoadSetting;
 use Notadd\Foundation\Http\Bootstraps\RegisterFacades;
 use Notadd\Foundation\Http\Bootstraps\RegisterFlow;
 use Notadd\Foundation\Http\Bootstraps\RegisterRouter;
@@ -79,7 +76,7 @@ class Kernel implements KernelContract
         LoadProviders::class,
         LoadAddon::class,
         RegisterFacades::class,
-        LoadDetection::class,
+//        LoadDetection::class,
         LoadGraphQL::class,
         RegisterRouter::class,
         RegisterFlow::class,
@@ -196,8 +193,9 @@ class Kernel implements KernelContract
     protected function sendRequestThroughRouter($request)
     {
         $this->application->instance('request', $request);
+        $this->application->register(HttpServiceProvider::class);
         Facade::clearResolvedInstance('request');
-        $this->bootstrap();
+//        $this->bootstrap();
 
         return (new Pipeline($this->application))->send($request)->through($this->application->shouldSkipMiddleware() ? [] : $this->middleware)->then($this->dispatchToRouter());
     }

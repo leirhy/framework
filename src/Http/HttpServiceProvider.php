@@ -8,10 +8,14 @@
  */
 namespace Notadd\Foundation\Http;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
+use Notadd\Foundation\Http\Contracts\Detector;
+use Notadd\Foundation\Http\Detectors\CommandDetector;
+use Notadd\Foundation\Http\Detectors\SubscriberDetector;
 use Notadd\Foundation\Http\Middlewares\AssetsPublish;
 use Notadd\Foundation\Http\Middlewares\CrossPreflight;
 use Notadd\Foundation\Module\Module;
@@ -25,6 +29,15 @@ use Notadd\Foundation\JWTAuth\JWTGuard;
  */
 class HttpServiceProvider extends ServiceProvider
 {
+    /**
+     * @var array
+     */
+    protected $detectors = [
+//        ListenerDetector::class,
+        CommandDetector::class,
+        SubscriberDetector::class,
+    ];
+
     /**
      * Boot service provider.
      */
@@ -55,6 +68,24 @@ class HttpServiceProvider extends ServiceProvider
                 }
             })->middleware('web');
         }
+        if ($this->app->isInstalled() && $this->app->make('cache')->store()->has('bootstrap.detection')) {
+            $collection = $this->app->make('cache')->store()->get('bootstrap.detection', collect());
+        } else {
+            $collection = collect();
+            foreach ($this->detectors as $detector) {
+                $detector = $this->app->make($detector);
+                $detector instanceof Detector && collect($detector->paths())->each(function ($definition) use ($collection, $detector) {
+                    collect($detector->detect($definition['path'], $definition['namespace']))->each(function ($subscriber) use ($collection) {
+                        $collection->push($subscriber);
+                    });
+                });
+            }
+            $this->app->isInstalled() &&
+            $this->app->make('cache')->tags('notadd')->put('bootstrap.detection', $collection, (new Carbon())->addHour(10));
+        }
+        $collection->each(function ($subscriber) {
+            $this->app->make('events')->subscribe($subscriber);
+        });
     }
 
     /**

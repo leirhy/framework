@@ -76,7 +76,7 @@ class Kernel implements KernelContract
         LoadProviders::class,
         LoadAddon::class,
         RegisterFacades::class,
-//        LoadDetection::class,
+        LoadDetection::class,
         LoadGraphQL::class,
         RegisterRouter::class,
         RegisterFlow::class,
@@ -120,8 +120,6 @@ class Kernel implements KernelContract
         'can'        => Authorize::class,
         'guest'      => RedirectIfAuthenticated::class,
         'permission' => Permission::class,
-        'scope'      => CheckForAnyScope::class,
-        'scopes'     => CheckScopes::class,
         'throttle'   => ThrottleRequests::class,
     ];
 
@@ -193,9 +191,8 @@ class Kernel implements KernelContract
     protected function sendRequestThroughRouter($request)
     {
         $this->application->instance('request', $request);
-        $this->application->register(HttpServiceProvider::class);
         Facade::clearResolvedInstance('request');
-//        $this->bootstrap();
+        $this->bootstrap();
 
         return (new Pipeline($this->application))->send($request)->through($this->application->shouldSkipMiddleware() ? [] : $this->middleware)->then($this->dispatchToRouter());
     }

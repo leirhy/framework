@@ -20,6 +20,7 @@ use Notadd\Foundation\Http\Middlewares\AssetsPublish;
 use Notadd\Foundation\Http\Middlewares\CrossPreflight;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
+use Notadd\Foundation\Routing\Events\RouteRegister;
 use Notadd\Foundation\Setting\Contracts\SettingsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Notadd\Foundation\JWTAuth\JWTGuard;
@@ -86,6 +87,8 @@ class HttpServiceProvider extends ServiceProvider
         $collection->each(function ($subscriber) {
             $this->app->make('events')->subscribe($subscriber);
         });
+
+        $this->app->make('events')->dispatch(new RouteRegister($this->app['router']));
     }
 
     /**

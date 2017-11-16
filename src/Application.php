@@ -842,7 +842,10 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function handle(SymfonyRequest $request, $type = self::MASTER_REQUEST, $catch = true)
     {
-        return $this['Illuminate\Contracts\Http\Kernel']->handle(Request::createFromBase($request));
+        $laravel = Request::createFromBase($request);
+        $laravel->headers->replace($request->headers->all());
+
+        return $this['Illuminate\Contracts\Http\Kernel']->handle($laravel);
     }
 
     /**

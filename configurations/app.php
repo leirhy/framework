@@ -47,7 +47,6 @@ return [
         Notadd\Foundation\Notification\NotificationServiceProvider::class,
         Notadd\Foundation\Permission\PermissionServiceProvider::class,
         Notadd\Foundation\SearchEngine\SearchEngineServiceProvider::class,
-        Notadd\Foundation\Server\ServerServiceProvider::class,
         Notadd\Foundation\Theme\ThemeServiceProvider::class,
         Notadd\Foundation\Translation\TranslationServiceProvider::class,
         Notadd\Foundation\Testing\TestingServiceProvider::class,

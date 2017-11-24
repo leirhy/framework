@@ -14,7 +14,7 @@ use Illuminate\Routing\Redirector;
 use Notadd\Foundation\Http\Abstracts\ServiceProvider;
 use Notadd\Foundation\Http\Detectors\CommandDetector;
 use Notadd\Foundation\Http\Detectors\SubscriberDetector;
-use Notadd\Foundation\Http\Middlewares\AssetsPublish;
+//use Notadd\Foundation\Http\Middlewares\AssetsPublish;
 use Notadd\Foundation\Http\Middlewares\CrossPreflight;
 use Notadd\Foundation\Module\Module;
 use Notadd\Foundation\Module\ModuleManager;
@@ -45,7 +45,7 @@ class HttpServiceProvider extends ServiceProvider
             $resolved->validate();
         });
         $this->app->make('request')->getMethod() == 'OPTIONS' && $this->app->make(KernelContract::class)->prependMiddleware(CrossPreflight::class);
-        $this->app->make(KernelContract::class)->prependMiddleware(AssetsPublish::class);
+//        $this->app->make(KernelContract::class)->prependMiddleware(AssetsPublish::class);
         $this->app->resolving(FormRequest::class, function (FormRequest $request, $app) {
             $this->initializeRequest($request, $app['request']);
             $request->setContainer($app)->setRedirector($this->app->make(Redirector::class));

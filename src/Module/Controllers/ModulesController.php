@@ -100,7 +100,7 @@ class ModulesController extends Controller
                 $publishes = (array)$module->get('publishes');
                 collect($publishes)->each(function ($from, $to) use ($module, $output) {
                     $from = $module->get('directory') . DIRECTORY_SEPARATOR . $from;
-                    $to = $this->container->basePath() . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . $to;
+                    $to = $this->container->basePath() . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $to;
                     if ($this->file->isFile($from)) {
                         $this->publishFile($from, $to);
                     } else {

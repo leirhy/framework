@@ -1288,7 +1288,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function staticPath($path = '')
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'statics' . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+        return $this->basePath . DIRECTORY_SEPARATOR . 'public' . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 
     /**

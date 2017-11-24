@@ -95,7 +95,7 @@ class AddonsController extends Controller
                 $publishes = (array)$addon->get('publishes');
                 collect($publishes)->each(function ($from, $to) use ($addon, $output) {
                     $from = $addon->get('directory') . DIRECTORY_SEPARATOR . $from;
-                    $to = $this->container->basePath() . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . $to;
+                    $to = $this->container->basePath() . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $to;
                     if ($this->file->isFile($from)) {
                         $this->publishFile($from, $to);
                     } else {

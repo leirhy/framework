@@ -45,7 +45,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      *
      * @var string
      */
-    const VERSION = '0.15.10';
+    const VERSION = '0.15.20';
 
     /**
      * The base path for the Notadd installation.

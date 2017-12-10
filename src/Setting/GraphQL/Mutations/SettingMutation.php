@@ -42,6 +42,7 @@ class SettingMutation extends Mutation
     public function resolve($root, $args)
     {
         $this->setting->set($args['key'], $args['value']);
+        $this->cache->tags('notadd')->flush();
     }
 
     /**

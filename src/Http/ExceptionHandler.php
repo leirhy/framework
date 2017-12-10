@@ -29,7 +29,6 @@ use Predis\Connection\ConnectionException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Debug\Exception\FlattenException;
-use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -173,7 +172,7 @@ class ExceptionHandler implements ExceptionHandlerContract
                     JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
                 );
             } else {
-                return $this->prepareResponse($request, $exception);
+                return $this->prepareResponse($request, new ConnectionException($exception->getConnection(), '运行 Notadd 前，请确保 Redis 服务可用！'));
             }
         }
 

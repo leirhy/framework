@@ -1336,4 +1336,20 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         return $this->basePath . DIRECTORY_SEPARATOR . 'extensions';
     }
+	
+	/**
+	 * Gets the additional extension components of the system.
+	 * 
+	 * @return array
+	 */
+	public function getAdditionalExtension(){
+		$extends = [];
+		$operatingSystem = php_uname('s');
+		
+		if(stristr($operatingSystem, 'windows') !== false){
+			$extends[] = 'com_dotnet';
+		}
+		
+		return $extends;
+	}
 }

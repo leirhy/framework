@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Console;
 
+use Notadd\Foundation\Cache\Commands\CacheClearCommand;
 use Illuminate\Auth\Console\ClearResetsCommand;
 use Illuminate\Database\Console\Migrations\MigrateCommand;
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand;
@@ -168,6 +169,16 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.config.clear', function ($app) {
             return new ConfigClearCommand($app['files']);
+        });
+    }
+
+    /**
+     * Register the command.
+     */
+    protected function registerCacheClearCommand()
+    {
+        $this->app->singleton('command.cache.clear', function ($app) {
+            return new CacheClearCommand();
         });
     }
 

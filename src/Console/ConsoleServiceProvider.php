@@ -8,6 +8,7 @@
  */
 namespace Notadd\Foundation\Console;
 
+use Illuminate\Cache\Console\ClearCommand;
 use Notadd\Foundation\Cache\Commands\CacheClearCommand;
 use Illuminate\Auth\Console\ClearResetsCommand;
 use Illuminate\Database\Console\Migrations\MigrateCommand;
@@ -55,6 +56,7 @@ class ConsoleServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
+        'CacheClear'         => 'command.cache.clear',
         'ClearCompiled'      => 'command.clear-compiled',
         'ClearResets'        => 'command.auth.resets.clear',
         'ConfigCache'        => 'command.config.cache',

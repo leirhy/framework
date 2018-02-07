@@ -24,6 +24,11 @@ abstract class Migration
      * @var \Illuminate\Database\Schema\Builder
      */
     protected $schema;
+    
+    /**
+     * @var bool
+     */
+    public $withinTransaction = true;
 
     /**
      * Migration constructor.

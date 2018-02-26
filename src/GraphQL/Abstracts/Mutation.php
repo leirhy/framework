@@ -8,7 +8,7 @@
  */
 namespace Notadd\Foundation\GraphQL\Abstracts;
 
-use GraphQL\Type\Definition\Type;
+use GraphQL\Type\Definition\Type as TypeDefinition;
 use Illuminate\Container\Container;
 use Notadd\Foundation\GraphQL\Errors\AuthorizationError;
 use Notadd\Foundation\GraphQL\GraphQLManager;
@@ -139,7 +139,7 @@ abstract class Mutation
      */
     public function type()
     {
-        return Type::listOf(Type::string());
+        return TypeDefinition::listOf(TypeDefinition::string());
     }
 
     /**
